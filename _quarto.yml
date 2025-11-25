@@ -1,0 +1,42 @@
+project:
+  type: book
+
+book:
+  title: "Improving your statistical inferences through Monte Carlo simulations"
+  subtitle: "in R and tidyverse"
+  author: "Ian Hussey"
+  date: today
+  chapters:
+    - index.qmd
+    - chapters/1_foundational_concepts.qmd
+    - chapters/2_writing_functions.qmd
+    - chapters/3_general_structure_of_a_simulation_1.qmd
+    - chapters/4_general_structure_of_a_simulation_2.qmd
+    - chapters/5_violating_assumptions.qmd
+    - chapters/6_testing_assumptions_and_conditional_tests.qmd
+    - chapters/7_p_hacking.qmd
+    - chapters/8_p_values_and_confidence_intervals.qmd
+    - chapters/9_difference_between_signfiicant_and_nonsignificant.qmd
+    - chapters/10_standardized_effect_sizes_and_range_restriction.qmd
+    - chapters/11_impact_of_lazy_responding_assignment.qmd
+    - chapters/12_meta_analysis_and_publication_bias.qmd
+    - chapters/13_causality.qmd
+    - chapters/license.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    toc: true
+    toc_float: true
+    code-fold: show
+    code-tools: true
+    warning: false
+    theme: cosmo
+    #embed-resources: false
+    #highlight: haddock
+
+editor: visual
+
+cover-image: cover.png
+

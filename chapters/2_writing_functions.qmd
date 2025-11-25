@@ -1,0 +1,365 @@
+# Practice writing R functions
+
+## Overview
+
+Two of the key steps in a simulation study (generate data and analyze data) require us to know how to write functions. This R Markdown lesson practices this.
+
+## Dependencies
+
+```{r}
+
+library(dplyr)
+library(tibble)
+library(forcats)
+library(report)
+library(janitor)
+library(faux)
+
+```
+
+## Primer on functions
+
+Most code we use are functions, e.g., `mean()`, `setwd()` and `library()`.
+
+These functions were written by others, but we can write our own.
+
+"It's functions all the down": you will use existing functions to write new ones. For example:
+
+```{r}
+
+values <- c(4, 2, 6, 2, NA, 4, 3, 1, NA, 7, 5)
+
+mean(values) # returns NA 
+mean(values, na.rm = TRUE) # returns the mean after dropping NA
+
+# tired of writing 'na.rm = TRUE' repeatedly? write your own function to do it automatically
+mean_na_rm <- function(x){
+  mean(x, na.rm = TRUE)
+}
+
+mean_na_rm(values) # returns the mean after dropping NA
+
+```
+
+What if we usually want to `round()` to two decimal places, and we're tired of writing `digits = 2` every time?
+
+```{r}
+
+mean_of_values <- mean_na_rm(values)
+
+round(mean_of_values, digits = 2)
+
+# write a function to always round to two decimal places
+round_2 <- function(x){
+  round(x, digits = 2)
+}
+
+round_2(mean_of_values)
+
+```
+
+### Mini lesson: round() probably doesn't do what you think it does
+
+round() uses "banker's rounding" rather than the round-half-up method we're used to
+
+```{r}
+
+round(0.5)
+round(1.5)
+round(2.5)
+round(3.5)
+round(4.5)
+round(5.5)
+
+```
+
+```{r}
+
+janitor::round_half_up(0.5)
+janitor::round_half_up(1.5)
+janitor::round_half_up(2.5)
+janitor::round_half_up(3.5)
+janitor::round_half_up(4.5)
+janitor::round_half_up(5.5)
+
+```
+
+### General structure of a function
+
+Functions (usually) have 'inputs', they have code that they run ('do stuff'), and they (almost always) return 'outputs'. The often specify their requirements and include checks that their inputs are correctly formatted.
+
+Note that this is pseudo-code only: chunk is set not to run (`eval=FALSE`).
+
+```{r eval=FALSE}
+
+# define function
+function_name <- function(argument_1, # first argument is often the data, if the function takes a data frame as an argument
+                          argument_2 = "default", # arguments can have defaults
+                          argument_3) {
+  # required packages
+  require(dplyr)
+  
+  # checks
+  # well written functions contain checks. 
+  # e.g., if the function assumes that argument_1 is a data frame, check that this is the case.
+  # note that it is more useful to write the function first and add checks later.
+  if(!is.data.frame(argument_1)){
+    stop("argument_1 must be a data frame")
+  }
+  
+  # code that does things
+  object_to_be_returned <- input_data_frame |>
+    # do things
+    mutate(value = value + 1)
+  
+  # object to be returned
+  return(object_to_be_returned)
+}
+
+```
+
+### Example function: *t*-test *p*-value
+
+```{r}
+
+# data to be analyzed using the analysis function
+data_simulated_intervention <- 
+  tibble(condition = "intervention", 
+         score = rnorm(n = 50, mean = 0, sd = 1))
+
+data_simulated_control <- 
+  tibble(condition = "control", 
+         score = rnorm(n = 50, mean = 0, sd = 1))
+
+data_simulated <- 
+  bind_rows(data_simulated_intervention,
+            data_simulated_control)
+
+```
+
+```{r}
+
+# define function
+t_test_p_value <- function(data) {
+
+  res <- t.test(formula = score ~ condition, 
+                data = data)
+  
+  return(res$p.value)
+}
+
+# call function
+t_test_p_value(data_simulated)
+
+```
+
+How would I build this from scratch? What's the first thing I would type?
+
+```{r}
+
+
+
+```
+
+### General things to remember when writing functions
+
+-   If you can't immediately write the code, write pseudo-code first!
+-   Build the 'do stuff' part outside of a function first!
+-   Wrap the 'do stuff' with input and output after you have 'do stuff' working. Why: so you don't have to fight variable scoping.
+-   The function must be present in your environment to be usable, and must be called to be used
+-   Check that your function actually works as you expect, not just that it runs. Give it lots of different input values that should and should not work, and check you get the correct outputs.
+-   Don't try to abstract more than you need. One function should do one thing. Elaborate the function only as needed.
+
+## In class and at home exercise: Practice writing functions
+
+Write functions below that can be applied to the following data sets, i.e., use these data sets to guide how you write the functions and test that they work.
+
+Try and use chatGPT as little as possible.
+
+If your existing knowledge of data processing/wrangling with {tidyverse}/{dplyr}/{tidyr} isn't good, start with
+
+```{r}
+
+set.seed(42)
+
+# data for t tests
+data_intervention <- 
+  tibble(condition = "intervention", 
+         score = rnorm(n = 50, mean = 0, sd = 1))
+
+data_control <- 
+  tibble(condition = "control", 
+         score = rnorm(n = 50, mean = 0, sd = 1))
+
+data_combined_ttest <- 
+  bind_rows(data_intervention,
+            data_control) |>
+  # control's factor levels must be ordered so that intervention is the first level and control is the second
+  # this ensures that positive Cohen's d values refer to intervention > control and not the other way around.
+  mutate(condition = fct_relevel(condition, "intervention", "control"))
+
+
+# data for correlations
+data_correlation <- rnorm_multi(n = 100, 
+                                vars = 2, 
+                                mu = 0, 
+                                sd = 1, 
+                                r = 0.5, 
+                                varnames = c("X", "Y"))
+
+```
+
+### Calculate mean
+
+-   Use `dplyr::summarize()`.
+-   Use the data_intervention data set.
+-   Return results in a data frame.
+
+```{r}
+
+
+
+```
+
+### Calculate *SD*
+
+-   Use `dplyr::summarize()`.
+-   Use the data_intervention data set.
+-   Return results in a data frame.
+
+```{r}
+
+
+
+```
+
+### Calculate mean for each condition
+
+-   Use `dplyr::summarize()` and `group_by()`.
+-   Use the data_combined_ttest data set.
+-   Return results in a data frame.
+
+```{r}
+
+
+
+```
+
+### Calculate mean and *SD* for each condition
+
+-   Use `dplyr::summarize()` and `group_by()`.
+-   Use the data_combined_ttest data set.
+-   Return results in a data frame.
+
+```{r}
+
+
+
+```
+
+### Cohen's *d* and its 95% Confidence Intervals
+
+-   Calculate Cohen's *d* using `effsize::cohen.d()` and extract the Cohen's *d* estimate.
+-   Use the data_combined_ttest data set.
+-   Return results in a data frame.
+
+```{r}
+
+
+
+```
+
+### *t*-test's *p*-value, Cohen's *d* and its 95% Confidence Intervals
+
+-   Calculate Cohen's *d* using `effsize::cohen.d()` and extract the estimate.
+-   Also fit a Student's *t*-test and extract its *p* value.
+-   Use the data_combined_ttest data set.
+-   Return results (*d* and *p*) in a data frame.
+
+```{r}
+
+
+
+```
+
+### Pearson's *r* from correlation test
+
+-   Fit a correlation test using `cor.test()` and extract the correlation estimate.
+-   Use the data_correlation data set.
+-   Return results in a data frame.
+
+```{r}
+
+
+
+```
+
+### *p*-value from correlation test
+
+-   Fit a correlation test using `cor.test()` and extract the *p* value.
+-   Use the data_correlation data set.
+-   Return results in a data frame.
+
+```{r}
+
+
+
+```
+
+### Pearson's *r* and its *p*-value from `cor.test()`
+
+-   Fit a correlation test using `cor.test()` and extract the *p* value and correlation.
+-   Use the data_correlation data set.
+-   Return results in a data frame.
+
+```{r}
+
+
+
+```
+
+### Generate data for a between groups design
+
+Rather than writing a data analysis function, this time write a data generation function. In the previous chunks we've used this code to generate a single data set with intervention and control conditions and simulated normally distributed data. Rewrite this as a function so that we can generate such a data set with one line of code using the new function `generate_data()`. Unlike your previous functions, this one has no inputs, i.e., you can write `function() <-`.
+
+```{r}
+
+# # code to convert into a function
+# data_simulated_intervention <- tibble(condition = "intervention", 
+#                                       score = rnorm(n = 50, mean = 0, sd = 1))
+# 
+# data_simulated_control <- tibble(condition = "control", 
+#                                  score = rnorm(n = 50, mean = 0, sd = 1))
+# 
+# data_simulated <- 
+#   bind_rows(data_simulated_intervention,
+#             data_simulated_control) 
+
+```
+
+## Further reading
+
+Although we have practiced writing custom functions to extract statistical results / model parameters, it is worth knowing that the {easystats} family of packages includes [{parameters}](https://easystats.github.io/parameters/) package, which does a very good job of extracting model parameters from a very wide range of models including base R functions, {lavaan}, {psych}, and other packages. If you want to extract values from a model, consider using {parameters} to do a lot of the work for you when writing your function.
+
+Separately, the [{report}](https://easystats.github.io/report/) package will fully report the results of many common analyses for you. e.g.:
+
+```{r}
+
+data_simulated_intervention <- 
+  tibble(condition = "intervention", 
+         score = rnorm(n = 50, mean = 0, sd = 1))
+
+data_simulated_control <- 
+  tibble(condition = "control", 
+         score = rnorm(n = 50, mean = 0, sd = 1))
+
+data_simulated <- 
+  bind_rows(data_simulated_intervention,
+            data_simulated_control)
+
+t.test(score ~ condition, data = data_simulated) |>
+  report::report()
+
+```
+
+This lesson does not cover documenting your functions well, organizing them into an R package to make them easy to load and include help menus, or writing unit tests them. These are all very worth doing. Look into the {roxygen} package.

@@ -1,0 +1,4 @@
+- source: project
+  quarto-pub:
+    - id: 67b07cb7-8f5b-4bbc-a95d-886d30d64fab
+      url: https://ianhussey.quarto.pub/improving-your-statistical-inferences-through-monte-carlo-simulations
