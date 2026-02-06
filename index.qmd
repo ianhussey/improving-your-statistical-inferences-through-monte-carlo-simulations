@@ -4,6 +4,14 @@ This [Open Source](chapters/license.qmd) eBook provides materials for the semest
 
 This book teaches you about three things: the conceptual structure of simulation studies, their implementation in a modular R/tidyverse workflow that prioritizes understandability and code reusability over execution speed, and how to better understand and use statistical methods and the behavior of researchers using them. 
 
+## Required knowledge
+
+This book assumes existing knowledge of data wrangling and visualization in R/tidyverse. Specifically, familiarity with RStudio, reproducible reports written in {quarto} (.qmd) documents, the 'pipe' (`|>` and `%>%`), the packages {dplyr}, {tidyr}, {forcats}, and {ggplot2}.
+
+If you don't already have these skills, or you need a refresher, please see my other book ["Reproducible Data Processing and Visualization in R and tidyverse"](https://ianhussey.quarto.pub/reproducible-data-processing-and-visualization/).
+
+If you're enrolled in my class but haven't already taken my "Reproducible data processing and visualization" class based on that book, I encourage you to rapidly make your way through it. In previous years, students have taken this simulation course without much familiarity with R when they already have some familiarity with other coding languages such as Python and Matlab. Sometimes, students sign up for this seminar with low confidence in their R abilities. It is entirely possible to succeed in this course without strong existing R skills, but it unavoidably means more self-guided learning and practice for you. 
+
 ## How to use this book
 
 This book is made up of individual Quarto (.qmd) workbooks. Many of the exercises are easiest to complete in your own local copy of these .qmd files.
