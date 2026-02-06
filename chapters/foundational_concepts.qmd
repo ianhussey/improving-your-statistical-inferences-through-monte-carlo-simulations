@@ -1,78 +1,125 @@
 # Foundation concepts
 
+```{r}
+#| include: false
+
+library(roundwork)
+library(ggplot2)
+library(scales)
+
+set.seed(42)
+
+```
+
 ## One line Monte Carlo simulation
 
 Answering the question "what is the distribution of *p*-values under the null hypothesis?"
 
 ```{r}
 
-set.seed(42)
-
-hist(replicate(100000, t.test(rnorm(n = 50, m = 0, sd = 1), rnorm(n = 50, m = 0, sd = 1))$p.value))
+replicate(n = 100000, expr = t.test(x = rnorm(n = 50, m = 0, sd = 1), y = rnorm(n = 50, m = 0, sd = 1), var.equal = TRUE)$p.value) |> hist()
 
 ```
 
-This is a complete Monte Carlo simulation. But how is it constructed? Let's built it up more slowly.
 
-## Generate normally distributed data
 
-Draw data from a normally distributed population and plot it using `rnorm()`
+
+
+## Key components of a Monte Carlo simulation study
+
+Monte Carlo simulation studies are defined by the following key features:
+
+1. Construct an experiment
+2. Generate data 
+3. Analyze data
+4. Repeat this many times
+5. Summarize results over the experiment conditions
+
+Future chapters will spell out in more detail each one involves, but for the moment it is useful to rote learn them and repeat them to yourself. They are not only the conceptual units you need to think in, but also the coding units used in the workflow taught in this book. Equally importantly for learners, errors or complications when learning to write simulations are, in my experience, very often due to inadequate separation of the steps. E.g., when your code does some data generation in the analysis block, or vice-versa.
+
+To very briefly show you these components in the simulation of *p*-values under the null hypothesis, we can build the code up in stages.
+
+### Construct an experiment
+
+We plan to construct a simulation study experiment where data are sampled from two normally distributed populations with the no difference in means; to test for this difference in means using a Student's *t*-test's *p*-value; to do these generate-and-analyze steps many times; and to observe the distribution of *p*-values.   
+
+### Generate data
+
+Draw data from a normally distributed population using `rnorm()` and plot it.
 
 ```{r}
-
-set.seed(42)
 
 rnorm(n = 50, m = 0, sd = 1) |> 
   hist()
 
 ```
 
-## Generate two normally distributed data sets and fit a *t*-test
+Now, we generate two normally distributed data sets and fit a Student's *t*-test.
 
-Note the population means are equivalent. What does a *t*-test test for?
+Check your learning: In the code above, the population means in both samples are equivalent. What does a *t*-test test for? How does this choice of means implement a null population effect?
 
-```{r}
+::: {.callout-note collapse="true" title="Click to show answer"}
+*t*-tests allow us to make inferences about whether two population means differ. 
 
-set.seed(42)
+While many of us are in the habit of simply saying the t-test "tests for differences", you'll learn in this course that it's much clearer and more precise to say that they (a) test for differences in means and (b) test for differences at the population level, not the sample. We can trivially say that the sample means are different or not depending on whether they're numerically identical or not. For example, if we observe the sample means $M_{intervention}$ = 3.11 and $M_{control}$ = 3.14, no statistical test is needed to see that the sample means are different. Whether or not the populations they are drawn from are likely to be different requires an inference test, such as a *t*-test.
 
-t.test(rnorm(n = 50, m = 0, sd = 1), 
-       rnorm(n = 50, m = 0, sd = 1))
+The above code implements a null population effect, i.e., where the two populations have no differences in means between them, by using the same value for `m` in both `rnorm()` call (i.e., 0). Even though many of the samples that will be drawn from these populations will be numerically different, the populations they are drawn from do not differ in their means. 
+:::
 
-```
+### Analyse data
 
-## Generate two normally distributed data sets and fit a *t*-test and extract the *p*-value
-
-```{r}
-
-set.seed(42)
-
-t.test(rnorm(n = 50, m = 0, sd = 1), rnorm(n = 50, m = 0, sd = 1))$p.value
-
-```
-
-## Do this generate-analyze-extract many times
-
-Using the `replicate()` function, and plot the *p*-values using `hist()`.
+Generate two normally distributed data sets and fit a *t*-test and extract the *p*-value
 
 ```{r}
 
-set.seed(42)
-
-hist(replicate(1000, t.test(rnorm(n = 50, m = 0, sd = 1), rnorm(n = 50, m = 0, sd = 1))$p.value))
+t.test(x = rnorm(n = 50, m = 0, sd = 1), 
+       y = rnorm(n = 50, m = 0, sd = 1),
+       var.equal = TRUE)
 
 ```
 
-## Increase the number of iterations
-
-Why is the distribution more uniform?
 
 ```{r}
 
-set.seed(42)
-
-hist(replicate(100000, t.test(rnorm(n = 50, m = 0, sd = 1), rnorm(n = 50, m = 0, sd = 1))$p.value))
+t.test(x = rnorm(n = 50, m = 0, sd = 1), 
+       y = rnorm(n = 50, m = 0, sd = 1), 
+       var.equal = TRUE)$p.value
 
 ```
+
+### Repeat this many times and summarize results 
+
+We repeat this using the `replicate()` function, and summarize across the iterations by plotting the *p*-values using `hist()`.
+
+```{r}
+
+replicate(n = 100, 
+          expr = t.test(x = rnorm(n = 50, m = 0, sd = 1), 
+                        y = rnorm(n = 50, m = 0, sd = 1), 
+                        var.equal = TRUE)$p.value) |> 
+  hist()
+
+```
+
+Next we increase the number of iterations, i.e., the number of times we repeat the generate-and-analyze steps.
+
+```{r}
+
+replicate(n = 100000, 
+          expr = t.test(x = rnorm(n = 50, m = 0, sd = 1), 
+                        y = rnorm(n = 50, m = 0, sd = 1), 
+                        var.equal = TRUE)$p.value) |> 
+  hist()
+
+```
+
+Check your learning: Why is the distribution more uniform when the number of iterations is higher?
+
+::: {.callout-note collapse="true" title="Click to show answer"}
+
+XXXX
+
+:::
 
 ## Compare with distribution of *p*-values when population means are not equal
 
@@ -80,13 +127,65 @@ hist(replicate(100000, t.test(rnorm(n = 50, m = 0, sd = 1), rnorm(n = 50, m = 0,
 
 ```{r}
 
-set.seed(42)
-
-hist(replicate(100000, t.test(rnorm(n = 50, m = 0, sd = 1), rnorm(n = 50, m = 0.2, sd = 1))$p.value))
-hist(replicate(100000, t.test(rnorm(n = 50, m = 0, sd = 1), rnorm(n = 50, m = 0.5, sd = 1))$p.value))
-hist(replicate(100000, t.test(rnorm(n = 50, m = 0, sd = 1), rnorm(n = 50, m = 0.8, sd = 1))$p.value))
+hist(replicate(100000, t.test(rnorm(n = 50, m = 0, sd = 1), rnorm(n = 50, m = 0.2, sd = 1), var.equal = TRUE)$p.value))
+hist(replicate(100000, t.test(rnorm(n = 50, m = 0, sd = 1), rnorm(n = 50, m = 0.5, sd = 1), var.equal = TRUE)$p.value))
+hist(replicate(100000, t.test(rnorm(n = 50, m = 0, sd = 1), rnorm(n = 50, m = 0.8, sd = 1), var.equal = TRUE)$p.value))
 
 ```
+
+
+## How likely are barely significant *p*-values?
+
+Many studies in the psychology literature report *p*-values between .02 and .05 ([Masicampo & Lalande, 2012](https://doi.org/10.1080/17470218.2012.7113); [Hartgerink et al., 2016](https://doi.org/10.7717/peerj.1935)). We can call these 'barely significant *p*-values'. 
+
+The common threshold for statistical significance, *p* < .05, treats all *p* values less than the threshold as equivalent. Regardless of whether your *p*-value is .048 or .000000000000000000001, the *p* <. 05 rule says you should conclude that there are detectable differences (e.g., differences in population means from a Student's *t*-test).
+
+But is there a tipping point around .05 that makes this value particularly useful? Again, we could work through the math of it, but it is equally useful to simulate the long run of *p*-values and see how many are barely significant (.02 < p < .05). If they rarely occur, why do we use them in the rule?
+
+We can do this under two different conditions. (1) under the null hypothesis, where the population effect size is zero, and (2) under the alternative hypothesis where the population effect size is large (Cohen's d = 0.8). 
+### Under the null hypothesis 
+
+```{r}
+
+sim_h0 <- replicate(100000, t.test(rnorm(n = 500, m = 0, sd = 1), rnorm(n = 500, m = 0, sd = 1), var.equal = TRUE)$p.value)
+
+percent_barely_sig_h0 <- round_up(mean(sim_h0 < .05 & sim_h0 > .02)*100, 1)
+
+ggplot(data.frame(p = sim_h0), aes(p)) +
+  geom_histogram(binwidth = 0.01, boundary = 0, fill = "grey") +
+  scale_x_continuous(limits = c(0, 1), breaks = c(0, .05, .2, .4, .6, .8, 1)) +
+  geom_vline(xintercept = 0.05, linetype = "dashed", color = "purple") +
+  theme_linedraw()
+
+```
+
+In the long run of 100,000 studies with large sample sizes (N = 1000) and when the population effect size is zero (Cohen's d = 0), `r percent_barely_sig_h0`% of Student t-test *p*-values fall between .02 and .05. 
+
+This corresponds with the alpha value of the test, i.e., the *p* < .05 inference rule. When the population effect is zero, we will incorrectly conclude that it is non-zero in 5% of the long run of studies.
+
+### Under the alternative hypothesis 
+
+```{r}
+
+sim_h1 <- replicate(100000, t.test(rnorm(n = 500, m = 0, sd = 1), rnorm(n = 500, m = 0.8, sd = 1), var.equal = TRUE)$p.value)
+
+percent_barely_sig_h1 <- round_up(mean(sim_h1 < .05 & sim_h1 > .02)*100, 1)
+
+ggplot(data.frame(p = sim_h1), aes(p)) +
+  geom_histogram(binwidth = 0.001, boundary = 0, fill = "grey") +
+  scale_x_continuous(limits = c(0, 0.05), breaks = breaks_pretty(5)) +
+  geom_vline(xintercept = 0.05, linetype = "dashed", color = "purple") +
+  theme_linedraw()
+
+```
+
+In the long run of 100,000 studies with large sample sizes (N = 1000) and when the population effect size is large (Cohen's d = 0.8), `r percent_barely_sig_h1`% of Student t-test *p*-values fall between .02 and .05: 
+
+So, although the common statistical significance cut-off is 5% treats all *p*-values less than this equally, this quick simulation suggests that - to misquote George Orwell - some p-values are more equal than others. 
+
+But if barely significant *p*-values are rarely (or never) observed, why do we use *p* < .05 as the alpha value? Why not something lower, like .01, since it would decrease the number of false positives in the literature? This has certainly been argued for in the literature ([Benjamin et al., 2018](https://doi.org/10.1038/s41562-017-0189-z)). And, perhaps more worryingly, if they're so statistically rare, why do we see them so often in the literature?
+
+The answers to these questions require us to dig deeper into *p*-values and what affects their distributions using more complicated simulations (e.g., [Maassen et al., 2025](https://doi.org/10.31234/osf.io/2uynm_v1); [Stefan & Schönbrodt, 2023](https://doi.org/10.1098/rsos.220346)). The take away message, for the moment, is that simulations can help give us pause for thought, help us check our own understanding, clarify our thinking, or answer meaningful questions - sometimes in only a few lines of code.     
 
 ## Check your learning
 
@@ -100,8 +199,6 @@ hist(replicate(100000, t.test(rnorm(n = 50, m = 0, sd = 1), rnorm(n = 50, m = 0.
 5. Summarize results over the experiment conditions
 :::
 
-#### Code implementing each 
 
-Can you mentally match these five components onto the above code (sometimes in different chunks!) to understand how, together, they implement a simulation that answers the question "what is the distribution of *p*-values under the null vs. alternative hypothesis?"
 
 
