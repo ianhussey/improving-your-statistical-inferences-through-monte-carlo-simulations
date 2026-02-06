@@ -28,14 +28,14 @@ Learning to code is a practice skill. Almost anyone can become competent in writ
 
 There are many excellent Open Source resources to learn simulation studies in R and {tidyverse}. Readers are encouraged to seek them out to support the materials already provided in this book. I can particularly recommend the following ones:
 
--   Miratrix and Pustejovsky (2026) Designing Monte Carlo Simulations in R. https://jepusto.github.io/Designing-Simulations-in-R/
--   Strobl et al. (2024) Simulationsstudien in R: Design und praktische Durchführung. https://doi.org/10.1007/978-3-662-70561-2 [English translation should be available in late 2026]
+-   Miratrix and Pustejovsky (2026) Designing Monte Carlo Simulations in R. [jepusto.github.io/Designing-Simulations-in-R](https://jepusto.github.io/Designing-Simulations-in-R/)
+-   Strobl et al. (2024) Simulationsstudien in R: Design und praktische Durchführung. doi: [doi.org/10.1007/978-3-662-70561-2](https://doi.org/10.1007/978-3-662-70561-2) [English translation should be available in late 2026]
 
-There is also a growing literature on reporting standards, preregistration, and meta-research such as the risk of Questionable Research Practices in simulation studies. In particularly I recommend:  
+There is also a growing literature on reporting standards, preregistration, and meta-research on simulations such as the risk of Questionable Research Practices in simulation studies. In particularly I recommend:  
 
--   Siepe et al. (2026) Why, when, and how to (or not to)preregister a simulation study. https://osf.io/preprints/psyarxiv/cxjrb_v1
--   Siepe et al. (2024) Simulation studies for methodological research in psychology: A standardized template for planning, preregistration, and reporting. Psychological Methods. https://doi.org/10.1037/met0000695
--   Pawel et al. (2023) Pitfalls and potentials in simulation studies: Questionable research practices in comparative simulation studies allow for spurious claims of superiority of any method. Biometrical Journal. https://doi.org/10.1002/bimj.202200091
+-   Siepe et al. (2026) Why, when, and how to (or not to)preregister a simulation study. [osf.io/cxjrb_v1](https://osf.io/preprints/psyarxiv/cxjrb_v1)
+-   Siepe et al. (2024) Simulation studies for methodological research in psychology: A standardized template for planning, preregistration, and reporting. *Psychological Methods*. doi: [10.1037/met0000695](https://doi.org/10.1037/met0000695)
+-   Pawel et al. (2023) Pitfalls and potentials in simulation studies: Questionable research practices in comparative simulation studies allow for spurious claims of superiority of any method. *Biometrical Journal*. doi: [10.1002/bimj.202200091](https://doi.org/10.1002/bimj.202200091)
 
 ## Find me elsewhere
 

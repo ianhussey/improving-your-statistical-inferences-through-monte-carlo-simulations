@@ -350,7 +350,7 @@ grid <- expand_grid(
   iteration = iterations
 ) 
 
-View(grid)
+grid
 
 ```
 
@@ -365,7 +365,7 @@ grid <- expand_grid(
   iteration = 1:100 # note this is a series not an integer, i.e., "1:100" not "100", as "100" would mean just one iteration called "100".
 ) 
 
-View(grid)
+grid
 
 ```
 
@@ -456,7 +456,7 @@ simulation <- experiment_parameters |>
                                       .progress = TRUE,
                                       .options = furrr_options(seed = TRUE)))
 
-View(simulation)
+simulation
 
 ```
 
@@ -505,7 +505,7 @@ simulation <- experiment_parameters |>
                                .progress = TRUE,
                                .options = furrr_options(seed = TRUE))) 
 
-View(simulation)
+simulation
 
 ```
 

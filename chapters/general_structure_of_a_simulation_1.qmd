@@ -79,7 +79,7 @@ data_intervention <-
 data_combined <- bind_rows(data_control,
                            data_intervention)
 
-View(data_combined)
+data_combined
 
 ```
 
@@ -156,7 +156,7 @@ data_combined <- bind_rows(data_control,
                            data_intervention)
 
 # view the generated data
-View(data_combined)
+data_combined
 
 ```
 
@@ -217,7 +217,7 @@ generated_data <- generate_data(n_per_condition = 50,
                                 sd = 1)
 
 # view the generated data
-View(generated_data)
+generated_data
 
 ```
 
@@ -373,6 +373,3 @@ Read:
 
 -   Siepe et al. (2024) Simulation Studies for Methodological Research in Psychology: A Standardized Template for Planning, Preregistration, and Reporting. Psychological Methods. https://doi.org/10.1037/met0000695
 
-Optional book-length extra reading you could do over the next several weeks if you choose. However, bear in mind that they employ different simulation workflows than we do.
-
--   Pustejovsky & Miratrix (2023) Designing Monte Carlo Simulations in R. https://jepusto.github.io/Designing-Simulations-in-R/

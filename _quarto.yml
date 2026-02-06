@@ -8,6 +8,7 @@ book:
   date: today
   chapters:
     - index.qmd
+    # gentle introduction needed here to sell the value of sims, without understanding them? 
     - chapters/foundational_concepts.qmd
     - chapters/writing_functions.qmd
     - chapters/mapping_functions.qmd
