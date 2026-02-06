@@ -4,6 +4,14 @@
 
 Two of the key steps in a simulation study (generate data and analyze data) require us to know how to write functions. This R Markdown lesson practices this.
 
+## To add
+
+fucntion extraction resources
+
+https://www.appsilon.com/post/r-studio-shortcuts-and-tips-part-2
+
+
+
 ## Dependencies
 
 ```{r}
