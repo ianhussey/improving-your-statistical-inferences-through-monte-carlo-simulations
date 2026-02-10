@@ -1,0 +1,763 @@
+---
+title: "map functions"
+author: "Jamie Cummins"
+format: html
+editor: visual
+---
+
+# Mapping over simulations with {purrr}
+
+## Overview of tutorial
+
+You have previously written a data-generation function (`generate_data()`) and an analysis function (`analyze()`), then called them once with the pipeline:
+
+-   generate one dataset\
+-   analyze it\
+-   get a result (e.g., one *p*-value)
+
+A simulation study is just doing that many times, and then summarizing the results.
+
+The big question for this lesson:
+
+How do we repeat the same “generate → analyze” workflow lots of times, without copy–pasting code?
+
+The answer: **mapping**. In the tidyverse, this is usually done with the `{purrr}` package (or `{furrr}` for parallel processing, which is basically a faster way to do this).
+
+The goal of this lesson is to ultimately get you to understand how to use `pmap()`: a function that is fundamental to simulation workflows. To get you there, we're going to introduce some simpler functions first, which will help to give you an understand of how the whole `map()` family of functions work.
+
+By the end of this chapter, you should be able to:
+
+-   Use `map()` to repeat a simulation many times.
+-   Use `map_dbl()` / `map_int()` / `map_chr()` to get clean vectors out.
+-   Use `map_dfr()` to bind outputs into a tibble.
+-   Use `map2()` and `pmap()` to run parameter sweeps.
+-   Understand what it means when mapping produces nested data frames (list-columns).
+-   Use `future_map()` / `future_pmap()` (from `{furrr}`) when you want to parallelize.
+
+## Dependencies
+
+```{r}
+
+library(tidyr)
+library(dplyr)
+library(purrr)
+library(furrr)
+library(ggplot2)
+library(scales)
+library(knitr)
+library(kableExtra)
+
+# set up parallelization (we will use this later in the chapter)
+plan(multisession)
+
+
+```
+
+## **Recap: generate and analyze functions**
+
+Here is the same example setup you saw earlier: two conditions (control vs intervention), normally distributed scores, and a two-sample *t*-test.
+
+```{r}
+
+generate_data <- function(n_per_condition,
+                          mean_control,
+                          mean_intervention,
+                          sd) {
+
+  data_control <-
+    tibble(condition = "control",
+           score = rnorm(n = n_per_condition, mean = mean_control, sd = sd))
+
+  data_intervention <-
+    tibble(condition = "intervention",
+           score = rnorm(n = n_per_condition, mean = mean_intervention, sd = sd))
+
+  data_combined <- bind_rows(data_control, data_intervention)
+
+  return(data_combined)
+}
+
+analyze <- function(data) {
+
+  res_t_test <- t.test(formula = score ~ condition,
+                       data = data,
+                       var.equal = TRUE,
+                       alternative = "two.sided")
+
+  res <- tibble(p = res_t_test$p.value)
+
+  return(res)
+}
+
+```
+
+## **Doing it once**
+
+Like we did in the previous chapter:
+
+```{r}
+
+results <-
+  generate_data(n_per_condition = 50,
+                mean_control = 0,
+                mean_intervention = 0.5,
+                sd = 1) |>
+  analyze()
+
+results
+```
+
+## **Why copy–paste is the enemy \[NOTE TO IAN BELOW\]**
+
+\[NOTE TO IAN: THIS MAY NEED TO CHANGE AS IT REFERS TO A PREVIOUS CHAPTER'S CONTENT\]
+
+You already saw the “bad” way: calling the same code block over and over and binding it with bind_rows().
+
+This is bad because:
+
+-   It’s slow to write and easy to make mistakes.
+
+-   It’s hard to scale from 25 iterations to 10,000 iterations.
+
+-   It’s hard to turn into a proper experiment (varying parameters systematically).
+
+So: we need a principled way to repeat the same computation. To do this, we can use the "`map()`" family of functions in R.
+
+## **The core idea of mapping**
+
+### **map() repeats a function over a vector/list**
+
+purrr::map() takes:
+
+-   a vector/list of inputs (.x)
+
+-   a function (.f)
+
+    and returns a **list of outputs** (always a list).
+
+Let's look at a simple example. Imagine we have a vector of numbers (from 1 to 4) and, for each number, we want to add 10. We can use `map()` to do this:
+
+```{r}
+
+numbers <- c(1, 2, 3, 4)
+
+map(
+  .x = numbers, # .x is our list of inputs
+  .f = ~ .x + 10 # .f is our function
+  )
+
+```
+
+Notice the output is a list, even though each element is just a number. This is on purpose: returning a list is the “safest” default, because in real work you might return complicated objects (models, data frames, plots…) and lists handle these diverse objects most effectively, and prevent errors from arising.
+
+### **The anonymous-function shorthand: `~`**
+
+When you look at the example above, you might be wondering: what is the **`~`** symbol, and what is it doing? This is referred to as the **anonymous-function (lambda) shorthand** in {purrr} formula syntax. This lets you define a short function within the `map()` family of functions. In the case above, our function was "add 10 to the input", where .x stands for the current input.
+
+More concretely, the two lines of code below are equivalent:
+
+Line 1:
+
+```{r}
+
+map(
+  .x = numbers, 
+  .f = function(x) x + 10
+  )
+
+```
+
+Line 2:
+
+```{r}
+
+map(
+  .x = numbers, 
+  .f = ~ .x + 10)
+
+```
+
+You’ll see the `~ .x` style constantly in tidyverse simulation code.
+
+## **A first simulation with map()**
+
+### **Map over iterations**
+
+Ideally, simulations need an iteration index, which tells us what "round" of the simulation a given set of outputs are part of. We can often define these iterations simply, like:
+
+```{r}
+
+iterations <- 1:10
+iterations
+
+```
+
+Now we map over iterations. For now, the iteration number doesn’t do anything - we just need to supply `map()` with a set of values to run across.
+
+```{r}
+
+simulation_results_list <-
+  map(
+    .x = iterations, 
+    .f = ~ {
+      generate_data(n_per_condition = 50,
+                    mean_control = 0,
+                    mean_intervention = 0.5,
+                    sd = 1
+                    ) |>
+        analyze()
+      }
+    )
+
+simulation_results_list
+
+```
+
+You should see a list of tibbles, each tibble containing one *p*-value.
+
+If we change the number of iterations, then the number of times `map()` is called will change:
+
+```{r}
+
+iterations <- 1:20
+iterations
+
+```
+
+```{r}
+
+simulation_results_list <-
+  map(
+    .x = iterations, 
+    .f = ~ {
+      generate_data(n_per_condition = 50,
+                    mean_control = 0,
+                    mean_intervention = 0.5,
+                    sd = 1) |>
+        analyze()
+      }
+    )
+
+simulation_results_list
+
+```
+
+### **Extract one element**
+
+Elements from the list output of `map()` are accessed with \[\[ \]\]. For example, if we want the output of the first iteration, we can do this:
+
+```{r}
+
+simulation_results_list[[1]]
+
+```
+
+## **Turning a list into a tidy tibble**
+
+Even though lists are helpful for preventing errors, we ideally would prefer the output to be in a tidy format, like a dataframe or a tibble, since this is easier to work with later. To get this type of tidier output, we can use the `map_dfr()` function, which returns dataframes as output instead of lists.
+
+If each iteration returns a tibble with the same columns (in our case, a single column called p), map_dfr() will map and then bind the outputs together into a single dataframe.
+
+```{r}
+
+simulation_results <-
+  map_dfr(
+    .x = iterations, 
+    .f = ~ {
+      generate_data(n_per_condition = 50,
+                    mean_control = 0,
+                    mean_intervention = 0.5,
+                    sd = 1) |>
+        analyze()
+      }
+    )
+
+
+simulation_results
+
+```
+
+As you can see, now simulation_results is a single tibble, not a list.
+
+### **Add the iteration number**
+
+When we look at the nice output above from `map_dfr`, we're missing one important piece of information: the iteration number! As we said above, we ideally want to keep this number so we know what result belongs to what step of the simulation.
+
+We can do this by going back to the original `map()` function with some small additions. Specifically:
+
+1.  We create a tibble with a single column, called iteration (or whatever we want), and assign this a vector of values from 1 to the number of iterations we want. For example, if we want 20 iterations:
+
+```{r}
+
+tibble(iteration = 1:20)
+
+```
+
+2.  We mutate a new column into this new tibble, called results (or whatever we want to call it). Then we run `map()` within the `mutate()` call using the iteration column and our `generate_data()` and `analyze()` functions, like this:
+
+```{r}
+
+simulation_results <-
+  tibble(iteration = iterations) |>
+  mutate(results = map(
+    .x = iteration, 
+    .f = ~ {
+      generate_data(n_per_condition = 50,
+                    mean_control = 0,
+                    mean_intervention = 0.5,
+                    sd = 1) |>
+        analyze()
+      }
+    )
+    )
+
+simulation_results
+
+```
+
+3.  Lastly, we can see that the results column contains a tibble per row. We simply need to extract the values from this tibble, which we can do using the `unnest()` function. The whole workflow together, then, looks like:
+
+```{r}
+
+simulation_results <-
+  tibble(iteration = iterations) |>
+  mutate(results = map(
+    .x = iteration, 
+    .f = ~ {
+      generate_data(n_per_condition = 50,
+                    mean_control = 0,
+                    mean_intervention = 0.5,
+                    sd = 1) |>
+        analyze()
+      }
+    )) |>
+  unnest(results)
+
+simulation_results
+
+```
+
+This "make a tibble, map into a list-column, then unnest()" pattern is one of the most fundamental and important ways to do tidy simulation.
+
+## **Another map\_\*() variant**
+
+There are several different variants of the `map()` function. You already saw one above: the `map_dfr()` function, which gave a dataframe as output instead of the list output that `map()` gives. The other `map_*()` variants follow a similar pattern - they change the type of output that comes from the `map_*()` function.
+
+For example, imagine you want one number per iteration, rather than a dataframe or list. You might want a numeric vector of *p*-values. In this case, we could use `map_dbl()`.
+
+### **`map_dbl()` returns a numeric vector**
+
+To use map_dbl(), your function must return **one numeric value**.
+
+```{r}
+
+iterations <- 1:10
+
+p_values <-
+  map_dbl(
+    .x = iterations, 
+    .f = ~ {
+      generate_data(n_per_condition = 50,
+                    mean_control = 0,
+                    mean_intervention = 0.5,
+                    sd = 1) |>
+        analyze() |>
+        pull(p)
+      }
+    )
+
+p_values
+
+```
+
+Now p_values is a plain numeric vector. With this vector, we can do a quick summary, like look at the proportion of p-values less than 0.05:
+
+```{r}
+
+mean(p_values < .05)
+
+```
+
+That number is an estimate of our statistical power under these parameter settings (with potentially lots of error because we only used 10 iterations). Try increasing to iterations \<- 1:1000 and rerun.
+
+## **Null vs alternative using mapping**
+
+Let’s recreate the “distribution of *p*-values under null vs alternative” simulations, but now using what we've learned from the `map()` functions.
+
+Let's say we want to simulate two conditions:
+
+-   mean_intervention = 0 (null - there is no true effect)
+
+-   mean_intervention = 0.5 (alternative - there is a true effect)
+
+with one of two sample sizes:
+
+-   n_per_condition = 20
+
+-   n_per_condition = 50
+
+and do 2000 iterations for each combination.
+
+This means we have four combinations in total. We could handle this using `map()`, defining each of those conditions separately, for example like:
+
+```{r}
+
+iterations <- 1:2000
+
+simulation_results_null_twenty_per_group <-
+  tibble(iteration = iterations) |>
+  mutate(results = map(
+    .x = iteration, 
+    .f = ~ {
+      generate_data(n_per_condition = 20,
+                    mean_control = 0,
+                    mean_intervention = 0,
+                    sd = 1) |>
+        analyze()
+      }
+    )) |>
+  unnest(results)
+
+simulation_results_null_fifty_per_group <-
+  tibble(iteration = iterations) |>
+  mutate(results = map(
+    .x = iteration, 
+    .f = ~ {
+      generate_data(n_per_condition = 50,
+                    mean_control = 0,
+                    mean_intervention = 0,
+                    sd = 1) |>
+      analyze()
+      }
+    )) |>
+  unnest(results)
+
+simulation_results_alternative_twenty_per_group <-
+  tibble(iteration = iterations) |>
+  mutate(results = map(
+    .x = iteration, 
+    .f = ~ {
+      generate_data(n_per_condition = 20,
+                    mean_control = 0,
+                    mean_intervention = 0.5,
+                    sd = 1) |>
+        analyze()
+      }
+    )) |>
+  unnest(results)
+
+simulation_results_alternative_fifty_per_group <-
+  tibble(iteration = iterations) |>
+  mutate(results = map(
+    .x = iteration, 
+    .f = ~ {
+      generate_data(n_per_condition = 50,
+                    mean_control = 0,
+                    mean_intervention = 0.5,
+                    sd = 1) |>
+      analyze()
+      }
+    )) |>
+  unnest(results)
+
+head(simulation_results_null_twenty_per_group)
+head(simulation_results_null_fifty_per_group)
+head(simulation_results_alternative_twenty_per_group)
+head(simulation_results_alternative_fifty_per_group)
+
+
+```
+
+As you can see, this involves some impractical copy-pasting, which (as we discussed previously) we want to avoid.
+
+Our issue is that we have two different parameters (n_per_condition, mean_intervention) that we want to change. To achieve this, we cannot use `map()`, because `map()` can only handle one parameter changing at a time. Instead, we need a `map()` function that *can handle two inputs at once*. Fortunately, `map2()` was made for exactly this purpose! There also exist similar extensions for `map2_*()` as there are for `map_*()`, for example `map2_dfr()` and `map2_dbl()`: these behave identically to their `map_*()` equivalents, but just take two inputs instead of one.
+
+### **Use `map2()` to map multple parameters at once**
+
+Let's first define our experiment parameters in a dataframe:
+
+```{r}
+
+set.seed(42) # Ian: we can omit the set seed if they haven't learned it at this point
+
+experiment_parameters <- expand_grid(
+  iteration = 1:2000,
+  n_per_condition = c(20, 50),
+  mean_intervention = c(0, .5),
+  mean_control = 0,
+  sd = 1
+)
+
+head(experiment_parameters, 10)
+
+```
+
+We’ll now run all of this over `map2()` and store:
+
+-   the generated dataset in a list-column (generated_data)
+
+-   the analysis result in a list-column (results)
+
+-   then unnest results
+
+To do this, we need to specify one input in `map2()` with the .x argument (just like `map()`), and another input with the .y argument. We specify the function (`generate_data()`, in this case) with .f.
+
+```{r}
+
+simulation_results <- experiment_parameters |>
+  mutate(
+    generated_data = map2(
+      .x = n_per_condition,
+      .y = mean_intervention,
+      .f = ~ generate_data(
+        n_per_condition   = .x,
+        mean_control      = 0,
+        mean_intervention = .y,
+        sd                = 1
+      )
+    ),
+    results = map(generated_data, analyze)
+  ) |>
+  unnest(results)
+
+simulation_results
+
+```
+
+### Plot distribution of p-values for both conditions
+
+```{r}
+
+simulation_results |>
+  ggplot() +
+  aes(x = p) +
+  geom_histogram() +
+  facet_wrap(~mean_intervention)
+
+
+```
+
+The left panel shows the distribution of p-values from our simulations when mean_intervention = 0; the right panel shows the distribution of p-values from our simulations when mean_intervention = 0.5.
+
+## **Mapping with multiple inputs: `pmap()`**
+
+Above, we used `map2()` to map two inputs into a simulation. But there will be many cases where we want to map many different inputs at once - not just one or two.
+
+For example: maybe we want to vary all values of n_per_condition, mean_control, mean_intervention, and sd.
+
+This brings us to the key function for this chapter: `pmap()`.
+
+With `pmap()`, we supply all of the parameters as a list, using the .l argument. Our function (`generate_data()`) is supplied, like before, to the .f argument. We'll use the same approach as we used previously: run `pmap()` within a `mutate()` call, then `map()` the result onto `analyze()`, then call `unnest()` on the results.
+
+Note the key difference: because `pmap()` takes parameter input as a list, this means we can in principle specify an unlimited number of parameters!
+
+```{r}
+
+# specify the parameters
+experiment_parameters <- expand_grid(
+  iteration = 1:100, # we'll use 100 iterations to make sure this doesn't take too long
+  n_per_condition = c(20, 50),
+  mean_intervention = c(0, .5),
+  mean_control = c(0, .1),
+  sd = c(.5, 1)
+)
+
+# use pmap() across this
+simulation_results <- experiment_parameters |>
+  mutate(
+    generated_data = pmap(
+      .l = list(n_per_condition, mean_control, mean_intervention, sd), # our list of parameters
+      .f = generate_data # our data-generating function
+      ),
+    results = map(generated_data, analyze)
+  ) |>
+  unnest(results)
+
+simulation_results
+```
+
+## **`pmap()` for parameter sweeps**
+
+Now that we have `pmap()`, we have all of the ingredients for running the main type of simulation workflow we will use in this course:
+
+1.  Make a parameter grid (`expand_grid()`)
+
+2.  Use `pmap()` to run the simulation for each row
+
+3.  Summarize results grouped by the manipulated parameters
+
+Here’s another example: statistical power as a function of sample size and effect size.
+
+### Specify the parameter grid
+
+```{r}
+
+set.seed(42)
+
+experiment_parameters <- expand_grid(
+  n_per_condition = c(20, 50, 100),
+  mean_intervention = c(0, 0.2, 0.5),
+  iteration = 1:1000
+) |>
+  mutate(mean_control = 0,
+         sd = 1)
+
+experiment_parameters
+
+```
+
+### Run the simulations
+
+```{r}
+
+simulation_results <- experiment_parameters |>
+  mutate(
+    generated_data = pmap(
+      .l = list(n_per_condition, mean_control, mean_intervention, sd), 
+      .f = generate_data),
+    results = map(generated_data, analyze)
+  ) |>
+  unnest(results)
+
+simulation_results
+
+```
+
+### Get results per parameter combination
+
+Finally, we can `group_by()` the different parameters we manipulated (n_per_condition, mean_intervention) and `summarise()` the proportion of significant p-values in each case:
+
+```{r}
+
+power_summary <- simulation_results |>
+  mutate(significant = p < .05) |>
+  group_by(n_per_condition, mean_intervention) |>
+  summarize(power = mean(significant), .groups = "drop")
+
+power_summary 
+
+```
+
+## **Nested data frames (list-columns) are useful**
+
+When you map a function that returns a data frame, you get a list-column where each cell contains a data frame.
+
+This is extremely useful because it keeps your workflow tidy:
+
+-   One row = one simulation condition (or one iteration)
+
+-   One list-column = the simulated dataset or the model object
+
+-   Another list-column = the results
+
+You already saw this with generated_data and results. The only new skill is:
+
+-   knowing that list-columns exist
+
+-   being comfortable with unnest() when you want to “flatten” results
+
+## **Parallel mapping with {furrr}**
+
+With the `map()` family of functions we have discussed in this chapter, simulations are run *in sequence*. For example, if we are running 100 iterations, this means that iteration 1 is run first; then iteration 2 is run; then iteration 3; etc.
+
+When you’re doing hundreds of thousands, millions, (or billions!) of iterations, running simulations in sequence can take a long time. In such cases, we ideally would run many of the simulations *in parallel* to speed things up (e.g., running the first 5 iterations at once; then the next 5; etc.). This is called parallelisation, and it can dramatically speed up simulations.
+
+The package for running parallelised simulations is called {furrr}. {furrr} has versions of the `map()` functions that mirror those in {purrr}:
+
+-   `future_map()` is the parallelised version of `map()`
+
+-   `future_map_dfr()` is the parallelised version of `map_dfr()`
+
+-   `future_pmap()` is the parallelised version of `pmap()`
+
+Here is the same “simulate grid” idea, but using future_pmap().
+
+```{r}
+
+simulation_parallel <- experiment_parameters |>
+  mutate(
+    generated_data = future_pmap(
+      .l = list(n_per_condition, mean_control, mean_intervention, sd),
+      .f = generate_data,
+      .progress = TRUE,
+      .options = furrr_options(seed = TRUE)
+    ),
+    results = future_map(
+      generated_data,
+      analyze,
+      .progress = TRUE,
+      .options = furrr_options(seed = TRUE)
+    )
+  )
+
+simulation_parallel |>
+  unnest(results) |>
+  group_by(mean_intervention) |>
+  mutate(significant = p < .05) |>
+  summarise(proportion_significant = mean(significant)) 
+
+```
+
+## **Summary**
+
+You now have the core “engine” for simulation in tidyverse form:
+
+-   `expand_grid()` creates the experiment
+
+-   `map()` / `map2()` / `pmap()` repeats the simulation
+
+-   list-columns store complex outputs cleanly
+
+-   `unnest()` flattens results for summarizing and plotting
+
+-   `map_dbl()` and `map_dfr()` help you get outputs in the shape you want
+
+-   `future_*()` variants can make big simulations faster
+
+## **Exercises**
+
+### **Warm-up: map a simple function**
+
+1.  Create iterations \<- 1:20.
+
+2.  Use map() to compute sqrt() of each iteration.
+
+3.  What type of object does map() return?
+
+### **Map a simulation 200 times**
+
+1.  Set iterations \<- 1:200.
+
+2.  Use map_dfr() to run generate_data(...) \|\> analyze() 200 times.
+
+3.  Compute the proportion of p \< .05.
+
+### **Extract a numeric vector of p-values**
+
+1.  Repeat the last exercise, but use map_dbl() to return a numeric vector.
+
+2.  Plot a histogram of the p-values.
+
+### **Make a tiny experiment with expand_grid() + pmap()**
+
+1.  Use expand_grid() to create an experiment with:
+
+    -   mean_intervention = c(0.3, 0.7)
+
+    -   iteration = 1:1000
+
+    -   n_per_condition = c(25, 100)
+
+    -   mean_control = 0
+
+    -   sd = c(0.5, 1)
+
+2.  Use `pmap()` + `map()` to generate and analyze.
+
+3.  Plot the distribution of p-values and estimate power for each condition (one number per effect size).
+
+### **(Optional) Parallelize**
+
+1.  Replace your `pmap()` call with `future_pmap()`.
+
+2.  Does it run faster?
