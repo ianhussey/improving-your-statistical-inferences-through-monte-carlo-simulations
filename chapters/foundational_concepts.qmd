@@ -11,20 +11,6 @@ set.seed(42)
 
 ```
 
-## One line Monte Carlo simulation
-
-Answering the question "what is the distribution of *p*-values under the null hypothesis?"
-
-```{r}
-
-replicate(n = 100000, expr = t.test(x = rnorm(n = 50, m = 0, sd = 1), y = rnorm(n = 50, m = 0, sd = 1), var.equal = TRUE)$p.value) |> hist()
-
-```
-
-
-
-
-
 ## Key components of a Monte Carlo simulation study
 
 Monte Carlo simulation studies are defined by the following key features:
@@ -37,7 +23,7 @@ Monte Carlo simulation studies are defined by the following key features:
 
 Future chapters will spell out in more detail each one involves, but for the moment it is useful to rote learn them and repeat them to yourself. They are not only the conceptual units you need to think in, but also the coding units used in the workflow taught in this book. Equally importantly for learners, errors or complications when learning to write simulations are, in my experience, very often due to inadequate separation of the steps. E.g., when your code does some data generation in the analysis block, or vice-versa.
 
-To very briefly show you these components in the simulation of *p*-values under the null hypothesis, we can build the code up in stages.
+To very briefly show you these components, we can build the code up in stages to create a very simple simulation answering "what is the distribution of *p*-values under the null hypothesis?"
 
 ### Construct an experiment
 
@@ -134,16 +120,7 @@ hist(replicate(100000, t.test(rnorm(n = 50, m = 0, sd = 1), rnorm(n = 50, m = 0.
 ```
 
 
-## How likely are barely significant *p*-values?
-
-Many studies in the psychology literature report *p*-values between .02 and .05 ([Masicampo & Lalande, 2012](https://doi.org/10.1080/17470218.2012.7113); [Hartgerink et al., 2016](https://doi.org/10.7717/peerj.1935)). We can call these 'barely significant *p*-values'. 
-
-The common threshold for statistical significance, *p* < .05, treats all *p* values less than the threshold as equivalent. Regardless of whether your *p*-value is .048 or .000000000000000000001, the *p* <. 05 rule says you should conclude that there are detectable differences (e.g., differences in population means from a Student's *t*-test).
-
-But is there a tipping point around .05 that makes this value particularly useful? Again, we could work through the math of it, but it is equally useful to simulate the long run of *p*-values and see how many are barely significant (.02 < p < .05). If they rarely occur, why do we use them in the rule?
-
-We can do this under two different conditions. (1) under the null hypothesis, where the population effect size is zero, and (2) under the alternative hypothesis where the population effect size is large (Cohen's d = 0.8). 
-### Under the null hypothesis 
+## What is the distribution of p values under the null hypothesis? [newer plotting]
 
 ```{r}
 
@@ -163,7 +140,15 @@ In the long run of 100,000 studies with large sample sizes (N = 1000) and when t
 
 This corresponds with the alpha value of the test, i.e., the *p* < .05 inference rule. When the population effect is zero, we will incorrectly conclude that it is non-zero in 5% of the long run of studies.
 
-### Under the alternative hypothesis 
+## How likely are barely significant *p*-values?
+
+[A second simulation, to show their utility to raise as well as answer questions]
+
+Many studies in the psychology literature report *p*-values between .02 and .05 ([Masicampo & Lalande, 2012](https://doi.org/10.1080/17470218.2012.7113); [Hartgerink et al., 2016](https://doi.org/10.7717/peerj.1935)). We can call these 'barely significant *p*-values'. 
+
+The common threshold for statistical significance, *p* < .05, treats all *p* values less than the threshold as equivalent. Regardless of whether your *p*-value is .048 or .000000000000000000001, the *p* <. 05 rule says you should conclude that there are detectable differences (e.g., differences in population means from a Student's *t*-test).
+
+But is there a tipping point around .05 that makes this value particularly useful? Again, we could work through the math of it, but it is equally useful to simulate the long run of *p*-values and see how many are barely significant (.02 < p < .05). If they rarely occur, why do we use them in the rule?
 
 ```{r}
 

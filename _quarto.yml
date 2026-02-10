@@ -11,9 +11,12 @@ book:
     # gentle introduction needed here to sell the value of sims, without understanding them? 
     - chapters/foundational_concepts.qmd
     - chapters/writing_functions.qmd
+    #- chapters/generating_data.qmd
+    #- chapters/analysing_data.qmd
+    - chapters/designing_simulation_experiments.qmd
     - chapters/mapping_functions.qmd
-    - chapters/general_structure_of_a_simulation_1.qmd
-    - chapters/general_structure_of_a_simulation_2.qmd
+    #- chapters/general_structure_of_a_simulation_1.qmd # removed to /old folder
+    #- chapters/general_structure_of_a_simulation_2.qmd # removed to /old folder
     - chapters/violating_assumptions.qmd
     - chapters/testing_assumptions_and_conditional_tests.qmd
     - chapters/p_hacking.qmd
