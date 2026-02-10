@@ -8,7 +8,7 @@ book:
   date: today
   chapters:
     - index.qmd
-    # gentle introduction needed here to sell the value of sims, without understanding them? 
+    # Concepts and coding skills
     - chapters/foundational_concepts.qmd
     - chapters/writing_functions.qmd
     #- chapters/generating_data.qmd
@@ -17,6 +17,8 @@ book:
     - chapters/mapping_functions.qmd
     #- chapters/general_structure_of_a_simulation_1.qmd # removed to /old folder
     #- chapters/general_structure_of_a_simulation_2.qmd # removed to /old folder
+    
+    # Applications and more advanced coding skills
     - chapters/violating_assumptions.qmd
     - chapters/testing_assumptions_and_conditional_tests.qmd
     - chapters/p_hacking.qmd
