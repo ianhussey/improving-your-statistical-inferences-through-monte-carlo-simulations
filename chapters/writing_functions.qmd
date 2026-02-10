@@ -6,11 +6,9 @@ Two of the key steps in a simulation study (generate data and analyze data) requ
 
 ## To add
 
-fucntion extraction resources
+function extraction resources
 
 https://www.appsilon.com/post/r-studio-shortcuts-and-tips-part-2
-
-
 
 ## Dependencies
 
@@ -18,12 +16,165 @@ https://www.appsilon.com/post/r-studio-shortcuts-and-tips-part-2
 
 library(dplyr)
 library(tibble)
+library(purrr)
+library(ggplot2)
 library(forcats)
 library(report)
 library(janitor)
 library(faux)
 
 ```
+
+## Why functios are useful: the false positive rate of AI detection tools
+
+Imagine a test has has a false positive rate of 5%, like the standard alpha value for a p-value. 
+
+If you apply this test many times to independent cases without applying familywise error corrections, what is the resulting false positive rate?
+
+Let's put this in meaningful terms. Many professors and universities now run essays and assignments through AI detection tools. But students submit many essays and assignments throughout their degree. What is the probability that, assuming you never violate the AI policy, one of your assignments is falsely flagged as using AI in a way that wasn't allowed? 
+
+### Math
+
+The familywise error rate ($\alpha_{\text{total}}$) for independent tests is the probability of observing at least one false positive ($P(V \geq 1)$), which can be reexpressed as the probability of not observing true positives ($1 - P(V = 0)$). This is the product of the individual probabilities of false positives ($1 - \prod_{i=1}^{n} (1 - \alpha_i)$), which simplifies to:
+
+$$
+\begin{align}
+\alpha_{\text{total}} &= P(V \geq 1) \\
+&= 1 - P(V = 0) \\
+&= 1 - \prod_{i=1}^{n} (1 - \alpha_i) \\
+&= 1 - (1 - \alpha)^n
+\end{align}
+$$
+
+Horrible, disgusting math which most of you want to avoid. But the code to do it is quite simple.
+
+### Hard coded
+
+Assuming individual false positives of 5% and 10 total tests.
+
+```{r}
+
+1 - (1 - 0.05)^10
+
+```
+
+### Using variables
+
+What about other values of alpha and n? We could make them variables at the top of the chunk that are easier to change.
+
+```{r}
+
+# variables
+alpha <- 0.05
+n <- 10
+
+# code
+1 - (1 - alpha)^n
+
+```
+
+### Written as a function
+
+Defining our own custom function involves putting the variables as arguments inside the `function()` call, and putting the code inside its `{}`.
+
+We can then call the function using its name.
+
+```{r}
+
+# define function
+calc_aggregate_fpr <- function(n, alpha = 0.05) {
+  1 - (1 - alpha)^n
+}
+
+# usage
+calc_aggregate_fpr(n = 10)
+
+```
+
+This also lets us call it an arbitrary number of times, eg for different values of n
+
+```{r}
+
+calc_aggregate_fpr(n =  5)
+calc_aggregate_fpr(n = 10)
+calc_aggregate_fpr(n = 15)
+calc_aggregate_fpr(n = 20)
+calc_aggregate_fpr(n = 25)
+
+```
+
+### Use one of {purrr}'s `map()` functions to apply the custom function to many inputs
+
+This previews some skills we'll learn in a future chapter: calling a function multiple times within a tidy workflow by mapping it on to a set of input columns.
+
+```{r}
+
+experiment <- 
+  # define many values of n as different rows in a data frame or tibble
+  tibble(n = 1:20) 
+
+# view 
+experiment
+
+results <- experiment |>  
+  # use mutate to create a new column, fpr, by calling the custom function for each row, using n as the input
+  # use a _dbl map function as the output is a numeric (double precision floating point) variable
+  mutate(fpr = map_dbl(.x = n, 
+                       .f = calc_aggregate_fpr))
+
+results
+
+```
+
+Because we've done this in a tidy format in a tibble, we can easily plot the results too.
+
+```{r}
+
+ggplot(results, aes(n, fpr)) +
+  geom_line() +
+  geom_point() +
+  theme_linedraw()
+
+```
+
+What if we want to vary not only n but also alpha, and see all combinations of them? This previews some skills we'll learn in a later chapter: defining crossed experiment conditions using `expand_grid()`.
+
+```{r}
+
+# define many values of n and alpha, and then have them 'crossed' to create all permutations of them, using expand_grid()
+experiment <- 
+  expand_grid(n = 1:20,
+              alpha = c(0.01, 0.05, 0.10)) 
+
+# view the combinations used in the experiment
+experiment
+
+results <- experiment |>  
+  # use mutate to create a new column, fpr, by calling the custom function for each row
+  # use a map2_ function as there are two inputs, n and alpha
+  # these are passed by location, .x to the first argument, .y to the second
+  mutate(fpr = map2_dbl(.x = n, 
+                        .y = alpha,
+                        .f = calc_aggregate_fpr))
+
+results
+
+```
+
+```{r}
+
+results |>
+  mutate(alpha = as.factor(alpha)) |>
+  ggplot(aes(n, fpr, color = alpha, group = alpha)) +
+  geom_line() +
+  geom_point() +
+  theme_linedraw() 
+
+```
+
+
+
+
 
 ## Primer on functions
 
