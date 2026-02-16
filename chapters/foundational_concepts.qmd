@@ -11,6 +11,158 @@ set.seed(42)
 
 ```
 
+## Why do we use simulation?
+
+Imagine you're throwing yourself a birthday party, and need to buy food and drinks for everyone who is coming. First of all: happy birthday! Second of all: you probably need to figure out _how much_ food and drink to buy in order to make sure everybody has enough to eat and enough to drink. At the same time, you're not made of money, so you probably don't want to buy too much, either. 
+
+In this scenario, you probably will consider some hypothetical possibilities to help you estimate how much food and drink you'll need. You might think: well, if 20 people come, and they eat an average of half a pizza each, plus 4 bottles of soda each, then we'll probably need 20 * .5 = 10 pizzas, and 20 * 4 = 80 bottles. Easy!
+
+But wait - your best friend is coming, and she always eats at least one and a half full pizzas by herself! Plus maybe some people will have already eaten before they arrive. Some people are also going to another party after yours finishes, so they might not stay that long, so maybe they won't drink as much as you expect. And maybe fewer than 20 people will show up! Or more! How could we plan for this when there is so much uncertainty?
+
+Using simple averages like we did above is easy, but it's imperfect. So, using your statistics training, you decide to figure out the _distribution_ of food and drink consumption, as well the number of attendees. So you think: OK, I think people will eat pizzas and drink bottles following normal distributions. People will eat an average of 0.5 pizzas, with a standard deviation of 0.1 pizzas. And people will drink 4 bottles, with a standard deviation of 1 bottle. Then you think the same about attendees: on average 20 people will come, with a standard deviation of 2 people. Great! 
+
+Except...what do you do with this information? These distributions are interesting, and maybe even correct, but how can we translate this into an actionable decision about how much food and drink you should buy for your party?
+
+Well, what if you threw 100 parties with the means and SDs for food, drink, and attendance above? In such a case, you could figure out some smart way of how much to buy. For example, you could say: I will buy enough food and drink to ensure that, in 95 out of those 100 parties, I would have enough for everyone. 
+
+This is one of the many, many scenarios that we can use simulation for. When we can make decent guesses about statistical properties of possible scenarios (like how much food and drink people will consume, and how many people will show up at the party) then we can generate possible scenarios many times using these statistical properties, and then make inferences about the things we care about (in this case, how much food and drink to buy). Simulation can extend far beyond simple applications like this - we use it to ensure that production lines in factories run smoothly; to ensure that products are functioning effectively, and XXX. 
+
+You will learn all about how, when, and why to use simulation in this course. For now, let's get an answer to our party question. You won't know what's happening in the code right now - that's OK. We will build up your understanding over the following chapters so that you can come back and easily understand this. For now:
+
+```{r}
+
+# set seed
+set.seed(2026)
+
+# Design experiment
+experiment_parameters <- expand_grid(
+  party_number = 1:100,
+  mean_number_of_attendees = 20,
+  sd_number_of_attendees = 2,
+  mean_pizza_eaten = 0.5,
+  sd_pizza_eaten = 0.1,
+  mean_bottles_drank = 4,
+  sd_bottles_drank = 1
+)
+
+# Generate data function
+generate_data <- function(mean_number_of_attendees,
+                          sd_number_of_attendees,
+                          mean_pizza_eaten,
+                          sd_pizza_eaten,
+                          mean_bottles_drank,
+                          sd_bottles_drank) {
+  
+  number_of_attendees <- rnorm(1, mean_number_of_attendees, sd_number_of_attendees)
+  
+  dat <- tibble(
+    attendee = c(1:number_of_attendees),
+    pizzas_eaten = round(rnorm(number_of_attendees, mean_pizza_eaten, sd_pizza_eaten), 1),
+    bottles_drank = round(rnorm(number_of_attendees, mean_bottles_drank, sd_bottles_drank), 0)
+  )
+  
+  dat
+  
+}
+
+
+# analyze data function
+analyze_data <- function(dat) {
+  
+  tibble(
+    total_pizza_eaten = sum(dat$pizzas_eaten),
+    total_bottles_drank = sum(dat$bottles_drank)
+  )
+
+}
+
+# Run the experiment many times
+simulation_results <- experiment_parameters |>
+  mutate(
+    generated_data = pmap(
+      .l = list(
+        mean_number_of_attendees,
+        sd_number_of_attendees,
+        mean_pizza_eaten,
+        sd_pizza_eaten,
+        mean_bottles_drank,
+        sd_bottles_drank), 
+      .f = generate_data 
+      ),
+    results = map(generated_data, analyze_data)
+  ) |>
+  unnest(results)
+
+
+# summarise results
+simulation_results |>
+  summarise(
+    pizzas_required = quantile(total_pizza_eaten, .95),
+    bottles_required = quantile(total_bottles_drank, .95)
+    )
+
+```
+To make sure that 95 out of 100 parties would be covered, we would need 12 pizzas and 93 bottles of beer!
+
+## How are simulations different from studies?
+
+In the party example above, we didn’t actually throw 100 birthday parties. We pretended to, using a few assumptions about what parties tend to look like (how many people show up, how much they eat and drink). That’s the key difference:
+- In a study, you collect real data from the world.
+- In a simulation, you generate fake-but-plausible data from a model of the world.
+
+It might sound a bit strange to generate fake data to learn real things about the world. But this is exactly what makes simulation useful: it lets us explore "what would happen if...?" questions without having to pay for 100 parties, recruit 10,000 participants, or wait six months for data collection.
+
+### A study learns from the world
+
+In an empirical study, the world is the _data-generating process_. You don’t decide what the distribution of pizza consumption is — you discover it by measuring. Your sample contains surprises, messiness, measurement error, attrition, weird participants, and all the other things that make research both interesting and painful.
+
+So the logic of a study is:
+	1.	Collect data from the world.
+	2.	Summarise and analyse that data.
+	3.	Infer something about the process that produced it (and, hopefully, about the wider population).
+
+Even when we use statistical models in studies, the model is our tool for learning from data we didn’t control.
+
+### A simulation learns from your assumptions
+
+In a simulation, you flip that around: the model is the data-generating process. You decide, in advance, what the distributions look like (or what mechanism produces the data). Then you generate many datasets from that mechanism, and try to understand what happens under those conditions.
+
+So the logic of a simulation is:
+	1.	Make experiments that assume things about how data are generated 
+	2.	Generate data under these assumptions 
+	3.	Analyse this dataset the same way you would analyse real data 
+	4.	Repeat this process many times
+	5.	Summarise the results across datasets and experiment conditions
+
+This is why simulation is sometimes described as doing statistics "in a sandbox": you control the world, and you watch what your analysis does inside it.
+
+### Are simulations just making things up?
+
+Yes! But not randomly. A simulation is only as good as the assumptions you put in. If you assume pizza consumption is normally distributed, you will generate a world where negative pizza consumption is theoretically possible. If you assume attendance varies with a standard deviation of 2, you’re asserting that wildly different attendance (say, 5 people or 60 people) is extremely unlikely.
+
+And this is the point: simulation forces you to think about what processes might generate data.
+
+A useful way to think about it is:
+- A study asks: “What is true in the world?”
+-	A simulation asks: “If the world worked like this, what would happen?”
+
+We use simulation because many questions we care about are hard to answer directly with studies. For example:
+- If I run this analysis on data like mine, how often will I get a false positive?
+- How much sample size do I need for reasonable power in my design (not in a textbook idealisation)?
+- If I use method A vs method B, which one is more biased under realistic conditions?
+- If participants drop out in a certain way, how badly does it distort my results?
+- What is the distribution of a p-value under the null hypothesis?
+
+You can’t usually run a real study thousands of times under controlled conditions to find out. But you can simulate it.
+
+### Simulations don’t replace studies
+
+Simulation is not a substitute for collecting data. It’s a tool for understanding methods, designing studies, stress-testing assumptions, and building intuition about uncertainty.
+
+In the party example, simulation helped you make a decision given uncertainty — but the quality of that decision depended on whether your guessed means and standard deviations were sensible. If your friends are secretly world champion pizza-eaters and eat 3 pizzas each, your simulation will confidently recommend the wrong amount of pizza to buy
+
+In short: studies are messy but grounded in reality; simulations are clean but grounded in assumptions.
+
 ## Key components of a Monte Carlo simulation study
 
 Monte Carlo simulation studies are defined by the following key features:
@@ -21,7 +173,7 @@ Monte Carlo simulation studies are defined by the following key features:
 4. Repeat this many times
 5. Summarize results over the experiment conditions
 
-Future chapters will spell out in more detail each one involves, but for the moment it is useful to rote learn them and repeat them to yourself. They are not only the conceptual units you need to think in, but also the coding units used in the workflow taught in this book. Equally importantly for learners, errors or complications when learning to write simulations are, in my experience, very often due to inadequate separation of the steps. E.g., when your code does some data generation in the analysis block, or vice-versa.
+Future chapters will spell out in more detail what each one involves, but for the moment it is useful to rote learn them and repeat them to yourself. They serve two purposes. First, they are the best way to think about how a simulation actually works. Second, when we are writing code in this book, we will break it down in terms of each of these steps. Equally importantly for learners, errors or complications when learning to write simulations are, in my experience, very often due to inadequate separation of the steps. E.g., when your code does some data generation in the analysis block, or vice-versa.
 
 To very briefly show you these components, we can build the code up in stages to create a very simple simulation answering "what is the distribution of *p*-values under the null hypothesis?"
 
