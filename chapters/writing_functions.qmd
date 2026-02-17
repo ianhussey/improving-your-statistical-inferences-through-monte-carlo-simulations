@@ -25,7 +25,129 @@ library(faux)
 
 ```
 
-## Why functios are useful: the false positive rate of AI detection tools
+## What is a function?
+
+A function is a piece of code that receives an input, does something to it, and returns an output. That's it! Of course, that's also a very vague definition. But let's look at the most simple example:
+
+```{r}
+
+output <- 1 + 1
+
+print(output)
+
+```
+
+The `+` operator is a function. It takes some input (one number either side of it), does something to this input (adds the two numbers together), and returns an output (the value of the two numbers added together). We use the `<-` operator to assign this to an object called `output`. 
+
+When we write code in R, however, we don't write functions like this. Instead, we write them in the form: `function_name(argument1, argument2, ...argumentN)`. 
+
+The equivalent to `+` in this style is the `sum()` function. Let's see what happens when we run `sum(1, 1)`:
+
+```{r}
+
+output <- sum(1, 1)
+
+print(output)
+
+```
+
+We get the same result! Sometimes, we might want to use many functions together. For example:
+
+```{r}
+
+1 + 1 + 2 + 3
+
+```
+
+In this case, we used three functions: `+` three times. In R, we could actually still write this more easily using `sum()`:
+
+```{r}
+
+sum(c(1, 1, 2, 3))
+
+```
+
+But let's imagine a situation where we want to create a first output using one function, then run a second (or third, or fourth) function on that output, like:
+
+```{r}
+
+output1 <- sqrt(c(1, 4, 9, 16, 25, 30)) # get the square root of these numbers
+
+output2 <- mean(output1) # get the mean of those square roots
+
+output3 <- round(output2, digits = 2) # round this to two decimal placess
+
+print(output3)
+
+```
+
+Doing this is fine, but we are creating a lot of objects that we don't care about (`output1`, `output2`) in order to finally get the one we eventually care about (`output3`).
+
+Ideally, we would minimise the number of unnecessary objects we create. We could do this by nesting the functions together, like this:
+
+```{r}
+
+output <- round(
+  mean(
+    sqrt(
+      c(1, 4, 9, 16, 25, 30)
+    )
+  ),
+  digits = 2
+)
+
+print(output)
+
+```
+
+Another way to do this is using the pipe operator, `|>`. You can think of this operator as a way of saying "...and then do this". For the example above, this would look like:
+
+```{r}
+
+output <- sqrt(c(1, 4, 9, 16, 25, 30)) |> 
+  mean() |>
+  round(digits = 2)
+
+print(output)
+
+```
+
+This is also a lot easier to read!
+
+## Writing functions 
+
+Previously, you saw a few functions: `sum()`, `round()`, `mean()`, and `sqrt()`. These are all in-built functions in R, meaning that R "knows" them by default. One other way that R can "know" a function is if we write it ourselves! 
+
+The way to write a function in R is simple. It takes the following format:
+
+`function_name <- function(argument1, argument2, ... argumentN) { [function goes in here] }`
+
+Let's look at a simple example. We'll create a new function called `sum2()`, which is identical to `sum()`, except it also rounds the output to two decimal places at the end. We'll also compare the outputs of `sum()` and `sum2()`:
+
+```{r}
+
+sum2 <- function(first_number, second_number) {
+  
+  round(first_number + second_number, digits = 2)
+  
+}
+
+sum(2.22222, 3.33333)
+sum2(2.22222, 3.33333)
+
+```
+
+Creating functions is very, very important for Monte Carlo simulations. Recall our five steps:
+
+1. Construct an experiment
+2. Generate data
+3. Analyze the data
+4. Do things many times
+5. Summarise the results
+
+We will use functions in all 5 of these steps. And we will basically always write new functions for steps 2 and 3 (and often, step 5).
+
+## Why functions are useful: the false positive rate of AI detection tools
 
 Imagine a test has has a false positive rate of 5%, like the standard alpha value for a p-value. 
 
@@ -171,8 +293,6 @@ results |>
   theme_linedraw() 
 
 ```
-
-
 
 
 
