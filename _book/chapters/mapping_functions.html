@@ -8,7 +8,7 @@
 
 <meta name="author" content="Jamie Cummins">
 
-<title>3&nbsp; map functions – Improving your statistical inferences through Monte Carlo simulations</title>
+<title>4&nbsp; map functions – Improving your statistical inferences through Monte Carlo simulations</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,8 +66,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/general_structure_of_a_simulation_1.html" rel="next">
-<link href="../chapters/writing_functions.html" rel="prev">
+<link href="../chapters/violating_assumptions.html" rel="next">
+<link href="../chapters/designing_simulation_experiments.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -118,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/mapping_functions.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">map functions</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/mapping_functions.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">map functions</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -163,80 +163,74 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../chapters/designing_simulation_experiments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">chapter4_creating_simulation_experiments</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../chapters/mapping_functions.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">map functions</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/general_structure_of_a_simulation_1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">General structure of a simulation study</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/general_structure_of_a_simulation_2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">General structure of a simulation study</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">map functions</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/violating_assumptions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/testing_assumptions_and_conditional_tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of (non-)parameteric tests”</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of (non-)parameteric tests”</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/p_hacking.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/p_values_and_confidence_intervals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Understanding the link between p-values, Confidence Intervals, and power</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Understanding the link between p-values, Confidence Intervals, and power</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/difference_between_signfiicant_and_nonsignificant.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">The differences between significant and non-significant is not itself significant</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The differences between significant and non-significant is not itself significant</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/standardized_effect_sizes_and_range_restriction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Standardized effect sizes and range restriction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Standardized effect sizes and range restriction</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/impact_of_lazy_responding_assignment.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">The impact of one form of lazy/careless responding on the power and false positive rate of a Student’s t-test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">The impact of one form of lazy/careless responding on the power and false positive rate of a Student’s t-test</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/meta_analysis_and_publication_bias.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Meta-analysis and publication bias</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Meta-analysis and publication bias</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/causality.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Regression assumes causality</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Regression assumes causality</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
   </div>
 </li>
     </ul>
@@ -249,54 +243,54 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#mapping-over-simulations-with-purrr" id="toc-mapping-over-simulations-with-purrr" class="nav-link active" data-scroll-target="#mapping-over-simulations-with-purrr"><span class="header-section-number">4</span> Mapping over simulations with {purrr}</a>
+  <li><a href="#mapping-over-simulations-with-purrr" id="toc-mapping-over-simulations-with-purrr" class="nav-link active" data-scroll-target="#mapping-over-simulations-with-purrr"><span class="header-section-number">5</span> Mapping over simulations with {purrr}</a>
   <ul class="collapse">
-  <li><a href="#overview-of-tutorial" id="toc-overview-of-tutorial" class="nav-link" data-scroll-target="#overview-of-tutorial"><span class="header-section-number">4.1</span> Overview of tutorial</a></li>
-  <li><a href="#dependencies" id="toc-dependencies" class="nav-link" data-scroll-target="#dependencies"><span class="header-section-number">4.2</span> Dependencies</a></li>
-  <li><a href="#recap-generate-and-analyze-functions" id="toc-recap-generate-and-analyze-functions" class="nav-link" data-scroll-target="#recap-generate-and-analyze-functions"><span class="header-section-number">4.3</span> <strong>Recap: generate and analyze functions</strong></a></li>
-  <li><a href="#doing-it-once" id="toc-doing-it-once" class="nav-link" data-scroll-target="#doing-it-once"><span class="header-section-number">4.4</span> <strong>Doing it once</strong></a></li>
-  <li><a href="#why-copypaste-is-the-enemy" id="toc-why-copypaste-is-the-enemy" class="nav-link" data-scroll-target="#why-copypaste-is-the-enemy"><span class="header-section-number">4.5</span> <strong>Why copy–paste is the enemy</strong></a></li>
-  <li><a href="#the-core-idea-of-mapping" id="toc-the-core-idea-of-mapping" class="nav-link" data-scroll-target="#the-core-idea-of-mapping"><span class="header-section-number">4.6</span> <strong>The core idea of mapping</strong></a>
+  <li><a href="#overview-of-tutorial" id="toc-overview-of-tutorial" class="nav-link" data-scroll-target="#overview-of-tutorial"><span class="header-section-number">5.1</span> Overview of tutorial</a></li>
+  <li><a href="#dependencies" id="toc-dependencies" class="nav-link" data-scroll-target="#dependencies"><span class="header-section-number">5.2</span> Dependencies</a></li>
+  <li><a href="#recap-generate-and-analyze-functions" id="toc-recap-generate-and-analyze-functions" class="nav-link" data-scroll-target="#recap-generate-and-analyze-functions"><span class="header-section-number">5.3</span> <strong>Recap: generate and analyze functions</strong></a></li>
+  <li><a href="#doing-it-once" id="toc-doing-it-once" class="nav-link" data-scroll-target="#doing-it-once"><span class="header-section-number">5.4</span> <strong>Doing it once</strong></a></li>
+  <li><a href="#why-copypaste-is-the-enemy" id="toc-why-copypaste-is-the-enemy" class="nav-link" data-scroll-target="#why-copypaste-is-the-enemy"><span class="header-section-number">5.5</span> <strong>Why copy–paste is the enemy</strong></a></li>
+  <li><a href="#the-core-idea-of-mapping" id="toc-the-core-idea-of-mapping" class="nav-link" data-scroll-target="#the-core-idea-of-mapping"><span class="header-section-number">5.6</span> <strong>The core idea of mapping</strong></a>
   <ul class="collapse">
-  <li><a href="#map-repeats-a-function-over-a-vectorlist" id="toc-map-repeats-a-function-over-a-vectorlist" class="nav-link" data-scroll-target="#map-repeats-a-function-over-a-vectorlist"><span class="header-section-number">4.6.1</span> <strong>map() repeats a function over a vector/list</strong></a></li>
-  <li><a href="#the-anonymous-function-shorthand" id="toc-the-anonymous-function-shorthand" class="nav-link" data-scroll-target="#the-anonymous-function-shorthand"><span class="header-section-number">4.6.2</span> <strong>The anonymous-function shorthand: <code>~</code></strong></a></li>
+  <li><a href="#map-repeats-a-function-over-a-vectorlist" id="toc-map-repeats-a-function-over-a-vectorlist" class="nav-link" data-scroll-target="#map-repeats-a-function-over-a-vectorlist"><span class="header-section-number">5.6.1</span> <strong>map() repeats a function over a vector/list</strong></a></li>
+  <li><a href="#the-anonymous-function-shorthand" id="toc-the-anonymous-function-shorthand" class="nav-link" data-scroll-target="#the-anonymous-function-shorthand"><span class="header-section-number">5.6.2</span> <strong>The anonymous-function shorthand: <code>~</code></strong></a></li>
   </ul></li>
-  <li><a href="#a-first-simulation-with-map" id="toc-a-first-simulation-with-map" class="nav-link" data-scroll-target="#a-first-simulation-with-map"><span class="header-section-number">4.7</span> <strong>A first simulation with map()</strong></a>
+  <li><a href="#a-first-simulation-with-map" id="toc-a-first-simulation-with-map" class="nav-link" data-scroll-target="#a-first-simulation-with-map"><span class="header-section-number">5.7</span> <strong>A first simulation with map()</strong></a>
   <ul class="collapse">
-  <li><a href="#map-over-iterations" id="toc-map-over-iterations" class="nav-link" data-scroll-target="#map-over-iterations"><span class="header-section-number">4.7.1</span> <strong>Map over iterations</strong></a></li>
-  <li><a href="#extract-one-element" id="toc-extract-one-element" class="nav-link" data-scroll-target="#extract-one-element"><span class="header-section-number">4.7.2</span> <strong>Extract one element</strong></a></li>
+  <li><a href="#map-over-iterations" id="toc-map-over-iterations" class="nav-link" data-scroll-target="#map-over-iterations"><span class="header-section-number">5.7.1</span> <strong>Map over iterations</strong></a></li>
+  <li><a href="#extract-one-element" id="toc-extract-one-element" class="nav-link" data-scroll-target="#extract-one-element"><span class="header-section-number">5.7.2</span> <strong>Extract one element</strong></a></li>
   </ul></li>
-  <li><a href="#turning-a-list-into-a-tidy-tibble" id="toc-turning-a-list-into-a-tidy-tibble" class="nav-link" data-scroll-target="#turning-a-list-into-a-tidy-tibble"><span class="header-section-number">4.8</span> <strong>Turning a list into a tidy tibble</strong></a>
+  <li><a href="#turning-a-list-into-a-tidy-tibble" id="toc-turning-a-list-into-a-tidy-tibble" class="nav-link" data-scroll-target="#turning-a-list-into-a-tidy-tibble"><span class="header-section-number">5.8</span> <strong>Turning a list into a tidy tibble</strong></a>
   <ul class="collapse">
-  <li><a href="#add-the-iteration-number" id="toc-add-the-iteration-number" class="nav-link" data-scroll-target="#add-the-iteration-number"><span class="header-section-number">4.8.1</span> <strong>Add the iteration number</strong></a></li>
+  <li><a href="#add-the-iteration-number" id="toc-add-the-iteration-number" class="nav-link" data-scroll-target="#add-the-iteration-number"><span class="header-section-number">5.8.1</span> <strong>Add the iteration number</strong></a></li>
   </ul></li>
-  <li><a href="#another-map_-variant" id="toc-another-map_-variant" class="nav-link" data-scroll-target="#another-map_-variant"><span class="header-section-number">4.9</span> <strong>Another map_*() variant</strong></a>
+  <li><a href="#another-map_-variant" id="toc-another-map_-variant" class="nav-link" data-scroll-target="#another-map_-variant"><span class="header-section-number">5.9</span> <strong>Another map_*() variant</strong></a>
   <ul class="collapse">
-  <li><a href="#map_dbl-returns-a-numeric-vector" id="toc-map_dbl-returns-a-numeric-vector" class="nav-link" data-scroll-target="#map_dbl-returns-a-numeric-vector"><span class="header-section-number">4.9.1</span> <strong><code>map_dbl()</code> returns a numeric vector</strong></a></li>
+  <li><a href="#map_dbl-returns-a-numeric-vector" id="toc-map_dbl-returns-a-numeric-vector" class="nav-link" data-scroll-target="#map_dbl-returns-a-numeric-vector"><span class="header-section-number">5.9.1</span> <strong><code>map_dbl()</code> returns a numeric vector</strong></a></li>
   </ul></li>
-  <li><a href="#null-vs-alternative-using-mapping" id="toc-null-vs-alternative-using-mapping" class="nav-link" data-scroll-target="#null-vs-alternative-using-mapping"><span class="header-section-number">4.10</span> <strong>Null vs alternative using mapping</strong></a>
+  <li><a href="#null-vs-alternative-using-mapping" id="toc-null-vs-alternative-using-mapping" class="nav-link" data-scroll-target="#null-vs-alternative-using-mapping"><span class="header-section-number">5.10</span> <strong>Null vs alternative using mapping</strong></a>
   <ul class="collapse">
-  <li><a href="#use-map2-to-map-multple-parameters-at-once" id="toc-use-map2-to-map-multple-parameters-at-once" class="nav-link" data-scroll-target="#use-map2-to-map-multple-parameters-at-once"><span class="header-section-number">4.10.1</span> <strong>Use <code>map2()</code> to map multple parameters at once</strong></a></li>
-  <li><a href="#plot-distribution-of-p-values-for-both-conditions" id="toc-plot-distribution-of-p-values-for-both-conditions" class="nav-link" data-scroll-target="#plot-distribution-of-p-values-for-both-conditions"><span class="header-section-number">4.10.2</span> Plot distribution of p-values for both conditions</a></li>
+  <li><a href="#use-map2-to-map-multple-parameters-at-once" id="toc-use-map2-to-map-multple-parameters-at-once" class="nav-link" data-scroll-target="#use-map2-to-map-multple-parameters-at-once"><span class="header-section-number">5.10.1</span> <strong>Use <code>map2()</code> to map multple parameters at once</strong></a></li>
+  <li><a href="#plot-distribution-of-p-values-for-both-conditions" id="toc-plot-distribution-of-p-values-for-both-conditions" class="nav-link" data-scroll-target="#plot-distribution-of-p-values-for-both-conditions"><span class="header-section-number">5.10.2</span> Plot distribution of p-values for both conditions</a></li>
   </ul></li>
-  <li><a href="#creating-parameter-grids-more-effectively-expand_grid" id="toc-creating-parameter-grids-more-effectively-expand_grid" class="nav-link" data-scroll-target="#creating-parameter-grids-more-effectively-expand_grid"><span class="header-section-number">4.11</span> <strong>Creating parameter grids more effectively:</strong> <code>expand_grid()</code></a></li>
-  <li><a href="#mapping-with-multiple-inputs-pmap" id="toc-mapping-with-multiple-inputs-pmap" class="nav-link" data-scroll-target="#mapping-with-multiple-inputs-pmap"><span class="header-section-number">4.12</span> <strong>Mapping with multiple inputs: <code>pmap()</code></strong></a></li>
-  <li><a href="#pmap-for-parameter-sweeps" id="toc-pmap-for-parameter-sweeps" class="nav-link" data-scroll-target="#pmap-for-parameter-sweeps"><span class="header-section-number">4.13</span> <strong><code>pmap()</code> for parameter sweeps</strong></a>
+  <li><a href="#creating-parameter-grids-more-effectively-expand_grid" id="toc-creating-parameter-grids-more-effectively-expand_grid" class="nav-link" data-scroll-target="#creating-parameter-grids-more-effectively-expand_grid"><span class="header-section-number">5.11</span> <strong>Creating parameter grids more effectively:</strong> <code>expand_grid()</code></a></li>
+  <li><a href="#mapping-with-multiple-inputs-pmap" id="toc-mapping-with-multiple-inputs-pmap" class="nav-link" data-scroll-target="#mapping-with-multiple-inputs-pmap"><span class="header-section-number">5.12</span> <strong>Mapping with multiple inputs: <code>pmap()</code></strong></a></li>
+  <li><a href="#pmap-for-parameter-sweeps" id="toc-pmap-for-parameter-sweeps" class="nav-link" data-scroll-target="#pmap-for-parameter-sweeps"><span class="header-section-number">5.13</span> <strong><code>pmap()</code> for parameter sweeps</strong></a>
   <ul class="collapse">
-  <li><a href="#specify-the-parameter-grid" id="toc-specify-the-parameter-grid" class="nav-link" data-scroll-target="#specify-the-parameter-grid"><span class="header-section-number">4.13.1</span> Specify the parameter grid</a></li>
-  <li><a href="#run-the-simulations" id="toc-run-the-simulations" class="nav-link" data-scroll-target="#run-the-simulations"><span class="header-section-number">4.13.2</span> Run the simulations</a></li>
-  <li><a href="#get-results-per-parameter-combination" id="toc-get-results-per-parameter-combination" class="nav-link" data-scroll-target="#get-results-per-parameter-combination"><span class="header-section-number">4.13.3</span> Get results per parameter combination</a></li>
+  <li><a href="#specify-the-parameter-grid" id="toc-specify-the-parameter-grid" class="nav-link" data-scroll-target="#specify-the-parameter-grid"><span class="header-section-number">5.13.1</span> Specify the parameter grid</a></li>
+  <li><a href="#run-the-simulations" id="toc-run-the-simulations" class="nav-link" data-scroll-target="#run-the-simulations"><span class="header-section-number">5.13.2</span> Run the simulations</a></li>
+  <li><a href="#get-results-per-parameter-combination" id="toc-get-results-per-parameter-combination" class="nav-link" data-scroll-target="#get-results-per-parameter-combination"><span class="header-section-number">5.13.3</span> Get results per parameter combination</a></li>
   </ul></li>
-  <li><a href="#nested-data-frames-list-columns-are-useful" id="toc-nested-data-frames-list-columns-are-useful" class="nav-link" data-scroll-target="#nested-data-frames-list-columns-are-useful"><span class="header-section-number">4.14</span> <strong>Nested data frames (list-columns) are useful</strong></a></li>
-  <li><a href="#parallel-mapping-with-furrr" id="toc-parallel-mapping-with-furrr" class="nav-link" data-scroll-target="#parallel-mapping-with-furrr"><span class="header-section-number">4.15</span> <strong>Parallel mapping with {furrr}</strong></a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">4.16</span> <strong>Summary</strong></a></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">4.17</span> <strong>Exercises</strong></a>
+  <li><a href="#nested-data-frames-list-columns-are-useful" id="toc-nested-data-frames-list-columns-are-useful" class="nav-link" data-scroll-target="#nested-data-frames-list-columns-are-useful"><span class="header-section-number">5.14</span> <strong>Nested data frames (list-columns) are useful</strong></a></li>
+  <li><a href="#parallel-mapping-with-furrr" id="toc-parallel-mapping-with-furrr" class="nav-link" data-scroll-target="#parallel-mapping-with-furrr"><span class="header-section-number">5.15</span> <strong>Parallel mapping with {furrr}</strong></a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">5.16</span> <strong>Summary</strong></a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">5.17</span> <strong>Exercises</strong></a>
   <ul class="collapse">
-  <li><a href="#warm-up-map-a-simple-function" id="toc-warm-up-map-a-simple-function" class="nav-link" data-scroll-target="#warm-up-map-a-simple-function"><span class="header-section-number">4.17.1</span> <strong>Warm-up: map a simple function</strong></a></li>
-  <li><a href="#map-a-simulation-200-times" id="toc-map-a-simulation-200-times" class="nav-link" data-scroll-target="#map-a-simulation-200-times"><span class="header-section-number">4.17.2</span> <strong>Map a simulation 200 times</strong></a></li>
-  <li><a href="#extract-a-numeric-vector-of-p-values" id="toc-extract-a-numeric-vector-of-p-values" class="nav-link" data-scroll-target="#extract-a-numeric-vector-of-p-values"><span class="header-section-number">4.17.3</span> <strong>Extract a numeric vector of p-values</strong></a></li>
-  <li><a href="#make-a-tiny-experiment-with-expand_grid-pmap" id="toc-make-a-tiny-experiment-with-expand_grid-pmap" class="nav-link" data-scroll-target="#make-a-tiny-experiment-with-expand_grid-pmap"><span class="header-section-number">4.17.4</span> <strong>Make a tiny experiment with expand_grid() + pmap()</strong></a></li>
-  <li><a href="#optional-parallelize" id="toc-optional-parallelize" class="nav-link" data-scroll-target="#optional-parallelize"><span class="header-section-number">4.17.5</span> <strong>(Optional) Parallelize</strong></a></li>
+  <li><a href="#warm-up-map-a-simple-function" id="toc-warm-up-map-a-simple-function" class="nav-link" data-scroll-target="#warm-up-map-a-simple-function"><span class="header-section-number">5.17.1</span> <strong>Warm-up: map a simple function</strong></a></li>
+  <li><a href="#map-a-simulation-200-times" id="toc-map-a-simulation-200-times" class="nav-link" data-scroll-target="#map-a-simulation-200-times"><span class="header-section-number">5.17.2</span> <strong>Map a simulation 200 times</strong></a></li>
+  <li><a href="#extract-a-numeric-vector-of-p-values" id="toc-extract-a-numeric-vector-of-p-values" class="nav-link" data-scroll-target="#extract-a-numeric-vector-of-p-values"><span class="header-section-number">5.17.3</span> <strong>Extract a numeric vector of p-values</strong></a></li>
+  <li><a href="#make-a-tiny-experiment-with-expand_grid-pmap" id="toc-make-a-tiny-experiment-with-expand_grid-pmap" class="nav-link" data-scroll-target="#make-a-tiny-experiment-with-expand_grid-pmap"><span class="header-section-number">5.17.4</span> <strong>Make a tiny experiment with expand_grid() + pmap()</strong></a></li>
+  <li><a href="#optional-parallelize" id="toc-optional-parallelize" class="nav-link" data-scroll-target="#optional-parallelize"><span class="header-section-number">5.17.5</span> <strong>(Optional) Parallelize</strong></a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -307,7 +301,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">map functions</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">map functions</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -330,10 +324,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="mapping-over-simulations-with-purrr" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Mapping over simulations with {purrr}</h1>
-<section id="overview-of-tutorial" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="overview-of-tutorial"><span class="header-section-number">4.1</span> Overview of tutorial</h2>
+<section id="mapping-over-simulations-with-purrr" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Mapping over simulations with {purrr}</h1>
+<section id="overview-of-tutorial" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="overview-of-tutorial"><span class="header-section-number">5.1</span> Overview of tutorial</h2>
 <p>In the last lesson, you wrote a data-generation function (<code>generate_data()</code>) and an analysis function (<code>analyze()</code>), then called them once with the pipe:</p>
 <ul>
 <li>generate one dataset<br>
@@ -356,8 +350,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Use <code>future_map()</code> / <code>future_pmap()</code> (from <code>{furrr}</code>) when you want to parallelize.</li>
 </ul>
 </section>
-<section id="dependencies" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="dependencies"><span class="header-section-number">4.2</span> Dependencies</h2>
+<section id="dependencies" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="dependencies"><span class="header-section-number">5.2</span> Dependencies</h2>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -375,8 +369,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 </section>
-<section id="recap-generate-and-analyze-functions" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="recap-generate-and-analyze-functions"><span class="header-section-number">4.3</span> <strong>Recap: generate and analyze functions</strong></h2>
+<section id="recap-generate-and-analyze-functions" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="recap-generate-and-analyze-functions"><span class="header-section-number">5.3</span> <strong>Recap: generate and analyze functions</strong></h2>
 <p>Here is the same example setup you saw earlier: two conditions (control vs intervention), normally distributed scores, and a two-sample <em>t</em>-test.</p>
 <div class="cell">
 <details open="" class="code-fold">
@@ -413,8 +407,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 </section>
-<section id="doing-it-once" class="level2" data-number="4.4">
-<h2 data-number="4.4" class="anchored" data-anchor-id="doing-it-once"><span class="header-section-number">4.4</span> <strong>Doing it once</strong></h2>
+<section id="doing-it-once" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="doing-it-once"><span class="header-section-number">5.4</span> <strong>Doing it once</strong></h2>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -429,14 +423,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
-      p
-  &lt;dbl&gt;
-1 0.113</code></pre>
+       p
+   &lt;dbl&gt;
+1 0.0622</code></pre>
 </div>
 </div>
 </section>
-<section id="why-copypaste-is-the-enemy" class="level2" data-number="4.5">
-<h2 data-number="4.5" class="anchored" data-anchor-id="why-copypaste-is-the-enemy"><span class="header-section-number">4.5</span> <strong>Why copy–paste is the enemy</strong></h2>
+<section id="why-copypaste-is-the-enemy" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="why-copypaste-is-the-enemy"><span class="header-section-number">5.5</span> <strong>Why copy–paste is the enemy</strong></h2>
 <p>You already saw the “bad” way: calling the same code block over and over and binding it with bind_rows().</p>
 <p>This is bad because:</p>
 <ul>
@@ -446,10 +440,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>So: we need a principled way to repeat the same computation. To do this, we can use the “<code>map()</code>” family of functions in R.</p>
 </section>
-<section id="the-core-idea-of-mapping" class="level2" data-number="4.6">
-<h2 data-number="4.6" class="anchored" data-anchor-id="the-core-idea-of-mapping"><span class="header-section-number">4.6</span> <strong>The core idea of mapping</strong></h2>
-<section id="map-repeats-a-function-over-a-vectorlist" class="level3" data-number="4.6.1">
-<h3 data-number="4.6.1" class="anchored" data-anchor-id="map-repeats-a-function-over-a-vectorlist"><span class="header-section-number">4.6.1</span> <strong>map() repeats a function over a vector/list</strong></h3>
+<section id="the-core-idea-of-mapping" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="the-core-idea-of-mapping"><span class="header-section-number">5.6</span> <strong>The core idea of mapping</strong></h2>
+<section id="map-repeats-a-function-over-a-vectorlist" class="level3" data-number="5.6.1">
+<h3 data-number="5.6.1" class="anchored" data-anchor-id="map-repeats-a-function-over-a-vectorlist"><span class="header-section-number">5.6.1</span> <strong>map() repeats a function over a vector/list</strong></h3>
 <p>purrr::map() takes:</p>
 <ul>
 <li><p>a vector/list of inputs (.x)</p></li>
@@ -480,8 +474,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Notice the output is a list, even though each element is just a number. This is on purpose: returning a list is the “safest” default, because in real work you might return complicated objects (models, data frames, plots…) and lists handle these diverse objects most effectively, and prevent errors from arising.</p>
 </section>
-<section id="the-anonymous-function-shorthand" class="level3" data-number="4.6.2">
-<h3 data-number="4.6.2" class="anchored" data-anchor-id="the-anonymous-function-shorthand"><span class="header-section-number">4.6.2</span> <strong>The anonymous-function shorthand: <code>~</code></strong></h3>
+<section id="the-anonymous-function-shorthand" class="level3" data-number="5.6.2">
+<h3 data-number="5.6.2" class="anchored" data-anchor-id="the-anonymous-function-shorthand"><span class="header-section-number">5.6.2</span> <strong>The anonymous-function shorthand: <code>~</code></strong></h3>
 <p>When you look at the example above, you might be wondering: what is the <strong><code>~</code></strong> symbol, and what is it doing? This is referred to as the <strong>anonymous-function (lambda) shorthand</strong> in {purrr} formula syntax. This lets you define a short function within the <code>map()</code> family of functions. In the case above, our function was “add 10 to the input”, where .x stands for the current input.</p>
 <p>More concretely, the two lines of code below are equivalent:</p>
 <p>Line 1:</p>
@@ -527,10 +521,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>You’ll see the ~ .x style constantly in tidyverse simulation code.</p>
 </section>
 </section>
-<section id="a-first-simulation-with-map" class="level2" data-number="4.7">
-<h2 data-number="4.7" class="anchored" data-anchor-id="a-first-simulation-with-map"><span class="header-section-number">4.7</span> <strong>A first simulation with map()</strong></h2>
-<section id="map-over-iterations" class="level3" data-number="4.7.1">
-<h3 data-number="4.7.1" class="anchored" data-anchor-id="map-over-iterations"><span class="header-section-number">4.7.1</span> <strong>Map over iterations</strong></h3>
+<section id="a-first-simulation-with-map" class="level2" data-number="5.7">
+<h2 data-number="5.7" class="anchored" data-anchor-id="a-first-simulation-with-map"><span class="header-section-number">5.7</span> <strong>A first simulation with map()</strong></h2>
+<section id="map-over-iterations" class="level3" data-number="5.7.1">
+<h3 data-number="5.7.1" class="anchored" data-anchor-id="map-over-iterations"><span class="header-section-number">5.7.1</span> <strong>Map over iterations</strong></h3>
 <p>Ideally, simulations need an iteration index, which tells us what “round” of the simulation a given set of outputs are part of. We can often define these iterations simply, like:</p>
 <div class="cell">
 <details open="" class="code-fold">
@@ -560,63 +554,63 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
 # A tibble: 1 × 1
-      p
-  &lt;dbl&gt;
-1 0.231
+       p
+   &lt;dbl&gt;
+1 0.0570
 
 [[2]]
 # A tibble: 1 × 1
        p
    &lt;dbl&gt;
-1 0.0258
+1 0.0620
 
 [[3]]
 # A tibble: 1 × 1
-         p
-     &lt;dbl&gt;
-1 0.000153
+        p
+    &lt;dbl&gt;
+1 0.00933
 
 [[4]]
 # A tibble: 1 × 1
-      p
-  &lt;dbl&gt;
-1 0.412
+       p
+   &lt;dbl&gt;
+1 0.0125
 
 [[5]]
 # A tibble: 1 × 1
-      p
-  &lt;dbl&gt;
-1 0.246
+         p
+     &lt;dbl&gt;
+1 0.000102
 
 [[6]]
 # A tibble: 1 × 1
       p
   &lt;dbl&gt;
-1 0.764
+1 0.315
 
 [[7]]
 # A tibble: 1 × 1
-       p
-   &lt;dbl&gt;
-1 0.0176
+        p
+    &lt;dbl&gt;
+1 0.00450
 
 [[8]]
 # A tibble: 1 × 1
-        p
-    &lt;dbl&gt;
-1 0.00490
+       p
+   &lt;dbl&gt;
+1 0.0420
 
 [[9]]
 # A tibble: 1 × 1
        p
    &lt;dbl&gt;
-1 0.0539
+1 0.0217
 
 [[10]]
 # A tibble: 1 × 1
-      p
-  &lt;dbl&gt;
-1 0.743</code></pre>
+        p
+    &lt;dbl&gt;
+1 0.00355</code></pre>
 </div>
 </div>
 <p>You should see a list of tibbles, each tibble containing one <em>p</em>-value.</p>
@@ -650,126 +644,126 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # A tibble: 1 × 1
        p
    &lt;dbl&gt;
-1 0.0612
+1 0.0718
 
 [[2]]
 # A tibble: 1 × 1
         p
     &lt;dbl&gt;
-1 0.00237
+1 0.00163
 
 [[3]]
 # A tibble: 1 × 1
-       p
-   &lt;dbl&gt;
-1 0.0155
+        p
+    &lt;dbl&gt;
+1 0.00203
 
 [[4]]
 # A tibble: 1 × 1
-       p
-   &lt;dbl&gt;
-1 0.0107
+          p
+      &lt;dbl&gt;
+1 0.0000585
 
 [[5]]
 # A tibble: 1 × 1
-            p
-        &lt;dbl&gt;
-1 0.000000339
+      p
+  &lt;dbl&gt;
+1 0.256
 
 [[6]]
 # A tibble: 1 × 1
-      p
-  &lt;dbl&gt;
-1 0.229
+        p
+    &lt;dbl&gt;
+1 0.00189
 
 [[7]]
 # A tibble: 1 × 1
-      p
-  &lt;dbl&gt;
-1 0.202
+          p
+      &lt;dbl&gt;
+1 0.0000623
 
 [[8]]
 # A tibble: 1 × 1
-        p
-    &lt;dbl&gt;
-1 0.00458
+          p
+      &lt;dbl&gt;
+1 0.0000755
 
 [[9]]
 # A tibble: 1 × 1
        p
    &lt;dbl&gt;
-1 0.0991
+1 0.0728
 
 [[10]]
 # A tibble: 1 × 1
-      p
-  &lt;dbl&gt;
-1 0.134
+          p
+      &lt;dbl&gt;
+1 0.0000356
 
 [[11]]
-# A tibble: 1 × 1
-       p
-   &lt;dbl&gt;
-1 0.0313
-
-[[12]]
-# A tibble: 1 × 1
-       p
-   &lt;dbl&gt;
-1 0.0539
-
-[[13]]
-# A tibble: 1 × 1
-        p
-    &lt;dbl&gt;
-1 0.00241
-
-[[14]]
-# A tibble: 1 × 1
-         p
-     &lt;dbl&gt;
-1 0.000752
-
-[[15]]
 # A tibble: 1 × 1
       p
   &lt;dbl&gt;
 1 0.173
 
+[[12]]
+# A tibble: 1 × 1
+      p
+  &lt;dbl&gt;
+1 0.817
+
+[[13]]
+# A tibble: 1 × 1
+       p
+   &lt;dbl&gt;
+1 0.0807
+
+[[14]]
+# A tibble: 1 × 1
+      p
+  &lt;dbl&gt;
+1 0.132
+
+[[15]]
+# A tibble: 1 × 1
+        p
+    &lt;dbl&gt;
+1 0.00868
+
 [[16]]
 # A tibble: 1 × 1
       p
   &lt;dbl&gt;
-1 0.165
+1 0.181
 
 [[17]]
 # A tibble: 1 × 1
-          p
-      &lt;dbl&gt;
-1 0.0000180
+       p
+   &lt;dbl&gt;
+1 0.0431
 
 [[18]]
 # A tibble: 1 × 1
-       p
-   &lt;dbl&gt;
-1 0.0207
+      p
+  &lt;dbl&gt;
+1 0.193
 
 [[19]]
 # A tibble: 1 × 1
-      p
-  &lt;dbl&gt;
-1 0.324
+       p
+   &lt;dbl&gt;
+1 0.0214
 
 [[20]]
 # A tibble: 1 × 1
        p
    &lt;dbl&gt;
-1 0.0122</code></pre>
+1 0.0249</code></pre>
 </div>
 </div>
 </section>
-<section id="extract-one-element" class="level3" data-number="4.7.2">
-<h3 data-number="4.7.2" class="anchored" data-anchor-id="extract-one-element"><span class="header-section-number">4.7.2</span> <strong>Extract one element</strong></h3>
+<section id="extract-one-element" class="level3" data-number="5.7.2">
+<h3 data-number="5.7.2" class="anchored" data-anchor-id="extract-one-element"><span class="header-section-number">5.7.2</span> <strong>Extract one element</strong></h3>
 <p>Elements from the list output of <code>map()</code> are accessed with [[ ]]. For example, if we want the output of the first iteration, we can do this:</p>
 <div class="cell">
 <details open="" class="code-fold">
@@ -780,13 +774,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 1 × 1
        p
    &lt;dbl&gt;
-1 0.0612</code></pre>
+1 0.0718</code></pre>
 </div>
 </div>
 </section>
 </section>
-<section id="turning-a-list-into-a-tidy-tibble" class="level2" data-number="4.8">
-<h2 data-number="4.8" class="anchored" data-anchor-id="turning-a-list-into-a-tidy-tibble"><span class="header-section-number">4.8</span> <strong>Turning a list into a tidy tibble</strong></h2>
+<section id="turning-a-list-into-a-tidy-tibble" class="level2" data-number="5.8">
+<h2 data-number="5.8" class="anchored" data-anchor-id="turning-a-list-into-a-tidy-tibble"><span class="header-section-number">5.8</span> <strong>Turning a list into a tidy tibble</strong></h2>
 <p>Even though lists are helpful for preventing errors, we ideally would prefer the output to be in a tidy format, like a dataframe or a tibble, since this is easier to work with later. To get this type of tidier output, we can use the <code>map_dfr()</code> function, which returns dataframes as output instead of lists.</p>
 <p>If each iteration returns a tibble with the same columns (in our case, a single column called p), map_dfr() will map and then bind the outputs together into a single dataframe.</p>
 <div class="cell">
@@ -806,33 +800,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 20 × 1
-             p
-         &lt;dbl&gt;
- 1 0.0922     
- 2 0.0373     
- 3 0.0118     
- 4 0.0000750  
- 5 0.00846    
- 6 0.0107     
- 7 0.000850   
- 8 0.0114     
- 9 0.276      
-10 0.00920    
-11 0.00206    
-12 0.0638     
-13 0.0451     
-14 0.148      
-15 0.262      
-16 0.0000136  
-17 0.0127     
-18 0.0654     
-19 0.0817     
-20 0.000000195</code></pre>
+          p
+      &lt;dbl&gt;
+ 1 0.0707  
+ 2 0.203   
+ 3 0.0397  
+ 4 0.553   
+ 5 0.000833
+ 6 0.0525  
+ 7 0.0323  
+ 8 0.00301 
+ 9 0.000318
+10 0.0165  
+11 0.100   
+12 0.0138  
+13 0.0700  
+14 0.201   
+15 0.241   
+16 0.000115
+17 0.0179  
+18 0.0383  
+19 0.0728  
+20 0.120   </code></pre>
 </div>
 </div>
 <p>As you can see, now simulation_results is a single tibble, not a list.</p>
-<section id="add-the-iteration-number" class="level3" data-number="4.8.1">
-<h3 data-number="4.8.1" class="anchored" data-anchor-id="add-the-iteration-number"><span class="header-section-number">4.8.1</span> <strong>Add the iteration number</strong></h3>
+<section id="add-the-iteration-number" class="level3" data-number="5.8.1">
+<h3 data-number="5.8.1" class="anchored" data-anchor-id="add-the-iteration-number"><span class="header-section-number">5.8.1</span> <strong>Add the iteration number</strong></h3>
 <p>When we look at the nice output above from <code>map_dfr</code>, we’re missing one important piece of information: the iteration number! As we said above, we ideally want to keep this number so we know what result belongs to what step of the simulation.</p>
 <p>We can do this by going back to the original <code>map()</code> function with some small additions. Specifically:</p>
 <ol type="1">
@@ -934,39 +928,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 20 × 2
-   iteration           p
-       &lt;int&gt;       &lt;dbl&gt;
- 1         1 0.0000625  
- 2         2 0.414      
- 3         3 0.00514    
- 4         4 0.643      
- 5         5 0.0398     
- 6         6 0.0202     
- 7         7 0.332      
- 8         8 0.00137    
- 9         9 0.00249    
-10        10 0.0197     
-11        11 0.00107    
-12        12 0.0253     
-13        13 0.0139     
-14        14 0.287      
-15        15 0.0182     
-16        16 0.0000647  
-17        17 0.000000308
-18        18 0.00265    
-19        19 0.00108    
-20        20 0.0162     </code></pre>
+   iteration         p
+       &lt;int&gt;     &lt;dbl&gt;
+ 1         1 0.202    
+ 2         2 0.173    
+ 3         3 0.0184   
+ 4         4 0.188    
+ 5         5 0.446    
+ 6         6 0.0371   
+ 7         7 0.00176  
+ 8         8 0.194    
+ 9         9 0.0451   
+10        10 0.00222  
+11        11 0.0472   
+12        12 0.0101   
+13        13 0.00283  
+14        14 0.000486 
+15        15 0.0911   
+16        16 0.0000376
+17        17 0.0858   
+18        18 0.0234   
+19        19 0.000103 
+20        20 0.00148  </code></pre>
 </div>
 </div>
 <p>This “make a tibble, map into a list-column, then unnest()” pattern is one of the most fundamental and important ways to do tidy simulation.</p>
 </section>
 </section>
-<section id="another-map_-variant" class="level2" data-number="4.9">
-<h2 data-number="4.9" class="anchored" data-anchor-id="another-map_-variant"><span class="header-section-number">4.9</span> <strong>Another map_*() variant</strong></h2>
+<section id="another-map_-variant" class="level2" data-number="5.9">
+<h2 data-number="5.9" class="anchored" data-anchor-id="another-map_-variant"><span class="header-section-number">5.9</span> <strong>Another map_*() variant</strong></h2>
 <p>There are several different variants of the <code>map()</code> function. You already saw one above: the <code>map_dfr()</code> function, which gave a dataframe as output instead of the list output that <code>map()</code> gives. The other <code>map_*()</code> variants follow a similar pattern - they change the type of output that comes from the <code>map_*()</code> function.</p>
 <p>For example, imagine you want one number per iteration, rather than a dataframe or list. You might want a numeric vector of <em>p</em>-values. In this case, we could use <code>map_dbl()</code>.</p>
-<section id="map_dbl-returns-a-numeric-vector" class="level3" data-number="4.9.1">
-<h3 data-number="4.9.1" class="anchored" data-anchor-id="map_dbl-returns-a-numeric-vector"><span class="header-section-number">4.9.1</span> <strong><code>map_dbl()</code> returns a numeric vector</strong></h3>
+<section id="map_dbl-returns-a-numeric-vector" class="level3" data-number="5.9.1">
+<h3 data-number="5.9.1" class="anchored" data-anchor-id="map_dbl-returns-a-numeric-vector"><span class="header-section-number">5.9.1</span> <strong><code>map_dbl()</code> returns a numeric vector</strong></h3>
 <p>To use map_dbl(), your function must return <strong>one numeric value</strong>.</p>
 <div class="cell">
 <details open="" class="code-fold">
@@ -986,8 +980,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>p_values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 0.0002513181 0.0065888084 0.0134637455 0.0085340458 0.0306513560
- [6] 0.1920694941 0.1218636978 0.0595580648 0.0015733501 0.0144224000</code></pre>
+<pre><code> [1] 7.083380e-04 9.343203e-05 1.468590e-01 1.885819e-02 6.766519e-02
+ [6] 1.598654e-02 3.453804e-02 6.824330e-02 3.197697e-03 7.659672e-02</code></pre>
 </div>
 </div>
 <p>Now p_values is a plain numeric vector. With this vector, we can do a quick summary, like look at the proportion of p-values less than 0.05:</p>
@@ -997,14 +991,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p_values <span class="sc">&lt;</span> .<span class="dv">05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.7</code></pre>
+<pre><code>[1] 0.6</code></pre>
 </div>
 </div>
 <p>That number is an estimate of our statistical power under these parameter settings (with potentially lots of error because we only used 10 iterations). Try increasing to iterations &lt;- 1:1000 and rerun.</p>
 </section>
 </section>
-<section id="null-vs-alternative-using-mapping" class="level2" data-number="4.10">
-<h2 data-number="4.10" class="anchored" data-anchor-id="null-vs-alternative-using-mapping"><span class="header-section-number">4.10</span> <strong>Null vs alternative using mapping</strong></h2>
+<section id="null-vs-alternative-using-mapping" class="level2" data-number="5.10">
+<h2 data-number="5.10" class="anchored" data-anchor-id="null-vs-alternative-using-mapping"><span class="header-section-number">5.10</span> <strong>Null vs alternative using mapping</strong></h2>
 <p>Let’s recreate the “distribution of <em>p</em>-values under null vs alternative” simulations, but now using what we’ve learned from the <code>map()</code> functions.</p>
 <p>Let’s say we want to simulate two conditions:</p>
 <ul>
@@ -1071,14 +1065,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 2
-  iteration      p
-      &lt;int&gt;  &lt;dbl&gt;
-1         1 0.0762
-2         2 0.608 
-3         3 0.415 
-4         4 0.0763
-5         5 0.383 
-6         6 0.431 </code></pre>
+  iteration     p
+      &lt;int&gt; &lt;dbl&gt;
+1         1 0.231
+2         2 0.249
+3         3 0.398
+4         4 0.766
+5         5 0.433
+6         6 0.384</code></pre>
 </div>
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -1086,14 +1080,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 2
-  iteration     p
-      &lt;int&gt; &lt;dbl&gt;
-1         1 0.846
-2         2 0.483
-3         3 0.238
-4         4 0.255
-5         5 0.145
-6         6 0.315</code></pre>
+  iteration      p
+      &lt;int&gt;  &lt;dbl&gt;
+1         1 0.837 
+2         2 0.0662
+3         3 0.317 
+4         4 0.732 
+5         5 0.0468
+6         6 0.603 </code></pre>
 </div>
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -1101,14 +1095,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 2
-  iteration     p
-      &lt;int&gt; &lt;dbl&gt;
-1         1 0.742
-2         2 0.141
-3         3 0.158
-4         4 0.203
-5         5 0.676
-6         6 0.116</code></pre>
+  iteration       p
+      &lt;int&gt;   &lt;dbl&gt;
+1         1 0.0179 
+2         2 0.00784
+3         3 0.204  
+4         4 0.144  
+5         5 0.0329 
+6         6 0.0419 </code></pre>
 </div>
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -1116,20 +1110,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 2
-  iteration       p
-      &lt;int&gt;   &lt;dbl&gt;
-1         1 0.108  
-2         2 0.107  
-3         3 0.111  
-4         4 0.106  
-5         5 0.182  
-6         6 0.00868</code></pre>
+  iteration        p
+      &lt;int&gt;    &lt;dbl&gt;
+1         1 0.000298
+2         2 0.0505  
+3         3 0.146   
+4         4 0.0604  
+5         5 0.00710 
+6         6 0.0928  </code></pre>
 </div>
 </div>
 <p>As you can see, this involves some impractical copy-pasting, which (as we discussed previously) we want to avoid.</p>
 <p>Our issue is that we have two different parameters (n_per_condition, mean_intervention) that we want to change. To achieve this, we cannot use <code>map()</code>, because <code>map()</code> can only handle one parameter changing at a time. Instead, we need a <code>map()</code> function that <em>can handle two inputs at once</em>. Fortunately, <code>map2()</code> was made for exactly this purpose! There also exist similar extensions for <code>map2_*()</code> as there are for <code>map_*()</code>, for example <code>map2_dfr()</code> and <code>map2_dbl()</code>: these behave identically to their <code>map_*()</code> equivalents, but just take two inputs instead of one.</p>
-<section id="use-map2-to-map-multple-parameters-at-once" class="level3" data-number="4.10.1">
-<h3 data-number="4.10.1" class="anchored" data-anchor-id="use-map2-to-map-multple-parameters-at-once"><span class="header-section-number">4.10.1</span> <strong>Use <code>map2()</code> to map multple parameters at once</strong></h3>
+<section id="use-map2-to-map-multple-parameters-at-once" class="level3" data-number="5.10.1">
+<h3 data-number="5.10.1" class="anchored" data-anchor-id="use-map2-to-map-multple-parameters-at-once"><span class="header-section-number">5.10.1</span> <strong>Use <code>map2()</code> to map multple parameters at once</strong></h3>
 <p>Let’s first define our experiment parameters in a dataframe:</p>
 <div class="cell">
 <details open="" class="code-fold">
@@ -1210,8 +1204,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="plot-distribution-of-p-values-for-both-conditions" class="level3" data-number="4.10.2">
-<h3 data-number="4.10.2" class="anchored" data-anchor-id="plot-distribution-of-p-values-for-both-conditions"><span class="header-section-number">4.10.2</span> Plot distribution of p-values for both conditions</h3>
+<section id="plot-distribution-of-p-values-for-both-conditions" class="level3" data-number="5.10.2">
+<h3 data-number="5.10.2" class="anchored" data-anchor-id="plot-distribution-of-p-values-for-both-conditions"><span class="header-section-number">5.10.2</span> Plot distribution of p-values for both conditions</h3>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -1232,8 +1226,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The left panel shows the distribution of p-values from our simulations when mean_intervention = 0; the right panel shows the distribution of p-values from our simulations when mean_intervention = 0.5.</p>
 </section>
 </section>
-<section id="creating-parameter-grids-more-effectively-expand_grid" class="level2" data-number="4.11">
-<h2 data-number="4.11" class="anchored" data-anchor-id="creating-parameter-grids-more-effectively-expand_grid"><span class="header-section-number">4.11</span> <strong>Creating parameter grids more effectively:</strong> <code>expand_grid()</code></h2>
+<section id="creating-parameter-grids-more-effectively-expand_grid" class="level2" data-number="5.11">
+<h2 data-number="5.11" class="anchored" data-anchor-id="creating-parameter-grids-more-effectively-expand_grid"><span class="header-section-number">5.11</span> <strong>Creating parameter grids more effectively:</strong> <code>expand_grid()</code></h2>
 <p>In the example above, you will recall we constructed our parameter grid like this:</p>
 <div class="cell">
 <details open="" class="code-fold">
@@ -1264,8 +1258,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p><code>expand_grid()</code> greatly simplifies the process of specifying parameters for our simulations.</p>
 </section>
-<section id="mapping-with-multiple-inputs-pmap" class="level2" data-number="4.12">
-<h2 data-number="4.12" class="anchored" data-anchor-id="mapping-with-multiple-inputs-pmap"><span class="header-section-number">4.12</span> <strong>Mapping with multiple inputs: <code>pmap()</code></strong></h2>
+<section id="mapping-with-multiple-inputs-pmap" class="level2" data-number="5.12">
+<h2 data-number="5.12" class="anchored" data-anchor-id="mapping-with-multiple-inputs-pmap"><span class="header-section-number">5.12</span> <strong>Mapping with multiple inputs: <code>pmap()</code></strong></h2>
 <p>Above, we used <code>map2()</code> to map two inputs into a simulation. But there will be many cases where we want to map many different inputs at once - not just one or two.</p>
 <p>For example: maybe we want to vary all values of n_per_condition, mean_control, mean_intervention, and sd. We could use the combination of <code>expand_grid()</code> and <code>pmap()</code> to achieve this.</p>
 <p>With <code>pmap()</code>, we supply all of the parameters as a list to the .l argument, and our function (<code>generate_data()</code>) to the .f argument. We’ll use the same approach as we used previously: run <code>pmap()</code> within a <code>mutate()</code> call, then <code>map()</code> the result onto <code>analyze()</code>, then call <code>unnest()</code> on the results.</p>
@@ -1312,8 +1306,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="pmap-for-parameter-sweeps" class="level2" data-number="4.13">
-<h2 data-number="4.13" class="anchored" data-anchor-id="pmap-for-parameter-sweeps"><span class="header-section-number">4.13</span> <strong><code>pmap()</code> for parameter sweeps</strong></h2>
+<section id="pmap-for-parameter-sweeps" class="level2" data-number="5.13">
+<h2 data-number="5.13" class="anchored" data-anchor-id="pmap-for-parameter-sweeps"><span class="header-section-number">5.13</span> <strong><code>pmap()</code> for parameter sweeps</strong></h2>
 <p>This is the most common simulation pattern in this course:</p>
 <ol type="1">
 <li><p>Make a parameter grid (<code>expand_grid()</code>)</p></li>
@@ -1321,8 +1315,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Summarize results grouped by the manipulated parameters</p></li>
 </ol>
 <p>Here’s another example: statistical power as a function of sample size and effect size.</p>
-<section id="specify-the-parameter-grid" class="level3" data-number="4.13.1">
-<h3 data-number="4.13.1" class="anchored" data-anchor-id="specify-the-parameter-grid"><span class="header-section-number">4.13.1</span> Specify the parameter grid</h3>
+<section id="specify-the-parameter-grid" class="level3" data-number="5.13.1">
+<h3 data-number="5.13.1" class="anchored" data-anchor-id="specify-the-parameter-grid"><span class="header-section-number">5.13.1</span> Specify the parameter grid</h3>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -1356,8 +1350,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="run-the-simulations" class="level3" data-number="4.13.2">
-<h3 data-number="4.13.2" class="anchored" data-anchor-id="run-the-simulations"><span class="header-section-number">4.13.2</span> Run the simulations</h3>
+<section id="run-the-simulations" class="level3" data-number="5.13.2">
+<h3 data-number="5.13.2" class="anchored" data-anchor-id="run-the-simulations"><span class="header-section-number">5.13.2</span> Run the simulations</h3>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -1391,8 +1385,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="get-results-per-parameter-combination" class="level3" data-number="4.13.3">
-<h3 data-number="4.13.3" class="anchored" data-anchor-id="get-results-per-parameter-combination"><span class="header-section-number">4.13.3</span> Get results per parameter combination</h3>
+<section id="get-results-per-parameter-combination" class="level3" data-number="5.13.3">
+<h3 data-number="5.13.3" class="anchored" data-anchor-id="get-results-per-parameter-combination"><span class="header-section-number">5.13.3</span> Get results per parameter combination</h3>
 <p>Finally, we can <code>group_by()</code> the different parameters we manipulated (n_per_condition, mean_intervention) and <code>summarise()</code> the proportion of significant p-values in each case:</p>
 <div class="cell">
 <details open="" class="code-fold">
@@ -1421,8 +1415,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 </section>
-<section id="nested-data-frames-list-columns-are-useful" class="level2" data-number="4.14">
-<h2 data-number="4.14" class="anchored" data-anchor-id="nested-data-frames-list-columns-are-useful"><span class="header-section-number">4.14</span> <strong>Nested data frames (list-columns) are useful</strong></h2>
+<section id="nested-data-frames-list-columns-are-useful" class="level2" data-number="5.14">
+<h2 data-number="5.14" class="anchored" data-anchor-id="nested-data-frames-list-columns-are-useful"><span class="header-section-number">5.14</span> <strong>Nested data frames (list-columns) are useful</strong></h2>
 <p>When you map a function that returns a data frame, you get a list-column where each cell contains a data frame.</p>
 <p>This is extremely useful because it keeps your workflow tidy:</p>
 <ul>
@@ -1436,8 +1430,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>being comfortable with unnest() when you want to “flatten” results</p></li>
 </ul>
 </section>
-<section id="parallel-mapping-with-furrr" class="level2" data-number="4.15">
-<h2 data-number="4.15" class="anchored" data-anchor-id="parallel-mapping-with-furrr"><span class="header-section-number">4.15</span> <strong>Parallel mapping with {furrr}</strong></h2>
+<section id="parallel-mapping-with-furrr" class="level2" data-number="5.15">
+<h2 data-number="5.15" class="anchored" data-anchor-id="parallel-mapping-with-furrr"><span class="header-section-number">5.15</span> <strong>Parallel mapping with {furrr}</strong></h2>
 <p>With the <code>map()</code> family of functions we have discussed in this chapter, simulations are run <em>in sequence</em>. For example, if we are running 100 iterations, this means that iteration 1 is run first; then iteration 2 is run; then iteration 3; etc.</p>
 <p>When you’re doing hundreds of thousands, millions, (or billions!) of iterations, running simulations in sequence can take a long time. In such cases, we ideally would run many of the simulations <em>in parallel</em> to speed things up (e.g., running the first 5 iterations at once; then the next 5; etc.). This is called parallelisation, and it can dramatically speed up simulations.</p>
 <p>The package for running parallelised simulations is called {furrr}. {furrr} has versions of the <code>map()</code> functions that mirror those in {purrr}:</p>
@@ -1482,8 +1476,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="summary" class="level2" data-number="4.16">
-<h2 data-number="4.16" class="anchored" data-anchor-id="summary"><span class="header-section-number">4.16</span> <strong>Summary</strong></h2>
+<section id="summary" class="level2" data-number="5.16">
+<h2 data-number="5.16" class="anchored" data-anchor-id="summary"><span class="header-section-number">5.16</span> <strong>Summary</strong></h2>
 <p>You now have the core “engine” for simulation in tidyverse form:</p>
 <ul>
 <li><p><code>expand_grid()</code> creates the experiment</p></li>
@@ -1494,33 +1488,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p><code>future_*()</code> variants can make big simulations faster</p></li>
 </ul>
 </section>
-<section id="exercises" class="level2" data-number="4.17">
-<h2 data-number="4.17" class="anchored" data-anchor-id="exercises"><span class="header-section-number">4.17</span> <strong>Exercises</strong></h2>
-<section id="warm-up-map-a-simple-function" class="level3" data-number="4.17.1">
-<h3 data-number="4.17.1" class="anchored" data-anchor-id="warm-up-map-a-simple-function"><span class="header-section-number">4.17.1</span> <strong>Warm-up: map a simple function</strong></h3>
+<section id="exercises" class="level2" data-number="5.17">
+<h2 data-number="5.17" class="anchored" data-anchor-id="exercises"><span class="header-section-number">5.17</span> <strong>Exercises</strong></h2>
+<section id="warm-up-map-a-simple-function" class="level3" data-number="5.17.1">
+<h3 data-number="5.17.1" class="anchored" data-anchor-id="warm-up-map-a-simple-function"><span class="header-section-number">5.17.1</span> <strong>Warm-up: map a simple function</strong></h3>
 <ol type="1">
 <li><p>Create iterations &lt;- 1:20.</p></li>
 <li><p>Use map() to compute sqrt() of each iteration.</p></li>
 <li><p>What type of object does map() return?</p></li>
 </ol>
 </section>
-<section id="map-a-simulation-200-times" class="level3" data-number="4.17.2">
-<h3 data-number="4.17.2" class="anchored" data-anchor-id="map-a-simulation-200-times"><span class="header-section-number">4.17.2</span> <strong>Map a simulation 200 times</strong></h3>
+<section id="map-a-simulation-200-times" class="level3" data-number="5.17.2">
+<h3 data-number="5.17.2" class="anchored" data-anchor-id="map-a-simulation-200-times"><span class="header-section-number">5.17.2</span> <strong>Map a simulation 200 times</strong></h3>
 <ol type="1">
 <li><p>Set iterations &lt;- 1:200.</p></li>
 <li><p>Use map_dfr() to run generate_data(…) |&gt; analyze() 200 times.</p></li>
 <li><p>Compute the proportion of p &lt; .05.</p></li>
 </ol>
 </section>
-<section id="extract-a-numeric-vector-of-p-values" class="level3" data-number="4.17.3">
-<h3 data-number="4.17.3" class="anchored" data-anchor-id="extract-a-numeric-vector-of-p-values"><span class="header-section-number">4.17.3</span> <strong>Extract a numeric vector of p-values</strong></h3>
+<section id="extract-a-numeric-vector-of-p-values" class="level3" data-number="5.17.3">
+<h3 data-number="5.17.3" class="anchored" data-anchor-id="extract-a-numeric-vector-of-p-values"><span class="header-section-number">5.17.3</span> <strong>Extract a numeric vector of p-values</strong></h3>
 <ol type="1">
 <li><p>Repeat the last exercise, but use map_dbl() to return a numeric vector.</p></li>
 <li><p>Plot a histogram of the p-values.</p></li>
 </ol>
 </section>
-<section id="make-a-tiny-experiment-with-expand_grid-pmap" class="level3" data-number="4.17.4">
-<h3 data-number="4.17.4" class="anchored" data-anchor-id="make-a-tiny-experiment-with-expand_grid-pmap"><span class="header-section-number">4.17.4</span> <strong>Make a tiny experiment with expand_grid() + pmap()</strong></h3>
+<section id="make-a-tiny-experiment-with-expand_grid-pmap" class="level3" data-number="5.17.4">
+<h3 data-number="5.17.4" class="anchored" data-anchor-id="make-a-tiny-experiment-with-expand_grid-pmap"><span class="header-section-number">5.17.4</span> <strong>Make a tiny experiment with expand_grid() + pmap()</strong></h3>
 <ol type="1">
 <li><p>Use expand_grid() to create an experiment with:</p>
 <ul>
@@ -1534,8 +1528,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Plot the distribution of p-values and estimate power for each condition (one number per effect size).</p></li>
 </ol>
 </section>
-<section id="optional-parallelize" class="level3" data-number="4.17.5">
-<h3 data-number="4.17.5" class="anchored" data-anchor-id="optional-parallelize"><span class="header-section-number">4.17.5</span> <strong>(Optional) Parallelize</strong></h3>
+<section id="optional-parallelize" class="level3" data-number="5.17.5">
+<h3 data-number="5.17.5" class="anchored" data-anchor-id="optional-parallelize"><span class="header-section-number">5.17.5</span> <strong>(Optional) Parallelize</strong></h3>
 <ol type="1">
 <li><p>Replace your <code>pmap()</code> call with <code>future_pmap()</code>.</p></li>
 <li><p>Does it run faster?</p></li>
@@ -2001,13 +1995,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/writing_functions.html" class="pagination-link" aria-label="Practice writing R functions">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Practice writing R functions</span></span>
+      <a href="../chapters/designing_simulation_experiments.html" class="pagination-link" aria-label="chapter4_creating_simulation_experiments">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">chapter4_creating_simulation_experiments</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/general_structure_of_a_simulation_1.html" class="pagination-link" aria-label="General structure of a simulation study">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">General structure of a simulation study</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/violating_assumptions.html" class="pagination-link" aria-label="Assessing the impact of violating the assumption of normality">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">

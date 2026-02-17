@@ -1,0 +1,1923 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.33">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jamie Cummins">
+
+<title>3&nbsp; chapter4_creating_simulation_experiments – Improving your statistical inferences through Monte Carlo simulations</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../chapters/mapping_functions.html" rel="next">
+<link href="../chapters/writing_functions.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/designing_simulation_experiments.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">chapter4_creating_simulation_experiments</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Improving your statistical inferences through Monte Carlo simulations</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/foundational_concepts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Foundation concepts</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/writing_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Practice writing R functions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/designing_simulation_experiments.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">chapter4_creating_simulation_experiments</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/mapping_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">map functions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/violating_assumptions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/testing_assumptions_and_conditional_tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of (non-)parameteric tests”</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/p_hacking.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/p_values_and_confidence_intervals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Understanding the link between p-values, Confidence Intervals, and power</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/difference_between_signfiicant_and_nonsignificant.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The differences between significant and non-significant is not itself significant</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/standardized_effect_sizes_and_range_restriction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Standardized effect sizes and range restriction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/impact_of_lazy_responding_assignment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">The impact of one form of lazy/careless responding on the power and false positive rate of a Student’s t-test</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/meta_analysis_and_publication_bias.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Meta-analysis and publication bias</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/causality.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Regression assumes causality</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/license.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#designing-simulation-experiments" id="toc-designing-simulation-experiments" class="nav-link active" data-scroll-target="#designing-simulation-experiments"><span class="header-section-number">4</span> Designing Simulation Experiments</a>
+  <ul class="collapse">
+  <li><a href="#dependencies" id="toc-dependencies" class="nav-link" data-scroll-target="#dependencies"><span class="header-section-number">4.1</span> Dependencies</a></li>
+  <li><a href="#varying-experiment-parameters-manually" id="toc-varying-experiment-parameters-manually" class="nav-link" data-scroll-target="#varying-experiment-parameters-manually"><span class="header-section-number">4.2</span> Varying experiment parameters manually</a></li>
+  <li><a href="#varying-experiment-parameters-using-parameter-grids" id="toc-varying-experiment-parameters-using-parameter-grids" class="nav-link" data-scroll-target="#varying-experiment-parameters-using-parameter-grids"><span class="header-section-number">4.3</span> Varying experiment parameters using parameter grids</a></li>
+  <li><a href="#creating-parameter-grids-more-efficiently-expand_grid" id="toc-creating-parameter-grids-more-efficiently-expand_grid" class="nav-link" data-scroll-target="#creating-parameter-grids-more-efficiently-expand_grid"><span class="header-section-number">4.4</span> <strong>Creating parameter grids more efficiently:</strong> <code>expand_grid()</code></a></li>
+  <li><a href="#sanity-checking-your-parameter-grid" id="toc-sanity-checking-your-parameter-grid" class="nav-link" data-scroll-target="#sanity-checking-your-parameter-grid"><span class="header-section-number">4.5</span> Sanity checking your parameter grid</a></li>
+  <li><a href="#types-of-simulation-designs" id="toc-types-of-simulation-designs" class="nav-link" data-scroll-target="#types-of-simulation-designs"><span class="header-section-number">4.6</span> Types of Simulation Designs</a>
+  <ul class="collapse">
+  <li><a href="#fully-crossed-designs" id="toc-fully-crossed-designs" class="nav-link" data-scroll-target="#fully-crossed-designs"><span class="header-section-number">4.6.1</span> Fully crossed designs</a></li>
+  <li><a href="#non-fully-crossed-designs" id="toc-non-fully-crossed-designs" class="nav-link" data-scroll-target="#non-fully-crossed-designs"><span class="header-section-number">4.6.2</span> Non-fully-crossed designs</a></li>
+  </ul></li>
+  <li><a href="#designs-with-dependencies" id="toc-designs-with-dependencies" class="nav-link" data-scroll-target="#designs-with-dependencies"><span class="header-section-number">4.7</span> Designs with dependencies</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">4.8</span> Summary</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">4.9</span> Exercises</a>
+  <ul class="collapse">
+  <li><a href="#exercise-1-basic-parameter-grid" id="toc-exercise-1-basic-parameter-grid" class="nav-link" data-scroll-target="#exercise-1-basic-parameter-grid"><span class="header-section-number">4.9.1</span> Exercise 1: Basic parameter grid</a></li>
+  <li><a href="#exercise-2-filtering-implausible-combinations" id="toc-exercise-2-filtering-implausible-combinations" class="nav-link" data-scroll-target="#exercise-2-filtering-implausible-combinations"><span class="header-section-number">4.9.2</span> Exercise 2: Filtering implausible combinations</a></li>
+  <li><a href="#exercise-3-dependent-parameters-with-mutate" id="toc-exercise-3-dependent-parameters-with-mutate" class="nav-link" data-scroll-target="#exercise-3-dependent-parameters-with-mutate"><span class="header-section-number">4.9.3</span> Exercise 3: Dependent parameters with <code>mutate()</code></a></li>
+  <li><a href="#exercise-4-choosing-the-right-design" id="toc-exercise-4-choosing-the-right-design" class="nav-link" data-scroll-target="#exercise-4-choosing-the-right-design"><span class="header-section-number">4.9.4</span> Exercise 4: Choosing the right design</a></li>
+  <li><a href="#exercise-5-build-your-own-simulation-design" id="toc-exercise-5-build-your-own-simulation-design" class="nav-link" data-scroll-target="#exercise-5-build-your-own-simulation-design"><span class="header-section-number">4.9.5</span> Exercise 5: Build your own simulation design</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">chapter4_creating_simulation_experiments</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jamie Cummins </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="designing-simulation-experiments" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Designing Simulation Experiments</h1>
+<section id="dependencies" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="dependencies"><span class="header-section-number">4.1</span> Dependencies</h2>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>In our earlier chapter, you saw examples of generating data, and specifying different parameter values in doing so. This is at the core of simulation: generating data with different parameter values, running the process lots of times, and summarising across each set of parameter values. But how do we actually create these many types of parameter values? Or, in other words: how do we actually design simulation experiments?</p>
+</section>
+<section id="varying-experiment-parameters-manually" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="varying-experiment-parameters-manually"><span class="header-section-number">4.2</span> Varying experiment parameters manually</h2>
+<p>The way that we ideally design simulation experiments is through the use of a parameter grid. This is, basically, a dataframe or tibble that specifies all of the variations of our simulations that we would want to run. For example, imagine we want to use our <code>generate_data()</code> and <code>analyze()</code> functions from the previous lessons to analyse data from two groups and get the p-value. Remember:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>generate_data <span class="ot">&lt;-</span> <span class="cf">function</span>(n_per_condition,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                          mean_control,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                          mean_intervention,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                          sd) {</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  data_control <span class="ot">&lt;-</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(<span class="at">condition =</span> <span class="st">"control"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">score =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> n_per_condition, <span class="at">mean =</span> mean_control, <span class="at">sd =</span> sd))</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  data_intervention <span class="ot">&lt;-</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(<span class="at">condition =</span> <span class="st">"intervention"</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>           <span class="at">score =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> n_per_condition, <span class="at">mean =</span> mean_intervention, <span class="at">sd =</span> sd))</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  data_combined <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(data_control, data_intervention)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(data_combined)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>analyze <span class="ot">&lt;-</span> <span class="cf">function</span>(data) {</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  res_t_test <span class="ot">&lt;-</span> <span class="fu">t.test</span>(<span class="at">formula =</span> score <span class="sc">~</span> condition,</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data =</span> data,</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>                       <span class="at">var.equal =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>                       <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  res <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">p =</span> res_t_test<span class="sc">$</span>p.value)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(res)</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Now, let’s suppose we want to generate data for when n_per_condition is either 30 or 50, and where mean_intervention is either 0.3 or 0.5 (in all cases, we want mean_control = 0 and sd = 1). We could do this by just typing out each simulation, like:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># n = 30, mean = .3</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">generate_data</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_per_condition =</span> <span class="dv">30</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_control =</span> <span class="dv">0</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_intervention =</span> .<span class="dv">3</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="dv">1</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">analyze</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+      p
+  &lt;dbl&gt;
+1 0.564</code></pre>
+</div>
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># n = 50, mean = .3</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">generate_data</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_per_condition =</span> <span class="dv">30</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_control =</span> <span class="dv">0</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_intervention =</span> .<span class="dv">3</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="dv">1</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">analyze</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+      p
+  &lt;dbl&gt;
+1 0.113</code></pre>
+</div>
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># n = 30, mean = .5</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">generate_data</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_per_condition =</span> <span class="dv">30</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_control =</span> <span class="dv">0</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_intervention =</span> .<span class="dv">3</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="dv">1</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">analyze</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+      p
+  &lt;dbl&gt;
+1 0.167</code></pre>
+</div>
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># n = 50, mean = .5</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">generate_data</span>(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_per_condition =</span> <span class="dv">30</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_control =</span> <span class="dv">0</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_intervention =</span> .<span class="dv">3</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="dv">1</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">analyze</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+      p
+  &lt;dbl&gt;
+1 0.157</code></pre>
+</div>
+</div>
+<p>Clearly this works, but the problem is pretty obvious: if we want to repeat these processes lots of times, or look at lots of different parameter combinations, then this will involve <em>a lot</em> of copy-pasting! This is not ideal. We will cover how to more efficiently “repeat the process lots of times” in the next lesson. But for now, let’s focus on how to look at lots of different parameter combinations more efficiently.</p>
+</section>
+<section id="varying-experiment-parameters-using-parameter-grids" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="varying-experiment-parameters-using-parameter-grids"><span class="header-section-number">4.3</span> Varying experiment parameters using parameter grids</h2>
+<p>Instead of copy-pasting each setting, we can instead create a <em>parameter grid</em>, which specifies each combination of parameters we’re interested in. For example, suppose we want to create a grid that specifies the parameters we specified above (mean_intervention either 0.3 or 0.5, n_per_condition either 30 or 50, sd = 1, mean_control = 0). We could specify a parameter grid by repeating each level of each variable as a single row in a tibble, like this:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>parameter_grid <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_control =</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">4</span>), <span class="co"># repeat this 4 times - once for each combination</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="dv">1</span>, <span class="co"># repeat this 4 times - once for each combination</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_intervention =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="fl">0.3</span>, <span class="fl">0.5</span>), <span class="at">each =</span> <span class="dv">2</span>),</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_per_condition =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">50</span>), <span class="dv">2</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(parameter_grid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 4
+  mean_control    sd mean_intervention n_per_condition
+         &lt;dbl&gt; &lt;dbl&gt;             &lt;dbl&gt;           &lt;dbl&gt;
+1            0     1               0.3              30
+2            0     1               0.3              50
+3            0     1               0.5              30
+4            0     1               0.5              50</code></pre>
+</div>
+</div>
+<p>As you can see above, this worked: we now have a grid that specifies each combination of parameters we’re interested in! We could then run an analysis on each of these, doing something like:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># generate data based on first row of parameter_grid</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">generate_data</span>(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_per_condition =</span> parameter_grid<span class="sc">$</span>n_per_condition[<span class="dv">1</span>],</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_intervention =</span> parameter_grid<span class="sc">$</span>mean_intervention[<span class="dv">1</span>],</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_control =</span> parameter_grid<span class="sc">$</span>mean_control[<span class="dv">1</span>],</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> parameter_grid<span class="sc">$</span>sd[<span class="dv">1</span>]</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">analyze</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+       p
+   &lt;dbl&gt;
+1 0.0666</code></pre>
+</div>
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># generate data based on second row of parameter_grid</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">generate_data</span>(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_per_condition =</span> parameter_grid<span class="sc">$</span>n_per_condition[<span class="dv">2</span>],</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_intervention =</span> parameter_grid<span class="sc">$</span>mean_intervention[<span class="dv">2</span>],</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_control =</span> parameter_grid<span class="sc">$</span>mean_control[<span class="dv">2</span>],</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> parameter_grid<span class="sc">$</span>sd[<span class="dv">2</span>]</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">analyze</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+      p
+  &lt;dbl&gt;
+1 0.406</code></pre>
+</div>
+</div>
+<p>Again, we will cover how to do this mapping of parameter grids to simulations more efficiently in the next lesson. But for now, there is one other inefficiency we should handle.</p>
+</section>
+<section id="creating-parameter-grids-more-efficiently-expand_grid" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="creating-parameter-grids-more-efficiently-expand_grid"><span class="header-section-number">4.4</span> <strong>Creating parameter grids more efficiently:</strong> <code>expand_grid()</code></h2>
+<p>In the example above, we constructed our parameter grid like this:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>parameter_grid <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_control =</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">4</span>), <span class="co"># repeat this 4 times - once for each combination</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="dv">1</span>, <span class="co"># repeat this 4 times - once for each combination</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_intervention =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="fl">0.3</span>, <span class="fl">0.5</span>), <span class="at">each =</span> <span class="dv">2</span>),</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_per_condition =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">50</span>), <span class="dv">2</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>However, this is actually not an ideal approach. You can see we are using the <code>rep()</code> function, which repeats a value a number of times. This can be confusing, because we need to count the overall number of times we want each variable to be present, and we also want to have all combinations of parameters while not repeating anything. Especially if we ever want to move to more complex simulations (e.g., with many different parameter combinations) then it would become quite difficult to ensure that all combinations are accurately covered.</p>
+<p>Instead, we can use the handy function <code>expand_grid()</code>. With this function, we give each desired value of each parameter once, and then <code>expand_grid()</code> maps this into a tibble with all combinations of all parameters.</p>
+<p>For our example above, this looks like:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>experiment_parameters <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_per_condition =</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">50</span>),</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_intervention =</span> <span class="fu">c</span>(<span class="fl">0.3</span>, .<span class="dv">5</span>),</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_control =</span> <span class="dv">0</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="dv">1</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><code>expand_grid()</code> greatly simplifies the process of specifying parameters for our simulations.</p>
+</section>
+<section id="sanity-checking-your-parameter-grid" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="sanity-checking-your-parameter-grid"><span class="header-section-number">4.5</span> Sanity checking your parameter grid</h2>
+<p>It can be good practice to sanity-check your parameter grid - specifically, to make sure that the number of rows in the grid is consistent with what you would expect. For example, in our example above, we would expect <code>experiment_parameters</code> to have 4 rows: one for each combination of mean_intervention and n_per_condition. Let’s double-check this by counting the number of rows:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>experiment_parameters <span class="sc">|&gt;</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+</div>
+<p>Success! But of course, we could have made a mistake: for example, maybe we did something wrong in our <code>expand_grid()</code> call that meant we haven’t got full coverage of the parameter space we wanted. We can check this in more depth by combining this with a call to the <code>distinct()</code> function, which will keep only those rows which have distinct combinations of variables:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>experiment_parameters <span class="sc">|&gt;</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>() <span class="sc">|&gt;</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+</div>
+<p>Looks good!</p>
+</section>
+<section id="types-of-simulation-designs" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="types-of-simulation-designs"><span class="header-section-number">4.6</span> Types of Simulation Designs</h2>
+<p>There are different types of experiment designs that we might want to use in our simulation studies, usually depending on how many total combinations are possible, which of those combinations we actually find interesting, and how much time we are willing to let the simulation run for. Let’s start with the most simple design first: a fully-crossed design.</p>
+<section id="fully-crossed-designs" class="level3" data-number="4.6.1">
+<h3 data-number="4.6.1" class="anchored" data-anchor-id="fully-crossed-designs"><span class="header-section-number">4.6.1</span> Fully crossed designs</h3>
+<p>A <strong>fully-crossed</strong> design is what <code>expand_grid()</code> gives you by default: every level of every parameter is combined with every level of every other parameter. This is especially relevant for small simulation designs (e.g., like our one above) or where we care about every level of the simulation.</p>
+<p>Fully-crossed designs are also easy to interpret: we can look at every combination of every parameter, summarise over them, and look at the whole trend. If the early parts of this course, we will be using fully-crossed designs most often for this reason.</p>
+<p>Let’s suppose, for example, we want to expand our experiment above to also have two different standard deviation possibilities (0.5 or 1) and two different mean_control values (0 and 0.1). A fully-crossed version of this would be:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>experiment_parameters <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_per_condition =</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">50</span>),</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_intervention =</span> <span class="fu">c</span>(<span class="fl">0.3</span>, <span class="fl">0.5</span>),</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>),</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_control =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.1</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>experiment_parameters <span class="sc">|&gt;</span> <span class="fu">nrow</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 16</code></pre>
+</div>
+</div>
+<p>Fully-crossed designs are ideal when you want to understand how performance changes across multiple factors <em>independently.</em> This means that each parameter should plausibly be able to take each value regardless of the others (e.g., a mean_intervention of 0.5 should be possible under any of the conditions of the other parameters).</p>
+<p>However, sometimes parameter combinations are not possible. For example, imagine we’re simulating human heights across different age groups. A mean height of 180 cm might be perfectly plausible for a dataset when the mean age is 18, but it would be implausible when the mean age is 12. Likewise, a mean height of 140cm might be possible among 12 year olds, but not adults.</p>
+<p>If we simulated this as a fully-crossed design, this would look something like:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>height_parameters <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_height =</span> <span class="fu">c</span>(<span class="dv">140</span>, <span class="dv">160</span>, <span class="dv">180</span>),</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_age =</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">18</span>, <span class="dv">24</span>)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>height_parameters</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 2
+  mean_height mean_age
+        &lt;dbl&gt;    &lt;dbl&gt;
+1         140       12
+2         140       18
+3         140       24
+4         160       12
+5         160       18
+6         160       24
+7         180       12
+8         180       18
+9         180       24</code></pre>
+</div>
+</div>
+</section>
+<section id="non-fully-crossed-designs" class="level3" data-number="4.6.2">
+<h3 data-number="4.6.2" class="anchored" data-anchor-id="non-fully-crossed-designs"><span class="header-section-number">4.6.2</span> Non-fully-crossed designs</h3>
+<p>In non-fully-crossed designs, we remove values that we do not think are possible, or that we don’t care about. This means that we would, for example, exclude the possibility of scarily-tall children in our <code>height_parameters</code> specification above.</p>
+<p>The best way to achieve this is to start with a fully-crossed design, and then use <code>filter()</code> to remove combinations we think are implausible. For example:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>height_parameters <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_height =</span> <span class="fu">c</span>(<span class="dv">140</span>, <span class="dv">160</span>, <span class="dv">180</span>),</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_age =</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">18</span>, <span class="dv">24</span>)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>(mean_height <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">160</span>, <span class="dv">180</span>) <span class="sc">&amp;</span> mean_age <span class="sc">==</span> <span class="dv">12</span>),</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>         <span class="sc">!</span>(mean_height <span class="sc">==</span> <span class="dv">140</span> <span class="sc">&amp;</span> mean_age <span class="sc">&gt;</span> <span class="dv">12</span>))</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(height_parameters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+  mean_height mean_age
+        &lt;dbl&gt;    &lt;dbl&gt;
+1         140       12
+2         160       18
+3         160       24
+4         180       18
+5         180       24</code></pre>
+</div>
+</div>
+<p>Let’s go back to our previous example with <code>experiment_parameters</code>:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>experiment_parameters <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_per_condition =</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">50</span>),</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_intervention =</span> <span class="fu">c</span>(<span class="fl">0.3</span>, <span class="fl">0.5</span>),</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>),</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_control =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.1</span>)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Suppose we want to make a more elaborate experiment, with n_per_condition ranging from 50 to 100 in steps of 10 participants, and with mean_intervention ranging from .1 to .5 in steps of .1 (we can do this using <code>seq()</code>, which creates a sequence of numbers).</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>experiment_parameters <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_per_condition =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">50</span>, <span class="at">to =</span> <span class="dv">100</span>, <span class="at">by =</span> <span class="dv">10</span>),</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_intervention =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="fl">0.1</span>, <span class="at">to =</span> <span class="fl">0.5</span>, <span class="at">by =</span> <span class="fl">0.1</span>),</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>),</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_control =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.1</span>)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>experiment_parameters </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 120 × 4
+   n_per_condition mean_intervention    sd mean_control
+             &lt;dbl&gt;             &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt;
+ 1              50               0.1   0.5          0  
+ 2              50               0.1   0.5          0.1
+ 3              50               0.1   1            0  
+ 4              50               0.1   1            0.1
+ 5              50               0.2   0.5          0  
+ 6              50               0.2   0.5          0.1
+ 7              50               0.2   1            0  
+ 8              50               0.2   1            0.1
+ 9              50               0.3   0.5          0  
+10              50               0.3   0.5          0.1
+# ℹ 110 more rows</code></pre>
+</div>
+</div>
+<p>That’s 120 combinations! But suppose that we think intervention effect sizes less than 0.3 are only interesting when our sample size is greater than 70 per condition. We could then filter this out as before:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>experiment_parameters <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_per_condition =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">50</span>, <span class="at">to =</span> <span class="dv">100</span>, <span class="at">by =</span> <span class="dv">10</span>),</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_intervention =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="fl">0.1</span>, <span class="at">to =</span> <span class="fl">0.5</span>, <span class="at">by =</span> <span class="fl">0.1</span>),</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>),</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_control =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.1</span>)</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>(n_per_condition <span class="sc">&lt;</span> <span class="dv">70</span> <span class="sc">&amp;</span> mean_intervention <span class="sc">&lt;</span> <span class="fl">0.3</span>))</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>experiment_parameters <span class="sc">|&gt;</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 104</code></pre>
+</div>
+</div>
+<p>16 rows have been removed, and we can verify that there are no remaining combinations where <code>n_per_condition</code> is less than 70 when <code>mean_intervention</code> is less than 0.3 by using <code>filter()</code> to keep only those rows that would meet these criteria:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>experiment_parameters <span class="sc">|&gt;</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n_per_condition <span class="sc">&lt;</span> <span class="dv">70</span> <span class="sc">&amp;</span> mean_intervention <span class="sc">&lt;</span> .<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 0 × 4
+# ℹ 4 variables: n_per_condition &lt;dbl&gt;, mean_intervention &lt;dbl&gt;, sd &lt;dbl&gt;,
+#   mean_control &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>Empty!</p>
+</section>
+</section>
+<section id="designs-with-dependencies" class="level2" data-number="4.7">
+<h2 data-number="4.7" class="anchored" data-anchor-id="designs-with-dependencies"><span class="header-section-number">4.7</span> Designs with dependencies</h2>
+<p>In fully-crossed designs, the presence of variables is independent from each other: all levels in a given variable are assumed to be possible across all levels of all other variables.</p>
+<p>In non-fully-crossed designs, we recognise that not all variable combinations are possible, and remove those impossible/implausible combinations. In other words, there are dependencies between variables: the value of one variable <em>depends</em> on the value of other(s).</p>
+<p>We can actually take these kinds of dependencies a step further. Instead of just creating a fully-crossed design and filtering out the ones that are impossible or implausible, we can instead define variables in the first place in relation to others.</p>
+<p>Let’s start with a simple example. Imagine we want to simulate all values of the width, height, and area of rectangles when width is between 10 and 20, and height is between 15 and 25. We know that area is dependent on height and width (since area = height * width). If we would use the “simulate fully-crossed and then filter” method, we’d do something like:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>rectangle_parameters <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">20</span>,</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">15</span><span class="sc">:</span><span class="dv">25</span>,</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">area =</span> <span class="dv">150</span><span class="sc">:</span><span class="dv">500</span> <span class="co"># smallest area = 10*15 = 150, largest area = 20*25 = 500</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>rectangle_parameters <span class="sc">|&gt;</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 42471</code></pre>
+</div>
+</div>
+<p>This gives 42,471 possibilities. Then we could filter, like:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>rectangle_parameters <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">20</span>,</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">15</span><span class="sc">:</span><span class="dv">25</span>,</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">area =</span> <span class="dv">150</span><span class="sc">:</span><span class="dv">500</span> <span class="co"># smallest area = 10*15 = 150, largest area = 20*25 = 500</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(area <span class="sc">==</span> width <span class="sc">*</span> height)</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>rectangle_parameters <span class="sc">|&gt;</span></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 121</code></pre>
+</div>
+</div>
+<p>Which gives us the 121 actual possibilities. But why bother simulate all of those unnecessary values in the first place, when we could instead just calculate <code>area</code> directly for each <code>height</code> and <code>width</code> value? This would be much more efficient. And we can do just this, using <code>mutate()</code>:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>rectangle_parameters <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">20</span>,</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">15</span><span class="sc">:</span><span class="dv">25</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">area =</span> width <span class="sc">*</span> height)</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>rectangle_parameters <span class="sc">|&gt;</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 121</code></pre>
+</div>
+</div>
+<p>When we simulate our data, there will be many cases where these types of “functional relationships” exist: i.e., where one variable is defined based on its relationship with other variable(s). In this case, the most efficient approach is to (i) simulate the other variables, and then (ii) use <code>mutate()</code> to create the variable which is dependent on those other variables.</p>
+<p>Here’s another example. Imagine we’re simulating exam results for students, and we want to vary:</p>
+<ul>
+<li><p>how many questions the exam has (n_questions: 10, 20, 40, or 60)</p></li>
+<li><p>the average difficulty of questions (“easy” or “hard”)</p></li>
+<li><p>the <em>time limit</em> for the exam (time_limit_minutes: between 10 and 120 minutes</p></li>
+</ul>
+<p>A fully-crossed design would treat these as independent: any time limit could go with any number of questions. But in reality, if we simulate a 10-question quiz with easy questions we might reasonably only want to consider a 10 or 20 minute time limit, whereas a 60-question exam with hard questions might need 60–120 minutes. So the time limit we want to consider in our simulation depends on the number of questions and the difficulty.</p>
+<p>If we use the “fully-crossed then filter” method, we might do:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>exam_parameters <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_questions =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">40</span>, <span class="dv">60</span>),</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">difficulty =</span> <span class="fu">c</span>(<span class="st">"easy"</span>, <span class="st">"hard"</span>),</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">time_limit_minutes =</span> <span class="fu">seq</span>(<span class="dv">10</span>, <span class="dv">120</span>, <span class="at">by =</span> <span class="dv">10</span>)</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>exam_parameters <span class="sc">|&gt;</span> <span class="fu">nrow</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 96</code></pre>
+</div>
+</div>
+<p>This again gives us many combinations we do not care about. We could <code>filter()</code> them:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>exam_parameters <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_questions =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">40</span>, <span class="dv">60</span>),</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">difficulty =</span> <span class="fu">c</span>(<span class="st">"easy"</span>, <span class="st">"hard"</span>),</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">time_limit_minutes =</span> <span class="fu">seq</span>(<span class="dv">10</span>, <span class="dv">120</span>, <span class="at">by =</span> <span class="dv">5</span>)</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>    (n_questions <span class="sc">==</span> <span class="dv">10</span> <span class="sc">&amp;</span> time_limit_minutes <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>)) <span class="sc">|</span></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>    (n_questions <span class="sc">==</span> <span class="dv">20</span> <span class="sc">&amp;</span> time_limit_minutes <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">30</span>)) <span class="sc">|</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>    (n_questions <span class="sc">==</span> <span class="dv">40</span> <span class="sc">&amp;</span> time_limit_minutes <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">60</span>)) <span class="sc">|</span></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>    (n_questions <span class="sc">==</span> <span class="dv">60</span> <span class="sc">&amp;</span> time_limit_minutes <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">60</span>, <span class="dv">120</span>))</span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a>exam_parameters </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 16 × 3
+   n_questions difficulty time_limit_minutes
+         &lt;dbl&gt; &lt;chr&gt;                   &lt;dbl&gt;
+ 1          10 easy                       10
+ 2          10 easy                       20
+ 3          10 hard                       10
+ 4          10 hard                       20
+ 5          20 easy                       20
+ 6          20 easy                       30
+ 7          20 hard                       20
+ 8          20 hard                       30
+ 9          40 easy                       40
+10          40 easy                       60
+11          40 hard                       40
+12          40 hard                       60
+13          60 easy                       60
+14          60 easy                      120
+15          60 hard                       60
+16          60 hard                      120</code></pre>
+</div>
+</div>
+<p>But this gets messy quickly. Looking above, we only filtered by <code>n_questions</code>, not <code>question_difficulty</code>, and it’s already a little hard to read. Plus, we are generating many rows just to immediately discard them.</p>
+<p>Instead, we can define <code>time_limit_minutes</code> from the start based on <code>n_questions</code> and <code>question_difficulty</code>. Here, we’ll generate n_questions and difficulty, and then derive a plausible time limit with <code>mutate()</code>.</p>
+<p>We could, for example, assume:</p>
+<ul>
+<li><p>Easy questions takes 1 minute on average, and</p></li>
+<li><p>Hard questions take twice as long as easy questions on average.</p></li>
+</ul>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>exam_parameters <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_questions =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">40</span>, <span class="dv">60</span>),</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">difficulty =</span> <span class="fu">c</span>(<span class="st">"easy"</span>, <span class="st">"hard"</span>)</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># baseline: 1 minute per question</span></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">base_time =</span> n_questions <span class="sc">*</span> <span class="dv">1</span>,</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># hard exams take twice as long per question </span></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">time_limit_minutes =</span> <span class="fu">if_else</span>(difficulty <span class="sc">==</span> <span class="st">"hard"</span>,</span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">round</span>(base_time <span class="sc">*</span> <span class="dv">2</span>),</span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>                                base_time)</span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>base_time)</span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>exam_parameters</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 3
+  n_questions difficulty time_limit_minutes
+        &lt;dbl&gt; &lt;chr&gt;                   &lt;dbl&gt;
+1          10 easy                       10
+2          10 hard                       20
+3          20 easy                       20
+4          20 hard                       40
+5          40 easy                       40
+6          40 hard                       80
+7          60 easy                       60
+8          60 hard                      120</code></pre>
+</div>
+</div>
+</section>
+<section id="summary" class="level2" data-number="4.8">
+<h2 data-number="4.8" class="anchored" data-anchor-id="summary"><span class="header-section-number">4.8</span> Summary</h2>
+<p>In this chapter, we covered how to design simulation experiments by specifying the parameter values we want to vary. Key takeaways:</p>
+<ul>
+<li><p><strong>Parameter grids</strong> are tibbles where each row represents one combination of simulation parameters. They replace error-prone copy-pasting with a structured, inspectable object.</p></li>
+<li><p><strong><code>expand_grid()</code></strong> is the workhorse for creating parameter grids. You supply each parameter’s desired values once, and it returns all combinations automatically.</p></li>
+<li><p><strong>Sanity checking</strong> your grid with <code>nrow()</code> and <code>distinct()</code> helps catch mistakes early.</p></li>
+<li><p><strong>Fully-crossed designs</strong> (the <code>expand_grid()</code> default) include every combination of every parameter level. These are simple and interpretable, but can become large quickly and may include implausible combinations.</p></li>
+<li><p><strong>Non-fully-crossed designs</strong> start fully crossed and then use <code>filter()</code> to remove implausible or uninteresting combinations.</p></li>
+<li><p><strong>Designs with dependencies</strong> use <code>mutate()</code> to derive one parameter from others (e.g., <code>area = width * height</code>), avoiding the need to enumerate and then filter impossible values. This is both more efficient and more readable than the fully-crossed-then-filter approach.</p></li>
+</ul>
+<p>In the next chapter, we will learn how to <em>run</em> simulations across these parameter grids efficiently using the <code>map()</code> family of functions.</p>
+</section>
+<section id="exercises" class="level2" data-number="4.9">
+<h2 data-number="4.9" class="anchored" data-anchor-id="exercises"><span class="header-section-number">4.9</span> Exercises</h2>
+<section id="exercise-1-basic-parameter-grid" class="level3" data-number="4.9.1">
+<h3 data-number="4.9.1" class="anchored" data-anchor-id="exercise-1-basic-parameter-grid"><span class="header-section-number">4.9.1</span> Exercise 1: Basic parameter grid</h3>
+<p>Use <code>expand_grid()</code> to create a parameter grid for a simulation where:</p>
+<ul>
+<li><p><code>n_per_condition</code> is 20, 50, or 100</p></li>
+<li><p><code>mean_intervention</code> is 0.2 or 0.8</p></li>
+<li><p><code>sd</code> is 1</p></li>
+<li><p><code>correlation_between_conditions</code> is 0.3 or 0.5.</p></li>
+</ul>
+<p>How many rows does the resulting grid have? Verify using <code>nrow()</code> and <code>distinct()</code>.</p>
+</section>
+<section id="exercise-2-filtering-implausible-combinations" class="level3" data-number="4.9.2">
+<h3 data-number="4.9.2" class="anchored" data-anchor-id="exercise-2-filtering-implausible-combinations"><span class="header-section-number">4.9.2</span> Exercise 2: Filtering implausible combinations</h3>
+<p>Starting from the grid below, use <code>filter()</code> to remove any rows where <code>n_per_condition</code> is less than 50 <strong>and</strong> <code>mean_intervention</code> is less than 0.3. How many rows remain?</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">expand_grid</span>(</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_per_condition =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">200</span>),</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_intervention =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.3</span>, <span class="fl">0.5</span>),</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>)</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 24 × 3
+   n_per_condition mean_intervention    sd
+             &lt;dbl&gt;             &lt;dbl&gt; &lt;dbl&gt;
+ 1              20               0.1   0.5
+ 2              20               0.1   1  
+ 3              20               0.3   0.5
+ 4              20               0.3   1  
+ 5              20               0.5   0.5
+ 6              20               0.5   1  
+ 7              50               0.1   0.5
+ 8              50               0.1   1  
+ 9              50               0.3   0.5
+10              50               0.3   1  
+# ℹ 14 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="exercise-3-dependent-parameters-with-mutate" class="level3" data-number="4.9.3">
+<h3 data-number="4.9.3" class="anchored" data-anchor-id="exercise-3-dependent-parameters-with-mutate"><span class="header-section-number">4.9.3</span> Exercise 3: Dependent parameters with <code>mutate()</code></h3>
+<p>You are simulating a reading comprehension study. Your parameters are:</p>
+<ul>
+<li><p><code>n_passages</code>: the number of passages participants read (5, 10, or 20)</p></li>
+<li><p><code>passage_difficulty</code>: “easy” or “hard”</p></li>
+</ul>
+<p>The total time allowed (<code>time_limit_minutes</code>) depends on the other two parameters: participants get 2 minutes per easy passage and 4 minutes per hard passage. Use <code>expand_grid()</code> and <code>mutate()</code> to create the parameter grid with <code>time_limit_minutes</code> derived from the other columns.</p>
+</section>
+<section id="exercise-4-choosing-the-right-design" class="level3" data-number="4.9.4">
+<h3 data-number="4.9.4" class="anchored" data-anchor-id="exercise-4-choosing-the-right-design"><span class="header-section-number">4.9.4</span> Exercise 4: Choosing the right design</h3>
+<p>For each scenario below, determine whether you would use (a) a fully-crossed design, (b) a non-fully-crossed design with <code>filter()</code>, or (c) a design with dependencies using <code>mutate()</code>.</p>
+<ol type="1">
+<li><p>You vary sample size (50, 100, 200) and effect size (0.2, 0.5, 0.8), and all combinations are plausible.</p></li>
+<li><p>You vary the number of predictors (2, 5, 10) and the number of observations (20, 50, 100, 500), but you want to exclude cases where the number of observations is smaller than 10 times the number of predictors.</p></li>
+<li><p>You vary the number of items on a test (10, 20, 40) and want the total test time to always equal 2 minutes per item.</p></li>
+<li><p>You are simulating a clinical trial and vary the dropout rate (5%, 15%, 30%) and treatment effect size (0.3, 0.5, 0.7). All combinations are realistic because patients drop out for many reasons unrelated to efficacy.</p></li>
+<li><p>You are simulating ecological data on bird species counts across habitats. You vary habitat type (forest, wetland, urban) and survey area size (1 km², 5 km², 25 km²), but want to exclude large survey areas for urban habitats because contiguous urban green spaces larger than 5 km² are unrealistic in your study region.</p></li>
+</ol>
+</section>
+<section id="exercise-5-build-your-own-simulation-design" class="level3" data-number="4.9.5">
+<h3 data-number="4.9.5" class="anchored" data-anchor-id="exercise-5-build-your-own-simulation-design"><span class="header-section-number">4.9.5</span> Exercise 5: Build your own simulation design</h3>
+<p>Think of a research question from an area of research you find interesting. Define at least three parameters you would want to vary, create a parameter grid using <code>expand_grid()</code>, and include at least one dependency or filter. Use <code>nrow()</code> and <code>distinct()</code> to sanity-check your grid. Write a brief comment (2–3 sentences) explaining why you chose each parameter value and why you included the dependency or filter.</p>
+
+
+<!-- -->
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../chapters/writing_functions.html" class="pagination-link" aria-label="Practice writing R functions">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Practice writing R functions</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../chapters/mapping_functions.html" class="pagination-link" aria-label="map functions">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">map functions</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb50" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "chapter4_creating_simulation_experiments"</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Jamie Cummins"</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> html</span></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="an">editor:</span><span class="co"> visual</span></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a><span class="fu"># Designing Simulation Experiments</span></span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a><span class="fu">## Dependencies</span></span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb50-19"><a href="#cb50-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-20"><a href="#cb50-20" aria-hidden="true" tabindex="-1"></a>In our earlier chapter, you saw examples of generating data, and specifying different parameter values in doing so. This is at the core of simulation: generating data with different parameter values, running the process lots of times, and summarising across each set of parameter values. But how do we actually create these many types of parameter values? Or, in other words: how do we actually design simulation experiments?</span>
+<span id="cb50-21"><a href="#cb50-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-22"><a href="#cb50-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## Varying experiment parameters manually</span></span>
+<span id="cb50-23"><a href="#cb50-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-24"><a href="#cb50-24" aria-hidden="true" tabindex="-1"></a>The way that we ideally design simulation experiments is through the use of a parameter grid. This is, basically, a dataframe or tibble that specifies all of the variations of our simulations that we would want to run. For example, imagine we want to use our <span class="in">`generate_data()`</span> and <span class="in">`analyze()`</span> functions from the previous lessons to analyse data from two groups and get the p-value. Remember:</span>
+<span id="cb50-25"><a href="#cb50-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-28"><a href="#cb50-28" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb50-29"><a href="#cb50-29" aria-hidden="true" tabindex="-1"></a>generate_data <span class="ot">&lt;-</span> <span class="cf">function</span>(n_per_condition,</span>
+<span id="cb50-30"><a href="#cb50-30" aria-hidden="true" tabindex="-1"></a>                          mean_control,</span>
+<span id="cb50-31"><a href="#cb50-31" aria-hidden="true" tabindex="-1"></a>                          mean_intervention,</span>
+<span id="cb50-32"><a href="#cb50-32" aria-hidden="true" tabindex="-1"></a>                          sd) {</span>
+<span id="cb50-33"><a href="#cb50-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-34"><a href="#cb50-34" aria-hidden="true" tabindex="-1"></a>  data_control <span class="ot">&lt;-</span></span>
+<span id="cb50-35"><a href="#cb50-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(<span class="at">condition =</span> <span class="st">"control"</span>,</span>
+<span id="cb50-36"><a href="#cb50-36" aria-hidden="true" tabindex="-1"></a>           <span class="at">score =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> n_per_condition, <span class="at">mean =</span> mean_control, <span class="at">sd =</span> sd))</span>
+<span id="cb50-37"><a href="#cb50-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-38"><a href="#cb50-38" aria-hidden="true" tabindex="-1"></a>  data_intervention <span class="ot">&lt;-</span></span>
+<span id="cb50-39"><a href="#cb50-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(<span class="at">condition =</span> <span class="st">"intervention"</span>,</span>
+<span id="cb50-40"><a href="#cb50-40" aria-hidden="true" tabindex="-1"></a>           <span class="at">score =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> n_per_condition, <span class="at">mean =</span> mean_intervention, <span class="at">sd =</span> sd))</span>
+<span id="cb50-41"><a href="#cb50-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-42"><a href="#cb50-42" aria-hidden="true" tabindex="-1"></a>  data_combined <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(data_control, data_intervention)</span>
+<span id="cb50-43"><a href="#cb50-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-44"><a href="#cb50-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(data_combined)</span>
+<span id="cb50-45"><a href="#cb50-45" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb50-46"><a href="#cb50-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-47"><a href="#cb50-47" aria-hidden="true" tabindex="-1"></a>analyze <span class="ot">&lt;-</span> <span class="cf">function</span>(data) {</span>
+<span id="cb50-48"><a href="#cb50-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-49"><a href="#cb50-49" aria-hidden="true" tabindex="-1"></a>  res_t_test <span class="ot">&lt;-</span> <span class="fu">t.test</span>(<span class="at">formula =</span> score <span class="sc">~</span> condition,</span>
+<span id="cb50-50"><a href="#cb50-50" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data =</span> data,</span>
+<span id="cb50-51"><a href="#cb50-51" aria-hidden="true" tabindex="-1"></a>                       <span class="at">var.equal =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb50-52"><a href="#cb50-52" aria-hidden="true" tabindex="-1"></a>                       <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span>
+<span id="cb50-53"><a href="#cb50-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-54"><a href="#cb50-54" aria-hidden="true" tabindex="-1"></a>  res <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">p =</span> res_t_test<span class="sc">$</span>p.value)</span>
+<span id="cb50-55"><a href="#cb50-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-56"><a href="#cb50-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(res)</span>
+<span id="cb50-57"><a href="#cb50-57" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb50-58"><a href="#cb50-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-59"><a href="#cb50-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-60"><a href="#cb50-60" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb50-61"><a href="#cb50-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-62"><a href="#cb50-62" aria-hidden="true" tabindex="-1"></a>Now, let's suppose we want to generate data for when n_per_condition is either 30 or 50, and where mean_intervention is either 0.3 or 0.5 (in all cases, we want mean_control = 0 and sd = 1). We could do this by just typing out each simulation, like:</span>
+<span id="cb50-63"><a href="#cb50-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-66"><a href="#cb50-66" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb50-67"><a href="#cb50-67" aria-hidden="true" tabindex="-1"></a><span class="co"># n = 30, mean = .3</span></span>
+<span id="cb50-68"><a href="#cb50-68" aria-hidden="true" tabindex="-1"></a><span class="fu">generate_data</span>(</span>
+<span id="cb50-69"><a href="#cb50-69" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_per_condition =</span> <span class="dv">30</span>,</span>
+<span id="cb50-70"><a href="#cb50-70" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_control =</span> <span class="dv">0</span>,</span>
+<span id="cb50-71"><a href="#cb50-71" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_intervention =</span> .<span class="dv">3</span>,</span>
+<span id="cb50-72"><a href="#cb50-72" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="dv">1</span></span>
+<span id="cb50-73"><a href="#cb50-73" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb50-74"><a href="#cb50-74" aria-hidden="true" tabindex="-1"></a>  <span class="fu">analyze</span>()</span>
+<span id="cb50-75"><a href="#cb50-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-76"><a href="#cb50-76" aria-hidden="true" tabindex="-1"></a><span class="co"># n = 50, mean = .3</span></span>
+<span id="cb50-77"><a href="#cb50-77" aria-hidden="true" tabindex="-1"></a><span class="fu">generate_data</span>(</span>
+<span id="cb50-78"><a href="#cb50-78" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_per_condition =</span> <span class="dv">30</span>,</span>
+<span id="cb50-79"><a href="#cb50-79" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_control =</span> <span class="dv">0</span>,</span>
+<span id="cb50-80"><a href="#cb50-80" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_intervention =</span> .<span class="dv">3</span>,</span>
+<span id="cb50-81"><a href="#cb50-81" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="dv">1</span></span>
+<span id="cb50-82"><a href="#cb50-82" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb50-83"><a href="#cb50-83" aria-hidden="true" tabindex="-1"></a>  <span class="fu">analyze</span>()</span>
+<span id="cb50-84"><a href="#cb50-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-85"><a href="#cb50-85" aria-hidden="true" tabindex="-1"></a><span class="co"># n = 30, mean = .5</span></span>
+<span id="cb50-86"><a href="#cb50-86" aria-hidden="true" tabindex="-1"></a><span class="fu">generate_data</span>(</span>
+<span id="cb50-87"><a href="#cb50-87" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_per_condition =</span> <span class="dv">30</span>,</span>
+<span id="cb50-88"><a href="#cb50-88" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_control =</span> <span class="dv">0</span>,</span>
+<span id="cb50-89"><a href="#cb50-89" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_intervention =</span> .<span class="dv">3</span>,</span>
+<span id="cb50-90"><a href="#cb50-90" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="dv">1</span></span>
+<span id="cb50-91"><a href="#cb50-91" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb50-92"><a href="#cb50-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">analyze</span>()</span>
+<span id="cb50-93"><a href="#cb50-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-94"><a href="#cb50-94" aria-hidden="true" tabindex="-1"></a><span class="co"># n = 50, mean = .5</span></span>
+<span id="cb50-95"><a href="#cb50-95" aria-hidden="true" tabindex="-1"></a><span class="fu">generate_data</span>(</span>
+<span id="cb50-96"><a href="#cb50-96" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_per_condition =</span> <span class="dv">30</span>,</span>
+<span id="cb50-97"><a href="#cb50-97" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_control =</span> <span class="dv">0</span>,</span>
+<span id="cb50-98"><a href="#cb50-98" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_intervention =</span> .<span class="dv">3</span>,</span>
+<span id="cb50-99"><a href="#cb50-99" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="dv">1</span></span>
+<span id="cb50-100"><a href="#cb50-100" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb50-101"><a href="#cb50-101" aria-hidden="true" tabindex="-1"></a>  <span class="fu">analyze</span>()</span>
+<span id="cb50-102"><a href="#cb50-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-103"><a href="#cb50-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-104"><a href="#cb50-104" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb50-105"><a href="#cb50-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-106"><a href="#cb50-106" aria-hidden="true" tabindex="-1"></a>Clearly this works, but the problem is pretty obvious: if we want to repeat these processes lots of times, or look at lots of different parameter combinations, then this will involve *a lot* of copy-pasting! This is not ideal. We will cover how to more efficiently "repeat the process lots of times" in the next lesson. But for now, let's focus on how to look at lots of different parameter combinations more efficiently.</span>
+<span id="cb50-107"><a href="#cb50-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-108"><a href="#cb50-108" aria-hidden="true" tabindex="-1"></a><span class="fu">## Varying experiment parameters using parameter grids</span></span>
+<span id="cb50-109"><a href="#cb50-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-110"><a href="#cb50-110" aria-hidden="true" tabindex="-1"></a>Instead of copy-pasting each setting, we can instead create a *parameter grid*, which specifies each combination of parameters we're interested in. For example, suppose we want to create a grid that specifies the parameters we specified above (mean_intervention either 0.3 or 0.5, n_per_condition either 30 or 50, sd = 1, mean_control = 0). We could specify a parameter grid by repeating each level of each variable as a single row in a tibble, like this:</span>
+<span id="cb50-111"><a href="#cb50-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-114"><a href="#cb50-114" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb50-115"><a href="#cb50-115" aria-hidden="true" tabindex="-1"></a>parameter_grid <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb50-116"><a href="#cb50-116" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_control =</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">4</span>), <span class="co"># repeat this 4 times - once for each combination</span></span>
+<span id="cb50-117"><a href="#cb50-117" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="dv">1</span>, <span class="co"># repeat this 4 times - once for each combination</span></span>
+<span id="cb50-118"><a href="#cb50-118" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_intervention =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="fl">0.3</span>, <span class="fl">0.5</span>), <span class="at">each =</span> <span class="dv">2</span>),</span>
+<span id="cb50-119"><a href="#cb50-119" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_per_condition =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">50</span>), <span class="dv">2</span>)</span>
+<span id="cb50-120"><a href="#cb50-120" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb50-121"><a href="#cb50-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-122"><a href="#cb50-122" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(parameter_grid)</span>
+<span id="cb50-123"><a href="#cb50-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-124"><a href="#cb50-124" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb50-125"><a href="#cb50-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-126"><a href="#cb50-126" aria-hidden="true" tabindex="-1"></a>As you can see above, this worked: we now have a grid that specifies each combination of parameters we're interested in! We could then run an analysis on each of these, doing something like:</span>
+<span id="cb50-127"><a href="#cb50-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-130"><a href="#cb50-130" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb50-131"><a href="#cb50-131" aria-hidden="true" tabindex="-1"></a><span class="co"># generate data based on first row of parameter_grid</span></span>
+<span id="cb50-132"><a href="#cb50-132" aria-hidden="true" tabindex="-1"></a><span class="fu">generate_data</span>(</span>
+<span id="cb50-133"><a href="#cb50-133" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_per_condition =</span> parameter_grid<span class="sc">$</span>n_per_condition[<span class="dv">1</span>],</span>
+<span id="cb50-134"><a href="#cb50-134" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_intervention =</span> parameter_grid<span class="sc">$</span>mean_intervention[<span class="dv">1</span>],</span>
+<span id="cb50-135"><a href="#cb50-135" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_control =</span> parameter_grid<span class="sc">$</span>mean_control[<span class="dv">1</span>],</span>
+<span id="cb50-136"><a href="#cb50-136" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> parameter_grid<span class="sc">$</span>sd[<span class="dv">1</span>]</span>
+<span id="cb50-137"><a href="#cb50-137" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb50-138"><a href="#cb50-138" aria-hidden="true" tabindex="-1"></a>  <span class="fu">analyze</span>()</span>
+<span id="cb50-139"><a href="#cb50-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-140"><a href="#cb50-140" aria-hidden="true" tabindex="-1"></a><span class="co"># generate data based on second row of parameter_grid</span></span>
+<span id="cb50-141"><a href="#cb50-141" aria-hidden="true" tabindex="-1"></a><span class="fu">generate_data</span>(</span>
+<span id="cb50-142"><a href="#cb50-142" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_per_condition =</span> parameter_grid<span class="sc">$</span>n_per_condition[<span class="dv">2</span>],</span>
+<span id="cb50-143"><a href="#cb50-143" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_intervention =</span> parameter_grid<span class="sc">$</span>mean_intervention[<span class="dv">2</span>],</span>
+<span id="cb50-144"><a href="#cb50-144" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_control =</span> parameter_grid<span class="sc">$</span>mean_control[<span class="dv">2</span>],</span>
+<span id="cb50-145"><a href="#cb50-145" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> parameter_grid<span class="sc">$</span>sd[<span class="dv">2</span>]</span>
+<span id="cb50-146"><a href="#cb50-146" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb50-147"><a href="#cb50-147" aria-hidden="true" tabindex="-1"></a>  <span class="fu">analyze</span>()</span>
+<span id="cb50-148"><a href="#cb50-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-149"><a href="#cb50-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-150"><a href="#cb50-150" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb50-151"><a href="#cb50-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-152"><a href="#cb50-152" aria-hidden="true" tabindex="-1"></a>Again, we will cover how to do this mapping of parameter grids to simulations more efficiently in the next lesson. But for now, there is one other inefficiency we should handle.</span>
+<span id="cb50-153"><a href="#cb50-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-154"><a href="#cb50-154" aria-hidden="true" tabindex="-1"></a><span class="fu">## **Creating parameter grids more efficiently:** `expand_grid()`</span></span>
+<span id="cb50-155"><a href="#cb50-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-156"><a href="#cb50-156" aria-hidden="true" tabindex="-1"></a>In the example above, we constructed our parameter grid like this:</span>
+<span id="cb50-157"><a href="#cb50-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-160"><a href="#cb50-160" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb50-161"><a href="#cb50-161" aria-hidden="true" tabindex="-1"></a>parameter_grid <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb50-162"><a href="#cb50-162" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_control =</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">4</span>), <span class="co"># repeat this 4 times - once for each combination</span></span>
+<span id="cb50-163"><a href="#cb50-163" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="dv">1</span>, <span class="co"># repeat this 4 times - once for each combination</span></span>
+<span id="cb50-164"><a href="#cb50-164" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_intervention =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="fl">0.3</span>, <span class="fl">0.5</span>), <span class="at">each =</span> <span class="dv">2</span>),</span>
+<span id="cb50-165"><a href="#cb50-165" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_per_condition =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">50</span>), <span class="dv">2</span>)</span>
+<span id="cb50-166"><a href="#cb50-166" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb50-167"><a href="#cb50-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-168"><a href="#cb50-168" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb50-169"><a href="#cb50-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-170"><a href="#cb50-170" aria-hidden="true" tabindex="-1"></a>However, this is actually not an ideal approach. You can see we are using the <span class="in">`rep()`</span> function, which repeats a value a number of times. This can be confusing, because we need to count the overall number of times we want each variable to be present, and we also want to have all combinations of parameters while not repeating anything. Especially if we ever want to move to more complex simulations (e.g., with many different parameter combinations) then it would become quite difficult to ensure that all combinations are accurately covered.</span>
+<span id="cb50-171"><a href="#cb50-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-172"><a href="#cb50-172" aria-hidden="true" tabindex="-1"></a>Instead, we can use the handy function <span class="in">`expand_grid()`</span>. With this function, we give each desired value of each parameter once, and then <span class="in">`expand_grid()`</span> maps this into a tibble with all combinations of all parameters.</span>
+<span id="cb50-173"><a href="#cb50-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-174"><a href="#cb50-174" aria-hidden="true" tabindex="-1"></a>For our example above, this looks like:</span>
+<span id="cb50-175"><a href="#cb50-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-178"><a href="#cb50-178" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb50-179"><a href="#cb50-179" aria-hidden="true" tabindex="-1"></a>experiment_parameters <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb50-180"><a href="#cb50-180" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_per_condition =</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">50</span>),</span>
+<span id="cb50-181"><a href="#cb50-181" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_intervention =</span> <span class="fu">c</span>(<span class="fl">0.3</span>, .<span class="dv">5</span>),</span>
+<span id="cb50-182"><a href="#cb50-182" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_control =</span> <span class="dv">0</span>,</span>
+<span id="cb50-183"><a href="#cb50-183" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="dv">1</span></span>
+<span id="cb50-184"><a href="#cb50-184" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb50-185"><a href="#cb50-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-186"><a href="#cb50-186" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb50-187"><a href="#cb50-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-188"><a href="#cb50-188" aria-hidden="true" tabindex="-1"></a><span class="in">`expand_grid()`</span> greatly simplifies the process of specifying parameters for our simulations.</span>
+<span id="cb50-189"><a href="#cb50-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-190"><a href="#cb50-190" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sanity checking your parameter grid</span></span>
+<span id="cb50-191"><a href="#cb50-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-192"><a href="#cb50-192" aria-hidden="true" tabindex="-1"></a>It can be good practice to sanity-check your parameter grid - specifically, to make sure that the number of rows in the grid is consistent with what you would expect. For example, in our example above, we would expect <span class="in">`experiment_parameters`</span> to have 4 rows: one for each combination of mean_intervention and n_per_condition. Let's double-check this by counting the number of rows:</span>
+<span id="cb50-193"><a href="#cb50-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-196"><a href="#cb50-196" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb50-197"><a href="#cb50-197" aria-hidden="true" tabindex="-1"></a>experiment_parameters <span class="sc">|&gt;</span> </span>
+<span id="cb50-198"><a href="#cb50-198" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>()</span>
+<span id="cb50-199"><a href="#cb50-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-200"><a href="#cb50-200" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb50-201"><a href="#cb50-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-202"><a href="#cb50-202" aria-hidden="true" tabindex="-1"></a>Success! But of course, we could have made a mistake: for example, maybe we did something wrong in our <span class="in">`expand_grid()`</span> call that meant we haven't got full coverage of the parameter space we wanted. We can check this in more depth by combining this with a call to the <span class="in">`distinct()`</span> function, which will keep only those rows which have distinct combinations of variables:</span>
+<span id="cb50-203"><a href="#cb50-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-206"><a href="#cb50-206" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb50-207"><a href="#cb50-207" aria-hidden="true" tabindex="-1"></a>experiment_parameters <span class="sc">|&gt;</span> </span>
+<span id="cb50-208"><a href="#cb50-208" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>() <span class="sc">|&gt;</span></span>
+<span id="cb50-209"><a href="#cb50-209" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>()</span>
+<span id="cb50-210"><a href="#cb50-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-211"><a href="#cb50-211" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb50-212"><a href="#cb50-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-213"><a href="#cb50-213" aria-hidden="true" tabindex="-1"></a>Looks good!</span>
+<span id="cb50-214"><a href="#cb50-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-215"><a href="#cb50-215" aria-hidden="true" tabindex="-1"></a><span class="fu">## Types of Simulation Designs</span></span>
+<span id="cb50-216"><a href="#cb50-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-217"><a href="#cb50-217" aria-hidden="true" tabindex="-1"></a>There are different types of experiment designs that we might want to use in our simulation studies, usually depending on how many total combinations are possible, which of those combinations we actually find interesting, and how much time we are willing to let the simulation run for. Let's start with the most simple design first: a fully-crossed design.</span>
+<span id="cb50-218"><a href="#cb50-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-219"><a href="#cb50-219" aria-hidden="true" tabindex="-1"></a><span class="fu">### Fully crossed designs</span></span>
+<span id="cb50-220"><a href="#cb50-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-221"><a href="#cb50-221" aria-hidden="true" tabindex="-1"></a>A **fully-crossed** design is what <span class="in">`expand_grid()`</span> gives you by default: every level of every parameter is combined with every level of every other parameter. This is especially relevant for small simulation designs (e.g., like our one above) or where we care about every level of the simulation.</span>
+<span id="cb50-222"><a href="#cb50-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-223"><a href="#cb50-223" aria-hidden="true" tabindex="-1"></a>Fully-crossed designs are also easy to interpret: we can look at every combination of every parameter, summarise over them, and look at the whole trend. If the early parts of this course, we will be using fully-crossed designs most often for this reason.</span>
+<span id="cb50-224"><a href="#cb50-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-225"><a href="#cb50-225" aria-hidden="true" tabindex="-1"></a>Let's suppose, for example, we want to expand our experiment above to also have two different standard deviation possibilities (0.5 or 1) and two different mean_control values (0 and 0.1). A fully-crossed version of this would be:</span>
+<span id="cb50-226"><a href="#cb50-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-229"><a href="#cb50-229" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb50-230"><a href="#cb50-230" aria-hidden="true" tabindex="-1"></a>experiment_parameters <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb50-231"><a href="#cb50-231" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_per_condition =</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">50</span>),</span>
+<span id="cb50-232"><a href="#cb50-232" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_intervention =</span> <span class="fu">c</span>(<span class="fl">0.3</span>, <span class="fl">0.5</span>),</span>
+<span id="cb50-233"><a href="#cb50-233" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>),</span>
+<span id="cb50-234"><a href="#cb50-234" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_control =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.1</span>)</span>
+<span id="cb50-235"><a href="#cb50-235" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb50-236"><a href="#cb50-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-237"><a href="#cb50-237" aria-hidden="true" tabindex="-1"></a>experiment_parameters <span class="sc">|&gt;</span> <span class="fu">nrow</span>()</span>
+<span id="cb50-238"><a href="#cb50-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-239"><a href="#cb50-239" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb50-240"><a href="#cb50-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-241"><a href="#cb50-241" aria-hidden="true" tabindex="-1"></a>Fully-crossed designs are ideal when you want to understand how performance changes across multiple factors *independently.* This means that each parameter should plausibly be able to take each value regardless of the others (e.g., a mean_intervention of 0.5 should be possible under any of the conditions of the other parameters).</span>
+<span id="cb50-242"><a href="#cb50-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-243"><a href="#cb50-243" aria-hidden="true" tabindex="-1"></a>However, sometimes parameter combinations are not possible. For example, imagine we’re simulating human heights across different age groups. A mean height of 180 cm might be perfectly plausible for a dataset when the mean age is 18, but it would be implausible when the mean age is 12. Likewise, a mean height of 140cm might be possible among 12 year olds, but not adults.</span>
+<span id="cb50-244"><a href="#cb50-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-245"><a href="#cb50-245" aria-hidden="true" tabindex="-1"></a>If we simulated this as a fully-crossed design, this would look something like:</span>
+<span id="cb50-246"><a href="#cb50-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-249"><a href="#cb50-249" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb50-250"><a href="#cb50-250" aria-hidden="true" tabindex="-1"></a>height_parameters <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb50-251"><a href="#cb50-251" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_height =</span> <span class="fu">c</span>(<span class="dv">140</span>, <span class="dv">160</span>, <span class="dv">180</span>),</span>
+<span id="cb50-252"><a href="#cb50-252" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_age =</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">18</span>, <span class="dv">24</span>)</span>
+<span id="cb50-253"><a href="#cb50-253" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb50-254"><a href="#cb50-254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-255"><a href="#cb50-255" aria-hidden="true" tabindex="-1"></a>height_parameters</span>
+<span id="cb50-256"><a href="#cb50-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-257"><a href="#cb50-257" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb50-258"><a href="#cb50-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-259"><a href="#cb50-259" aria-hidden="true" tabindex="-1"></a><span class="fu">### Non-fully-crossed designs</span></span>
+<span id="cb50-260"><a href="#cb50-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-261"><a href="#cb50-261" aria-hidden="true" tabindex="-1"></a>In non-fully-crossed designs, we remove values that we do not think are possible, or that we don't care about. This means that we would, for example, exclude the possibility of scarily-tall children in our <span class="in">`height_parameters`</span> specification above.</span>
+<span id="cb50-262"><a href="#cb50-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-263"><a href="#cb50-263" aria-hidden="true" tabindex="-1"></a>The best way to achieve this is to start with a fully-crossed design, and then use <span class="in">`filter()`</span> to remove combinations we think are implausible. For example:</span>
+<span id="cb50-264"><a href="#cb50-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-267"><a href="#cb50-267" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb50-268"><a href="#cb50-268" aria-hidden="true" tabindex="-1"></a>height_parameters <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb50-269"><a href="#cb50-269" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_height =</span> <span class="fu">c</span>(<span class="dv">140</span>, <span class="dv">160</span>, <span class="dv">180</span>),</span>
+<span id="cb50-270"><a href="#cb50-270" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_age =</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">18</span>, <span class="dv">24</span>)</span>
+<span id="cb50-271"><a href="#cb50-271" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb50-272"><a href="#cb50-272" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>(mean_height <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">160</span>, <span class="dv">180</span>) <span class="sc">&amp;</span> mean_age <span class="sc">==</span> <span class="dv">12</span>),</span>
+<span id="cb50-273"><a href="#cb50-273" aria-hidden="true" tabindex="-1"></a>         <span class="sc">!</span>(mean_height <span class="sc">==</span> <span class="dv">140</span> <span class="sc">&amp;</span> mean_age <span class="sc">&gt;</span> <span class="dv">12</span>))</span>
+<span id="cb50-274"><a href="#cb50-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-275"><a href="#cb50-275" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(height_parameters)</span>
+<span id="cb50-276"><a href="#cb50-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-277"><a href="#cb50-277" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb50-278"><a href="#cb50-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-279"><a href="#cb50-279" aria-hidden="true" tabindex="-1"></a>Let's go back to our previous example with <span class="in">`experiment_parameters`</span>:</span>
+<span id="cb50-280"><a href="#cb50-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-283"><a href="#cb50-283" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb50-284"><a href="#cb50-284" aria-hidden="true" tabindex="-1"></a>experiment_parameters <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb50-285"><a href="#cb50-285" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_per_condition =</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">50</span>),</span>
+<span id="cb50-286"><a href="#cb50-286" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_intervention =</span> <span class="fu">c</span>(<span class="fl">0.3</span>, <span class="fl">0.5</span>),</span>
+<span id="cb50-287"><a href="#cb50-287" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>),</span>
+<span id="cb50-288"><a href="#cb50-288" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_control =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.1</span>)</span>
+<span id="cb50-289"><a href="#cb50-289" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb50-290"><a href="#cb50-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-291"><a href="#cb50-291" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb50-292"><a href="#cb50-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-293"><a href="#cb50-293" aria-hidden="true" tabindex="-1"></a>Suppose we want to make a more elaborate experiment, with n_per_condition ranging from 50 to 100 in steps of 10 participants, and with mean_intervention ranging from .1 to .5 in steps of .1 (we can do this using <span class="in">`seq()`</span>, which creates a sequence of numbers).</span>
+<span id="cb50-294"><a href="#cb50-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-297"><a href="#cb50-297" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb50-298"><a href="#cb50-298" aria-hidden="true" tabindex="-1"></a>experiment_parameters <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb50-299"><a href="#cb50-299" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_per_condition =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">50</span>, <span class="at">to =</span> <span class="dv">100</span>, <span class="at">by =</span> <span class="dv">10</span>),</span>
+<span id="cb50-300"><a href="#cb50-300" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_intervention =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="fl">0.1</span>, <span class="at">to =</span> <span class="fl">0.5</span>, <span class="at">by =</span> <span class="fl">0.1</span>),</span>
+<span id="cb50-301"><a href="#cb50-301" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>),</span>
+<span id="cb50-302"><a href="#cb50-302" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_control =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.1</span>)</span>
+<span id="cb50-303"><a href="#cb50-303" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb50-304"><a href="#cb50-304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-305"><a href="#cb50-305" aria-hidden="true" tabindex="-1"></a>experiment_parameters </span>
+<span id="cb50-306"><a href="#cb50-306" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-307"><a href="#cb50-307" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb50-308"><a href="#cb50-308" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-309"><a href="#cb50-309" aria-hidden="true" tabindex="-1"></a>That's 120 combinations! But suppose that we think intervention effect sizes less than 0.3 are only interesting when our sample size is greater than 70 per condition. We could then filter this out as before:</span>
+<span id="cb50-310"><a href="#cb50-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-313"><a href="#cb50-313" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb50-314"><a href="#cb50-314" aria-hidden="true" tabindex="-1"></a>experiment_parameters <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb50-315"><a href="#cb50-315" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_per_condition =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">50</span>, <span class="at">to =</span> <span class="dv">100</span>, <span class="at">by =</span> <span class="dv">10</span>),</span>
+<span id="cb50-316"><a href="#cb50-316" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_intervention =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="fl">0.1</span>, <span class="at">to =</span> <span class="fl">0.5</span>, <span class="at">by =</span> <span class="fl">0.1</span>),</span>
+<span id="cb50-317"><a href="#cb50-317" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>),</span>
+<span id="cb50-318"><a href="#cb50-318" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_control =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.1</span>)</span>
+<span id="cb50-319"><a href="#cb50-319" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb50-320"><a href="#cb50-320" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>(n_per_condition <span class="sc">&lt;</span> <span class="dv">70</span> <span class="sc">&amp;</span> mean_intervention <span class="sc">&lt;</span> <span class="fl">0.3</span>))</span>
+<span id="cb50-321"><a href="#cb50-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-322"><a href="#cb50-322" aria-hidden="true" tabindex="-1"></a>experiment_parameters <span class="sc">|&gt;</span></span>
+<span id="cb50-323"><a href="#cb50-323" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>()</span>
+<span id="cb50-324"><a href="#cb50-324" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-325"><a href="#cb50-325" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb50-326"><a href="#cb50-326" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-327"><a href="#cb50-327" aria-hidden="true" tabindex="-1"></a>16 rows have been removed, and we can verify that there are no remaining combinations where <span class="in">`n_per_condition`</span> is less than 70 when <span class="in">`mean_intervention`</span> is less than 0.3 by using <span class="in">`filter()`</span> to keep only those rows that would meet these criteria:</span>
+<span id="cb50-328"><a href="#cb50-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-331"><a href="#cb50-331" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb50-332"><a href="#cb50-332" aria-hidden="true" tabindex="-1"></a>experiment_parameters <span class="sc">|&gt;</span></span>
+<span id="cb50-333"><a href="#cb50-333" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n_per_condition <span class="sc">&lt;</span> <span class="dv">70</span> <span class="sc">&amp;</span> mean_intervention <span class="sc">&lt;</span> .<span class="dv">3</span>)</span>
+<span id="cb50-334"><a href="#cb50-334" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-335"><a href="#cb50-335" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb50-336"><a href="#cb50-336" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-337"><a href="#cb50-337" aria-hidden="true" tabindex="-1"></a>Empty!</span>
+<span id="cb50-338"><a href="#cb50-338" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-339"><a href="#cb50-339" aria-hidden="true" tabindex="-1"></a><span class="fu">## Designs with dependencies</span></span>
+<span id="cb50-340"><a href="#cb50-340" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-341"><a href="#cb50-341" aria-hidden="true" tabindex="-1"></a>In fully-crossed designs, the presence of variables is independent from each other: all levels in a given variable are assumed to be possible across all levels of all other variables.</span>
+<span id="cb50-342"><a href="#cb50-342" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-343"><a href="#cb50-343" aria-hidden="true" tabindex="-1"></a>In non-fully-crossed designs, we recognise that not all variable combinations are possible, and remove those impossible/implausible combinations. In other words, there are dependencies between variables: the value of one variable *depends* on the value of other(s).</span>
+<span id="cb50-344"><a href="#cb50-344" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-345"><a href="#cb50-345" aria-hidden="true" tabindex="-1"></a>We can actually take these kinds of dependencies a step further. Instead of just creating a fully-crossed design and filtering out the ones that are impossible or implausible, we can instead define variables in the first place in relation to others.</span>
+<span id="cb50-346"><a href="#cb50-346" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-347"><a href="#cb50-347" aria-hidden="true" tabindex="-1"></a>Let's start with a simple example. Imagine we want to simulate all values of the width, height, and area of rectangles when width is between 10 and 20, and height is between 15 and 25. We know that area is dependent on height and width (since area = height <span class="sc">\*</span> width). If we would use the "simulate fully-crossed and then filter" method, we'd do something like:</span>
+<span id="cb50-348"><a href="#cb50-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-351"><a href="#cb50-351" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb50-352"><a href="#cb50-352" aria-hidden="true" tabindex="-1"></a>rectangle_parameters <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb50-353"><a href="#cb50-353" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">20</span>,</span>
+<span id="cb50-354"><a href="#cb50-354" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">15</span><span class="sc">:</span><span class="dv">25</span>,</span>
+<span id="cb50-355"><a href="#cb50-355" aria-hidden="true" tabindex="-1"></a>  <span class="at">area =</span> <span class="dv">150</span><span class="sc">:</span><span class="dv">500</span> <span class="co"># smallest area = 10*15 = 150, largest area = 20*25 = 500</span></span>
+<span id="cb50-356"><a href="#cb50-356" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb50-357"><a href="#cb50-357" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-358"><a href="#cb50-358" aria-hidden="true" tabindex="-1"></a>rectangle_parameters <span class="sc">|&gt;</span></span>
+<span id="cb50-359"><a href="#cb50-359" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>()</span>
+<span id="cb50-360"><a href="#cb50-360" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb50-361"><a href="#cb50-361" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-362"><a href="#cb50-362" aria-hidden="true" tabindex="-1"></a>This gives 42,471 possibilities. Then we could filter, like:</span>
+<span id="cb50-363"><a href="#cb50-363" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-366"><a href="#cb50-366" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb50-367"><a href="#cb50-367" aria-hidden="true" tabindex="-1"></a>rectangle_parameters <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb50-368"><a href="#cb50-368" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">20</span>,</span>
+<span id="cb50-369"><a href="#cb50-369" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">15</span><span class="sc">:</span><span class="dv">25</span>,</span>
+<span id="cb50-370"><a href="#cb50-370" aria-hidden="true" tabindex="-1"></a>  <span class="at">area =</span> <span class="dv">150</span><span class="sc">:</span><span class="dv">500</span> <span class="co"># smallest area = 10*15 = 150, largest area = 20*25 = 500</span></span>
+<span id="cb50-371"><a href="#cb50-371" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb50-372"><a href="#cb50-372" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(area <span class="sc">==</span> width <span class="sc">*</span> height)</span>
+<span id="cb50-373"><a href="#cb50-373" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-374"><a href="#cb50-374" aria-hidden="true" tabindex="-1"></a>rectangle_parameters <span class="sc">|&gt;</span></span>
+<span id="cb50-375"><a href="#cb50-375" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>()</span>
+<span id="cb50-376"><a href="#cb50-376" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-377"><a href="#cb50-377" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb50-378"><a href="#cb50-378" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-379"><a href="#cb50-379" aria-hidden="true" tabindex="-1"></a>Which gives us the 121 actual possibilities. But why bother simulate all of those unnecessary values in the first place, when we could instead just calculate <span class="in">`area`</span> directly for each <span class="in">`height`</span> and <span class="in">`width`</span> value? This would be much more efficient. And we can do just this, using <span class="in">`mutate()`</span>:</span>
+<span id="cb50-380"><a href="#cb50-380" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-383"><a href="#cb50-383" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb50-384"><a href="#cb50-384" aria-hidden="true" tabindex="-1"></a>rectangle_parameters <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb50-385"><a href="#cb50-385" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">20</span>,</span>
+<span id="cb50-386"><a href="#cb50-386" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">15</span><span class="sc">:</span><span class="dv">25</span></span>
+<span id="cb50-387"><a href="#cb50-387" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb50-388"><a href="#cb50-388" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">area =</span> width <span class="sc">*</span> height)</span>
+<span id="cb50-389"><a href="#cb50-389" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-390"><a href="#cb50-390" aria-hidden="true" tabindex="-1"></a>rectangle_parameters <span class="sc">|&gt;</span></span>
+<span id="cb50-391"><a href="#cb50-391" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>()</span>
+<span id="cb50-392"><a href="#cb50-392" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-393"><a href="#cb50-393" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb50-394"><a href="#cb50-394" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-395"><a href="#cb50-395" aria-hidden="true" tabindex="-1"></a>When we simulate our data, there will be many cases where these types of "functional relationships" exist: i.e., where one variable is defined based on its relationship with other variable(s). In this case, the most efficient approach is to (i) simulate the other variables, and then (ii) use <span class="in">`mutate()`</span> to create the variable which is dependent on those other variables.</span>
+<span id="cb50-396"><a href="#cb50-396" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-397"><a href="#cb50-397" aria-hidden="true" tabindex="-1"></a>Here’s another example. Imagine we’re simulating exam results for students, and we want to vary:</span>
+<span id="cb50-398"><a href="#cb50-398" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-399"><a href="#cb50-399" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>how many questions the exam has (n_questions: 10, 20, 40, or 60)</span>
+<span id="cb50-400"><a href="#cb50-400" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-401"><a href="#cb50-401" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>the average difficulty of questions ("easy" or "hard")</span>
+<span id="cb50-402"><a href="#cb50-402" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-403"><a href="#cb50-403" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>the *time limit* for the exam (time_limit_minutes: between 10 and 120 minutes</span>
+<span id="cb50-404"><a href="#cb50-404" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-405"><a href="#cb50-405" aria-hidden="true" tabindex="-1"></a>A fully-crossed design would treat these as independent: any time limit could go with any number of questions. But in reality, if we simulate a 10-question quiz with easy questions we might reasonably only want to consider a 10 or 20 minute time limit, whereas a 60-question exam with hard questions might need 60–120 minutes. So the time limit we want to consider in our simulation depends on the number of questions and the difficulty.</span>
+<span id="cb50-406"><a href="#cb50-406" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-407"><a href="#cb50-407" aria-hidden="true" tabindex="-1"></a>If we use the “fully-crossed then filter” method, we might do:</span>
+<span id="cb50-408"><a href="#cb50-408" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-411"><a href="#cb50-411" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb50-412"><a href="#cb50-412" aria-hidden="true" tabindex="-1"></a>exam_parameters <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb50-413"><a href="#cb50-413" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_questions =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">40</span>, <span class="dv">60</span>),</span>
+<span id="cb50-414"><a href="#cb50-414" aria-hidden="true" tabindex="-1"></a>  <span class="at">difficulty =</span> <span class="fu">c</span>(<span class="st">"easy"</span>, <span class="st">"hard"</span>),</span>
+<span id="cb50-415"><a href="#cb50-415" aria-hidden="true" tabindex="-1"></a>  <span class="at">time_limit_minutes =</span> <span class="fu">seq</span>(<span class="dv">10</span>, <span class="dv">120</span>, <span class="at">by =</span> <span class="dv">10</span>)</span>
+<span id="cb50-416"><a href="#cb50-416" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb50-417"><a href="#cb50-417" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-418"><a href="#cb50-418" aria-hidden="true" tabindex="-1"></a>exam_parameters <span class="sc">|&gt;</span> <span class="fu">nrow</span>()</span>
+<span id="cb50-419"><a href="#cb50-419" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-420"><a href="#cb50-420" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb50-421"><a href="#cb50-421" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-422"><a href="#cb50-422" aria-hidden="true" tabindex="-1"></a>This again gives us many combinations we do not care about. We could <span class="in">`filter()`</span> them:</span>
+<span id="cb50-423"><a href="#cb50-423" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-426"><a href="#cb50-426" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb50-427"><a href="#cb50-427" aria-hidden="true" tabindex="-1"></a>exam_parameters <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb50-428"><a href="#cb50-428" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_questions =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">40</span>, <span class="dv">60</span>),</span>
+<span id="cb50-429"><a href="#cb50-429" aria-hidden="true" tabindex="-1"></a>  <span class="at">difficulty =</span> <span class="fu">c</span>(<span class="st">"easy"</span>, <span class="st">"hard"</span>),</span>
+<span id="cb50-430"><a href="#cb50-430" aria-hidden="true" tabindex="-1"></a>  <span class="at">time_limit_minutes =</span> <span class="fu">seq</span>(<span class="dv">10</span>, <span class="dv">120</span>, <span class="at">by =</span> <span class="dv">5</span>)</span>
+<span id="cb50-431"><a href="#cb50-431" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb50-432"><a href="#cb50-432" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb50-433"><a href="#cb50-433" aria-hidden="true" tabindex="-1"></a>    (n_questions <span class="sc">==</span> <span class="dv">10</span> <span class="sc">&amp;</span> time_limit_minutes <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>)) <span class="sc">|</span></span>
+<span id="cb50-434"><a href="#cb50-434" aria-hidden="true" tabindex="-1"></a>    (n_questions <span class="sc">==</span> <span class="dv">20</span> <span class="sc">&amp;</span> time_limit_minutes <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">30</span>)) <span class="sc">|</span></span>
+<span id="cb50-435"><a href="#cb50-435" aria-hidden="true" tabindex="-1"></a>    (n_questions <span class="sc">==</span> <span class="dv">40</span> <span class="sc">&amp;</span> time_limit_minutes <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">60</span>)) <span class="sc">|</span></span>
+<span id="cb50-436"><a href="#cb50-436" aria-hidden="true" tabindex="-1"></a>    (n_questions <span class="sc">==</span> <span class="dv">60</span> <span class="sc">&amp;</span> time_limit_minutes <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">60</span>, <span class="dv">120</span>))</span>
+<span id="cb50-437"><a href="#cb50-437" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb50-438"><a href="#cb50-438" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-439"><a href="#cb50-439" aria-hidden="true" tabindex="-1"></a>exam_parameters </span>
+<span id="cb50-440"><a href="#cb50-440" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-441"><a href="#cb50-441" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb50-442"><a href="#cb50-442" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-443"><a href="#cb50-443" aria-hidden="true" tabindex="-1"></a>But this gets messy quickly. Looking above, we only filtered by <span class="in">`n_questions`</span>, not <span class="in">`question_difficulty`</span>, and it's already a little hard to read. Plus, we are generating many rows just to immediately discard them.</span>
+<span id="cb50-444"><a href="#cb50-444" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-445"><a href="#cb50-445" aria-hidden="true" tabindex="-1"></a>Instead, we can define <span class="in">`time_limit_minutes`</span> from the start based on <span class="in">`n_questions`</span> and <span class="in">`question_difficulty`</span>. Here, we’ll generate n_questions and difficulty, and then derive a plausible time limit with <span class="in">`mutate()`</span>.</span>
+<span id="cb50-446"><a href="#cb50-446" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-447"><a href="#cb50-447" aria-hidden="true" tabindex="-1"></a>We could, for example, assume:</span>
+<span id="cb50-448"><a href="#cb50-448" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-449"><a href="#cb50-449" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Easy questions takes 1 minute on average, and</span>
+<span id="cb50-450"><a href="#cb50-450" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-451"><a href="#cb50-451" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Hard questions take twice as long as easy questions on average.</span>
+<span id="cb50-452"><a href="#cb50-452" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-455"><a href="#cb50-455" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb50-456"><a href="#cb50-456" aria-hidden="true" tabindex="-1"></a>exam_parameters <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb50-457"><a href="#cb50-457" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_questions =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">40</span>, <span class="dv">60</span>),</span>
+<span id="cb50-458"><a href="#cb50-458" aria-hidden="true" tabindex="-1"></a>  <span class="at">difficulty =</span> <span class="fu">c</span>(<span class="st">"easy"</span>, <span class="st">"hard"</span>)</span>
+<span id="cb50-459"><a href="#cb50-459" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb50-460"><a href="#cb50-460" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb50-461"><a href="#cb50-461" aria-hidden="true" tabindex="-1"></a>    <span class="co"># baseline: 1 minute per question</span></span>
+<span id="cb50-462"><a href="#cb50-462" aria-hidden="true" tabindex="-1"></a>    <span class="at">base_time =</span> n_questions <span class="sc">*</span> <span class="dv">1</span>,</span>
+<span id="cb50-463"><a href="#cb50-463" aria-hidden="true" tabindex="-1"></a>    <span class="co"># hard exams take twice as long per question </span></span>
+<span id="cb50-464"><a href="#cb50-464" aria-hidden="true" tabindex="-1"></a>    <span class="at">time_limit_minutes =</span> <span class="fu">if_else</span>(difficulty <span class="sc">==</span> <span class="st">"hard"</span>,</span>
+<span id="cb50-465"><a href="#cb50-465" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">round</span>(base_time <span class="sc">*</span> <span class="dv">2</span>),</span>
+<span id="cb50-466"><a href="#cb50-466" aria-hidden="true" tabindex="-1"></a>                                base_time)</span>
+<span id="cb50-467"><a href="#cb50-467" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb50-468"><a href="#cb50-468" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>base_time)</span>
+<span id="cb50-469"><a href="#cb50-469" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-470"><a href="#cb50-470" aria-hidden="true" tabindex="-1"></a>exam_parameters</span>
+<span id="cb50-471"><a href="#cb50-471" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-472"><a href="#cb50-472" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb50-473"><a href="#cb50-473" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-474"><a href="#cb50-474" aria-hidden="true" tabindex="-1"></a><span class="fu">## Summary</span></span>
+<span id="cb50-475"><a href="#cb50-475" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-476"><a href="#cb50-476" aria-hidden="true" tabindex="-1"></a>In this chapter, we covered how to design simulation experiments by specifying the parameter values we want to vary. Key takeaways:</span>
+<span id="cb50-477"><a href="#cb50-477" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-478"><a href="#cb50-478" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Parameter grids** are tibbles where each row represents one combination of simulation parameters. They replace error-prone copy-pasting with a structured, inspectable object.</span>
+<span id="cb50-479"><a href="#cb50-479" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-480"><a href="#cb50-480" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**`expand_grid()`** is the workhorse for creating parameter grids. You supply each parameter's desired values once, and it returns all combinations automatically.</span>
+<span id="cb50-481"><a href="#cb50-481" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-482"><a href="#cb50-482" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Sanity checking** your grid with <span class="in">`nrow()`</span> and <span class="in">`distinct()`</span> helps catch mistakes early.</span>
+<span id="cb50-483"><a href="#cb50-483" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-484"><a href="#cb50-484" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Fully-crossed designs** (the <span class="in">`expand_grid()`</span> default) include every combination of every parameter level. These are simple and interpretable, but can become large quickly and may include implausible combinations.</span>
+<span id="cb50-485"><a href="#cb50-485" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-486"><a href="#cb50-486" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Non-fully-crossed designs** start fully crossed and then use <span class="in">`filter()`</span> to remove implausible or uninteresting combinations.</span>
+<span id="cb50-487"><a href="#cb50-487" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-488"><a href="#cb50-488" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Designs with dependencies** use <span class="in">`mutate()`</span> to derive one parameter from others (e.g., <span class="in">`area = width * height`</span>), avoiding the need to enumerate and then filter impossible values. This is both more efficient and more readable than the fully-crossed-then-filter approach.</span>
+<span id="cb50-489"><a href="#cb50-489" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-490"><a href="#cb50-490" aria-hidden="true" tabindex="-1"></a>In the next chapter, we will learn how to *run* simulations across these parameter grids efficiently using the <span class="in">`map()`</span> family of functions.</span>
+<span id="cb50-491"><a href="#cb50-491" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-492"><a href="#cb50-492" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises</span></span>
+<span id="cb50-493"><a href="#cb50-493" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-494"><a href="#cb50-494" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exercise 1: Basic parameter grid</span></span>
+<span id="cb50-495"><a href="#cb50-495" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-496"><a href="#cb50-496" aria-hidden="true" tabindex="-1"></a>Use <span class="in">`expand_grid()`</span> to create a parameter grid for a simulation where:</span>
+<span id="cb50-497"><a href="#cb50-497" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-498"><a href="#cb50-498" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`n_per_condition`</span> is 20, 50, or 100</span>
+<span id="cb50-499"><a href="#cb50-499" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-500"><a href="#cb50-500" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`mean_intervention`</span> is 0.2 or 0.8</span>
+<span id="cb50-501"><a href="#cb50-501" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-502"><a href="#cb50-502" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`sd`</span> is 1</span>
+<span id="cb50-503"><a href="#cb50-503" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-504"><a href="#cb50-504" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`correlation_between_conditions`</span> is 0.3 or 0.5.</span>
+<span id="cb50-505"><a href="#cb50-505" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-506"><a href="#cb50-506" aria-hidden="true" tabindex="-1"></a>How many rows does the resulting grid have? Verify using <span class="in">`nrow()`</span> and <span class="in">`distinct()`</span>.</span>
+<span id="cb50-507"><a href="#cb50-507" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-508"><a href="#cb50-508" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exercise 2: Filtering implausible combinations</span></span>
+<span id="cb50-509"><a href="#cb50-509" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-510"><a href="#cb50-510" aria-hidden="true" tabindex="-1"></a>Starting from the grid below, use <span class="in">`filter()`</span> to remove any rows where <span class="in">`n_per_condition`</span> is less than 50 **and** <span class="in">`mean_intervention`</span> is less than 0.3. How many rows remain?</span>
+<span id="cb50-511"><a href="#cb50-511" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-514"><a href="#cb50-514" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb50-515"><a href="#cb50-515" aria-hidden="true" tabindex="-1"></a><span class="fu">expand_grid</span>(</span>
+<span id="cb50-516"><a href="#cb50-516" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_per_condition =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">200</span>),</span>
+<span id="cb50-517"><a href="#cb50-517" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_intervention =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.3</span>, <span class="fl">0.5</span>),</span>
+<span id="cb50-518"><a href="#cb50-518" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>)</span>
+<span id="cb50-519"><a href="#cb50-519" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb50-520"><a href="#cb50-520" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-521"><a href="#cb50-521" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb50-522"><a href="#cb50-522" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-523"><a href="#cb50-523" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exercise 3: Dependent parameters with `mutate()`</span></span>
+<span id="cb50-524"><a href="#cb50-524" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-525"><a href="#cb50-525" aria-hidden="true" tabindex="-1"></a>You are simulating a reading comprehension study. Your parameters are:</span>
+<span id="cb50-526"><a href="#cb50-526" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-527"><a href="#cb50-527" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`n_passages`</span>: the number of passages participants read (5, 10, or 20)</span>
+<span id="cb50-528"><a href="#cb50-528" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-529"><a href="#cb50-529" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`passage_difficulty`</span>: "easy" or "hard"</span>
+<span id="cb50-530"><a href="#cb50-530" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-531"><a href="#cb50-531" aria-hidden="true" tabindex="-1"></a>The total time allowed (<span class="in">`time_limit_minutes`</span>) depends on the other two parameters: participants get 2 minutes per easy passage and 4 minutes per hard passage. Use <span class="in">`expand_grid()`</span> and <span class="in">`mutate()`</span> to create the parameter grid with <span class="in">`time_limit_minutes`</span> derived from the other columns.</span>
+<span id="cb50-532"><a href="#cb50-532" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-533"><a href="#cb50-533" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exercise 4: Choosing the right design</span></span>
+<span id="cb50-534"><a href="#cb50-534" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-535"><a href="#cb50-535" aria-hidden="true" tabindex="-1"></a>For each scenario below, determine whether you would use (a) a fully-crossed design, (b) a non-fully-crossed design with <span class="in">`filter()`</span>, or (c) a design with dependencies using <span class="in">`mutate()`</span>.</span>
+<span id="cb50-536"><a href="#cb50-536" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-537"><a href="#cb50-537" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>You vary sample size (50, 100, 200) and effect size (0.2, 0.5, 0.8), and all combinations are plausible.</span>
+<span id="cb50-538"><a href="#cb50-538" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-539"><a href="#cb50-539" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>You vary the number of predictors (2, 5, 10) and the number of observations (20, 50, 100, 500), but you want to exclude cases where the number of observations is smaller than 10 times the number of predictors.</span>
+<span id="cb50-540"><a href="#cb50-540" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-541"><a href="#cb50-541" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>You vary the number of items on a test (10, 20, 40) and want the total test time to always equal 2 minutes per item.</span>
+<span id="cb50-542"><a href="#cb50-542" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-543"><a href="#cb50-543" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>You are simulating a clinical trial and vary the dropout rate (5%, 15%, 30%) and treatment effect size (0.3, 0.5, 0.7). All combinations are realistic because patients drop out for many reasons unrelated to efficacy.</span>
+<span id="cb50-544"><a href="#cb50-544" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-545"><a href="#cb50-545" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>You are simulating ecological data on bird species counts across habitats. You vary habitat type (forest, wetland, urban) and survey area size (1 km², 5 km², 25 km²), but want to exclude large survey areas for urban habitats because contiguous urban green spaces larger than 5 km² are unrealistic in your study region.</span>
+<span id="cb50-546"><a href="#cb50-546" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-547"><a href="#cb50-547" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exercise 5: Build your own simulation design</span></span>
+<span id="cb50-548"><a href="#cb50-548" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-549"><a href="#cb50-549" aria-hidden="true" tabindex="-1"></a>Think of a research question from an area of research you find interesting. Define at least three parameters you would want to vary, create a parameter grid using <span class="in">`expand_grid()`</span>, and include at least one dependency or filter. Use <span class="in">`nrow()`</span> and <span class="in">`distinct()`</span> to sanity-check your grid. Write a brief comment (2–3 sentences) explaining why you chose each parameter value and why you included the dependency or filter.</span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

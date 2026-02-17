@@ -2,21 +2,24 @@
 
 This [Open Source](chapters/license.qmd) eBook provides materials for the semester-long Master's seminar course "Improving your statistical inferences through Monte Carlo simulations" that I deliver at the University of Bern's Institute of Psychology.
 
-This book teaches you about three things: the conceptual structure of simulation studies, their implementation in a modular R/tidyverse workflow that prioritizes understandability and code reusability over execution speed, and how to better understand and use statistical methods and the behavior of researchers using them. 
+This book is split into two parts:
+
+1. Learning to simulate. Chapters 1-9 teach you the conceptual structure of Monte Carlo simulation studies, and how to implement them in a modular R/tidyverse workflow that prioritizes understandability and code reusability over execution speed. 
+2. Learning from simulate. The remaining chapters use simulations to better understand and use statistical methods, and to understand and guide the behavior of researchers using those methods.
 
 ## Required knowledge
 
 This book assumes existing knowledge of data wrangling and visualization in R/tidyverse. Specifically, familiarity with RStudio, reproducible reports written in {quarto} (.qmd) documents, the 'pipe' (`|>` and `%>%`), the packages {dplyr}, {tidyr}, {forcats}, and {ggplot2}.
 
-If you don't already have these skills, or you need a refresher, please see my other book ["Reproducible Data Processing and Visualization in R and tidyverse"](https://ianhussey.quarto.pub/reproducible-data-processing-and-visualization/).
+If you don't already have these skills, or you need a refresher, please see Ian's other book ["Reproducible Data Processing and Visualization in R and tidyverse"](https://ianhussey.quarto.pub/reproducible-data-processing-and-visualization/).
 
-If you're enrolled in my class but haven't already taken my "Reproducible data processing and visualization" class based on that book, I encourage you to rapidly make your way through it. In previous years, students have taken this simulation course without much familiarity with R when they already have some familiarity with other coding languages such as Python and Matlab. Sometimes, students sign up for this seminar with low confidence in their R abilities. It is entirely possible to succeed in this course without strong existing R skills, but it unavoidably means more self-guided learning and practice for you. 
+If you're enrolled in our class but haven't already taken Ian's "Reproducible data processing and visualization" class based on that book, we encourage you to rapidly make your way through it. In previous years, students have taken this simulation course without much familiarity with R when they already have some familiarity with other coding languages such as Python and Matlab. Sometimes, students sign up for this seminar with low confidence in their R abilities. It is entirely possible to succeed in this course without strong existing R skills, but it unavoidably means more self-guided learning and practice for you. 
 
 ## How to use this book
 
 This book is made up of individual Quarto (.qmd) workbooks. Many of the exercises are easiest to complete in your own local copy of these .qmd files.
 
-I suggest that you [download a .zip of the contents of this book's code and data from GitHub](https://github.com/ianhussey/improving-your-statistical-inferences-through-monte-carlo-simulations) to run the code locally, complete the exercises, etc.
+We suggest that you [download a .zip of the contents of this book's code and data from GitHub](https://github.com/ianhussey/improving-your-statistical-inferences-through-monte-carlo-simulations) to run the code locally, complete the exercises, etc.
 
 You can also copy and paste the code for any chapter directly from the website. Click the "\</\> Code" button on the top right of each page to see the full .qmd file's code. You can copy and paste this into a .qmd file. However, it's probably easier to download all the .qmd files and data as mentioned above.
 
@@ -36,18 +39,6 @@ There is also a growing literature on reporting standards, preregistration, and 
 -   Siepe et al. (2026) Why, when, and how to (or not to)preregister a simulation study. [osf.io/cxjrb_v1](https://osf.io/preprints/psyarxiv/cxjrb_v1)
 -   Siepe et al. (2024) Simulation studies for methodological research in psychology: A standardized template for planning, preregistration, and reporting. *Psychological Methods*. doi: [10.1037/met0000695](https://doi.org/10.1037/met0000695)
 -   Pawel et al. (2023) Pitfalls and potentials in simulation studies: Questionable research practices in comparative simulation studies allow for spurious claims of superiority of any method. *Biometrical Journal*. doi: [10.1002/bimj.202200091](https://doi.org/10.1002/bimj.202200091)
-
-## Find me elsewhere
-
-You can find my recent and current research interests, a summary of the courses I teach, and occasional blog posts on my personal website [mmmdata.io](https://mmmdata.io).
-
-You can find me on Bluesky at [\@ianhussey.mmmdata.io](https://bsky.app/profile/ianhussey.mmmdata.io).
-
-## Contributors
-
-Many thanks to:
-
-Dr. Jamie Cummins ([ORCID](https://orcid.org/0000-0002-9729-4900)) for contributing to writing and code.
 
 ## Contributing
 

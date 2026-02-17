@@ -1,0 +1,454 @@
+---
+title: "One-line Monte Carlo simulation"
+author: "Ian Hussey"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    code_download: true
+    code_folding: show
+    highlight: haddock
+    theme: flatly
+    toc: yes
+    toc_float: yes
+    mathjax: "default"
+---
+# Math
+
+## 1. Sample Means
+
+For each group, the sample mean is calculated as:
+
+$$
+\bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i
+$$
+
+## 2. Sample Variance and Standard Deviation
+
+Sample variance:
+
+$$
+s^2 = \frac{1}{n - 1} \sum_{i=1}^{n} (x_i - \bar{x})^2
+$$
+
+Sample standard deviation:
+
+$$
+s = \sqrt{s^2}
+$$
+
+Let \( s_1, s_2 \) and \( n_1, n_2 \) be the standard deviations and sample sizes of group 1 and group 2.
+
+## 3. Standard Error of the Difference Between Means
+
+Assuming independent samples:
+
+$$
+SE = \sqrt{ \frac{s_1^2}{n_1} + \frac{s_2^2}{n_2} }
+$$
+
+## 4. Test Statistic (t)
+
+The t-statistic is calculated as:
+
+$$
+t = \frac{ \bar{x}_1 - \bar{x}_2 }{SE}
+$$
+
+This t-statistic represents the standardized difference between the sample means under the assumption that the null hypothesis \( H_0: \mu_1 = \mu_2 \) is true.
+
+## 5. Degrees of Freedom (Welch’s Approximation)
+
+Because the two samples may have different variances, we use the Welch-Satterthwaite approximation for degrees of freedom:
+
+$$
+df = \frac{ \left( \frac{s_1^2}{n_1} + \frac{s_2^2}{n_2} \right)^2 }{
+\frac{ \left( \frac{s_1^2}{n_1} \right)^2 }{n_1 - 1} +
+\frac{ \left( \frac{s_2^2}{n_2} \right)^2 }{n_2 - 1}
+}
+$$
+
+This value of \( df \) determines which **t-distribution** we reference when calculating the p-value.
+
+## 6. p-Value
+
+Given the calculated t-statistic and degrees of freedom, the p-value is computed as the probability of observing a t-value at least as extreme as the one obtained:
+
+- For a two-sided test:
+
+$$
+p = 2 \cdot P(T_{df} > |t|)
+$$
+
+Where \( T_{df} \) denotes a t-distribution with the calculated degrees of freedom.
+
+
+
+
+## The t-Distribution
+
+The **Student's t-distribution** arises when standardizing the difference between a sample mean and a population mean, using the **sample standard deviation** instead of the population standard deviation. If \( X_1, \dots, X_n \sim \mathcal{N}(\mu, \sigma^2) \), then:
+
+$$
+t = \frac{\bar{X} - \mu}{S / \sqrt{n}} \sim t_{n - 1}
+$$
+
+where:
+
+- \( \bar{X} \) is the sample mean,
+- \( S \) is the sample standard deviation,
+- \( n \) is the sample size,
+- and the degrees of freedom are \( df = n - 1 \).
+
+The t-distribution is derived from the ratio of a standard normal variable and the square root of a scaled chi-squared variable:
+
+$$
+t = \frac{Z}{\sqrt{V / \nu}} \quad \text{where } Z \sim \mathcal{N}(0,1),\; V \sim \chi^2_{\nu},\; Z \perp V
+$$
+
+Thus, the t-distribution with \( \nu \) degrees of freedom is defined by:
+
+$$
+t \sim \frac{Z}{\sqrt{V/\nu}} \sim t_{\nu}
+$$
+
+## Probability Density Function (PDF)
+
+The probability density function of the t-distribution with \( \nu \) degrees of freedom is:
+
+$$
+f(t) = \frac{ \Gamma\left(\frac{\nu + 1}{2}\right) }
+{ \sqrt{\nu \pi} \, \Gamma\left(\frac{\nu}{2}\right) }
+\left(1 + \frac{t^2}{\nu} \right)^{ -\frac{\nu + 1}{2} }
+$$
+
+Where \( \Gamma(\cdot) \) is the gamma function, a generalization of the factorial:
+
+$$
+\Gamma(n) = (n - 1)!
+$$
+
+This function defines the shape of the t-distribution used to determine p-values for a given t-statistic.
+
+
+# combined
+
+$$
+\bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i
+$$
+
+$$
+s^2 = \frac{1}{n - 1} \sum_{i=1}^{n} (x_i - \bar{x})^2
+$$
+
+$$
+SE = \sqrt{ \frac{s_1^2}{n_1} + \frac{s_2^2}{n_2} }
+$$
+
+$$
+t = \frac{ \bar{x}_1 - \bar{x}_2 }{SE}
+$$
+
+$$
+df = \frac{ \left( \frac{s_1^2}{n_1} + \frac{s_2^2}{n_2} \right)^2 }{
+\frac{ \left( \frac{s_1^2}{n_1} \right)^2 }{n_1 - 1} +
+\frac{ \left( \frac{s_2^2}{n_2} \right)^2 }{n_2 - 1}
+}
+$$
+
+$$
+t = \frac{\bar{X} - \mu}{S / \sqrt{n}} \sim t_{n - 1}
+$$
+$$
+f(t) = \frac{ \Gamma\left(\frac{\nu + 1}{2}\right) }
+{ \sqrt{\nu \pi} \, \Gamma\left(\frac{\nu}{2}\right) }
+\left(1 + \frac{t^2}{\nu} \right)^{ -\frac{\nu + 1}{2} }
+$$
+
+$$
+\Gamma(n) = (n - 1)!
+$$
+
+$$
+p = 2 \cdot P(T_{df} > |t|)
+$$
+
+# Plots
+
+```{r}
+
+# params
+mu_control <- 19
+mu_intervention <- 15
+target_var <- 8^2 # 64
+n_per_group <- 25
+
+```
+
+## Visualise sample
+
+DGP neg binomial, analysis assumes gaussian
+
+```{r fig.height=3, fig.width=5}
+
+library(ggplot2)
+library(ggdist)  # for geom_dots
+library(janitor)
+library(roundwork)
+library(dplyr)
+library(tidyverse)
+library(ggdist)
+
+for(study in 1:5){
+  set.seed(study+10)
+  
+  # Calculate dispersion (size) to match SD = 8
+  # Formula: size = mu^2 / (var - mu)
+  theta_control <- mu_control^2 / (target_var - mu_control)
+  theta_intervention <- mu_intervention^2 / (target_var - mu_intervention)
+  
+  df <- data.frame(
+    Group = rep(c("Control", "Intervention"), each = n_per_group),
+    Score = c(
+      rnbinom(n_per_group, mu = mu_control, size = theta_control),
+      rnbinom(n_per_group, mu = mu_intervention, size = theta_intervention)
+    )
+  )
+  
+  mean_diff <- mean(df$Score[df$Group == "Intervention"]) - mean(df$Score[df$Group == "Control"])
+
+# Use it in your subtitle
+  
+  # Dot-only raincloud-style plot
+  ggplot(df, aes(x = Group, y = Score, color = Group, fill = Group)) +
+    ggdist::geom_dots(
+      side = "right",           
+      scale = 0.8,             
+      dotsize = 0.75,          
+      binwidth = 1           
+    ) +
+    scale_color_manual(values = c("Control" = "steelblue", "Intervention" = "tomato")) +
+    scale_fill_manual(values = c("Control" = "steelblue", "Intervention" = "tomato")) +
+    scale_y_continuous(
+      name = "Depression score", 
+      breaks = scales::breaks_pretty(n = 10),
+      limits = c(0, 45)
+    ) +
+    coord_flip() +            
+    theme_linedraw() +
+    labs(
+      title = paste0("Study ", study),
+      # subtitle = paste0("Mean intervention = ", round_up(mean(df$Score[df$Group == "Intervention"]), 1), 
+      #                   ", Mean control = ", round_up(mean(df$Score[df$Group == "Control"], 1)), 
+      #                   ", Pooled SD = ", round_up(mean(c(sd(df$Score[df$Group == "Intervention"]),
+      #                                                     sd(df$Score[df$Group == "Intervention"]))), 1)),
+      subtitle = paste0("Difference in means = ", roundwork::round_up(mean_diff, 1)),
+      color = "Group",
+      x = ""
+    ) +
+    theme(legend.position = "none")
+  
+  ggsave(paste0("sample_effect_study_", study, ".png"),
+         width = 7, 
+         height = 3)
+} 
+
+
+```
+
+## Visualise population gaussian
+
+```{r}
+
+# Generate a sequence of x values for a smooth curve
+x_vals <- seq(0, 45, length.out = 1000)
+
+plot_data_norm <- tibble(x = x_vals) %>%
+  mutate(
+    Control = dnorm(x, mean = mu_control, sd = sqrt(target_var)),
+    Intervention = dnorm(x, mean = mu_intervention, sd = sqrt(target_var))
+  ) %>%
+  pivot_longer(cols = c(Control, Intervention), 
+               names_to = "Group", 
+               values_to = "Density") |>
+  mutate(Group = fct_relevel(Group, "Intervention", "Control"))
+
+ggplot(plot_data_norm, aes(x = x, y = Density, fill = Group)) +
+  geom_area(alpha = 0.6, position = "identity") +
+  scale_fill_manual(values = c("Control" = "steelblue", "Intervention" = "tomato")) +
+  labs(title = "Population",
+       #subtitle = paste0("Mean intervention = ", mu_control, ", Mean control = ", mu_intervention, ", Pooled SD = ", sqrt(target_var)),
+       subtitle = paste0(
+      "Difference in means = ", roundwork::round_up(mu_intervention - mu_control, 1), "\n\n"
+    ),
+       x = "Depression score", 
+       y = "Density", 
+       fill = "Group") +
+  scale_y_continuous(breaks = scales::breaks_pretty(n = 5)) +
+  scale_x_continuous(breaks = scales::breaks_pretty(n = 9),
+                     limits = c(0, 45)) +
+  theme_linedraw()
+
+ggsave("population_effect_normal.png",
+       width = 7, 
+       height = 5)
+
+```
+
+## Visualise population neg binomial
+
+```{r}
+
+# Calculate dispersion (size) for each group to keep SD constant at 8
+theta_control <- round(mu_control^2 / (target_var - mu_control), 1) 
+theta_intervention  <- round(mu_intervention^2 / (target_var - mu_intervention), 1)
+
+plot_data <- tibble(x = 0:50) %>%
+  mutate(
+    Control = dnbinom(x, mu = mu_control, size = theta_control),
+    Intervention = dnbinom(x, mu = mu_intervention, size = theta_intervention)
+  ) %>%
+  pivot_longer(cols = c(Control, Intervention), 
+               names_to = "Group", 
+               values_to = "Probability") |>
+  mutate(Group = fct_relevel(Group, "Intervention", "Control"))
+
+ggplot(plot_data, aes(x = x, y = Probability, fill = Group)) +
+  geom_area(alpha = 0.6, position = "identity") +
+  scale_fill_manual(values = c("Control" = "steelblue", "Intervention" = "tomato")) +
+  labs(
+    title = "Population",
+    subtitle = paste0(
+      "Difference in means = ", roundwork::round_up(mu_intervention - mu_control, 1), "\n",
+      "DGP: Negative Binomial Distribution\nIntervention(μ=", mu_intervention, ", θ=", theta_intervention, 
+      "); Control(μ=", mu_control, ", θ=", theta_control, 
+      "); σ=", sqrt(target_var)
+    ),
+    y = "Density", 
+    fill = "Group"
+  ) +
+  scale_y_continuous(breaks = scales::breaks_pretty(n = 5)) +
+  scale_x_continuous(
+    name = "Depression score", 
+    breaks = scales::breaks_pretty(n = 9),
+    limits = c(0, 45)
+  ) +
+  theme_linedraw()
+
+ggsave("population_effect_negbinomial.png",
+       width = 7, 
+       height = 5)
+
+```
+
+
+
+
+
+# other
+
+```{r}
+
+set.seed(42)
+
+x_vals <- seq(0, 63, length.out = 500)
+
+df_plot <- bind_rows(
+  data.frame(
+    x = x_vals,
+    density = dnorm(x_vals, mean = 17, sd = 4),
+    Group = "Placebo"
+  ),
+  data.frame(
+    x = x_vals,
+    density = dnorm(x_vals, mean = 15, sd = 4),
+    Group = "Intervention"
+  )
+)
+
+# Plot with shaded area under the curve
+ggplot(df_plot, aes(x = x, y = density, fill = Group)) +
+  geom_area(alpha = 0.7, position = "identity") +
+  scale_fill_manual(values = c("Placebo" = "steelblue", "Intervention" = "tomato")) +
+  labs(title = "Population Distribution", x = "x", y = "Density") +
+  theme_linedraw() +
+  scale_x_continuous(name = "Depression score", 
+                     breaks = scales::breaks_pretty(n = 8),
+                     limits = c(0, 35))
+
+# ggsave("pop.png",
+#        width = 7, 
+#        height = 5)
+
+```
+
+# PRNG
+
+```{r}
+
+library(janitor)
+
+
+runif(n = 3, min = 1, max = 10) |> round_half_up(digits = 0)
+
+
+runif(n = 3, min = 1, max = 10) |> round_half_up(digits = 0)
+
+
+runif(n = 3, min = 1, max = 10) |> round_half_up(digits = 0)
+
+```
+
+
+```{r}
+
+library(janitor)
+
+set.seed(42)
+runif(n = 3, min = 1, max = 10) |> round_half_up(digits = 0)
+
+set.seed(42)
+runif(n = 3, min = 1, max = 10) |> round_half_up(digits = 0)
+
+set.seed(42)
+runif(n = 3, min = 1, max = 10) |> round_half_up(digits = 0)
+
+```
+
+# multivariate data
+
+```{r fig.height=5, fig.width=5}
+
+# Load required packages
+library(ggplot2)
+
+library(ggExtra)
+
+# Generate multivariate normal data
+# For example, 500 observations of two variables with correlation = 0.6
+set.seed(123)  # for reproducibility
+
+library(faux)
+
+dat <- rnorm_multi(n = 500, 
+                   vars = 2, 
+                   varnames = c("X", "Y"),
+                   mu = 0, 
+                   sd = 1, 
+                   r = 0.6)
+
+p <- ggplot(dat, aes(x = X, y = Y)) +
+  geom_point(alpha = 0.6) +
+  theme_linedraw()
+
+ggMarginal(p, type = "density", fill = "gray", alpha = 0.5)
+
+# ggsave("scatter.png",
+#        width = 5, 
+#        height = 5)
+
+```
+
+
+
+
+

@@ -4,25 +4,35 @@ project:
 book:
   title: "Improving your statistical inferences through Monte Carlo simulations"
   subtitle: "in R and tidyverse"
-  author: "Ian Hussey"
+  author:
+    - name: Ian Hussey
+      orcid: 0000-0001-8906-7559
+      email: ian.hussey@unibe.ch
+      affiliations:
+        - University of Bern
+      url: https://bsky.app/profile/ianhussey.mmmdata.io
+    - name: Jamie Cummins
+      orcid: 0000-0002-9729-4900
+      email: jamie.cummins@unibe.ch
+      url: https://bsky.app/profile/jamiecummins.bsky.social
+      affiliations:
+        - University of Bern
+        - University of Oxford
   date: today
   chapters:
     - index.qmd
+    # Learning to simulate
+    - chapters/1_foundation_concepts.qmd # week 1 ian
+    - chapters/2_writing_functions.qmd # week 1 jamie
+    - chapters/3_data_generating_process_functions.qmd # week 2 - really about practicing writing functions, summarizing and plotting - ian
+    - chapters/4_analysis_functions.qmd # week 3 - practice writing functions again, more/less flexible/reusable - jamie
+    - chapters/5_creating_simulation_experiments.qmd # week 4, if it includes Siepe's study on designs
+    - chapters/6_mapping.qmd # week 4 - nested dfs needs explaining. 
+    - chapters/7_summarizing_results.qmd # week 5
+    - chapters/8_planning_and_reporting.qmd # come back to this after substantive chapter 1 - week 7?, Siepe paper, assessing performance (MC SE), etc. Diagnostics on already run simulations, go in and check specific iterations, run manually etc.
+    - chapters/9_simulation_template.qmd # week 5, 'putting it all together'; skip to substantive chapter 1?
     
-    # Concepts and coding skills
-    - chapters/foundational_concepts.qmd # week 1 ian
-    - chapters/writing_functions.qmd # week 1 jamie
-    #- chapters/generating_data.qmd # week 2 - really about practicing writing functions, summarizing and plotting - ian
-    #- chapters/analysing_data.qmd # week 3 - practice writing functions again, more/less flexible/reusable - jamie
-    - chapters/designing_simulation_experiments.qmd # week 4, if it includes Siepe's study on designs
-    - chapters/mapping_functions.qmd # week 4 - nested dfs needs explaining. 
-    #- chapters/summarizing_results.qmd # week 5
-    #- chapters/template.qmd # week 5, 'putting it all together'; skip to substantive chapter 1?
-    #- chapters/planning_reporting # come back to this after substantive chapter 1 - week 7?, Siepe paper, assessing performance (MC SE), etc. Diagnostics on already run simulations, go in and check specific iterations, run manually etc. 
-    #- chapters/general_structure_of_a_simulation_1.qmd # removed to /old folder
-    #- chapters/general_structure_of_a_simulation_2.qmd # removed to /old folder
-    
-    # Applications and more advanced coding skills
+    # Learning from simulations
     # whatever chapter comes next, lay out the final assignment here
     # substantive chapter 1 - week 5/6
     - chapters/violating_assumptions.qmd

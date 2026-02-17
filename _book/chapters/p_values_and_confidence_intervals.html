@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>9&nbsp; Understanding the link between p-values, Confidence Intervals, and power – Improving your statistical inferences through Monte Carlo simulations</title>
+<title>13&nbsp; Understanding the link between p-values, Confidence Intervals, and power – Improving your statistical inferences through Monte Carlo simulations</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -117,7 +117,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/p_values_and_confidence_intervals.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Understanding the link between p-values, Confidence Intervals, and power</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/p_values_and_confidence_intervals.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Understanding the link between p-values, Confidence Intervals, and power</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -150,92 +150,116 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/foundational_concepts.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/1_foundation_concepts.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Foundation concepts</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/writing_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Practice writing R functions</span></span></a>
+  <a href="../chapters/2_writing_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Writing functions</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/mapping_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">map functions</span></span></a>
+  <a href="../chapters/3_data_generating_process_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data generating processes</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/general_structure_of_a_simulation_1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">General structure of a simulation study</span></span></a>
+  <a href="../chapters/4_analysis_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Analysis functions</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/general_structure_of_a_simulation_2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">General structure of a simulation study</span></span></a>
+  <a href="../chapters/5_creating_simulation_experiments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Creating simulation experiments</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/6_mapping.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Mapping over functions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/7_summarizing_results.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Summarizing results</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/8_planning_and_reporting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Planning and reporting</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/9_simulation_template.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Simulation template</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/violating_assumptions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/testing_assumptions_and_conditional_tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of (non-)parameteric tests”</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of (non-)parameteric tests”</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/p_hacking.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/p_values_and_confidence_intervals.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Understanding the link between p-values, Confidence Intervals, and power</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Understanding the link between p-values, Confidence Intervals, and power</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/difference_between_signfiicant_and_nonsignificant.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">The differences between significant and non-significant is not itself significant</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">The differences between significant and non-significant is not itself significant</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/standardized_effect_sizes_and_range_restriction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Standardized effect sizes and range restriction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Standardized effect sizes and range restriction</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/impact_of_lazy_responding_assignment.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">The impact of one form of lazy/careless responding on the power and false positive rate of a Student’s t-test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">The impact of one form of lazy/careless responding on the power and false positive rate of a Student’s t-test</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/meta_analysis_and_publication_bias.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Meta-analysis and publication bias</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Meta-analysis and publication bias</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/causality.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Regression assumes causality</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Regression assumes causality</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
   </div>
 </li>
     </ul>
@@ -248,23 +272,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#overview-of-tutorial" id="toc-overview-of-tutorial" class="nav-link active" data-scroll-target="#overview-of-tutorial"><span class="header-section-number">9.1</span> Overview of tutorial</a></li>
-  <li><a href="#dependencies" id="toc-dependencies" class="nav-link" data-scroll-target="#dependencies"><span class="header-section-number">9.2</span> Dependencies</a></li>
-  <li><a href="#simulation" id="toc-simulation" class="nav-link" data-scroll-target="#simulation"><span class="header-section-number">9.3</span> Simulation</a></li>
-  <li><a href="#cohens-d-by-sample-size" id="toc-cohens-d-by-sample-size" class="nav-link" data-scroll-target="#cohens-d-by-sample-size"><span class="header-section-number">9.4</span> Cohen’s d by sample size</a>
+  <li><a href="#overview-of-tutorial" id="toc-overview-of-tutorial" class="nav-link active" data-scroll-target="#overview-of-tutorial"><span class="header-section-number">13.1</span> Overview of tutorial</a></li>
+  <li><a href="#dependencies" id="toc-dependencies" class="nav-link" data-scroll-target="#dependencies"><span class="header-section-number">13.2</span> Dependencies</a></li>
+  <li><a href="#simulation" id="toc-simulation" class="nav-link" data-scroll-target="#simulation"><span class="header-section-number">13.3</span> Simulation</a></li>
+  <li><a href="#cohens-d-by-sample-size" id="toc-cohens-d-by-sample-size" class="nav-link" data-scroll-target="#cohens-d-by-sample-size"><span class="header-section-number">13.4</span> Cohen’s d by sample size</a>
   <ul class="collapse">
-  <li><a href="#ordered-by-statistical-significance" id="toc-ordered-by-statistical-significance" class="nav-link" data-scroll-target="#ordered-by-statistical-significance"><span class="header-section-number">9.4.1</span> Ordered by statistical significance</a></li>
-  <li><a href="#average-effect-size-for-significant-effects" id="toc-average-effect-size-for-significant-effects" class="nav-link" data-scroll-target="#average-effect-size-for-significant-effects"><span class="header-section-number">9.4.2</span> Average effect size for significant effects</a></li>
+  <li><a href="#ordered-by-statistical-significance" id="toc-ordered-by-statistical-significance" class="nav-link" data-scroll-target="#ordered-by-statistical-significance"><span class="header-section-number">13.4.1</span> Ordered by statistical significance</a></li>
+  <li><a href="#average-effect-size-for-significant-effects" id="toc-average-effect-size-for-significant-effects" class="nav-link" data-scroll-target="#average-effect-size-for-significant-effects"><span class="header-section-number">13.4.2</span> Average effect size for significant effects</a></li>
   </ul></li>
-  <li><a href="#cohens-d-and-its-95-cis" id="toc-cohens-d-and-its-95-cis" class="nav-link" data-scroll-target="#cohens-d-and-its-95-cis"><span class="header-section-number">9.5</span> Cohen’s d and its 95% CIs</a>
+  <li><a href="#cohens-d-and-its-95-cis" id="toc-cohens-d-and-its-95-cis" class="nav-link" data-scroll-target="#cohens-d-and-its-95-cis"><span class="header-section-number">13.5</span> Cohen’s d and its 95% CIs</a>
   <ul class="collapse">
-  <li><a href="#randomly-select-one-dataset-per-sample-size" id="toc-randomly-select-one-dataset-per-sample-size" class="nav-link" data-scroll-target="#randomly-select-one-dataset-per-sample-size"><span class="header-section-number">9.5.1</span> Randomly select one dataset per sample size</a></li>
-  <li><a href="#all-datasets" id="toc-all-datasets" class="nav-link" data-scroll-target="#all-datasets"><span class="header-section-number">9.5.2</span> All datasets</a></li>
-  <li><a href="#ordered-by-cohens-d" id="toc-ordered-by-cohens-d" class="nav-link" data-scroll-target="#ordered-by-cohens-d"><span class="header-section-number">9.5.3</span> Ordered by Cohen’s d</a></li>
+  <li><a href="#randomly-select-one-dataset-per-sample-size" id="toc-randomly-select-one-dataset-per-sample-size" class="nav-link" data-scroll-target="#randomly-select-one-dataset-per-sample-size"><span class="header-section-number">13.5.1</span> Randomly select one dataset per sample size</a></li>
+  <li><a href="#all-datasets" id="toc-all-datasets" class="nav-link" data-scroll-target="#all-datasets"><span class="header-section-number">13.5.2</span> All datasets</a></li>
+  <li><a href="#ordered-by-cohens-d" id="toc-ordered-by-cohens-d" class="nav-link" data-scroll-target="#ordered-by-cohens-d"><span class="header-section-number">13.5.3</span> Ordered by Cohen’s d</a></li>
   </ul></li>
-  <li><a href="#mean-cohens-d-and-mean-interval-width-by-sample-size" id="toc-mean-cohens-d-and-mean-interval-width-by-sample-size" class="nav-link" data-scroll-target="#mean-cohens-d-and-mean-interval-width-by-sample-size"><span class="header-section-number">9.6</span> Mean Cohen’s d and mean interval width by sample size</a></li>
-  <li><a href="#mean-cohens-d-and-power-by-sample-size" id="toc-mean-cohens-d-and-power-by-sample-size" class="nav-link" data-scroll-target="#mean-cohens-d-and-power-by-sample-size"><span class="header-section-number">9.7</span> Mean Cohen’s d and power by sample size</a></li>
-  <li><a href="#exercise-power-for-equivalence-test" id="toc-exercise-power-for-equivalence-test" class="nav-link" data-scroll-target="#exercise-power-for-equivalence-test"><span class="header-section-number">9.8</span> Exercise: Power for equivalence test</a></li>
+  <li><a href="#mean-cohens-d-and-mean-interval-width-by-sample-size" id="toc-mean-cohens-d-and-mean-interval-width-by-sample-size" class="nav-link" data-scroll-target="#mean-cohens-d-and-mean-interval-width-by-sample-size"><span class="header-section-number">13.6</span> Mean Cohen’s d and mean interval width by sample size</a></li>
+  <li><a href="#mean-cohens-d-and-power-by-sample-size" id="toc-mean-cohens-d-and-power-by-sample-size" class="nav-link" data-scroll-target="#mean-cohens-d-and-power-by-sample-size"><span class="header-section-number">13.7</span> Mean Cohen’s d and power by sample size</a></li>
+  <li><a href="#exercise-power-for-equivalence-test" id="toc-exercise-power-for-equivalence-test" class="nav-link" data-scroll-target="#exercise-power-for-equivalence-test"><span class="header-section-number">13.8</span> Exercise: Power for equivalence test</a></li>
   </ul>
 </nav>
     </div>
@@ -273,7 +297,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Understanding the link between p-values, Confidence Intervals, and power</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Understanding the link between p-values, Confidence Intervals, and power</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -290,13 +314,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="overview-of-tutorial" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="overview-of-tutorial"><span class="header-section-number">9.1</span> Overview of tutorial</h2>
+<section id="overview-of-tutorial" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="overview-of-tutorial"><span class="header-section-number">13.1</span> Overview of tutorial</h2>
 <p>This tutorial simulates a population effect size of Cohen’s d = 0.5 for different sample sizes, and examines the relationship between Cohen’s d, its 95% Confidence Interval, and the significance of the t-test’s <em>p</em>-value.</p>
 <p>By the end of this lesson you should understand that <em>p</em>-values are re-expressions of the same information conveyed by Confidence Intervals, and that statistical power is a re-expression of the width of Confidence Intervals.</p>
 </section>
-<section id="dependencies" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="dependencies"><span class="header-section-number">9.2</span> Dependencies</h2>
+<section id="dependencies" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="dependencies"><span class="header-section-number">13.2</span> Dependencies</h2>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -315,8 +339,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 </section>
-<section id="simulation" class="level2" data-number="9.3">
-<h2 data-number="9.3" class="anchored" data-anchor-id="simulation"><span class="header-section-number">9.3</span> Simulation</h2>
+<section id="simulation" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="simulation"><span class="header-section-number">13.3</span> Simulation</h2>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -385,8 +409,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 </section>
-<section id="cohens-d-by-sample-size" class="level2" data-number="9.4">
-<h2 data-number="9.4" class="anchored" data-anchor-id="cohens-d-by-sample-size"><span class="header-section-number">9.4</span> Cohen’s d by sample size</h2>
+<section id="cohens-d-by-sample-size" class="level2" data-number="13.4">
+<h2 data-number="13.4" class="anchored" data-anchor-id="cohens-d-by-sample-size"><span class="header-section-number">13.4</span> Cohen’s d by sample size</h2>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -418,8 +442,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Each point is a Cohen’s d from one dataset (i.e., one iteration).</li>
 <li>The population Cohen’s d is 0.5. Notice how the distribution of sample Cohen’s d values vary by sample size: Cohen’s d values above 2.0 and below -0.5 are observed when sample size is very small. As sample size gets larger, they stabilize. However, individual datasets still generate Cohen’s d values that diverge substantially from the true value of 0.5.</li>
 </ul>
-<section id="ordered-by-statistical-significance" class="level3" data-number="9.4.1">
-<h3 data-number="9.4.1" class="anchored" data-anchor-id="ordered-by-statistical-significance"><span class="header-section-number">9.4.1</span> Ordered by statistical significance</h3>
+<section id="ordered-by-statistical-significance" class="level3" data-number="13.4.1">
+<h3 data-number="13.4.1" class="anchored" data-anchor-id="ordered-by-statistical-significance"><span class="header-section-number">13.4.1</span> Ordered by statistical significance</h3>
 <p>Let’s color the Cohen’s ds by their statistical significance.</p>
 <div class="cell">
 <details open="" class="code-fold">
@@ -453,8 +477,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>There is clearly a cut-off value for each sample size that determines when a Cohen’s d value is associated with a significant vs.&nbsp;non-significant t-test p-value. What determines this cut-off? Do you have an intuition for it?</li>
 </ul>
 </section>
-<section id="average-effect-size-for-significant-effects" class="level3" data-number="9.4.2">
-<h3 data-number="9.4.2" class="anchored" data-anchor-id="average-effect-size-for-significant-effects"><span class="header-section-number">9.4.2</span> Average effect size for significant effects</h3>
+<section id="average-effect-size-for-significant-effects" class="level3" data-number="13.4.2">
+<h3 data-number="13.4.2" class="anchored" data-anchor-id="average-effect-size-for-significant-effects"><span class="header-section-number">13.4.2</span> Average effect size for significant effects</h3>
 <p>Quick aside: Significant results are more likely to be published than non significant ones. If we only look at the significant results, what is the average effect size by N?</p>
 <p>Plot only the significant effect sizes, and add their means.</p>
 <div class="cell">
@@ -496,11 +520,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 </section>
-<section id="cohens-d-and-its-95-cis" class="level2" data-number="9.5">
-<h2 data-number="9.5" class="anchored" data-anchor-id="cohens-d-and-its-95-cis"><span class="header-section-number">9.5</span> Cohen’s d and its 95% CIs</h2>
+<section id="cohens-d-and-its-95-cis" class="level2" data-number="13.5">
+<h2 data-number="13.5" class="anchored" data-anchor-id="cohens-d-and-its-95-cis"><span class="header-section-number">13.5</span> Cohen’s d and its 95% CIs</h2>
 <p>To understand it further, let’s add the 95% Confidence Intervals.</p>
-<section id="randomly-select-one-dataset-per-sample-size" class="level3" data-number="9.5.1">
-<h3 data-number="9.5.1" class="anchored" data-anchor-id="randomly-select-one-dataset-per-sample-size"><span class="header-section-number">9.5.1</span> Randomly select one dataset per sample size</h3>
+<section id="randomly-select-one-dataset-per-sample-size" class="level3" data-number="13.5.1">
+<h3 data-number="13.5.1" class="anchored" data-anchor-id="randomly-select-one-dataset-per-sample-size"><span class="header-section-number">13.5.1</span> Randomly select one dataset per sample size</h3>
 <p>To understand the plot, we’ll plot just one data set (iteration) for each sample size.</p>
 <p>Re-run the chunk to select new random values. Notice how the magnitude of the Cohen’s d values ‘dance’ around between data sets due to random sampling error, but the width of the Confidence Intervals do not. Confidence width is steady as it is a function of sample size.</p>
 <div class="cell">
@@ -541,8 +565,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Significant when 95% CI excludes zero effect size</li>
 </ul>
 </section>
-<section id="all-datasets" class="level3" data-number="9.5.2">
-<h3 data-number="9.5.2" class="anchored" data-anchor-id="all-datasets"><span class="header-section-number">9.5.2</span> All datasets</h3>
+<section id="all-datasets" class="level3" data-number="13.5.2">
+<h3 data-number="13.5.2" class="anchored" data-anchor-id="all-datasets"><span class="header-section-number">13.5.2</span> All datasets</h3>
 <p>Now let’s plot all the data sets (iterations).</p>
 <div class="cell">
 <details open="" class="code-fold">
@@ -576,8 +600,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="ordered-by-cohens-d" class="level3" data-number="9.5.3">
-<h3 data-number="9.5.3" class="anchored" data-anchor-id="ordered-by-cohens-d"><span class="header-section-number">9.5.3</span> Ordered by Cohen’s d</h3>
+<section id="ordered-by-cohens-d" class="level3" data-number="13.5.3">
+<h3 data-number="13.5.3" class="anchored" data-anchor-id="ordered-by-cohens-d"><span class="header-section-number">13.5.3</span> Ordered by Cohen’s d</h3>
 <p>The above plot is hard to understand. Let’s order the Cohen’s ds from smallest to largest, so the small ones are on the left and the large ones are on the right.</p>
 <div class="cell">
 <details open="" class="code-fold">
@@ -620,8 +644,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 </section>
-<section id="mean-cohens-d-and-mean-interval-width-by-sample-size" class="level2" data-number="9.6">
-<h2 data-number="9.6" class="anchored" data-anchor-id="mean-cohens-d-and-mean-interval-width-by-sample-size"><span class="header-section-number">9.6</span> Mean Cohen’s d and mean interval width by sample size</h2>
+<section id="mean-cohens-d-and-mean-interval-width-by-sample-size" class="level2" data-number="13.6">
+<h2 data-number="13.6" class="anchored" data-anchor-id="mean-cohens-d-and-mean-interval-width-by-sample-size"><span class="header-section-number">13.6</span> Mean Cohen’s d and mean interval width by sample size</h2>
 <p>Now let’s average over the Cohen’s ds in each condition to find the mean Cohen’s d and its mean 95% CIs.</p>
 <div class="cell">
 <details open="" class="code-fold">
@@ -662,8 +686,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="mean-cohens-d-and-power-by-sample-size" class="level2" data-number="9.7">
-<h2 data-number="9.7" class="anchored" data-anchor-id="mean-cohens-d-and-power-by-sample-size"><span class="header-section-number">9.7</span> Mean Cohen’s d and power by sample size</h2>
+<section id="mean-cohens-d-and-power-by-sample-size" class="level2" data-number="13.7">
+<h2 data-number="13.7" class="anchored" data-anchor-id="mean-cohens-d-and-power-by-sample-size"><span class="header-section-number">13.7</span> Mean Cohen’s d and power by sample size</h2>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -689,8 +713,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="exercise-power-for-equivalence-test" class="level2" data-number="9.8">
-<h2 data-number="9.8" class="anchored" data-anchor-id="exercise-power-for-equivalence-test"><span class="header-section-number">9.8</span> Exercise: Power for equivalence test</h2>
+<section id="exercise-power-for-equivalence-test" class="level2" data-number="13.8">
+<h2 data-number="13.8" class="anchored" data-anchor-id="exercise-power-for-equivalence-test"><span class="header-section-number">13.8</span> Exercise: Power for equivalence test</h2>
 <p>See Lakens et al., 2018 for a tutorial on the concepts below.</p>
 <p>Using a Smallest Effect Size of Interest (SESOI) of Cohen’s d = 0.2, what is the power of a Two One-Sided Equivalence Test (TOST) for different sample sizes? What N is needed for 80% power to detect a true null effect size as equivalent to zero?</p>
 <p>Note: because reasons, use the 90% Confidence Interval instead of 95 (see Lakens et al., 2018).</p>
@@ -1162,12 +1186,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../chapters/p_hacking.html" class="pagination-link" aria-label="p-hacking via different forms of selecting reporting">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../chapters/difference_between_signfiicant_and_nonsignificant.html" class="pagination-link" aria-label="The differences between significant and non-significant is not itself significant">
-        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">The differences between significant and non-significant is not itself significant</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">The differences between significant and non-significant is not itself significant</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
