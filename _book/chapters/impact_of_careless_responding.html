@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>20&nbsp; License and citation – Improving your statistical inferences through Monte Carlo simulations</title>
+<title>17&nbsp; The impact of one form of careless responding on power and the false positive rate – Improving your statistical inferences through Monte Carlo simulations</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,7 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/causality.html" rel="prev">
+<link href="../chapters/meta_analysis_and_publication_bias.html" rel="next">
+<link href="../chapters/standardized_effect_sizes_and_range_restriction.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -116,7 +117,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/license.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">License and citation</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/impact_of_careless_responding.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">The impact of one form of careless responding on power and the false positive rate</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -245,7 +246,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/impact_of_careless_responding.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/impact_of_careless_responding.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">The impact of one form of careless responding on power and the false positive rate</span></span></a>
   </div>
 </li>
@@ -263,7 +264,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/license.html" class="sidebar-item-text sidebar-link active">
+  <a href="../chapters/license.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
   </div>
 </li>
@@ -272,15 +273,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#assignment" id="toc-assignment" class="nav-link active" data-scroll-target="#assignment"><span class="header-section-number">17.1</span> Assignment</a></li>
+  <li><a href="#dependencies" id="toc-dependencies" class="nav-link" data-scroll-target="#dependencies"><span class="header-section-number">17.2</span> Dependencies</a></li>
+  <li><a href="#generate-data-function" id="toc-generate-data-function" class="nav-link" data-scroll-target="#generate-data-function"><span class="header-section-number">17.3</span> Generate data function</a></li>
+  <li><a href="#contaminate-data-function" id="toc-contaminate-data-function" class="nav-link" data-scroll-target="#contaminate-data-function"><span class="header-section-number">17.4</span> Contaminate data function</a></li>
+  <li><a href="#analyze-data-function" id="toc-analyze-data-function" class="nav-link" data-scroll-target="#analyze-data-function"><span class="header-section-number">17.5</span> Analyze data function</a></li>
+  <li><a href="#simulation-parameters" id="toc-simulation-parameters" class="nav-link" data-scroll-target="#simulation-parameters"><span class="header-section-number">17.6</span> Simulation parameters</a></li>
+  <li><a href="#run-simulation" id="toc-run-simulation" class="nav-link" data-scroll-target="#run-simulation"><span class="header-section-number">17.7</span> Run simulation</a></li>
+  <li><a href="#summarize-results-across-iterations" id="toc-summarize-results-across-iterations" class="nav-link" data-scroll-target="#summarize-results-across-iterations"><span class="header-section-number">17.8</span> Summarize results across iterations</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">License and citation</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">The impact of one form of careless responding on power and the false positive rate</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -297,16 +311,99 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>© Ian Hussey (2025)</p>
-<p>Text and figures are licensed under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 (CC BY 4.0)</a> license.</p>
-<p>Code is licensed under the <a href="https://opensource.org/licenses/MIT">MIT License</a>.</p>
-<p>You are free to copy, share, adapt, and reuse the contents of this book — text, figures, and code — for any purpose, including commercial use, provided you cite it.</p>
-<p>Citation:</p>
-<p>Hussey, I. (2025) Improving your statistical inferences using Monte Carlo simulation studies in tidyverse. github.com/ianhussey/improving-your-statistical-inferences-through-monte-carlo-simulation-studies</p>
+<section id="assignment" class="level2" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="assignment"><span class="header-section-number">17.1</span> Assignment</h2>
+<p>Background/Rationale of the exercise:</p>
+<p>Many surveys that use a Likert scale or a slider have a default response. E.g., when you load the page all answers already have a default answer of “0” on a -3 to +3 scale. Careless or lazy responding is common. Some participants simply leave the default answers and click “next” in the survey. Many researchers don’t use attention checks in their surveys, or don’t use good ones, and these careless or lazy responses are not excluded. This stimulation seeks to quantify the impact of this type of responding on the results. Please note there any many other forms of careless responding - this is just one example and doesn’t provide a full answer to this question.</p>
+<p>Exercise:</p>
+<p>Write R code from scratch, but using our established workflow, that does the following:</p>
+<ul>
+<li>Data generation function
+<ul>
+<li>Simulate two independent groups, control and intervention, drawn from a normal distribution. The mean and SD of both conditions should be variables.</li>
+</ul></li>
+<li>Corrupt data function
+<ul>
+<li>You can use the corrupt data function I provide you with below. This replaces a proportion of the whole dataset’s ‘score’ column with a default value (in this case zero). You should use the usual mutate() and pmap() workflow to create a new column, corrupted_data, from an existing column named generated_data.</li>
+</ul></li>
+<li>Analyze data function
+<ul>
+<li>Fit a Student’s t-test and extract the p value in a tidy tibble.</li>
+</ul></li>
+<li>An expand grid call using:
+<ul>
+<li>n per condition = 100</li>
+<li>mean = 0 for the control group</li>
+<li>mean = 0 or 0.50 for the intervention group (two scenarios, population effect exists or does not)</li>
+<li>SD = 1</li>
+<li>proportion of straight line responders = 0 or 0.1</li>
+<li>1000 iterations</li>
+<li>using set.seed(42)</li>
+</ul></li>
+<li>Summarize across iterations
+<ul>
+<li>Summarise the proportion of significant p values in all simulated conditions in a table or plot</li>
+<li>Provide a description and interpretation of the results: How does this form of straight line responding affect the false positive rate? How does it affect power? (briefly, in two or three sentences)</li>
+</ul></li>
+</ul>
+</section>
+<section id="dependencies" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="dependencies"><span class="header-section-number">17.2</span> Dependencies</h2>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sn)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effsize)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(faux)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="generate-data-function" class="level2" data-number="17.3">
+<h2 data-number="17.3" class="anchored" data-anchor-id="generate-data-function"><span class="header-section-number">17.3</span> Generate data function</h2>
+</section>
+<section id="contaminate-data-function" class="level2" data-number="17.4">
+<h2 data-number="17.4" class="anchored" data-anchor-id="contaminate-data-function"><span class="header-section-number">17.4</span> Contaminate data function</h2>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>contaminate_data <span class="ot">&lt;-</span> <span class="cf">function</span>(data, proportion_straightline_responder, <span class="at">value =</span> <span class="dv">0</span>) {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">%&gt;%</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">is_straightline_responder =</span> <span class="fu">runif</span>(<span class="fu">n</span>()) <span class="sc">&lt;</span> proportion_straightline_responder,    <span class="co"># Bernoulli(proportion)</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">score       =</span> <span class="fu">if_else</span>(is_straightline_responder, value, score)) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>()</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="analyze-data-function" class="level2" data-number="17.5">
+<h2 data-number="17.5" class="anchored" data-anchor-id="analyze-data-function"><span class="header-section-number">17.5</span> Analyze data function</h2>
+</section>
+<section id="simulation-parameters" class="level2" data-number="17.6">
+<h2 data-number="17.6" class="anchored" data-anchor-id="simulation-parameters"><span class="header-section-number">17.6</span> Simulation parameters</h2>
+</section>
+<section id="run-simulation" class="level2" data-number="17.7">
+<h2 data-number="17.7" class="anchored" data-anchor-id="run-simulation"><span class="header-section-number">17.7</span> Run simulation</h2>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="summarize-results-across-iterations" class="level2" data-number="17.8">
+<h2 data-number="17.8" class="anchored" data-anchor-id="summarize-results-across-iterations"><span class="header-section-number">17.8</span> Summarize results across iterations</h2>
+<p>[written description and interpretation of results here]</p>
+<p><em>Remember that this is just one narrow simulation of the impact of one type of lazy/careless responding on one type of analysis - other forms and other analyses can be affected very differently.</em></p>
 
 
 <!-- -->
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -761,26 +858,106 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/causality.html" class="pagination-link" aria-label="Regression assumes causality">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regression assumes causality</span></span>
+      <a href="../chapters/standardized_effect_sizes_and_range_restriction.html" class="pagination-link" aria-label="Standardized effect sizes and range restriction">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Standardized effect sizes and range restriction</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../chapters/meta_analysis_and_publication_bias.html" class="pagination-link" aria-label="Meta-analysis and publication bias">
+        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Meta-analysis and publication bias</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># License and citation</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dv">&amp;copy;</span> Ian Hussey (2025)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>Text and figures are licensed under a <span class="co">[</span><span class="ot">Creative Commons Attribution 4.0 (CC BY 4.0)</span><span class="co">](https://creativecommons.org/licenses/by/4.0/)</span> license.</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>Code is licensed under the <span class="co">[</span><span class="ot">MIT License</span><span class="co">](https://opensource.org/licenses/MIT)</span>.</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>You are free to copy, share, adapt, and reuse the contents of this book — text, figures, and code — for any purpose, including commercial use, provided you cite it.</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>Citation:</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>Hussey, I. (2025) Improving your statistical inferences using Monte Carlo simulation studies in tidyverse. github.com/ianhussey/improving-your-statistical-inferences-through-monte-carlo-simulation-studies</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># The impact of one form of careless responding on power and the false positive rate</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Assignment</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>Background/Rationale of the exercise:</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>Many surveys that use a Likert scale or a slider have a default response. E.g., when you load the page all answers already have a default answer of "0" on a -3 to +3 scale. Careless or lazy responding is common. Some participants simply leave the default answers and click "next" in the survey. Many researchers don't use attention checks in their surveys, or don't use good ones, and these careless or lazy responses are not excluded. This stimulation seeks to quantify the impact of this type of responding on the results. Please note there any many other forms of careless responding - this is just one example and doesn't provide a full answer to this question.</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>Exercise:</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>Write R code from scratch, but using our established workflow, that does the following:</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Data generation function</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Simulate two independent groups, control and intervention, drawn from a normal distribution. The mean and SD of both conditions should be variables.</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Corrupt data function</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>You can use the corrupt data function I provide you with below. This replaces a proportion of the whole dataset's 'score' column with a default value (in this case zero). You should use the usual mutate() and pmap() workflow to create a new column, corrupted_data, from an existing column named generated_data.</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Analyze data function</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Fit a Student's t-test and extract the p value in a tidy tibble.</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>An expand grid call using:</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>n per condition = 100</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>mean = 0 for the control group</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>mean = 0 or 0.50 for the intervention group (two scenarios, population effect exists or does not)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>SD = 1</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>proportion of straight line responders = 0 or 0.1</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>1000 iterations</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>using set.seed(42)</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Summarize across iterations</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Summarise the proportion of significant p values in all simulated conditions in a table or plot</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Provide a description and interpretation of the results: How does this form of straight line responding affect the false positive rate? How does it affect power? (briefly, in two or three sentences)</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="fu">## Dependencies</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sn)</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effsize)</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(faux)</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="fu">## Generate data function</span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a><span class="fu">## Contaminate data function</span></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>contaminate_data <span class="ot">&lt;-</span> <span class="cf">function</span>(data, proportion_straightline_responder, <span class="at">value =</span> <span class="dv">0</span>) {</span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">%&gt;%</span> </span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">is_straightline_responder =</span> <span class="fu">runif</span>(<span class="fu">n</span>()) <span class="sc">&lt;</span> proportion_straightline_responder,    <span class="co"># Bernoulli(proportion)</span></span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>           <span class="at">score       =</span> <span class="fu">if_else</span>(is_straightline_responder, value, score)) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>()</span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a><span class="fu">## Analyze data function</span></span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a><span class="fu">## Simulation parameters</span></span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a><span class="fu">## Run simulation</span></span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a><span class="fu">## Summarize results across iterations</span></span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a><span class="sc">\[</span>written description and interpretation of results here<span class="sc">\]</span></span>
+<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a>*Remember that this is just one narrow simulation of the impact of one type of lazy/careless responding on one type of analysis - other forms and other analyses can be affected very differently.*</span>
+<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a></span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

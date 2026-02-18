@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>15&nbsp; Standardized effect sizes and range restriction – Improving your statistical inferences through Monte Carlo simulations</title>
+<title>16&nbsp; Standardized effect sizes and range restriction – Improving your statistical inferences through Monte Carlo simulations</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/impact_of_lazy_responding_assignment.html" rel="next">
-<link href="../chapters/difference_between_signfiicant_and_nonsignificant.html" rel="prev">
+<link href="../chapters/impact_of_careless_responding.html" rel="next">
+<link href="../chapters/difference_between_significant_and_nonsignificant.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -148,7 +148,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/standardized_effect_sizes_and_range_restriction.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Standardized effect sizes and range restriction</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/standardized_effect_sizes_and_range_restriction.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Standardized effect sizes and range restriction</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -181,116 +181,122 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/1_foundation_concepts.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Foundation concepts</span></span></a>
+  <a href="../chapters/1_required_skills.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Required skills</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/2_writing_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Writing functions</span></span></a>
+  <a href="../chapters/2_foundation_concepts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Foundation concepts</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/3_data_generating_process_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data generating processes</span></span></a>
+  <a href="../chapters/3_writing_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Writing functions</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/4_analysis_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Analysis functions</span></span></a>
+  <a href="../chapters/4_data_generating_process_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data generating processes</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/5_creating_simulation_experiments.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Creating simulation experiments</span></span></a>
+  <a href="../chapters/5_analysis_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analysis functions</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/6_mapping.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Mapping over functions</span></span></a>
+  <a href="../chapters/6_creating_simulation_experiments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Creating simulation experiments</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/7_summarizing_results.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Summarizing results</span></span></a>
+  <a href="../chapters/7_mapping.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Mapping over functions</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/8_planning_and_reporting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Planning and reporting</span></span></a>
+  <a href="../chapters/8_summarizing_results.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Summarizing results</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/9_simulation_template.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Simulation template</span></span></a>
+  <a href="../chapters/9_planning_and_reporting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Planning and reporting</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/10_simulation_template.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Simulation template</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/violating_assumptions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/testing_assumptions_and_conditional_tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of (non-)parameteric tests”</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of non-parameteric tests</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/p_hacking.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/p_values_and_confidence_intervals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Understanding the link between p-values, Confidence Intervals, and power</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Understanding the link between p-values, Confidence Intervals, and power</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/difference_between_signfiicant_and_nonsignificant.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">The differences between significant and non-significant is not itself significant</span></span></a>
+  <a href="../chapters/difference_between_significant_and_nonsignificant.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The differences between significant and non-significant is not itself significant</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/standardized_effect_sizes_and_range_restriction.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Standardized effect sizes and range restriction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Standardized effect sizes and range restriction</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/impact_of_lazy_responding_assignment.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">The impact of one form of lazy/careless responding on the power and false positive rate of a Student’s t-test</span></span></a>
+  <a href="../chapters/impact_of_careless_responding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">The impact of one form of careless responding on power and the false positive rate</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/meta_analysis_and_publication_bias.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Meta-analysis and publication bias</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Meta-analysis and publication bias</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/causality.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Regression assumes causality</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regression assumes causality</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
   </div>
 </li>
     </ul>
@@ -303,23 +309,23 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#dependencies" id="toc-dependencies" class="nav-link active" data-scroll-target="#dependencies"><span class="header-section-number">15.1</span> Dependencies</a></li>
-  <li><a href="#load-data" id="toc-load-data" class="nav-link" data-scroll-target="#load-data"><span class="header-section-number">15.2</span> Load data</a></li>
-  <li><a href="#why-standardize" id="toc-why-standardize" class="nav-link" data-scroll-target="#why-standardize"><span class="header-section-number">15.3</span> Why standardize?</a>
+  <li><a href="#dependencies" id="toc-dependencies" class="nav-link active" data-scroll-target="#dependencies"><span class="header-section-number">16.1</span> Dependencies</a></li>
+  <li><a href="#load-data" id="toc-load-data" class="nav-link" data-scroll-target="#load-data"><span class="header-section-number">16.2</span> Load data</a></li>
+  <li><a href="#why-standardize" id="toc-why-standardize" class="nav-link" data-scroll-target="#why-standardize"><span class="header-section-number">16.3</span> Why standardize?</a>
   <ul class="collapse">
-  <li><a href="#visualise" id="toc-visualise" class="nav-link" data-scroll-target="#visualise"><span class="header-section-number">15.3.1</span> Visualise</a></li>
+  <li><a href="#visualise" id="toc-visualise" class="nav-link" data-scroll-target="#visualise"><span class="header-section-number">16.3.1</span> Visualise</a></li>
   </ul></li>
-  <li><a href="#influence-of-preselection-on-cohens-d" id="toc-influence-of-preselection-on-cohens-d" class="nav-link" data-scroll-target="#influence-of-preselection-on-cohens-d"><span class="header-section-number">15.4</span> Influence of preselection on Cohen’s d</a>
+  <li><a href="#influence-of-preselection-on-cohens-d" id="toc-influence-of-preselection-on-cohens-d" class="nav-link" data-scroll-target="#influence-of-preselection-on-cohens-d"><span class="header-section-number">16.4</span> Influence of preselection on Cohen’s d</a>
   <ul class="collapse">
-  <li><a href="#example-1" id="toc-example-1" class="nav-link" data-scroll-target="#example-1"><span class="header-section-number">15.4.1</span> Example 1</a></li>
-  <li><a href="#example-2" id="toc-example-2" class="nav-link" data-scroll-target="#example-2"><span class="header-section-number">15.4.2</span> Example 2</a></li>
+  <li><a href="#example-1" id="toc-example-1" class="nav-link" data-scroll-target="#example-1"><span class="header-section-number">16.4.1</span> Example 1</a></li>
+  <li><a href="#example-2" id="toc-example-2" class="nav-link" data-scroll-target="#example-2"><span class="header-section-number">16.4.2</span> Example 2</a></li>
   </ul></li>
-  <li><a href="#explanation" id="toc-explanation" class="nav-link" data-scroll-target="#explanation"><span class="header-section-number">15.5</span> Explanation</a>
+  <li><a href="#explanation" id="toc-explanation" class="nav-link" data-scroll-target="#explanation"><span class="header-section-number">16.5</span> Explanation</a>
   <ul class="collapse">
-  <li><a href="#standardized-effect-sizes-require-estimating-multiple-parameters" id="toc-standardized-effect-sizes-require-estimating-multiple-parameters" class="nav-link" data-scroll-target="#standardized-effect-sizes-require-estimating-multiple-parameters"><span class="header-section-number">15.5.1</span> Standardized effect sizes require estimating multiple parameters</a></li>
+  <li><a href="#standardized-effect-sizes-require-estimating-multiple-parameters" id="toc-standardized-effect-sizes-require-estimating-multiple-parameters" class="nav-link" data-scroll-target="#standardized-effect-sizes-require-estimating-multiple-parameters"><span class="header-section-number">16.5.1</span> Standardized effect sizes require estimating multiple parameters</a></li>
   </ul></li>
-  <li><a href="#solutions-to-this-problem" id="toc-solutions-to-this-problem" class="nav-link" data-scroll-target="#solutions-to-this-problem"><span class="header-section-number">15.6</span> Solutions to this problem</a></li>
-  <li><a href="#is-this-issue-limited-to-cohens-d" id="toc-is-this-issue-limited-to-cohens-d" class="nav-link" data-scroll-target="#is-this-issue-limited-to-cohens-d"><span class="header-section-number">15.7</span> Is this issue limited to Cohen’s d?</a></li>
+  <li><a href="#solutions-to-this-problem" id="toc-solutions-to-this-problem" class="nav-link" data-scroll-target="#solutions-to-this-problem"><span class="header-section-number">16.6</span> Solutions to this problem</a></li>
+  <li><a href="#is-this-issue-limited-to-cohens-d" id="toc-is-this-issue-limited-to-cohens-d" class="nav-link" data-scroll-target="#is-this-issue-limited-to-cohens-d"><span class="header-section-number">16.7</span> Is this issue limited to Cohen’s d?</a></li>
   </ul>
 </nav>
     </div>
@@ -328,7 +334,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Standardized effect sizes and range restriction</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Standardized effect sizes and range restriction</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -345,8 +351,8 @@ window.Quarto = {
 </header>
 
 
-<section id="dependencies" class="level2" data-number="15.1">
-<h2 data-number="15.1" class="anchored" data-anchor-id="dependencies"><span class="header-section-number">15.1</span> Dependencies</h2>
+<section id="dependencies" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="dependencies"><span class="header-section-number">16.1</span> Dependencies</h2>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -361,8 +367,8 @@ window.Quarto = {
 </details>
 </div>
 </section>
-<section id="load-data" class="level2" data-number="15.2">
-<h2 data-number="15.2" class="anchored" data-anchor-id="load-data"><span class="header-section-number">15.2</span> Load data</h2>
+<section id="load-data" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="load-data"><span class="header-section-number">16.2</span> Load data</h2>
 <p>Real BDI-II data is taken from Cataldo et al.&nbsp;(2022) Abnormal Evidence Accumulation Underlies the Positive Memory Deficit in Depression, doi: <a href="https://doi.org/10.1037/xge0001268">10.1037/xge0001268</a>.</p>
 <div class="cell">
 <details open="" class="code-fold">
@@ -371,8 +377,8 @@ window.Quarto = {
 </details>
 </div>
 </section>
-<section id="why-standardize" class="level2" data-number="15.3">
-<h2 data-number="15.3" class="anchored" data-anchor-id="why-standardize"><span class="header-section-number">15.3</span> Why standardize?</h2>
+<section id="why-standardize" class="level2" data-number="16.3">
+<h2 data-number="16.3" class="anchored" data-anchor-id="why-standardize"><span class="header-section-number">16.3</span> Why standardize?</h2>
 <p>They have different possible ranges, different population means (<span class="math inline">\(\mu\)</span>), and different population SDs (<span class="math inline">\(\sigma\)</span>).</p>
 <p>Even if had perfect that a given therapy has a (population) efficacy of lowering BDI-II depression scores by 6 points, without knowing a lot about the relationships between the BDI-II and other scores, we know little about how many points the same therapy would affect depression scores on the MADRS or the HAM-D.</p>
 <p>(surprisingly, very little work is ever done to collect information on the relationship between different scores so that we could know this)</p>
@@ -386,8 +392,8 @@ window.Quarto = {
 <p>What is the efficacy of the intervention for depression <em>in general</em>? This too is impossible to answer as there is no common scale between them.</p>
 <p>‘Standardized’ effect sizes are useful here as they provide common units. Instead of points on the self-report scale (i.e., sum scores), which differ between scales, standardized effect sizes generally use Standard Deviations as their units. For example, Cohen’s d = 0.2 means that there are 0.2 Standard Deviations of difference between the two groups.</p>
 <p>In principle, standardized effect sizes are extremely useful as they allow us to draw comparisons between studies using very different outcome measures, or indeed to synthesise results between such studies (i.e., meta-analysis).</p>
-<section id="visualise" class="level3" data-number="15.3.1">
-<h3 data-number="15.3.1" class="anchored" data-anchor-id="visualise"><span class="header-section-number">15.3.1</span> Visualise</h3>
+<section id="visualise" class="level3" data-number="16.3.1">
+<h3 data-number="16.3.1" class="anchored" data-anchor-id="visualise"><span class="header-section-number">16.3.1</span> Visualise</h3>
 <p>Semi-realistic depression scores on different scales.</p>
 <div class="cell">
 <details open="" class="code-fold">
@@ -509,13 +515,13 @@ window.Quarto = {
 <p>How can this go wrong?</p>
 </section>
 </section>
-<section id="influence-of-preselection-on-cohens-d" class="level2" data-number="15.4">
-<h2 data-number="15.4" class="anchored" data-anchor-id="influence-of-preselection-on-cohens-d"><span class="header-section-number">15.4</span> Influence of preselection on Cohen’s d</h2>
+<section id="influence-of-preselection-on-cohens-d" class="level2" data-number="16.4">
+<h2 data-number="16.4" class="anchored" data-anchor-id="influence-of-preselection-on-cohens-d"><span class="header-section-number">16.4</span> Influence of preselection on Cohen’s d</h2>
 <p>Note that in the below, only data at pre is real BDI-II data. Data at post is modified data (i.e., offset by known amounts).</p>
-<section id="example-1" class="level3" data-number="15.4.1">
-<h3 data-number="15.4.1" class="anchored" data-anchor-id="example-1"><span class="header-section-number">15.4.1</span> Example 1</h3>
-<section id="wranglesimulate" class="level4" data-number="15.4.1.1">
-<h4 data-number="15.4.1.1" class="anchored" data-anchor-id="wranglesimulate"><span class="header-section-number">15.4.1.1</span> Wrangle/simulate</h4>
+<section id="example-1" class="level3" data-number="16.4.1">
+<h3 data-number="16.4.1" class="anchored" data-anchor-id="example-1"><span class="header-section-number">16.4.1</span> Example 1</h3>
+<section id="wranglesimulate" class="level4" data-number="16.4.1.1">
+<h4 data-number="16.4.1.1" class="anchored" data-anchor-id="wranglesimulate"><span class="header-section-number">16.4.1.1</span> Wrangle/simulate</h4>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -552,8 +558,8 @@ window.Quarto = {
 </details>
 </div>
 </section>
-<section id="plot" class="level4" data-number="15.4.1.2">
-<h4 data-number="15.4.1.2" class="anchored" data-anchor-id="plot"><span class="header-section-number">15.4.1.2</span> Plot</h4>
+<section id="plot" class="level4" data-number="16.4.1.2">
+<h4 data-number="16.4.1.2" class="anchored" data-anchor-id="plot"><span class="header-section-number">16.4.1.2</span> Plot</h4>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -579,8 +585,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="analyze" class="level4" data-number="15.4.1.3">
-<h4 data-number="15.4.1.3" class="anchored" data-anchor-id="analyze"><span class="header-section-number">15.4.1.3</span> Analyze</h4>
+<section id="analyze" class="level4" data-number="16.4.1.3">
+<h4 data-number="16.4.1.3" class="anchored" data-anchor-id="analyze"><span class="header-section-number">16.4.1.3</span> Analyze</h4>
 <p>Exercise:</p>
 <p>For each of the two datasets, please calculate:</p>
 <ul>
@@ -689,11 +695,11 @@ window.Quarto = {
 <p>If the point of standardized effect sizes is to be able to compare them between studies on a common scale, and they don’t do this, what is their point?</p>
 </section>
 </section>
-<section id="example-2" class="level3" data-number="15.4.2">
-<h3 data-number="15.4.2" class="anchored" data-anchor-id="example-2"><span class="header-section-number">15.4.2</span> Example 2</h3>
+<section id="example-2" class="level3" data-number="16.4.2">
+<h3 data-number="16.4.2" class="anchored" data-anchor-id="example-2"><span class="header-section-number">16.4.2</span> Example 2</h3>
 <p>The only difference here is a) the true difference in means and b) the seed.</p>
-<section id="wranglesimulate-1" class="level4" data-number="15.4.2.1">
-<h4 data-number="15.4.2.1" class="anchored" data-anchor-id="wranglesimulate-1"><span class="header-section-number">15.4.2.1</span> Wrangle/simulate</h4>
+<section id="wranglesimulate-1" class="level4" data-number="16.4.2.1">
+<h4 data-number="16.4.2.1" class="anchored" data-anchor-id="wranglesimulate-1"><span class="header-section-number">16.4.2.1</span> Wrangle/simulate</h4>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -730,8 +736,8 @@ window.Quarto = {
 </details>
 </div>
 </section>
-<section id="plot-1" class="level4" data-number="15.4.2.2">
-<h4 data-number="15.4.2.2" class="anchored" data-anchor-id="plot-1"><span class="header-section-number">15.4.2.2</span> Plot</h4>
+<section id="plot-1" class="level4" data-number="16.4.2.2">
+<h4 data-number="16.4.2.2" class="anchored" data-anchor-id="plot-1"><span class="header-section-number">16.4.2.2</span> Plot</h4>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -757,8 +763,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="analyze-1" class="level4" data-number="15.4.2.3">
-<h4 data-number="15.4.2.3" class="anchored" data-anchor-id="analyze-1"><span class="header-section-number">15.4.2.3</span> Analyze</h4>
+<section id="analyze-1" class="level4" data-number="16.4.2.3">
+<h4 data-number="16.4.2.3" class="anchored" data-anchor-id="analyze-1"><span class="header-section-number">16.4.2.3</span> Analyze</h4>
 <p>Exercise:</p>
 <p>Again, for each of the two datasets, please calculate:</p>
 <ul>
@@ -867,8 +873,8 @@ window.Quarto = {
 </section>
 </section>
 </section>
-<section id="explanation" class="level2" data-number="15.5">
-<h2 data-number="15.5" class="anchored" data-anchor-id="explanation"><span class="header-section-number">15.5</span> Explanation</h2>
+<section id="explanation" class="level2" data-number="16.5">
+<h2 data-number="16.5" class="anchored" data-anchor-id="explanation"><span class="header-section-number">16.5</span> Explanation</h2>
 <p>The above results - where the same unstandarized effect sizes have different standardized effect sizes, or vice-versa - are due to the fact that standardized effect sizes involve dividing, in one way or another, unstandardized effect sizes by standard deviations.</p>
 <p>E.g., for Cohen’s <span class="math inline">\(d\)</span>:</p>
 <p><span class="math inline">\(d = \frac{M_{intervention} - M_{control}}{SD_{pooled}}\)</span></p>
@@ -880,8 +886,8 @@ window.Quarto = {
 <p>Despite this, the value of the SDs heavily influences the standardized effect size.</p>
 <p>In the above examples, the <em>range restriction</em> in the ‘severe’ depression condition produces a narrower range of scores, and therefore smaller smaller SDs. Dividing the same difference in means by a smaller value of SD produces a different Cohen’s d estimate.</p>
 <p>Range restrictions like these are extremely common in psychology research, where studies can differ in their inclusion/exclusion strategies. This means makes it far harder to compare ‘standardized’ effect sizes between studies than you might think.</p>
-<section id="standardized-effect-sizes-require-estimating-multiple-parameters" class="level3" data-number="15.5.1">
-<h3 data-number="15.5.1" class="anchored" data-anchor-id="standardized-effect-sizes-require-estimating-multiple-parameters"><span class="header-section-number">15.5.1</span> Standardized effect sizes require estimating multiple parameters</h3>
+<section id="standardized-effect-sizes-require-estimating-multiple-parameters" class="level3" data-number="16.5.1">
+<h3 data-number="16.5.1" class="anchored" data-anchor-id="standardized-effect-sizes-require-estimating-multiple-parameters"><span class="header-section-number">16.5.1</span> Standardized effect sizes require estimating multiple parameters</h3>
 <p>Cohen’s d (usually) involves having to create a sample estimate of the means in each group. Researchers are usually more interested in differences between means.</p>
 <p>But it also involves having to estimate the SDs. This can be a little a little confusing the first time you encounter it: we often intuitively think of SD as the amount of noise around the signal we’re interested in (the mean). We are somewhat more used to thinking about the fact that estimated means have error round them: the standard error of the mean (SEM) is used to calculate confidence intervals around means, and the SEM is actually just the SD of the mean (as opposed to normal SD, which is SD of the data).</p>
 <p>We are relatively less familiar with thinking about the fact that estimates of standard deviation also are estimated with error, e.g., the standard error of the SD, which is the SD of the SD. Confused yet?</p>
@@ -1029,16 +1035,16 @@ window.Quarto = {
 </div>
 </section>
 </section>
-<section id="solutions-to-this-problem" class="level2" data-number="15.6">
-<h2 data-number="15.6" class="anchored" data-anchor-id="solutions-to-this-problem"><span class="header-section-number">15.6</span> Solutions to this problem</h2>
+<section id="solutions-to-this-problem" class="level2" data-number="16.6">
+<h2 data-number="16.6" class="anchored" data-anchor-id="solutions-to-this-problem"><span class="header-section-number">16.6</span> Solutions to this problem</h2>
 <p>There are solutions to this, to make “standardized” effect sizes actually standard between studies. But almost no one does them.</p>
 <ol type="1">
 <li>The when calculating standardized effect sizes, use a well established population norm estimate of the measure’s SD rather than the sample SD. E.g., always set the BDI’s SD to 12 (or whatever your best estimate is). Note that no implementations of Cohen’s d in commonly used R packages recommend this, and only a few can directly handle it (e.g., {esci}).</li>
 <li>Use math/R packages to correct your standardised effect size estimate for <em>range restriction</em> (see Wiernik &amp; Dahlke, 2020, doi: 10.1177/2515245919885611).</li>
 </ol>
 </section>
-<section id="is-this-issue-limited-to-cohens-d" class="level2" data-number="15.7">
-<h2 data-number="15.7" class="anchored" data-anchor-id="is-this-issue-limited-to-cohens-d"><span class="header-section-number">15.7</span> Is this issue limited to Cohen’s d?</h2>
+<section id="is-this-issue-limited-to-cohens-d" class="level2" data-number="16.7">
+<h2 data-number="16.7" class="anchored" data-anchor-id="is-this-issue-limited-to-cohens-d"><span class="header-section-number">16.7</span> Is this issue limited to Cohen’s d?</h2>
 <p>No, it affects other forms of standardized effect sizes too, including correlations.</p>
 <p>E.g., there is a perennial debate in the US about whether standardized university entrance tests like the SAT are useful or not, or indeed are biased or not (e.g., between gender and race/ethnicity), because straightforward analyses suggest that SAT scores (used to get a place at university) are poorly predictive of grades at university.</p>
 <p>However, this poor predictive validity may be due in part to range restriction: because the SAT scores are used to determine who goes to university, data on university grades is only obtained from those individuals who already scored highly on the SAT. That is, there is a fairly narrow range of SAT scores among university students. Correlations, like Cohen’s d, include SD in their denominator (i.e., <span class="math inline">\(r = covariance_{xy}/(SD_x*SD_y)\)</span>), and therefore range restriction also distorts correlations.</p>
@@ -1661,13 +1667,13 @@ loaded via a namespace (and not attached):
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/difference_between_signfiicant_and_nonsignificant.html" class="pagination-link" aria-label="The differences between significant and non-significant is not itself significant">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">The differences between significant and non-significant is not itself significant</span></span>
+      <a href="../chapters/difference_between_significant_and_nonsignificant.html" class="pagination-link" aria-label="The differences between significant and non-significant is not itself significant">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The differences between significant and non-significant is not itself significant</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/impact_of_lazy_responding_assignment.html" class="pagination-link" aria-label="The impact of one form of lazy/careless responding on the power and false positive rate of a Student's t-test">
-        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">The impact of one form of lazy/careless responding on the power and false positive rate of a Student’s t-test</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/impact_of_careless_responding.html" class="pagination-link" aria-label="The impact of one form of careless responding on power and the false positive rate">
+        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">The impact of one form of careless responding on power and the false positive rate</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">

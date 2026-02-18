@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>11&nbsp; The statistical power of assumptions tests and the conditional use of (non-)parameteric tests” – Improving your statistical inferences through Monte Carlo simulations</title>
+<title>12&nbsp; The statistical power of assumptions tests and the conditional use of non-parameteric tests – Improving your statistical inferences through Monte Carlo simulations</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -117,7 +117,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/testing_assumptions_and_conditional_tests.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of (non-)parameteric tests”</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/testing_assumptions_and_conditional_tests.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of non-parameteric tests</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -150,116 +150,122 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/1_foundation_concepts.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Foundation concepts</span></span></a>
+  <a href="../chapters/1_required_skills.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Required skills</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/2_writing_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Writing functions</span></span></a>
+  <a href="../chapters/2_foundation_concepts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Foundation concepts</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/3_data_generating_process_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data generating processes</span></span></a>
+  <a href="../chapters/3_writing_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Writing functions</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/4_analysis_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Analysis functions</span></span></a>
+  <a href="../chapters/4_data_generating_process_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data generating processes</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/5_creating_simulation_experiments.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Creating simulation experiments</span></span></a>
+  <a href="../chapters/5_analysis_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analysis functions</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/6_mapping.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Mapping over functions</span></span></a>
+  <a href="../chapters/6_creating_simulation_experiments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Creating simulation experiments</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/7_summarizing_results.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Summarizing results</span></span></a>
+  <a href="../chapters/7_mapping.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Mapping over functions</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/8_planning_and_reporting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Planning and reporting</span></span></a>
+  <a href="../chapters/8_summarizing_results.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Summarizing results</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/9_simulation_template.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Simulation template</span></span></a>
+  <a href="../chapters/9_planning_and_reporting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Planning and reporting</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/10_simulation_template.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Simulation template</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/violating_assumptions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/testing_assumptions_and_conditional_tests.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of (non-)parameteric tests”</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of non-parameteric tests</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/p_hacking.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/p_values_and_confidence_intervals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Understanding the link between p-values, Confidence Intervals, and power</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Understanding the link between p-values, Confidence Intervals, and power</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/difference_between_signfiicant_and_nonsignificant.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">The differences between significant and non-significant is not itself significant</span></span></a>
+  <a href="../chapters/difference_between_significant_and_nonsignificant.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The differences between significant and non-significant is not itself significant</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/standardized_effect_sizes_and_range_restriction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Standardized effect sizes and range restriction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Standardized effect sizes and range restriction</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/impact_of_lazy_responding_assignment.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">The impact of one form of lazy/careless responding on the power and false positive rate of a Student’s t-test</span></span></a>
+  <a href="../chapters/impact_of_careless_responding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">The impact of one form of careless responding on power and the false positive rate</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/meta_analysis_and_publication_bias.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Meta-analysis and publication bias</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Meta-analysis and publication bias</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/causality.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Regression assumes causality</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regression assumes causality</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
   </div>
 </li>
     </ul>
@@ -272,34 +278,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#check-your-understanding" id="toc-check-your-understanding" class="nav-link active" data-scroll-target="#check-your-understanding"><span class="header-section-number">11.1</span> Check your understanding</a></li>
-  <li><a href="#answer" id="toc-answer" class="nav-link" data-scroll-target="#answer"><span class="header-section-number">11.2</span> Answer</a></li>
-  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview"><span class="header-section-number">11.3</span> Overview</a></li>
-  <li><a href="#dependencies" id="toc-dependencies" class="nav-link" data-scroll-target="#dependencies"><span class="header-section-number">11.4</span> Dependencies</a></li>
-  <li><a href="#power-of-students-t-test" id="toc-power-of-students-t-test" class="nav-link" data-scroll-target="#power-of-students-t-test"><span class="header-section-number">11.5</span> Power of Student’s t-test</a></li>
-  <li><a href="#power-of-students-t-test-vs.-wilcoxon-rank-sum-test" id="toc-power-of-students-t-test-vs.-wilcoxon-rank-sum-test" class="nav-link" data-scroll-target="#power-of-students-t-test-vs.-wilcoxon-rank-sum-test"><span class="header-section-number">11.6</span> Power of Student’s t-test vs.&nbsp;Wilcoxon rank-sum test</a>
+  <li><a href="#check-your-understanding" id="toc-check-your-understanding" class="nav-link active" data-scroll-target="#check-your-understanding"><span class="header-section-number">12.1</span> Check your understanding</a></li>
+  <li><a href="#answer" id="toc-answer" class="nav-link" data-scroll-target="#answer"><span class="header-section-number">12.2</span> Answer</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview"><span class="header-section-number">12.3</span> Overview</a></li>
+  <li><a href="#dependencies" id="toc-dependencies" class="nav-link" data-scroll-target="#dependencies"><span class="header-section-number">12.4</span> Dependencies</a></li>
+  <li><a href="#power-of-students-t-test" id="toc-power-of-students-t-test" class="nav-link" data-scroll-target="#power-of-students-t-test"><span class="header-section-number">12.5</span> Power of Student’s t-test</a></li>
+  <li><a href="#power-of-students-t-test-vs.-wilcoxon-rank-sum-test" id="toc-power-of-students-t-test-vs.-wilcoxon-rank-sum-test" class="nav-link" data-scroll-target="#power-of-students-t-test-vs.-wilcoxon-rank-sum-test"><span class="header-section-number">12.6</span> Power of Student’s t-test vs.&nbsp;Wilcoxon rank-sum test</a>
   <ul class="collapse">
-  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise"><span class="header-section-number">11.6.1</span> Exercise</a></li>
-  <li><a href="#answer-1" id="toc-answer-1" class="nav-link" data-scroll-target="#answer-1"><span class="header-section-number">11.6.2</span> Answer</a></li>
-  <li><a href="#simulation" id="toc-simulation" class="nav-link" data-scroll-target="#simulation"><span class="header-section-number">11.6.3</span> Simulation</a></li>
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise"><span class="header-section-number">12.6.1</span> Exercise</a></li>
+  <li><a href="#answer-1" id="toc-answer-1" class="nav-link" data-scroll-target="#answer-1"><span class="header-section-number">12.6.2</span> Answer</a></li>
+  <li><a href="#simulation" id="toc-simulation" class="nav-link" data-scroll-target="#simulation"><span class="header-section-number">12.6.3</span> Simulation</a></li>
   </ul></li>
-  <li><a href="#power-of-shapiro-wilks-test-with-skew-normal-data" id="toc-power-of-shapiro-wilks-test-with-skew-normal-data" class="nav-link" data-scroll-target="#power-of-shapiro-wilks-test-with-skew-normal-data"><span class="header-section-number">11.7</span> Power of Shapiro-Wilk’s test with skew-normal data</a>
+  <li><a href="#power-of-shapiro-wilks-test-with-skew-normal-data" id="toc-power-of-shapiro-wilks-test-with-skew-normal-data" class="nav-link" data-scroll-target="#power-of-shapiro-wilks-test-with-skew-normal-data"><span class="header-section-number">12.7</span> Power of Shapiro-Wilk’s test with skew-normal data</a>
   <ul class="collapse">
-  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1"><span class="header-section-number">11.7.1</span> Exercise</a></li>
-  <li><a href="#answer-2" id="toc-answer-2" class="nav-link" data-scroll-target="#answer-2"><span class="header-section-number">11.7.2</span> Answer</a></li>
-  <li><a href="#simulation-1" id="toc-simulation-1" class="nav-link" data-scroll-target="#simulation-1"><span class="header-section-number">11.7.3</span> Simulation</a></li>
+  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1"><span class="header-section-number">12.7.1</span> Exercise</a></li>
+  <li><a href="#answer-2" id="toc-answer-2" class="nav-link" data-scroll-target="#answer-2"><span class="header-section-number">12.7.2</span> Answer</a></li>
+  <li><a href="#simulation-1" id="toc-simulation-1" class="nav-link" data-scroll-target="#simulation-1"><span class="header-section-number">12.7.3</span> Simulation</a></li>
   </ul></li>
-  <li><a href="#conditionally-running-a-students-t-test-or-a-wilcoxon-rank-sum-test-depending-on-shapiro-wilks-test-for-normality-in-both-samples" id="toc-conditionally-running-a-students-t-test-or-a-wilcoxon-rank-sum-test-depending-on-shapiro-wilks-test-for-normality-in-both-samples" class="nav-link" data-scroll-target="#conditionally-running-a-students-t-test-or-a-wilcoxon-rank-sum-test-depending-on-shapiro-wilks-test-for-normality-in-both-samples"><span class="header-section-number">11.8</span> Conditionally running a Student’s t-test or a Wilcoxon rank-sum test depending on Shapiro-Wilk’s test for normality in both samples</a>
+  <li><a href="#conditionally-running-a-students-t-test-or-a-wilcoxon-rank-sum-test-depending-on-shapiro-wilks-test-for-normality-in-both-samples" id="toc-conditionally-running-a-students-t-test-or-a-wilcoxon-rank-sum-test-depending-on-shapiro-wilks-test-for-normality-in-both-samples" class="nav-link" data-scroll-target="#conditionally-running-a-students-t-test-or-a-wilcoxon-rank-sum-test-depending-on-shapiro-wilks-test-for-normality-in-both-samples"><span class="header-section-number">12.8</span> Conditionally running a Student’s t-test or a Wilcoxon rank-sum test depending on Shapiro-Wilk’s test for normality in both samples</a>
   <ul class="collapse">
-  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2"><span class="header-section-number">11.8.1</span> Exercise</a></li>
-  <li><a href="#answer-3" id="toc-answer-3" class="nav-link" data-scroll-target="#answer-3"><span class="header-section-number">11.8.2</span> Answer</a></li>
+  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2"><span class="header-section-number">12.8.1</span> Exercise</a></li>
+  <li><a href="#answer-3" id="toc-answer-3" class="nav-link" data-scroll-target="#answer-3"><span class="header-section-number">12.8.2</span> Answer</a></li>
   </ul></li>
-  <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap"><span class="header-section-number">11.9</span> Recap</a></li>
-  <li><a href="#at-home-exercises" id="toc-at-home-exercises" class="nav-link" data-scroll-target="#at-home-exercises"><span class="header-section-number">11.10</span> At-home exercises</a>
+  <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap"><span class="header-section-number">12.9</span> Recap</a></li>
+  <li><a href="#at-home-exercises" id="toc-at-home-exercises" class="nav-link" data-scroll-target="#at-home-exercises"><span class="header-section-number">12.10</span> At-home exercises</a>
   <ul class="collapse">
-  <li><a href="#collate-the-simulation-above-into-a-single-code-chunk-with-all-the-pieces-to-run-the-full-simulation" id="toc-collate-the-simulation-above-into-a-single-code-chunk-with-all-the-pieces-to-run-the-full-simulation" class="nav-link" data-scroll-target="#collate-the-simulation-above-into-a-single-code-chunk-with-all-the-pieces-to-run-the-full-simulation"><span class="header-section-number">11.10.1</span> Collate the simulation above into a single code chunk with all the pieces to run the full simulation</a></li>
-  <li><a href="#elaborate-the-simulation" id="toc-elaborate-the-simulation" class="nav-link" data-scroll-target="#elaborate-the-simulation"><span class="header-section-number">11.10.2</span> Elaborate the simulation</a></li>
-  <li><a href="#develop-a-simulation-to-examine-the-power-of-the-conditional-use-of-nonparametric-based-on-heteroscedasticity-vs-using-non-parametric-tests-by-default" id="toc-develop-a-simulation-to-examine-the-power-of-the-conditional-use-of-nonparametric-based-on-heteroscedasticity-vs-using-non-parametric-tests-by-default" class="nav-link" data-scroll-target="#develop-a-simulation-to-examine-the-power-of-the-conditional-use-of-nonparametric-based-on-heteroscedasticity-vs-using-non-parametric-tests-by-default"><span class="header-section-number">11.10.3</span> Develop a simulation to examine the power of the conditional use of (non)parametric based on heteroscedasticity vs using non-parametric tests by default</a></li>
+  <li><a href="#collate-the-simulation-above-into-a-single-code-chunk-with-all-the-pieces-to-run-the-full-simulation" id="toc-collate-the-simulation-above-into-a-single-code-chunk-with-all-the-pieces-to-run-the-full-simulation" class="nav-link" data-scroll-target="#collate-the-simulation-above-into-a-single-code-chunk-with-all-the-pieces-to-run-the-full-simulation"><span class="header-section-number">12.10.1</span> Collate the simulation above into a single code chunk with all the pieces to run the full simulation</a></li>
+  <li><a href="#elaborate-the-simulation" id="toc-elaborate-the-simulation" class="nav-link" data-scroll-target="#elaborate-the-simulation"><span class="header-section-number">12.10.2</span> Elaborate the simulation</a></li>
+  <li><a href="#develop-a-simulation-to-examine-the-power-of-the-conditional-use-of-nonparametric-based-on-heteroscedasticity-vs-using-non-parametric-tests-by-default" id="toc-develop-a-simulation-to-examine-the-power-of-the-conditional-use-of-nonparametric-based-on-heteroscedasticity-vs-using-non-parametric-tests-by-default" class="nav-link" data-scroll-target="#develop-a-simulation-to-examine-the-power-of-the-conditional-use-of-nonparametric-based-on-heteroscedasticity-vs-using-non-parametric-tests-by-default"><span class="header-section-number">12.10.3</span> Develop a simulation to examine the power of the conditional use of (non)parametric based on heteroscedasticity vs using non-parametric tests by default</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -309,7 +315,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of (non-)parameteric tests”</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of non-parameteric tests</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -326,13 +332,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="check-your-understanding" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="check-your-understanding"><span class="header-section-number">11.1</span> Check your understanding</h2>
+<section id="check-your-understanding" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="check-your-understanding"><span class="header-section-number">12.1</span> Check your understanding</h2>
 <p>What is the relationship between a linear regression, a Student’s t-test and a Wilcox rank-sum test? Or between linear regression and ANOVA?</p>
 <p>What is the difference between a hypothesis test like a Student’s t-test and a test of assumptions such as Shapiro-Wilk’s test (for normality) or Levene’s test (for homogeneity of variances)?</p>
 </section>
-<section id="answer" class="level2" data-number="11.2">
-<h2 data-number="11.2" class="anchored" data-anchor-id="answer"><span class="header-section-number">11.2</span> Answer</h2>
+<section id="answer" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="answer"><span class="header-section-number">12.2</span> Answer</h2>
 <p><a href="https://lindeloev.github.io/tests-as-linear">Almost everything is a linear model</a>.</p>
 <div class="cell">
 <details open="" class="code-fold">
@@ -348,8 +354,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="overview" class="level2" data-number="11.3">
-<h2 data-number="11.3" class="anchored" data-anchor-id="overview"><span class="header-section-number">11.3</span> Overview</h2>
+<section id="overview" class="level2" data-number="12.3">
+<h2 data-number="12.3" class="anchored" data-anchor-id="overview"><span class="header-section-number">12.3</span> Overview</h2>
 <p>What do most statistics textbooks tell you to do when trying to test if two groups’ means differ?</p>
 <ol type="1">
 <li>Check assumptions of an independent Student’s t-test are met, e.g., normality of data and homogeneity of variances.</li>
@@ -363,8 +369,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>What is the aggregate benefit of choosing a hypothesis test based on the results of assumption tests? This multi-step researcher behavior can itself be simulated.</li>
 </ol>
 </section>
-<section id="dependencies" class="level2" data-number="11.4">
-<h2 data-number="11.4" class="anchored" data-anchor-id="dependencies"><span class="header-section-number">11.4</span> Dependencies</h2>
+<section id="dependencies" class="level2" data-number="12.4">
+<h2 data-number="12.4" class="anchored" data-anchor-id="dependencies"><span class="header-section-number">12.4</span> Dependencies</h2>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -386,8 +392,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 </section>
-<section id="power-of-students-t-test" class="level2" data-number="11.5">
-<h2 data-number="11.5" class="anchored" data-anchor-id="power-of-students-t-test"><span class="header-section-number">11.5</span> Power of Student’s t-test</h2>
+<section id="power-of-students-t-test" class="level2" data-number="12.5">
+<h2 data-number="12.5" class="anchored" data-anchor-id="power-of-students-t-test"><span class="header-section-number">12.5</span> Power of Student’s t-test</h2>
 <p>Code taken from the previous lesson, with some simplifications.</p>
 <div class="cell">
 <details open="" class="code-fold">
@@ -513,15 +519,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="power-of-students-t-test-vs.-wilcoxon-rank-sum-test" class="level2" data-number="11.6">
-<h2 data-number="11.6" class="anchored" data-anchor-id="power-of-students-t-test-vs.-wilcoxon-rank-sum-test"><span class="header-section-number">11.6</span> Power of Student’s t-test vs.&nbsp;Wilcoxon rank-sum test</h2>
+<section id="power-of-students-t-test-vs.-wilcoxon-rank-sum-test" class="level2" data-number="12.6">
+<h2 data-number="12.6" class="anchored" data-anchor-id="power-of-students-t-test-vs.-wilcoxon-rank-sum-test"><span class="header-section-number">12.6</span> Power of Student’s t-test vs.&nbsp;Wilcoxon rank-sum test</h2>
 <p>Aka Mann-Whitney U-test.</p>
-<section id="exercise" class="level3" data-number="11.6.1">
-<h3 data-number="11.6.1" class="anchored" data-anchor-id="exercise"><span class="header-section-number">11.6.1</span> Exercise</h3>
+<section id="exercise" class="level3" data-number="12.6.1">
+<h3 data-number="12.6.1" class="anchored" data-anchor-id="exercise"><span class="header-section-number">12.6.1</span> Exercise</h3>
 <p>Write a function called <code>analyze_data_wilcox()</code> that uses <code>wilcox.test()</code> instead of <code>t.test()</code> to compare the differences in central tendency between the conditions.</p>
 </section>
-<section id="answer-1" class="level3" data-number="11.6.2">
-<h3 data-number="11.6.2" class="anchored" data-anchor-id="answer-1"><span class="header-section-number">11.6.2</span> Answer</h3>
+<section id="answer-1" class="level3" data-number="12.6.2">
+<h3 data-number="12.6.2" class="anchored" data-anchor-id="answer-1"><span class="header-section-number">12.6.2</span> Answer</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Show solution</summary>
@@ -539,8 +545,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 </section>
-<section id="simulation" class="level3" data-number="11.6.3">
-<h3 data-number="11.6.3" class="anchored" data-anchor-id="simulation"><span class="header-section-number">11.6.3</span> Simulation</h3>
+<section id="simulation" class="level3" data-number="12.6.3">
+<h3 data-number="12.6.3" class="anchored" data-anchor-id="simulation"><span class="header-section-number">12.6.3</span> Simulation</h3>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -616,14 +622,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 </section>
-<section id="power-of-shapiro-wilks-test-with-skew-normal-data" class="level2" data-number="11.7">
-<h2 data-number="11.7" class="anchored" data-anchor-id="power-of-shapiro-wilks-test-with-skew-normal-data"><span class="header-section-number">11.7</span> Power of Shapiro-Wilk’s test with skew-normal data</h2>
-<section id="exercise-1" class="level3" data-number="11.7.1">
-<h3 data-number="11.7.1" class="anchored" data-anchor-id="exercise-1"><span class="header-section-number">11.7.1</span> Exercise</h3>
+<section id="power-of-shapiro-wilks-test-with-skew-normal-data" class="level2" data-number="12.7">
+<h2 data-number="12.7" class="anchored" data-anchor-id="power-of-shapiro-wilks-test-with-skew-normal-data"><span class="header-section-number">12.7</span> Power of Shapiro-Wilk’s test with skew-normal data</h2>
+<section id="exercise-1" class="level3" data-number="12.7.1">
+<h3 data-number="12.7.1" class="anchored" data-anchor-id="exercise-1"><span class="header-section-number">12.7.1</span> Exercise</h3>
 <p>Write a function called <code>test_assumption_of_normality()</code> that uses <code>shapiro.test()</code> to assess for non-normality in each condition (control and intervention). It should return a p value for both tests.</p>
 </section>
-<section id="answer-2" class="level3" data-number="11.7.2">
-<h3 data-number="11.7.2" class="anchored" data-anchor-id="answer-2"><span class="header-section-number">11.7.2</span> Answer</h3>
+<section id="answer-2" class="level3" data-number="12.7.2">
+<h3 data-number="12.7.2" class="anchored" data-anchor-id="answer-2"><span class="header-section-number">12.7.2</span> Answer</h3>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -648,8 +654,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 </section>
-<section id="simulation-1" class="level3" data-number="11.7.3">
-<h3 data-number="11.7.3" class="anchored" data-anchor-id="simulation-1"><span class="header-section-number">11.7.3</span> Simulation</h3>
+<section id="simulation-1" class="level3" data-number="12.7.3">
+<h3 data-number="12.7.3" class="anchored" data-anchor-id="simulation-1"><span class="header-section-number">12.7.3</span> Simulation</h3>
 <p>Test for normality in each of two samples, and return a decision of non-normality if it is found in either.</p>
 <div class="cell">
 <details open="" class="code-fold">
@@ -711,10 +717,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 </section>
-<section id="conditionally-running-a-students-t-test-or-a-wilcoxon-rank-sum-test-depending-on-shapiro-wilks-test-for-normality-in-both-samples" class="level2" data-number="11.8">
-<h2 data-number="11.8" class="anchored" data-anchor-id="conditionally-running-a-students-t-test-or-a-wilcoxon-rank-sum-test-depending-on-shapiro-wilks-test-for-normality-in-both-samples"><span class="header-section-number">11.8</span> Conditionally running a Student’s t-test or a Wilcoxon rank-sum test depending on Shapiro-Wilk’s test for normality in both samples</h2>
-<section id="exercise-2" class="level3" data-number="11.8.1">
-<h3 data-number="11.8.1" class="anchored" data-anchor-id="exercise-2"><span class="header-section-number">11.8.1</span> Exercise</h3>
+<section id="conditionally-running-a-students-t-test-or-a-wilcoxon-rank-sum-test-depending-on-shapiro-wilks-test-for-normality-in-both-samples" class="level2" data-number="12.8">
+<h2 data-number="12.8" class="anchored" data-anchor-id="conditionally-running-a-students-t-test-or-a-wilcoxon-rank-sum-test-depending-on-shapiro-wilks-test-for-normality-in-both-samples"><span class="header-section-number">12.8</span> Conditionally running a Student’s t-test or a Wilcoxon rank-sum test depending on Shapiro-Wilk’s test for normality in both samples</h2>
+<section id="exercise-2" class="level3" data-number="12.8.1">
+<h3 data-number="12.8.1" class="anchored" data-anchor-id="exercise-2"><span class="header-section-number">12.8.1</span> Exercise</h3>
 <p>Modify the code below to implement condition logic between how the tests are interpreted.</p>
 <p>I.e., for each iteration, calculate a conditional p value: if either of the Shapiro-Wilks tests are significant (evidence of non-normality), use the p value from the Wilcox test; if not, use the Student’s t test’s p value.</p>
 <p>Summarize the power of the conditional p value vs.&nbsp;the Wilcox’s test’s p value. This compares the workflows where we a) use Shapiro-Wilk’s tests to choose which method to use to test the hypothesis vs.&nbsp;b) just use the non-parametric test by default.</p>
@@ -748,8 +754,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 </section>
-<section id="answer-3" class="level3" data-number="11.8.2">
-<h3 data-number="11.8.2" class="anchored" data-anchor-id="answer-3"><span class="header-section-number">11.8.2</span> Answer</h3>
+<section id="answer-3" class="level3" data-number="12.8.2">
+<h3 data-number="12.8.2" class="anchored" data-anchor-id="answer-3"><span class="header-section-number">12.8.2</span> Answer</h3>
 <p>This stimulation tests normality in both conditions’ data, as well as testing for differences in the central tendency using both parametric and non-parametric tests. Which test of the differences in central tendency is used for each simulated data set is determined by whether the assumption of normality is detectably violated.</p>
 <div class="cell">
 <details class="code-fold">
@@ -848,8 +854,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 </section>
-<section id="recap" class="level2" data-number="11.9">
-<h2 data-number="11.9" class="anchored" data-anchor-id="recap"><span class="header-section-number">11.9</span> Recap</h2>
+<section id="recap" class="level2" data-number="12.9">
+<h2 data-number="12.9" class="anchored" data-anchor-id="recap"><span class="header-section-number">12.9</span> Recap</h2>
 <p>What did you learn here?</p>
 <ul>
 <li>About statistical tests?</li>
@@ -857,18 +863,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>About how to use this {purrr} simulation workflow to analyze data more than one way and make conditional decisions, in order to model the behavior of scientists?</li>
 </ul>
 </section>
-<section id="at-home-exercises" class="level2" data-number="11.10">
-<h2 data-number="11.10" class="anchored" data-anchor-id="at-home-exercises"><span class="header-section-number">11.10</span> At-home exercises</h2>
-<section id="collate-the-simulation-above-into-a-single-code-chunk-with-all-the-pieces-to-run-the-full-simulation" class="level3" data-number="11.10.1">
-<h3 data-number="11.10.1" class="anchored" data-anchor-id="collate-the-simulation-above-into-a-single-code-chunk-with-all-the-pieces-to-run-the-full-simulation"><span class="header-section-number">11.10.1</span> Collate the simulation above into a single code chunk with all the pieces to run the full simulation</h3>
+<section id="at-home-exercises" class="level2" data-number="12.10">
+<h2 data-number="12.10" class="anchored" data-anchor-id="at-home-exercises"><span class="header-section-number">12.10</span> At-home exercises</h2>
+<section id="collate-the-simulation-above-into-a-single-code-chunk-with-all-the-pieces-to-run-the-full-simulation" class="level3" data-number="12.10.1">
+<h3 data-number="12.10.1" class="anchored" data-anchor-id="collate-the-simulation-above-into-a-single-code-chunk-with-all-the-pieces-to-run-the-full-simulation"><span class="header-section-number">12.10.1</span> Collate the simulation above into a single code chunk with all the pieces to run the full simulation</h3>
 </section>
-<section id="elaborate-the-simulation" class="level3" data-number="11.10.2">
-<h3 data-number="11.10.2" class="anchored" data-anchor-id="elaborate-the-simulation"><span class="header-section-number">11.10.2</span> Elaborate the simulation</h3>
+<section id="elaborate-the-simulation" class="level3" data-number="12.10.2">
+<h3 data-number="12.10.2" class="anchored" data-anchor-id="elaborate-the-simulation"><span class="header-section-number">12.10.2</span> Elaborate the simulation</h3>
 <p>One relatively simpler extension would be to assess how much better or worse just using the Student’s t test by default is compared to a) using Student’s t-test vs.&nbsp;Wilcox conditionally based on the Shapiro Wilks tests or b) using the Wilcox test by default. I.e., try adding c) using Student’s t-test by default.</p>
 <p>Right now the simulation only examines a fixed effect size. Perhaps the supposed negative impact of violating normality would be seen at other effect sizes? Vary this or indeed other things to make an informed decision about how to choose which test(s) to run to make the inference about differences in means between conditions.</p>
 </section>
-<section id="develop-a-simulation-to-examine-the-power-of-the-conditional-use-of-nonparametric-based-on-heteroscedasticity-vs-using-non-parametric-tests-by-default" class="level3" data-number="11.10.3">
-<h3 data-number="11.10.3" class="anchored" data-anchor-id="develop-a-simulation-to-examine-the-power-of-the-conditional-use-of-nonparametric-based-on-heteroscedasticity-vs-using-non-parametric-tests-by-default"><span class="header-section-number">11.10.3</span> Develop a simulation to examine the power of the conditional use of (non)parametric based on heteroscedasticity vs using non-parametric tests by default</h3>
+<section id="develop-a-simulation-to-examine-the-power-of-the-conditional-use-of-nonparametric-based-on-heteroscedasticity-vs-using-non-parametric-tests-by-default" class="level3" data-number="12.10.3">
+<h3 data-number="12.10.3" class="anchored" data-anchor-id="develop-a-simulation-to-examine-the-power-of-the-conditional-use-of-nonparametric-based-on-heteroscedasticity-vs-using-non-parametric-tests-by-default"><span class="header-section-number">12.10.3</span> Develop a simulation to examine the power of the conditional use of (non)parametric based on heteroscedasticity vs using non-parametric tests by default</h3>
 <p>Decisions about which hypothesis test is used are also made on the basis of other tests of those assumptions. For example, heteroscedasticity (equal SDs) can be tested using <code>leveneTest()</code>. This has lower power than Bartlett’s test but does not assume normality.</p>
 <p>Write a simulation that is analogous to the one above, but which compares the statistical power of a) the conditional use of Student’s t test or Wilcox test based on the result of Levene’s test vs.&nbsp;b) using Wilcox test by default.</p>
 <p>For simplicity:</p>
@@ -1339,16 +1345,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../chapters/violating_assumptions.html" class="pagination-link" aria-label="Assessing the impact of violating the assumption of normality">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../chapters/p_hacking.html" class="pagination-link" aria-label="p-hacking via different forms of selecting reporting">
-        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb13" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># The statistical power of assumptions tests and the conditional use of (non-)parameteric tests"</span></span>
+<div class="sourceCode" id="cb13" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># The statistical power of assumptions tests and the conditional use of non-parameteric tests</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Check your understanding</span></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>

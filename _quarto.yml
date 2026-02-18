@@ -15,15 +15,16 @@ book:
   chapters:
     - index.qmd
     # Learning to simulate
-    - chapters/1_foundation_concepts.qmd # week 1 ian
-    - chapters/2_writing_functions.qmd # week 1 jamie
-    - chapters/3_data_generating_process_functions.qmd # week 2 - really about practicing writing functions, summarizing and plotting - ian
-    - chapters/4_analysis_functions.qmd # week 3 - practice writing functions again, more/less flexible/reusable - jamie
-    - chapters/5_creating_simulation_experiments.qmd # week 4, if it includes Siepe's study on designs
-    - chapters/6_mapping.qmd # week 4 - nested dfs needs explaining. 
-    - chapters/7_summarizing_results.qmd # week 5
-    - chapters/8_planning_and_reporting.qmd # come back to this after substantive chapter 1 - week 7?, Siepe paper, assessing performance (MC SE), etc. Diagnostics on already run simulations, go in and check specific iterations, run manually etc.
-    - chapters/9_simulation_template.qmd # week 5, 'putting it all together'; skip to substantive chapter 1?
+    - chapters/1_required_skills.qmd # week 1 homework
+    - chapters/2_foundation_concepts.qmd # week 1 ian
+    - chapters/3_writing_functions.qmd # week 1 jamie
+    - chapters/4_data_generating_process_functions.qmd # week 2 - really about practicing writing functions, summarizing and plotting - ian
+    - chapters/5_analysis_functions.qmd # week 3 - practice writing functions again, more/less flexible/reusable - jamie
+    - chapters/6_creating_simulation_experiments.qmd # week 4, if it includes Siepe's study on designs
+    - chapters/7_mapping.qmd # week 4 - nested dfs needs explaining. 
+    - chapters/8_summarizing_results.qmd # week 5
+    - chapters/9_planning_and_reporting.qmd # come back to this after substantive chapter 1 - week 7?, Siepe paper, assessing performance (MC SE), etc. Diagnostics on already run simulations, go in and check specific iterations, run manually etc.
+    - chapters/10_simulation_template.qmd # week 5, 'putting it all together'; skip to substantive chapter 1?
     
     # Learning from simulations
     # whatever chapter comes next, lay out the final assignment here
@@ -34,7 +35,7 @@ book:
     - chapters/p_values_and_confidence_intervals.qmd
     - chapters/difference_between_significant_and_nonsignificant.qmd
     - chapters/standardized_effect_sizes_and_range_restriction.qmd
-    - chapters/impact_of_lazy_responding.qmd
+    - chapters/impact_of_careless_responding.qmd
     - chapters/meta_analysis_and_publication_bias.qmd
     - chapters/causality.qmd
     

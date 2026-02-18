@@ -4,16 +4,8 @@ This [Open Source](chapters/license.qmd) eBook provides materials for the semest
 
 This book is split into two parts:
 
-1. **Learning to simulate**. Chapters 1-9 teach you the conceptual structure of Monte Carlo simulation studies, and how to implement them in a modular R/tidyverse workflow that prioritizes understandability and code reusability over execution speed. 
+1. **Learning to simulate**. Chapters 2-10 teach you the conceptual structure of Monte Carlo simulation studies, and how to implement them in a modular R/tidyverse workflow that prioritizes understandability and code reusability over execution speed. 
 2. **Learning from simulations**. The remaining chapters use simulations to better understand and use statistical methods, and to understand and guide the behavior of researchers using those methods.
-
-## Required knowledge
-
-This book assumes existing knowledge of data wrangling and visualization in R/tidyverse. Specifically, familiarity with RStudio, reproducible reports written in {quarto} (.qmd) documents, the 'pipe' (`|>` and `%>%`), the packages {dplyr}, {tidyr}, {forcats}, and {ggplot2}.
-
-If you don't already have these skills, or you need a refresher, please see Ian's other book ["Reproducible Data Processing and Visualization in R and tidyverse"](https://ianhussey.quarto.pub/reproducible-data-processing-and-visualization/).
-
-If you're enrolled in our class but haven't already taken Ian's "Reproducible data processing and visualization" class based on that book, we encourage you to rapidly make your way through it. In previous years, students have taken this simulation course without much familiarity with R when they already have some familiarity with other coding languages such as Python and Matlab. Sometimes, students sign up for this seminar with low confidence in their R abilities. It is entirely possible to succeed in this course without strong existing R skills, but it unavoidably means more self-guided learning and practice for you. 
 
 ## How to use this book
 

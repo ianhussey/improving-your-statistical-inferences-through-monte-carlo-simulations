@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>10&nbsp; Assessing the impact of violating the assumption of normality – Improving your statistical inferences through Monte Carlo simulations</title>
+<title>11&nbsp; Assessing the impact of violating the assumption of normality – Improving your statistical inferences through Monte Carlo simulations</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../chapters/testing_assumptions_and_conditional_tests.html" rel="next">
-<link href="../chapters/9_simulation_template.html" rel="prev">
+<link href="../chapters/10_simulation_template.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -148,7 +148,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/violating_assumptions.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/violating_assumptions.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -181,116 +181,122 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/1_foundation_concepts.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Foundation concepts</span></span></a>
+  <a href="../chapters/1_required_skills.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Required skills</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/2_writing_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Writing functions</span></span></a>
+  <a href="../chapters/2_foundation_concepts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Foundation concepts</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/3_data_generating_process_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data generating processes</span></span></a>
+  <a href="../chapters/3_writing_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Writing functions</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/4_analysis_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Analysis functions</span></span></a>
+  <a href="../chapters/4_data_generating_process_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data generating processes</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/5_creating_simulation_experiments.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Creating simulation experiments</span></span></a>
+  <a href="../chapters/5_analysis_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analysis functions</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/6_mapping.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Mapping over functions</span></span></a>
+  <a href="../chapters/6_creating_simulation_experiments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Creating simulation experiments</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/7_summarizing_results.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Summarizing results</span></span></a>
+  <a href="../chapters/7_mapping.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Mapping over functions</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/8_planning_and_reporting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Planning and reporting</span></span></a>
+  <a href="../chapters/8_summarizing_results.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Summarizing results</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/9_simulation_template.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Simulation template</span></span></a>
+  <a href="../chapters/9_planning_and_reporting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Planning and reporting</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/10_simulation_template.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Simulation template</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/violating_assumptions.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/testing_assumptions_and_conditional_tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of (non-)parameteric tests”</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of non-parameteric tests</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/p_hacking.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/p_values_and_confidence_intervals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Understanding the link between p-values, Confidence Intervals, and power</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Understanding the link between p-values, Confidence Intervals, and power</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/difference_between_signfiicant_and_nonsignificant.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">The differences between significant and non-significant is not itself significant</span></span></a>
+  <a href="../chapters/difference_between_significant_and_nonsignificant.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The differences between significant and non-significant is not itself significant</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/standardized_effect_sizes_and_range_restriction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Standardized effect sizes and range restriction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Standardized effect sizes and range restriction</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/impact_of_lazy_responding_assignment.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">The impact of one form of lazy/careless responding on the power and false positive rate of a Student’s t-test</span></span></a>
+  <a href="../chapters/impact_of_careless_responding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">The impact of one form of careless responding on power and the false positive rate</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/meta_analysis_and_publication_bias.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Meta-analysis and publication bias</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Meta-analysis and publication bias</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/causality.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Regression assumes causality</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regression assumes causality</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
   </div>
 </li>
     </ul>
@@ -303,34 +309,34 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#dependencies" id="toc-dependencies" class="nav-link active" data-scroll-target="#dependencies"><span class="header-section-number">10.1</span> Dependencies</a></li>
-  <li><a href="#skew-normal-distributions" id="toc-skew-normal-distributions" class="nav-link" data-scroll-target="#skew-normal-distributions"><span class="header-section-number">10.2</span> Skew-normal distributions</a>
+  <li><a href="#dependencies" id="toc-dependencies" class="nav-link active" data-scroll-target="#dependencies"><span class="header-section-number">11.1</span> Dependencies</a></li>
+  <li><a href="#skew-normal-distributions" id="toc-skew-normal-distributions" class="nav-link" data-scroll-target="#skew-normal-distributions"><span class="header-section-number">11.2</span> Skew-normal distributions</a>
   <ul class="collapse">
-  <li><a href="#math-for-converting-normal-parameters-skew-to-skew-normal-parameters" id="toc-math-for-converting-normal-parameters-skew-to-skew-normal-parameters" class="nav-link" data-scroll-target="#math-for-converting-normal-parameters-skew-to-skew-normal-parameters"><span class="header-section-number">10.2.1</span> Math for converting normal parameters + skew to skew-normal parameters</a></li>
+  <li><a href="#math-for-converting-normal-parameters-skew-to-skew-normal-parameters" id="toc-math-for-converting-normal-parameters-skew-to-skew-normal-parameters" class="nav-link" data-scroll-target="#math-for-converting-normal-parameters-skew-to-skew-normal-parameters"><span class="header-section-number">11.2.1</span> Math for converting normal parameters + skew to skew-normal parameters</a></li>
   </ul></li>
-  <li><a href="#impact-of-non-normality-on-the-t-tests-false-positive-rate" id="toc-impact-of-non-normality-on-the-t-tests-false-positive-rate" class="nav-link" data-scroll-target="#impact-of-non-normality-on-the-t-tests-false-positive-rate"><span class="header-section-number">10.3</span> 1. Impact of non-normality on the t-test’s false-positive rate</a>
+  <li><a href="#impact-of-non-normality-on-the-t-tests-false-positive-rate" id="toc-impact-of-non-normality-on-the-t-tests-false-positive-rate" class="nav-link" data-scroll-target="#impact-of-non-normality-on-the-t-tests-false-positive-rate"><span class="header-section-number">11.3</span> 1. Impact of non-normality on the t-test’s false-positive rate</a>
   <ul class="collapse">
-  <li><a href="#data-generation-function" id="toc-data-generation-function" class="nav-link" data-scroll-target="#data-generation-function"><span class="header-section-number">10.3.1</span> Data generation function</a></li>
-  <li><a href="#analysis-function" id="toc-analysis-function" class="nav-link" data-scroll-target="#analysis-function"><span class="header-section-number">10.3.2</span> Analysis function</a></li>
-  <li><a href="#simulation-parameters" id="toc-simulation-parameters" class="nav-link" data-scroll-target="#simulation-parameters"><span class="header-section-number">10.3.3</span> Simulation parameters</a></li>
-  <li><a href="#run-simulation" id="toc-run-simulation" class="nav-link" data-scroll-target="#run-simulation"><span class="header-section-number">10.3.4</span> Run simulation</a></li>
-  <li><a href="#summarize-results" id="toc-summarize-results" class="nav-link" data-scroll-target="#summarize-results"><span class="header-section-number">10.3.5</span> Summarize results</a></li>
+  <li><a href="#data-generation-function" id="toc-data-generation-function" class="nav-link" data-scroll-target="#data-generation-function"><span class="header-section-number">11.3.1</span> Data generation function</a></li>
+  <li><a href="#analysis-function" id="toc-analysis-function" class="nav-link" data-scroll-target="#analysis-function"><span class="header-section-number">11.3.2</span> Analysis function</a></li>
+  <li><a href="#simulation-parameters" id="toc-simulation-parameters" class="nav-link" data-scroll-target="#simulation-parameters"><span class="header-section-number">11.3.3</span> Simulation parameters</a></li>
+  <li><a href="#run-simulation" id="toc-run-simulation" class="nav-link" data-scroll-target="#run-simulation"><span class="header-section-number">11.3.4</span> Run simulation</a></li>
+  <li><a href="#summarize-results" id="toc-summarize-results" class="nav-link" data-scroll-target="#summarize-results"><span class="header-section-number">11.3.5</span> Summarize results</a></li>
   </ul></li>
-  <li><a href="#impact-of-non-normality-on-the-t-tests-false-positive-and-true-positive-power-rates" id="toc-impact-of-non-normality-on-the-t-tests-false-positive-and-true-positive-power-rates" class="nav-link" data-scroll-target="#impact-of-non-normality-on-the-t-tests-false-positive-and-true-positive-power-rates"><span class="header-section-number">10.4</span> 2. Impact of non-normality on the t-test’s false-positive and true-positive (power) rates</a>
+  <li><a href="#impact-of-non-normality-on-the-t-tests-false-positive-and-true-positive-power-rates" id="toc-impact-of-non-normality-on-the-t-tests-false-positive-and-true-positive-power-rates" class="nav-link" data-scroll-target="#impact-of-non-normality-on-the-t-tests-false-positive-and-true-positive-power-rates"><span class="header-section-number">11.4</span> 2. Impact of non-normality on the t-test’s false-positive and true-positive (power) rates</a>
   <ul class="collapse">
-  <li><a href="#simulation-parameters-1" id="toc-simulation-parameters-1" class="nav-link" data-scroll-target="#simulation-parameters-1"><span class="header-section-number">10.4.1</span> Simulation parameters</a></li>
-  <li><a href="#run-simulation-1" id="toc-run-simulation-1" class="nav-link" data-scroll-target="#run-simulation-1"><span class="header-section-number">10.4.2</span> Run simulation</a></li>
-  <li><a href="#summarize-results-1" id="toc-summarize-results-1" class="nav-link" data-scroll-target="#summarize-results-1"><span class="header-section-number">10.4.3</span> Summarize results</a></li>
+  <li><a href="#simulation-parameters-1" id="toc-simulation-parameters-1" class="nav-link" data-scroll-target="#simulation-parameters-1"><span class="header-section-number">11.4.1</span> Simulation parameters</a></li>
+  <li><a href="#run-simulation-1" id="toc-run-simulation-1" class="nav-link" data-scroll-target="#run-simulation-1"><span class="header-section-number">11.4.2</span> Run simulation</a></li>
+  <li><a href="#summarize-results-1" id="toc-summarize-results-1" class="nav-link" data-scroll-target="#summarize-results-1"><span class="header-section-number">11.4.3</span> Summarize results</a></li>
   </ul></li>
-  <li><a href="#impact-of-non-normality-on-the-t-tests-false-positive-and-true-positive-power-rates-and-estimates-of-cohenss-d" id="toc-impact-of-non-normality-on-the-t-tests-false-positive-and-true-positive-power-rates-and-estimates-of-cohenss-d" class="nav-link" data-scroll-target="#impact-of-non-normality-on-the-t-tests-false-positive-and-true-positive-power-rates-and-estimates-of-cohenss-d"><span class="header-section-number">10.5</span> 3. Impact of non-normality on the t-test’s false-positive and true-positive (power) rates and estimates of Cohens’s d</a>
+  <li><a href="#impact-of-non-normality-on-the-t-tests-false-positive-and-true-positive-power-rates-and-estimates-of-cohenss-d" id="toc-impact-of-non-normality-on-the-t-tests-false-positive-and-true-positive-power-rates-and-estimates-of-cohenss-d" class="nav-link" data-scroll-target="#impact-of-non-normality-on-the-t-tests-false-positive-and-true-positive-power-rates-and-estimates-of-cohenss-d"><span class="header-section-number">11.5</span> 3. Impact of non-normality on the t-test’s false-positive and true-positive (power) rates and estimates of Cohens’s d</a>
   <ul class="collapse">
-  <li><a href="#summarize-results-2" id="toc-summarize-results-2" class="nav-link" data-scroll-target="#summarize-results-2"><span class="header-section-number">10.5.1</span> Summarize results</a></li>
+  <li><a href="#summarize-results-2" id="toc-summarize-results-2" class="nav-link" data-scroll-target="#summarize-results-2"><span class="header-section-number">11.5.1</span> Summarize results</a></li>
   </ul></li>
-  <li><a href="#at-home-exercises" id="toc-at-home-exercises" class="nav-link" data-scroll-target="#at-home-exercises"><span class="header-section-number">10.6</span> At-home exercises</a>
+  <li><a href="#at-home-exercises" id="toc-at-home-exercises" class="nav-link" data-scroll-target="#at-home-exercises"><span class="header-section-number">11.6</span> At-home exercises</a>
   <ul class="collapse">
-  <li><a href="#collate-the-final-simulation-above-into-a-single-code-chunk-with-all-the-pieces-to-run-the-full-simulation" id="toc-collate-the-final-simulation-above-into-a-single-code-chunk-with-all-the-pieces-to-run-the-full-simulation" class="nav-link" data-scroll-target="#collate-the-final-simulation-above-into-a-single-code-chunk-with-all-the-pieces-to-run-the-full-simulation"><span class="header-section-number">10.6.1</span> Collate the final simulation above into a single code chunk with all the pieces to run the full simulation</a></li>
-  <li><a href="#elaborate-the-simulation" id="toc-elaborate-the-simulation" class="nav-link" data-scroll-target="#elaborate-the-simulation"><span class="header-section-number">10.6.2</span> Elaborate the simulation</a></li>
-  <li><a href="#develop-a-simulation-to-examine-the-impact-of-violating-other-statistical-assumptions" id="toc-develop-a-simulation-to-examine-the-impact-of-violating-other-statistical-assumptions" class="nav-link" data-scroll-target="#develop-a-simulation-to-examine-the-impact-of-violating-other-statistical-assumptions"><span class="header-section-number">10.6.3</span> Develop a simulation to examine the impact of violating other statistical assumptions</a></li>
+  <li><a href="#collate-the-final-simulation-above-into-a-single-code-chunk-with-all-the-pieces-to-run-the-full-simulation" id="toc-collate-the-final-simulation-above-into-a-single-code-chunk-with-all-the-pieces-to-run-the-full-simulation" class="nav-link" data-scroll-target="#collate-the-final-simulation-above-into-a-single-code-chunk-with-all-the-pieces-to-run-the-full-simulation"><span class="header-section-number">11.6.1</span> Collate the final simulation above into a single code chunk with all the pieces to run the full simulation</a></li>
+  <li><a href="#elaborate-the-simulation" id="toc-elaborate-the-simulation" class="nav-link" data-scroll-target="#elaborate-the-simulation"><span class="header-section-number">11.6.2</span> Elaborate the simulation</a></li>
+  <li><a href="#develop-a-simulation-to-examine-the-impact-of-violating-other-statistical-assumptions" id="toc-develop-a-simulation-to-examine-the-impact-of-violating-other-statistical-assumptions" class="nav-link" data-scroll-target="#develop-a-simulation-to-examine-the-impact-of-violating-other-statistical-assumptions"><span class="header-section-number">11.6.3</span> Develop a simulation to examine the impact of violating other statistical assumptions</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -340,7 +346,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -357,8 +363,8 @@ window.Quarto = {
 </header>
 
 
-<section id="dependencies" class="level2" data-number="10.1">
-<h2 data-number="10.1" class="anchored" data-anchor-id="dependencies"><span class="header-section-number">10.1</span> Dependencies</h2>
+<section id="dependencies" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="dependencies"><span class="header-section-number">11.1</span> Dependencies</h2>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -380,8 +386,8 @@ window.Quarto = {
 </details>
 </div>
 </section>
-<section id="skew-normal-distributions" class="level2" data-number="10.2">
-<h2 data-number="10.2" class="anchored" data-anchor-id="skew-normal-distributions"><span class="header-section-number">10.2</span> Skew-normal distributions</h2>
+<section id="skew-normal-distributions" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="skew-normal-distributions"><span class="header-section-number">11.2</span> Skew-normal distributions</h2>
 <p>In order to violate normality, we will need to use a different non-normal distribution. For this example we’ll use the skew-normal distribution. Where the normal distribution of defined by two parameters, mean and standard deviation, other distributions are controlled by other parameters with different naming conventions, and often more than two parameters.</p>
 <p>The skew-normal distribution is defined by:</p>
 <ul>
@@ -467,8 +473,8 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<section id="math-for-converting-normal-parameters-skew-to-skew-normal-parameters" class="level3" data-number="10.2.1">
-<h3 data-number="10.2.1" class="anchored" data-anchor-id="math-for-converting-normal-parameters-skew-to-skew-normal-parameters"><span class="header-section-number">10.2.1</span> Math for converting normal parameters + skew to skew-normal parameters</h3>
+<section id="math-for-converting-normal-parameters-skew-to-skew-normal-parameters" class="level3" data-number="11.2.1">
+<h3 data-number="11.2.1" class="anchored" data-anchor-id="math-for-converting-normal-parameters-skew-to-skew-normal-parameters"><span class="header-section-number">11.2.1</span> Math for converting normal parameters + skew to skew-normal parameters</h3>
 <p>You don’t to understand the following math, but here is is for nerds.</p>
 <p>The parameters that define normal data, i.e., population mean (<span class="math inline">\(\mu\)</span>) and population SD (<span class="math inline">\(\sigma\)</span>) plus a skew parameter (<span class="math inline">\(\alpha\)</span>) can be converted to the parameters that directly define a skew-normal distribution, location (<span class="math inline">\(\xi\)</span>), scale (<span class="math inline">\(\omega\)</span>), and skew (<span class="math inline">\(\alpha\)</span>).</p>
 <p>The intermediate variable <span class="math inline">\(\delta\)</span> is calculated from skew (<span class="math inline">\(\alpha\)</span>):</p>
@@ -489,10 +495,10 @@ window.Quarto = {
 \]</span></p>
 </section>
 </section>
-<section id="impact-of-non-normality-on-the-t-tests-false-positive-rate" class="level2" data-number="10.3">
-<h2 data-number="10.3" class="anchored" data-anchor-id="impact-of-non-normality-on-the-t-tests-false-positive-rate"><span class="header-section-number">10.3</span> 1. Impact of non-normality on the t-test’s false-positive rate</h2>
-<section id="data-generation-function" class="level3" data-number="10.3.1">
-<h3 data-number="10.3.1" class="anchored" data-anchor-id="data-generation-function"><span class="header-section-number">10.3.1</span> Data generation function</h3>
+<section id="impact-of-non-normality-on-the-t-tests-false-positive-rate" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="impact-of-non-normality-on-the-t-tests-false-positive-rate"><span class="header-section-number">11.3</span> 1. Impact of non-normality on the t-test’s false-positive rate</h2>
+<section id="data-generation-function" class="level3" data-number="11.3.1">
+<h3 data-number="11.3.1" class="anchored" data-anchor-id="data-generation-function"><span class="header-section-number">11.3.1</span> Data generation function</h3>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -531,8 +537,8 @@ window.Quarto = {
 </details>
 </div>
 </section>
-<section id="analysis-function" class="level3" data-number="10.3.2">
-<h3 data-number="10.3.2" class="anchored" data-anchor-id="analysis-function"><span class="header-section-number">10.3.2</span> Analysis function</h3>
+<section id="analysis-function" class="level3" data-number="11.3.2">
+<h3 data-number="11.3.2" class="anchored" data-anchor-id="analysis-function"><span class="header-section-number">11.3.2</span> Analysis function</h3>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -556,10 +562,10 @@ window.Quarto = {
 </details>
 </div>
 </section>
-<section id="simulation-parameters" class="level3" data-number="10.3.3">
-<h3 data-number="10.3.3" class="anchored" data-anchor-id="simulation-parameters"><span class="header-section-number">10.3.3</span> Simulation parameters</h3>
-<section id="exercise---setting-up-the-experiment-correctly" class="level4" data-number="10.3.3.1">
-<h4 data-number="10.3.3.1" class="anchored" data-anchor-id="exercise---setting-up-the-experiment-correctly"><span class="header-section-number">10.3.3.1</span> Exercise - setting up the experiment correctly</h4>
+<section id="simulation-parameters" class="level3" data-number="11.3.3">
+<h3 data-number="11.3.3" class="anchored" data-anchor-id="simulation-parameters"><span class="header-section-number">11.3.3</span> Simulation parameters</h3>
+<section id="exercise---setting-up-the-experiment-correctly" class="level4" data-number="11.3.3.1">
+<h4 data-number="11.3.3.1" class="anchored" data-anchor-id="exercise---setting-up-the-experiment-correctly"><span class="header-section-number">11.3.3.1</span> Exercise - setting up the experiment correctly</h4>
 <p>We want to construct a simulation where the skew parameter is either 0 or 12 AND for the skew parameter to be the same in both conditions: both 0 or both 12.</p>
 <p>This presents a problem for our expand_grid call. Why? That is, what is wrong with the below code? How would we fix it?</p>
 <p>This is an important lesson in thinking carefully about how you set up a simulation and whether it does what you intend it to.</p>
@@ -581,8 +587,8 @@ window.Quarto = {
 </details>
 </div>
 </section>
-<section id="solution" class="level4" data-number="10.3.3.2">
-<h4 data-number="10.3.3.2" class="anchored" data-anchor-id="solution"><span class="header-section-number">10.3.3.2</span> Solution</h4>
+<section id="solution" class="level4" data-number="11.3.3.2">
+<h4 data-number="11.3.3.2" class="anchored" data-anchor-id="solution"><span class="header-section-number">11.3.3.2</span> Solution</h4>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -631,8 +637,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="experiment-parameters" class="level4" data-number="10.3.3.3">
-<h4 data-number="10.3.3.3" class="anchored" data-anchor-id="experiment-parameters"><span class="header-section-number">10.3.3.3</span> Experiment parameters</h4>
+<section id="experiment-parameters" class="level4" data-number="11.3.3.3">
+<h4 data-number="11.3.3.3" class="anchored" data-anchor-id="experiment-parameters"><span class="header-section-number">11.3.3.3</span> Experiment parameters</h4>
 <p>I have added the normal-to-skew-normal parameter conversions and the convenience variables.</p>
 <div class="cell">
 <details open="" class="code-fold">
@@ -666,8 +672,8 @@ window.Quarto = {
 </div>
 </section>
 </section>
-<section id="run-simulation" class="level3" data-number="10.3.4">
-<h3 data-number="10.3.4" class="anchored" data-anchor-id="run-simulation"><span class="header-section-number">10.3.4</span> Run simulation</h3>
+<section id="run-simulation" class="level3" data-number="11.3.4">
+<h3 data-number="11.3.4" class="anchored" data-anchor-id="run-simulation"><span class="header-section-number">11.3.4</span> Run simulation</h3>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -696,8 +702,8 @@ window.Quarto = {
 </details>
 </div>
 </section>
-<section id="summarize-results" class="level3" data-number="10.3.5">
-<h3 data-number="10.3.5" class="anchored" data-anchor-id="summarize-results"><span class="header-section-number">10.3.5</span> Summarize results</h3>
+<section id="summarize-results" class="level3" data-number="11.3.5">
+<h3 data-number="11.3.5" class="anchored" data-anchor-id="summarize-results"><span class="header-section-number">11.3.5</span> Summarize results</h3>
 <p>Summarize the proportion of significant <em>p</em>-values, i.e., the false positive rate, since population difference in locations in zero.</p>
 <p><strong>Quick check on your own learning:</strong> When would this proportion not represent the false positive rate?</p>
 <div class="cell">
@@ -743,12 +749,12 @@ window.Quarto = {
 </ul>
 </section>
 </section>
-<section id="impact-of-non-normality-on-the-t-tests-false-positive-and-true-positive-power-rates" class="level2" data-number="10.4">
-<h2 data-number="10.4" class="anchored" data-anchor-id="impact-of-non-normality-on-the-t-tests-false-positive-and-true-positive-power-rates"><span class="header-section-number">10.4</span> 2. Impact of non-normality on the t-test’s false-positive and true-positive (power) rates</h2>
-<section id="simulation-parameters-1" class="level3" data-number="10.4.1">
-<h3 data-number="10.4.1" class="anchored" data-anchor-id="simulation-parameters-1"><span class="header-section-number">10.4.1</span> Simulation parameters</h3>
-<section id="exercise" class="level4" data-number="10.4.1.1">
-<h4 data-number="10.4.1.1" class="anchored" data-anchor-id="exercise"><span class="header-section-number">10.4.1.1</span> Exercise</h4>
+<section id="impact-of-non-normality-on-the-t-tests-false-positive-and-true-positive-power-rates" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="impact-of-non-normality-on-the-t-tests-false-positive-and-true-positive-power-rates"><span class="header-section-number">11.4</span> 2. Impact of non-normality on the t-test’s false-positive and true-positive (power) rates</h2>
+<section id="simulation-parameters-1" class="level3" data-number="11.4.1">
+<h3 data-number="11.4.1" class="anchored" data-anchor-id="simulation-parameters-1"><span class="header-section-number">11.4.1</span> Simulation parameters</h3>
+<section id="exercise" class="level4" data-number="11.4.1.1">
+<h4 data-number="11.4.1.1" class="anchored" data-anchor-id="exercise"><span class="header-section-number">11.4.1.1</span> Exercise</h4>
 <p>How would we modify the parameters to study not only the false-positive rate but also the true positive rate?</p>
 <div class="cell">
 <details open="" class="code-fold">
@@ -782,8 +788,8 @@ window.Quarto = {
 </details>
 </div>
 </section>
-<section id="solution-1" class="level4" data-number="10.4.1.2">
-<h4 data-number="10.4.1.2" class="anchored" data-anchor-id="solution-1"><span class="header-section-number">10.4.1.2</span> Solution</h4>
+<section id="solution-1" class="level4" data-number="11.4.1.2">
+<h4 data-number="11.4.1.2" class="anchored" data-anchor-id="solution-1"><span class="header-section-number">11.4.1.2</span> Solution</h4>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -817,8 +823,8 @@ window.Quarto = {
 </div>
 </section>
 </section>
-<section id="run-simulation-1" class="level3" data-number="10.4.2">
-<h3 data-number="10.4.2" class="anchored" data-anchor-id="run-simulation-1"><span class="header-section-number">10.4.2</span> Run simulation</h3>
+<section id="run-simulation-1" class="level3" data-number="11.4.2">
+<h3 data-number="11.4.2" class="anchored" data-anchor-id="run-simulation-1"><span class="header-section-number">11.4.2</span> Run simulation</h3>
 <p>Exactly the same as last time, only parameters differ.</p>
 <div class="cell">
 <details open="" class="code-fold">
@@ -848,11 +854,11 @@ window.Quarto = {
 </details>
 </div>
 </section>
-<section id="summarize-results-1" class="level3" data-number="10.4.3">
-<h3 data-number="10.4.3" class="anchored" data-anchor-id="summarize-results-1"><span class="header-section-number">10.4.3</span> Summarize results</h3>
+<section id="summarize-results-1" class="level3" data-number="11.4.3">
+<h3 data-number="11.4.3" class="anchored" data-anchor-id="summarize-results-1"><span class="header-section-number">11.4.3</span> Summarize results</h3>
 <p>Summarize the proportion of significant <em>p</em>-values, i.e., the false positive rate, since population difference in locations in zero.</p>
-<section id="exercise-1" class="level4" data-number="10.4.3.1">
-<h4 data-number="10.4.3.1" class="anchored" data-anchor-id="exercise-1"><span class="header-section-number">10.4.3.1</span> Exercise</h4>
+<section id="exercise-1" class="level4" data-number="11.4.3.1">
+<h4 data-number="11.4.3.1" class="anchored" data-anchor-id="exercise-1"><span class="header-section-number">11.4.3.1</span> Exercise</h4>
 <p>How do we need to modify the summarization compared to last time? Modify the below code.</p>
 <div class="cell">
 <details open="" class="code-fold">
@@ -890,8 +896,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="solution-2" class="level4" data-number="10.4.3.2">
-<h4 data-number="10.4.3.2" class="anchored" data-anchor-id="solution-2"><span class="header-section-number">10.4.3.2</span> Solution</h4>
+<section id="solution-2" class="level4" data-number="11.4.3.2">
+<h4 data-number="11.4.3.2" class="anchored" data-anchor-id="solution-2"><span class="header-section-number">11.4.3.2</span> Solution</h4>
 <div class="cell">
 <details class="code-fold">
 <summary>Show solution</summary>
@@ -949,11 +955,11 @@ window.Quarto = {
 </section>
 </section>
 </section>
-<section id="impact-of-non-normality-on-the-t-tests-false-positive-and-true-positive-power-rates-and-estimates-of-cohenss-d" class="level2" data-number="10.5">
-<h2 data-number="10.5" class="anchored" data-anchor-id="impact-of-non-normality-on-the-t-tests-false-positive-and-true-positive-power-rates-and-estimates-of-cohenss-d"><span class="header-section-number">10.5</span> 3. Impact of non-normality on the t-test’s false-positive and true-positive (power) rates and estimates of Cohens’s d</h2>
+<section id="impact-of-non-normality-on-the-t-tests-false-positive-and-true-positive-power-rates-and-estimates-of-cohenss-d" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="impact-of-non-normality-on-the-t-tests-false-positive-and-true-positive-power-rates-and-estimates-of-cohenss-d"><span class="header-section-number">11.5</span> 3. Impact of non-normality on the t-test’s false-positive and true-positive (power) rates and estimates of Cohens’s d</h2>
 <p>As well as the false-positive and false-negative rate of the t-test’s <em>p</em>-values, we could also examine the estimates of standardized effect size.</p>
-<section id="summarize-results-2" class="level3" data-number="10.5.1">
-<h3 data-number="10.5.1" class="anchored" data-anchor-id="summarize-results-2"><span class="header-section-number">10.5.1</span> Summarize results</h3>
+<section id="summarize-results-2" class="level3" data-number="11.5.1">
+<h3 data-number="11.5.1" class="anchored" data-anchor-id="summarize-results-2"><span class="header-section-number">11.5.1</span> Summarize results</h3>
 <p>We can summarize the results of the previous simulation differently, by adding Cohen’s d too.</p>
 <div class="cell">
 <details open="" class="code-fold">
@@ -1023,10 +1029,10 @@ window.Quarto = {
 <p>So, why do we care about the assumption of normality for a t-test if violating it in these ways doesn’t substantially change much?</p>
 </section>
 </section>
-<section id="at-home-exercises" class="level2" data-number="10.6">
-<h2 data-number="10.6" class="anchored" data-anchor-id="at-home-exercises"><span class="header-section-number">10.6</span> At-home exercises</h2>
-<section id="collate-the-final-simulation-above-into-a-single-code-chunk-with-all-the-pieces-to-run-the-full-simulation" class="level3" data-number="10.6.1">
-<h3 data-number="10.6.1" class="anchored" data-anchor-id="collate-the-final-simulation-above-into-a-single-code-chunk-with-all-the-pieces-to-run-the-full-simulation"><span class="header-section-number">10.6.1</span> Collate the final simulation above into a single code chunk with all the pieces to run the full simulation</h3>
+<section id="at-home-exercises" class="level2" data-number="11.6">
+<h2 data-number="11.6" class="anchored" data-anchor-id="at-home-exercises"><span class="header-section-number">11.6</span> At-home exercises</h2>
+<section id="collate-the-final-simulation-above-into-a-single-code-chunk-with-all-the-pieces-to-run-the-full-simulation" class="level3" data-number="11.6.1">
+<h3 data-number="11.6.1" class="anchored" data-anchor-id="collate-the-final-simulation-above-into-a-single-code-chunk-with-all-the-pieces-to-run-the-full-simulation"><span class="header-section-number">11.6.1</span> Collate the final simulation above into a single code chunk with all the pieces to run the full simulation</h3>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -1037,12 +1043,12 @@ window.Quarto = {
 </details>
 </div>
 </section>
-<section id="elaborate-the-simulation" class="level3" data-number="10.6.2">
-<h3 data-number="10.6.2" class="anchored" data-anchor-id="elaborate-the-simulation"><span class="header-section-number">10.6.2</span> Elaborate the simulation</h3>
+<section id="elaborate-the-simulation" class="level3" data-number="11.6.2">
+<h3 data-number="11.6.2" class="anchored" data-anchor-id="elaborate-the-simulation"><span class="header-section-number">11.6.2</span> Elaborate the simulation</h3>
 <p>Right now the simulation only examines a fixed sample size. Perhaps the supposed negative impact of violating normality would be seen at other sample sizes? Vary this or indeed other things to understand when violating normality matters. If you wanted to get more complex, examine the impact of using another distribution other than skew normal that still has knowable population means and SDs, such as a bounded uniform distribution.</p>
 </section>
-<section id="develop-a-simulation-to-examine-the-impact-of-violating-other-statistical-assumptions" class="level3" data-number="10.6.3">
-<h3 data-number="10.6.3" class="anchored" data-anchor-id="develop-a-simulation-to-examine-the-impact-of-violating-other-statistical-assumptions"><span class="header-section-number">10.6.3</span> Develop a simulation to examine the impact of violating other statistical assumptions</h3>
+<section id="develop-a-simulation-to-examine-the-impact-of-violating-other-statistical-assumptions" class="level3" data-number="11.6.3">
+<h3 data-number="11.6.3" class="anchored" data-anchor-id="develop-a-simulation-to-examine-the-impact-of-violating-other-statistical-assumptions"><span class="header-section-number">11.6.3</span> Develop a simulation to examine the impact of violating other statistical assumptions</h3>
 <p>The Student’s t-test also assumes equal variances between the samples (<code>var.equal = TRUE</code>), whereas the Welches’ t-test does not (<code>var.equal = FALSE</code>). Using just normal data, and varying between experimental conditions whether the SDs are equal or unequal, how much does violating the Student’s t-test undermine its false-positive or false-negative (power) rates? Does using a Welches’ t-test resolve this? If so, what are the downsides of Welches’ t-test, i.e., why don’t we use it by default?</p>
 <p>Note that this isn’t a trivial exercise, it would take you some time to answer. People have published papers on these exact questions <a href="https://doi.org/10.5334/irsp.82">(Delacre, Lakens and Leys, 2017)</a>.</p>
 
@@ -1505,13 +1511,13 @@ window.Quarto = {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/9_simulation_template.html" class="pagination-link" aria-label="Simulation template">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Simulation template</span></span>
+      <a href="../chapters/10_simulation_template.html" class="pagination-link" aria-label="Simulation template">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Simulation template</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/testing_assumptions_and_conditional_tests.html" class="pagination-link" aria-label="The statistical power of assumptions tests and the conditional use of (non-)parameteric tests&quot;">
-        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of (non-)parameteric tests”</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/testing_assumptions_and_conditional_tests.html" class="pagination-link" aria-label="The statistical power of assumptions tests and the conditional use of non-parameteric tests">
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of non-parameteric tests</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">

@@ -1,0 +1,289 @@
+# Required skills
+
+This book assumes some existing knowledge of data wrangling and visualization in R/tidyverse. Specifically, familiarity with RStudio, reproducible reports written in {quarto} (.qmd) documents, the 'pipe' (`|>` and `%>%`), the packages {dplyr}, {tidyr}, {forcats}, and {ggplot2}. This chapter provides a refresher and set of self-tests to check your knowledge.
+
+If need help with these skills, please see Ian's other book ["Reproducible Data Processing and Visualization in R and tidyverse"](https://ianhussey.quarto.pub/reproducible-data-processing-and-visualization/). 
+
+If you're enrolled in our class but haven't already taken Ian's "Reproducible data processing and visualization" class based on that book, or a comparable class, we encourage you to rapidly make your way through it. In previous years, students have taken this simulation course without much familiarity with R when they already have some familiarity with other coding languages such as Python and Matlab. Sometimes, students sign up for this seminar with low confidence in their R abilities. It is entirely possible to succeed in this course without strong existing R skills, but it unavoidably means more self-guided learning and practice for you.
+
+## Rounding results
+
+It is extremely common to round statistical results before including them in text and tables.
+
+However, did you know that R doesn't use the rounding method most of us are taught in school where .5 is rounded up to the next integer? Instead it uses "banker's rounding", which is better when you round a very large number of numbers, but worse for reporting the results of specific analyses.
+
+This is easier to show than explain. The `round()` function rounds each of the numbers passed to it. What do you expect the output to be?
+
+```{r}
+#| eval: false
+round(c(0.5, 
+        1.5, 
+        2.5, 
+        3.5, 
+        4.5, 
+        5.5), digits = 0)
+```
+
+::: {.callout-note collapse="true" title="Click to show result"}
+```{r}
+round(c(0.5, 
+        1.5, 
+        2.5, 
+        3.5, 
+        4.5, 
+        5.5))
+```
+
+Why is this? Because R's `round()` function uses "banker's rounding, which rounds 5s based on whether the preceding digit is odd or even. This is a good thing in many contexts like accounting, but it's usually not what we want or expect when rounding specific statistical results for inclusion in a report or manuscript.
+:::
+
+In most of your R scripts, you should instead use the {roundwork} package's `round_up()`, written by [Lukas Jung](https://bsky.app/profile/lhdjung.bsky.social), which produces the round-.5-upwards behavior most of us expect. 
+
+```{r}
+library(roundwork) 
+
+roundwork::round_up(c(0.5, 
+                      1.5, 
+                      2.5, 
+                      3.5, 
+                      4.5, 
+                      5.5))
+```
+
+## Data wrangling with {dplyr} functions
+
+Complete the following exercises in your local copy of this .qmd file to check your data wrangling/{dplyr} skills. 
+
+```{r}
+#| include: false
+
+# simulate some data to work with
+
+# dependencies
+library(dplyr)
+library(forcats)
+library(faux)
+library(tibble)
+
+# set seed for reproduciblity
+set.seed(42)
+
+# data for t-test
+data_intervention <- 
+  tibble(condition = "intervention", 
+         score = rnorm(n = 50, mean = 0, sd = 1))
+
+data_control <- 
+  tibble(condition = "control", 
+         score = rnorm(n = 50, mean = 0, sd = 1))
+
+data_for_ttest <- 
+  bind_rows(data_intervention,
+            data_control) |>
+  # control's factor levels must be ordered so that intervention is the first level and control is the second
+  # this ensures that positive Cohen's d values refer to intervention > control and not the other way around.
+  mutate(condition = fct_relevel(condition, "intervention", "control"))
+
+
+# data for correlation
+data_for_correlation <- rnorm_multi(n = 100, 
+                                    vars = 2, 
+                                    mu = 0, 
+                                    sd = 1, 
+                                    r = 0.5, 
+                                    varnames = c("X", "Y"))
+
+```
+
+### Calculate mean
+
+-   Use `dplyr::summarize()`.
+-   Use the `data_intervention` data set.
+-   Return results in a tibble.
+
+```{r}
+
+
+
+```
+
+### Calculate *SD*
+
+-   Use `dplyr::summarize()`.
+-   Use the `data_intervention` data set.
+-   Return results in a tibble.
+
+```{r}
+
+
+
+```
+
+### Calculate mean for each condition
+
+-   Use `dplyr::summarize()`, `group_by()` and the pipe (`%>%` or `|>`).
+-   Use the `data_for_ttest` data set.
+-   Return results in a tibble.
+
+```{r}
+
+
+
+```
+
+### Calculate mean and *SD* for each condition
+
+-   Use `dplyr::summarize()`, `group_by()` and the pipe (`%>%` or `|>`).
+-   Use the `data_for_ttest` data set.
+-   Return results in a tibble.
+
+```{r}
+
+
+
+```
+
+### Calculate mean and *SD* for each condition rounded to two decimal places
+
+-   Use `dplyr::summarize()`, `group_by()` and the pipe (`%>%` or `|>`).
+-   Use the `data_for_ttest` data set.
+-   Return results in a tibble.
+-   Round the means and SDs to two decimal places, using the round-half-up method, eg via `roundwork::round_up()`. Ideally, use `mutate_if()` or `across()` to round multiple columns.
+
+```{r}
+
+
+
+```
+
+## Tidy data and extracting estimates
+
+Later content in this book relies on you having an understanding of 'Tidy Data'; the workflow we define and use is built around this concept. Specifically, because most data analysis functions don't return data in a 'Tidy' format, we need to be able to extract their results in Tidy format. Importantly, when learners struggle or make errors when trying to build simulations, it is very often because their workflow is not Tidy.
+
+Check your understanding:
+
+What does Tidy Data refer to?
+
+::: {.callout-note collapse="true" title="Click to show answer"}
+Tidy Data is a set of technical ideas about how data should be structured defined by Hadley Wickham, the main developer of {tidyverse} ([Wickham, 2014](https://www.jstatsoft.org/article/view/v059i10/0)). 
+:::
+
+What are the three rules that make a dataset Tidy according to [Wickham (2023)](https://r4ds.hadley.nz/data-tidy.html#sec-tidy-data)? 
+
+::: {.callout-note collapse="true" title="Click to show answer"}
+1. Each variable is a column; each column is a variable.
+2. Each observation is a row; each row is an observation.
+3. Each value is a cell; each cell is a single value.
+:::
+
+If you need a refresher, see the chapter on tidy data and reshaping in Ian's [other book](https://ianhussey.quarto.pub/reproducible-data-processing-and-visualization/chapters/reshaping_and_pivots.html).
+
+Complete the following exercises in your local copy of this .qmd file to check your data tidying skills. Most of them involve extracting estimates from objects created by data simulation or statistical modelling functions.
+
+### Generate normally distributed data in a tibble 
+
+The `rnorm()` samples data from a normally distributed population with a given population mean ($\mu$) and population standard deviation ($\sigma$).
+
+```{r}
+# set seed for reproduciblity
+set.seed(42)
+
+rnorm(n = 10, 
+      mean = 0, 
+      sd = 1)
+```
+
+Make this tidier by returning this simulated values as the column `score` in a tibble. Assign the tibble to the object `data_control`.
+
+```{r}
+
+
+
+```
+
+Create a second object, `data_intervention`, where the observations are sampled from a population mean ($\mu$) of 0.4.
+
+```{r}
+
+
+
+```
+
+Create a new column called `condition` in each tibble using the appropriate {dplyr} function, setting it to "control" and "intervention" in the respective tibbles.
+
+```{r}
+
+
+
+```
+
+Create a new object, `data_rct`, from `data_control` and `data_intervention` by binding the two tibbles together using the appropriate {dplyr} `bind_` function.
+
+```{r}
+
+
+```
+
+### *t*-test's *p*-value
+
+-   A Student's *t*-test and extract its *p* value.
+-   Use the `data_for_ttest` data set.
+-   Return the *p* value as a column in a tibble.
+
+```{r}
+
+
+
+```
+
+### Cohen's *d* and its 95% Confidence Intervals
+
+-   Calculate Cohen's *d* using `effectsize::cohens_d()` and extract the Cohen's *d* estimate and its 95% CIs.
+-   Use the `data_for_ttest` data set.
+-   Return the Cohen's d estimate and its 95% CIs in tidy format tibble as the columns `d_estimate`, `d_ci_lower`, `d_ci_upper`
+
+```{r}
+
+
+
+```
+
+### Pearson's *r* from correlation test
+
+-   Fit a correlation test using `cor.test()` and extract the correlation estimate.
+-   Use the `data_for_correlation` data set.
+-   Return results in a tibble.
+
+```{r}
+
+
+
+```
+
+### *p*-value from correlation test
+
+-   Fit a correlation test using `cor.test()` and extract the *p* value.
+-   Use the `data_for_correlation` data set.
+-   Return results in a tibble.
+
+```{r}
+
+
+
+```
+
+### Pearson's *r* and its *p*-value from `cor.test()`
+
+-   Fit a correlation test using `cor.test()` and extract the *p* value and correlation.
+-   Use the `data_for_correlation` data set.
+-   Return results in a tibble.
+
+```{r}
+
+
+
+```
+
+
+
+
