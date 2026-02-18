@@ -4,8 +4,8 @@ This [Open Source](chapters/license.qmd) eBook provides materials for the semest
 
 This book is split into two parts:
 
-1. Learning to simulate. Chapters 1-9 teach you the conceptual structure of Monte Carlo simulation studies, and how to implement them in a modular R/tidyverse workflow that prioritizes understandability and code reusability over execution speed. 
-2. Learning from simulate. The remaining chapters use simulations to better understand and use statistical methods, and to understand and guide the behavior of researchers using those methods.
+1. **Learning to simulate**. Chapters 1-9 teach you the conceptual structure of Monte Carlo simulation studies, and how to implement them in a modular R/tidyverse workflow that prioritizes understandability and code reusability over execution speed. 
+2. **Learning from simulations**. The remaining chapters use simulations to better understand and use statistical methods, and to understand and guide the behavior of researchers using those methods.
 
 ## Required knowledge
 

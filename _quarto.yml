@@ -8,16 +8,9 @@ book:
     - name: Ian Hussey
       orcid: 0000-0001-8906-7559
       email: ian.hussey@unibe.ch
-      affiliations:
-        - University of Bern
-      url: https://bsky.app/profile/ianhussey.mmmdata.io
     - name: Jamie Cummins
       orcid: 0000-0002-9729-4900
       email: jamie.cummins@unibe.ch
-      url: https://bsky.app/profile/jamiecummins.bsky.social
-      affiliations:
-        - University of Bern
-        - University of Oxford
   date: today
   chapters:
     - index.qmd
@@ -39,9 +32,9 @@ book:
     - chapters/testing_assumptions_and_conditional_tests.qmd
     - chapters/p_hacking.qmd
     - chapters/p_values_and_confidence_intervals.qmd
-    - chapters/difference_between_signfiicant_and_nonsignificant.qmd
+    - chapters/difference_between_significant_and_nonsignificant.qmd
     - chapters/standardized_effect_sizes_and_range_restriction.qmd
-    - chapters/impact_of_lazy_responding_assignment.qmd
+    - chapters/impact_of_lazy_responding.qmd
     - chapters/meta_analysis_and_publication_bias.qmd
     - chapters/causality.qmd
     

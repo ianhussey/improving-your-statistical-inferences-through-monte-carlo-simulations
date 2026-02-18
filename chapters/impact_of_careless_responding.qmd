@@ -1,4 +1,4 @@
-# The impact of one form of lazy/careless responding on the power and false positive rate of a Student's t-test
+# The impact of one form of careless responding on power and the false positive rate
 
 ## Assignment
 

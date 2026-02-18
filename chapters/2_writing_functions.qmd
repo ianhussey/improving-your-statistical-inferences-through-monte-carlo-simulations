@@ -10,22 +10,6 @@ function extraction resources
 
 https://www.appsilon.com/post/r-studio-shortcuts-and-tips-part-2
 
-## Dependencies
-
-```{r}
-
-library(dplyr)
-library(tidyr)
-library(tibble)
-library(purrr)
-library(ggplot2)
-library(forcats)
-library(report)
-library(janitor)
-library(faux)
-
-```
-
 ## What is a function?
 
 A function is a piece of code that receives an input, does something to it, and returns an output. That's it! Of course, that's also a very vague definition. But let's look at the most simple example:
@@ -232,6 +216,10 @@ This previews some skills we'll learn in a future chapter: calling a function mu
 
 ```{r}
 
+library(tibble)
+library(dplyr)
+library(purrr)
+
 experiment <- 
   # define many values of n as different rows in a data frame or tibble
   tibble(n = 1:20) 
@@ -253,6 +241,8 @@ Because we've done this in a tidy format in a tibble, we can easily plot the res
 
 ```{r}
 
+library(ggplot2)
+
 ggplot(results, aes(n, fpr)) +
   geom_line() +
   geom_point() +
@@ -263,6 +253,8 @@ ggplot(results, aes(n, fpr)) +
 What if we want to vary not only n but also alpha, and see all combinations of them? This previews some skills we'll learn in a later chapter: defining crossed experiment conditions using `expand_grid()`.
 
 ```{r}
+
+library(tidyr)
 
 # define many values of n and alpha, and then have them 'crossed' to create all permutations of them, using expand_grid()
 experiment <- 
@@ -355,12 +347,14 @@ round(5.5)
 
 ```{r}
 
-janitor::round_half_up(0.5)
-janitor::round_half_up(1.5)
-janitor::round_half_up(2.5)
-janitor::round_half_up(3.5)
-janitor::round_half_up(4.5)
-janitor::round_half_up(5.5)
+library(roundwork)
+
+roundwork::round_up(0.5)
+roundwork::round_up(1.5)
+roundwork::round_up(2.5)
+roundwork::round_up(3.5)
+roundwork::round_up(4.5)
+roundwork::round_up(5.5)
 
 ```
 
@@ -454,11 +448,14 @@ How would I build this from scratch? What's the first thing I would type?
 
 Write functions below that can be applied to the following data sets, i.e., use these data sets to guide how you write the functions and test that they work.
 
-Try and use chatGPT as little as possible.
+Try and use AI as little as possible.
 
 If your existing knowledge of data processing/wrangling with {tidyverse}/{dplyr}/{tidyr} isn't good, start with
 
 ```{r}
+
+library(forcats)
+library(faux)
 
 set.seed(42)
 
@@ -624,6 +621,8 @@ Although we have practiced writing custom functions to extract statistical resul
 Separately, the [{report}](https://easystats.github.io/report/) package will fully report the results of many common analyses for you. e.g.:
 
 ```{r}
+
+library(report)
 
 data_simulated_intervention <- 
   tibble(condition = "intervention", 

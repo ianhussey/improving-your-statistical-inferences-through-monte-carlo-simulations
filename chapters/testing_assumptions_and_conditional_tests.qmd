@@ -1,4 +1,4 @@
-# The statistical power of assumptions tests and the conditional use of (non-)parameteric tests"
+# The statistical power of assumptions tests and the conditional use of non-parameteric tests
 
 ## Check your understanding
 
