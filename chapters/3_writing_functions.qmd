@@ -84,8 +84,8 @@ sum_and_absolute <- function(x, y){
 }
 ```
 
-\* Anonymous functions do exist, but we don't need to know about them right now. 
-\*\* Coders have arguments about whether 'explicit' `return()`s should be used or not. It is possible not to use `return()`, but when learning about functions and their conceptual components it is a very useful to be explicit about what is the output. We therefore recommend it in this context. 
+\* Anonymous functions (i.e., functions that we don't name) do exist, but we don't need to know about them right now. 
+\*\* Coders have arguments about whether 'explicit' `return()`s should be used or not. It is possible not to use `return()` and still have a function give an output (e.g., by just running the name of the to-be-returned object without it being wrapped in `return()`). However, when learning about functions and their conceptual components, it is a very useful to be explicit about what the output is. We therefore recommend it in this context. 
 
 ## Writing functions 
 
@@ -193,7 +193,7 @@ Because of variable scoping. Variable scoping means that we are usually unable t
 
 This is probably not what you're used to in R, which mostly uses 'global' variables. For example, you are used to being able to define `my_text <- "hello"` and then being able to see or use the `my_text` variable elsewhere in your R script. This is not actually the norm in coding; the scope of variables is often more limited, such as being able to access variables created within a function only inside that function. 
 
-tl;dr: because you can't see everything that's happening inside functions, you can't debug and fix them. Instead, write the code as you normally do, and convert working code into a function.
+Put simply: because you can't see everything that's happening inside functions, you can't debug and fix them. Instead, write the code as you normally do, and convert working code into a function.
 
 ### Automatic function extraction
 
@@ -206,11 +206,77 @@ result <- abs(sum(x, y))
 result
 ```
 
-Buyer beware: This method isn't perfect, as it doesn't add `return()` around `result` or ensure that you have written code to create outputs. But it can save you time.
+Beware: This method isn't perfect, as it doesn't add `return()` around `result` or ensure that you have written code to create outputs. But it can save you time.
 
 ### Help writing the 'do stuff': Pseudocode
 
-[needed]
+Before you write the code inside a function, it’s often helpful to write pseudocode first.
+
+Pseudocode is a plain-language (or semi-code) description of what your function should do, step by step. It is not valid R code, and it is not meant to run. Instead, it’s a thinking and planning tool: you use it to clarify the logic of your function before you worry about syntax.
+
+Pseudocode has a number of advantages. Specifically:
+- It forces you to be explicit about inputs and outputs. Many function bugs happen because we forget what goes in, what comes out, or what happens in between.
+- It separates the problem from the programming. You can get the logic right first, then translate it into R.
+- It makes debugging easier. If your function fails, you can compare your code to your pseudocode step-by-step and find where they diverge.
+- It helps you communicate with others (and with your future self). A colleague might not understand your code immediately, but they can usually understand pseudocode.
+
+#### What does pseudocode look like?
+
+There isn’t one “correct” format of pseudocode. The main goal is always plain-language readability. A common style is:
+- Start with what the function receives (inputs)
+- List the steps inside the function (do stuff)
+- End with what it returns (output)
+
+Here is pseudocode for our sum_and_absolute() example:
+
+```{text}
+
+FUNCTION sum_and_absolute takes inputs x and y
+  1. Add x and y to get their sum
+  2. Take the absolute value of that sum
+  3. Return the absolute value
+END FUNCTION
+
+```
+
+You can also do this in a way that looks a little more like actual code:
+
+```{text}
+
+INPUT(S): x, y
+temp_sum = x + y
+result = absolute_value(temp_sum)
+OUTPUT(S): result
+
+
+```
+
+Other ways of writing pseudocode are also fine, as long as the steps are unambiguous and it makes it clear exactly what the function is supposed to take as input, the steps it is intended to follow, and the intended output.
+
+#### Going from pseudocode to R code
+
+Once you have pseudocode, you can translate each step into R code. For example:
+1. 'Add x and y' becomes `sum(x, y)` 
+2. 'Take absolute value' becomes `abs()`
+3. 'Return result' becomes `return(result)`
+
+#### Pseudocode for a more typical simulation function
+
+The examples we have explored so far have mainly been for the purposes of introducing you to writing functions. Although you have not yet got to the point where you're writing more complex simulation functions, it is still worth looking quickly at a pseudocode example of this. Indeed, the real value of pseudocode shows up when functions get longer than one line. For example, here’s pseudocode for a very common simulation function that we will explore in the next chapter: generate one dataset.
+
+```{text}
+
+FUNCTION generate_data takes inputs n_per_group, mu_control, mu_treatment, sd
+  1. Create a vector of group labels: "control" and "treatment"
+  2. For control group, draw n_per_group values from a normal distribution with mean mu_control and sd
+  3. For treatment group, draw n_per_group values from a normal distribution with mean mu_treatment and sd
+  4. Combine both groups into one dataset (a data frame)
+  5. Return the dataset
+END FUNCTION
+
+```
+
+Notice something important: this is basically just a checklist. When you convert it to R, you can translate each step one at a time and test as you go. This makes it much easier to debug your function, too!
 
 ## Argument defaults
 
