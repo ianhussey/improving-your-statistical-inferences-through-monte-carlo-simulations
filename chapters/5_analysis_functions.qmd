@@ -1,3 +1,93 @@
 # Analysis functions
 
 TODO
+
+
+
+
+- [{parameters}](https://easystats.github.io/parameters/)
+
+## Further reading
+
+Although we have practiced writing custom functions to extract statistical results / model parameters, it is worth knowing that the {easystats} family of packages includes [{parameters}](https://easystats.github.io/parameters/) package, which does a very good job of extracting model parameters from a very wide range of models including base R functions, {lavaan}, {psych}, and other packages. If you want to extract values from a model, consider using {parameters} to do a lot of the work for you when writing your function.
+
+Separately, the [{report}](https://easystats.github.io/report/) package will fully report the results of many common analyses for you. e.g.:
+
+```{r}
+
+library(report)
+
+data_simulated_intervention <- 
+  tibble(condition = "intervention", 
+         score = rnorm(n = 50, mean = 0, sd = 1))
+
+data_simulated_control <- 
+  tibble(condition = "control", 
+         score = rnorm(n = 50, mean = 0, sd = 1))
+
+data_simulated <- 
+  bind_rows(data_simulated_intervention,
+            data_simulated_control)
+
+t.test(score ~ condition, data = data_simulated) |>
+  report::report()
+
+```
+
+
+
+
+
+### Exercise 1 t test p value - analysis functions chapter
+
+```{r}
+
+# data to be analyzed using the analysis function
+data_simulated_intervention <- 
+  tibble(condition = "intervention", 
+         score = rnorm(n = 50, mean = 0, sd = 1))
+
+data_simulated_control <- 
+  tibble(condition = "control", 
+         score = rnorm(n = 50, mean = 0, sd = 1))
+
+data_simulated <- 
+  bind_rows(data_simulated_intervention,
+            data_simulated_control)
+
+```
+
+```{r}
+
+# define function
+t_test_p_value <- function(data) {
+  
+  res <- t.test(formula = score ~ condition, 
+                data = data)
+  
+  return(res$p.value)
+}
+
+# call function
+t_test_p_value(data_simulated)
+
+```
+
+
+### Exercise 2 - analysis functions chapter
+
+The purpose of a t-test is to test differences in means between groups. 
+
+Weirdly, base-R's built in `t.test()` function does not actually return an estimate of this difference in means between groups, as [Uri Simonsohn recently pointed out](https://datacolada.org/132). 
+
+Write a function that fits a t-test, returns results in tidy format, and includes an estimate of the difference in means between groups.
+
+There are two ways to do this: 1) calculating the means from the data directly, 2) calculating the difference from the two estimated means returned by the `t.test()` function. Practice writing functions by implementing both.
+
+```{r}
+
+
+
+```
+
+
