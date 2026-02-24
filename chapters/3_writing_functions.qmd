@@ -1,38 +1,83 @@
 # Writing functions
 
-## Overview
+Two of the key steps in a simulation study (generate data and analyze data) require us to know how to write functions. This chapter explains what functions are and how to write them.
 
-Two of the key steps in a simulation study (generate data and analyze data) require us to know how to write functions. This R Markdown lesson practices this.
+## To add
+
+- requirements / input checks? errors, warnings.
+- [{parameters}](https://easystats.github.io/parameters/)
+- documenting functions using roxygen?
+- unit tests?
 
 ## What is a function?
 
-A function is a piece of code that receives an input, does something to it, and returns an output. That's it! Of course, that's also a very vague definition. But let's look at the most simple example:
+A function is a piece of code that receives input(s), does something with it, and returns output(s). 
+
+To take two very simple example, the `sum()` function calculates the sum of the number inputs passed to it:
 
 ```{r}
 
-output <- 1 + 1
+x <- -1
+y <- -3
 
-print(output)
+z <- sum(x, y)
+
+z
 
 ```
 
-The `+` operator is a function. It takes some input (one number either side of it), does something to this input (adds the two numbers together), and returns an output (the value of the two numbers added together). We use the `<-` operator to assign this to an object called `output`. The assignment operator is also a function, as is `print()`.
+When we run the code for a given function, we typically refer to this as 'calling' the function. The inputs we provide to functions are referred to as 'arguments'. Functions are called using its name, with its arguments being placed inside round brackets: `function_name(argument1, argument2, ... argumentN)`. 
 
-When we call functions in R, they tend to take the form that `print()` does, i.e., a function name followed by its arguments inside round brackets: `function_name(argument1, argument2, ...argumentN)`. 
-
-The equivalent to `+` in this style is the `sum()` function. Let's see what happens when we run `sum(1, 1)`:
+To take a second example, the `abs()` function takes a numeric input and calculates their absolute value (i.e., removes the minus sign):
 
 ```{r}
 
-output <- sum(c(1, 1))
+abs(z)
 
-print(output)
+```
+
+While base-R contains nearly three thousand functions, they are by no means all the functions you might need while cleaning and analyzing your data. That's why we use `install.packages()` and `library()` to install and load other functions, including those in the tidyverse packages (e.g., `select()` and `mutate()`).
+
+When writing simulation studies, we often need to need to define our own custom functions. 
+
+Imagine that you often needed to first sum numbers and then find their absolute values. Maybe you get tired of having to write the following every time:
+
+```{r}
+
+x <- -1
+y <- -3
+
+z <- abs(sum(x, y))
+
+```
+
+There is a general rule in coding: *try not to repeat yourself*, because repeating long chunks of code and slightly changing the bits you need is a common source of making errors.
+
+Instead, we could write a custom function for this specific purpose:
+
+```{r}
+
+# define function
+sum_and_absolute <- function(x, y){
+  abs(sum(y, x))
+}
+
+# call function
+sum_and_absolute(-2, -5)
+sum_and_absolute(1, 4)
+sum_and_absolute(-10, 2)
 
 ```
 
 ## Writing functions 
 
-Previously, you saw a few functions: `sum()`, `round()`, `mean()`, and `sqrt()`. These are all in-built functions in R, meaning that R "knows" them by default. One other way that R can "know" a function is if we write it ourselves! 
+It is useful to conceptualize every function as containing three components: 
+
+1. 'inputs'
+2. 'do stuff'
+3. 'outputs'
+
+
 
 The way to write a function in R is simple. It takes the following format:
 
@@ -63,7 +108,111 @@ Creating functions is very, very important for Monte Carlo simulations. Recall o
 
 We will use functions in all 5 of these steps. And we will basically always write new functions for steps 2 and 3 (and often, step 5).
 
-## Why functions are useful: the false positive rate of AI detection tools
+### Archetype
+
+Note that this is pseudo-code only: chunk is set not to run (`eval=FALSE`).
+
+```{r eval=FALSE}
+
+# define function
+function_name <- function(argument_1, # first argument is often the data, if the function takes a data frame as an argument
+                          argument_2 = "default", # arguments can have defaults
+                          argument_3) {
+  # required packages
+  require(dplyr)
+  
+  # checks
+  # well written functions contain checks. 
+  # e.g., if the function assumes that argument_1 is a data frame, check that this is the case.
+  # note that it is more useful to write the function first and add checks later.
+  if(!is.data.frame(argument_1)){
+    stop("argument_1 must be a data frame")
+  }
+  
+  # code that does things
+  object_to_be_returned <- input_data_frame |>
+    # do things
+    mutate(value = value + 1)
+  
+  # object to be returned
+  return(object_to_be_returned)
+}
+
+```
+
+### Pseudocode
+
+[needed]
+
+### Built it, wrap it, run it
+
+[needed]
+
+
+-   Build the 'do stuff' part outside of a function first!
+-   Wrap the 'do stuff' with input and output after you have 'do stuff' working. Why: so you don't have to fight variable scoping.
+
+
+#### Hard coded
+
+Assuming individual false positives of 5% and 10 total tests.
+
+```{r}
+
+# MAKE THIS ABOUT EXTRACTING A P VALUE
+# 1 - (1 - 0.05)^10
+
+```
+
+#### Extract variables
+
+What about other values of alpha and n? We could make them variables at the top of the chunk that are easier to change.
+
+```{r}
+
+# # variables
+# alpha <- 0.05
+# n <- 10
+# 
+# # code
+# 1 - (1 - alpha)^n
+
+```
+
+#### Wrap it
+
+Defining our own custom function involves putting the variables as arguments inside the `function()` call, and putting the code inside its `{}`.
+
+We can then call the function using its name.
+
+```{r}
+
+# # define function
+# calc_aggregate_fpr <- function(n, alpha = 0.05) {
+#   1 - (1 - alpha)^n
+# }
+# 
+# # usage
+# calc_aggregate_fpr(n = 10)
+
+```
+
+#### Automate this
+
+code > extract function
+
+- function extraction resources https://www.appsilon.com/post/r-studio-shortcuts-and-tips-part-2
+
+
+
+### Easy ways to mess up
+
+built, wrap it, run it
+
+-   The function must be present in your environment to be usable, and must be called to be used
+-   Check that your function actually works as you expect, not just that it runs. Give it lots of different input values that should and should not work, and check you get the correct outputs.
+
+### Applied example: The false positive rate of AI detection tools
 
 Imagine a test has has a false positive rate of 5%, like the standard alpha value for a p-value. 
 
@@ -71,7 +220,7 @@ If you apply this test many times to independent cases without applying familywi
 
 Let's put this in meaningful terms. Many professors and universities now run essays and assignments through AI detection tools. But students submit many essays and assignments throughout their degree. What is the probability that, assuming you never violate the AI policy, one of your assignments is falsely flagged as using AI in a way that wasn't allowed? 
 
-### Math
+#### Math
 
 The familywise error rate ($\alpha_{\text{total}}$) for independent tests is the probability of observing at least one false positive ($P(V \geq 1)$), which can be reexpressed as the probability of not observing true positives ($1 - P(V = 0)$). This is the product of the individual probabilities of false positives ($1 - \prod_{i=1}^{n} (1 - \alpha_i)$), which simplifies to:
 
@@ -86,7 +235,7 @@ $$
 
 Horrible, disgusting math which most of you want to avoid. But the code to do it is quite simple.
 
-### Hard coded
+#### Hard coded
 
 Assuming individual false positives of 5% and 10 total tests.
 
@@ -96,7 +245,7 @@ Assuming individual false positives of 5% and 10 total tests.
 
 ```
 
-### Using variables
+#### Extract variables
 
 What about other values of alpha and n? We could make them variables at the top of the chunk that are easier to change.
 
@@ -111,7 +260,7 @@ n <- 10
 
 ```
 
-### Written as a function
+#### Wrap it
 
 Defining our own custom function involves putting the variables as arguments inside the `function()` call, and putting the code inside its `{}`.
 
@@ -141,11 +290,12 @@ calc_aggregate_fpr(n = 25)
 
 ```
 
-### Use one of {purrr}'s `map()` functions to apply the custom function to many inputs
+#### Use one of {purrr}'s `map()` functions to apply the custom function to many inputs - move to purrr chapter
 
 This previews some skills we'll learn in a future chapter: calling a function multiple times within a tidy workflow by mapping it on to a set of input columns.
 
 ```{r}
+#| include: false
 
 library(tibble)
 library(dplyr)
@@ -220,82 +370,40 @@ results |>
 
 
 
-## Primer on functions
+### Practice
 
-Most code we use are functions, e.g., `mean()`, `setwd()` and `library()`.
 
-These functions were written by others, but we can write our own.
+#### Exercises
 
-"It's functions all the down": you will use existing functions to write new ones. For example:
+- math stuff
+- convert ms to s
+- convert n_months to n_years and round
 
-```{r}
+- mean by group
+- mean and sd and N by group
+- differences in means between groups
+- mean and sd and N and differences in means between groups
 
-values <- c(4, 2, 6, 2, NA, 4, 3, 1, NA, 7, 5)
+- rand between 0-9 - runif()
+- two random numbers between 0-9, third column that is the larger number
 
-mean(values) # returns NA 
-mean(values, na.rm = TRUE) # returns the mean after dropping NA
+- remove ms suffix "2000 ms" to 2000L 
+- tidy_gender(): tolower, remove hypens (non-binary), case_when() for different m/male/man, etc
+- tidy_age remove non numbers, convert to number, etc
 
-# tired of writing 'na.rm = TRUE' repeatedly? write your own function to do it automatically
-mean_na_rm <- function(x){
-  mean(x, na.rm = TRUE)
-}
+- rnorm() 
+- rnorm() + round()
+- rnorm() + mean
 
-mean_na_rm(values) # returns the mean after dropping NA
+- rbinom() as coin N flips in a row
 
-```
+- keeping it tidy
+- two rnorm columns in a df, intervention and control
+- two rnorm columns in a df, int and ctrl, then pivoting longer to have a condition and score column
 
-What if we usually want to `round()` to two decimal places, and we're tired of writing `digits = 2` every time?
+### Content to move
 
-```{r}
-
-mean_of_values <- mean_na_rm(values)
-
-round(mean_of_values, digits = 2)
-
-# write a function to always round to two decimal places
-round_2 <- function(x){
-  round(x, digits = 2)
-}
-
-round_2(mean_of_values)
-
-```
-
-### General structure of a function
-
-Functions (usually) have 'inputs', they have code that they run ('do stuff'), and they (almost always) return 'outputs'. The often specify their requirements and include checks that their inputs are correctly formatted.
-
-Note that this is pseudo-code only: chunk is set not to run (`eval=FALSE`).
-
-```{r eval=FALSE}
-
-# define function
-function_name <- function(argument_1, # first argument is often the data, if the function takes a data frame as an argument
-                          argument_2 = "default", # arguments can have defaults
-                          argument_3) {
-  # required packages
-  require(dplyr)
-  
-  # checks
-  # well written functions contain checks. 
-  # e.g., if the function assumes that argument_1 is a data frame, check that this is the case.
-  # note that it is more useful to write the function first and add checks later.
-  if(!is.data.frame(argument_1)){
-    stop("argument_1 must be a data frame")
-  }
-  
-  # code that does things
-  object_to_be_returned <- input_data_frame |>
-    # do things
-    mutate(value = value + 1)
-  
-  # object to be returned
-  return(object_to_be_returned)
-}
-
-```
-
-### Example function: *t*-test *p*-value
+#### Exercise 1 t test p value - analysis functions chapter
 
 ```{r}
 
@@ -336,22 +444,34 @@ How would I build this from scratch? What's the first thing I would type?
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ```
 
-### General things to remember when writing functions
-
--   If you can't immediately write the code, write pseudo-code first!
--   Build the 'do stuff' part outside of a function first!
--   Wrap the 'do stuff' with input and output after you have 'do stuff' working. Why: so you don't have to fight variable scoping.
--   The function must be present in your environment to be usable, and must be called to be used
--   Check that your function actually works as you expect, not just that it runs. Give it lots of different input values that should and should not work, and check you get the correct outputs.
--   Don't try to abstract more than you need. One function should do one thing. Elaborate the function only as needed.
-
-## Practice writing functions
-
-Write functions below that can be applied to the following data sets, i.e., use these data sets to guide how you write the functions and test that they work.
-
-### Exercise 1
+#### Exercise 2 - analysis functions chapter
 
 The purpose of a t-test is to test differences in means between groups. 
 
@@ -367,7 +487,7 @@ There are two ways to do this: 1) calculating the means from the data directly, 
 
 ```
 
-### Exercise 2
+#### Exercise 3 - move somewhere
 
 ```{r}
 
@@ -403,7 +523,7 @@ data_for_correlation <- rnorm_multi(n = 100,
 
 ```
 
-## Further reading
+### Further reading
 
 Although we have practiced writing custom functions to extract statistical results / model parameters, it is worth knowing that the {easystats} family of packages includes [{parameters}](https://easystats.github.io/parameters/) package, which does a very good job of extracting model parameters from a very wide range of models including base R functions, {lavaan}, {psych}, and other packages. If you want to extract values from a model, consider using {parameters} to do a lot of the work for you when writing your function.
 
@@ -430,10 +550,7 @@ t.test(score ~ condition, data = data_simulated) |>
 
 ```
 
-## To add
 
-- function extraction resources https://www.appsilon.com/post/r-studio-shortcuts-and-tips-part-2
-- documenting functions using roxygen, organizing them into an R package to make them easy to load and include help menus, or writing unit tests them.
 
 
 
