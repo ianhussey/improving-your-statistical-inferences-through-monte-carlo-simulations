@@ -1,3 +1,41 @@
 # Data generating processes
 
 TODO
+
+
+
+### Exercise 3 - move somewhere
+
+```{r}
+
+library(forcats)
+library(faux)
+
+set.seed(42)
+
+# data for t test
+data_intervention <- 
+  tibble(condition = "intervention", 
+         score = rnorm(n = 50, mean = 0, sd = 1))
+
+data_control <- 
+  tibble(condition = "control", 
+         score = rnorm(n = 50, mean = 0, sd = 1))
+
+data_for_ttest <- 
+  bind_rows(data_intervention,
+            data_control) |>
+  # control's factor levels must be ordered so that intervention is the first level and control is the second
+  # this ensures that positive Cohen's d values refer to intervention > control and not the other way around.
+  mutate(condition = fct_relevel(condition, "intervention", "control"))
+
+
+# data for correlation
+data_for_correlation <- rnorm_multi(n = 100, 
+                                    vars = 2, 
+                                    mu = 0, 
+                                    sd = 1, 
+                                    r = 0.5, 
+                                    varnames = c("X", "Y"))
+
+```
