@@ -59,7 +59,8 @@ Instead, we could write a custom function for this specific purpose:
 
 # define function
 sum_and_absolute <- function(x, y){
-  abs(sum(y, x))
+  result <- abs(sum(y, x))
+  return(result)
 }
 
 # call function
@@ -69,27 +70,180 @@ sum_and_absolute(-10, 2)
 
 ```
 
+Being able to do this becomes very important when a) you need to do something many thousands of times, often with small variations b) the thing you are doing becomes more complicated. You will encounter both when writing simulation studies. 
+
+## Basic structure of a function
+
+Functions have three components. 
+
+1. Inputs
+2. Do stuff
+3. Outputs
+
+It is useful to bear these in mind when writing, debugging and using functions. Most of the errors people make in writing code for functions, or their approach to writing that code, come from confusing the elements or forgetting one. 
+
+
+Function usually have name that is used to call the function and use it.\* This is done by declaring the function, just as you would a variable, using the assignment operator (`<-`) and `function()`, which is the function to define new functions. 
+
+1. Inputs. Inside the `function()` call are the function's arguments. In this case, `x` and `y`. 
+2. Do stuff. Between the curly brackets, `{ }`, code defines what the function does internally.
+3. Outputs. The `return()` function is used to define what the function should return as output.\*\* 
+
+```{r}
+
+# inputs between ()
+sum_and_absolute <- function(x, y){ 
+  # do stuff, between {}
+  result <- abs(sum(y, x))
+  # outputs in res()
+  return(result)
+}
+
+```
+
+\* Anonymous functions do exist, but we don't need to know about them right now. 
+\*\* Coders have arguments about whether 'explicit' `return()`s should be used or not. It is possible not to use `return()`, but when learning about functions and their conceptual components it is a very useful to be explicit about what is the output. We therefore recommend it in this context. 
+
 ## Writing functions 
 
-It is useful to conceptualize every function as containing three components: 
+The worst way to write a function is the way you read the code for it. Instead, write it from the inside out, starting with the 'do stuff' and using hard coded values.
 
-1. 'inputs'
-2. 'do stuff'
-3. 'outputs'
+Let's write the `sum_and_absolute()` function from scratch, in the way we recommend.
 
+### Step 1: Write the 'do stuff'
 
+```{r}
+
+# get just the sum() working
+temp <- sum(-1, -3) 
+temp
+
+# get just the abs() working
+temp2 <- abs(-4) 
+temp2
+
+# get them both working together
+result <- abs(sum(-1, -3))
+result
+
+```
+
+### Step 2: Convert hard-coded values to variables
+
+Declare variables with hard-coded values, and substitute the hard-coded values in the code for these variables. 
+
+```{r}
+
+# declare variables
+x <- -1
+y <- -3
+
+# substitute the variables in and check it still works
+# result <- abs(sum(-1, -3))
+result <- abs(sum(x, y))
+result
+
+```
+
+These variables will become the function's arguments.
+
+### Step 3: Wrap it
+
+Decide on a descriptive name for the function. Declare the function using its name, the `<-` assignment operator, and the `function()` function. Add curly brackets, `{ }`, for where the 'do stuff' code will go.
+
+```{r}
+#| eval: false
+#| include: true
+# NB code will not run
+
+sum_and_absolute <- function(){ 
+}
+```
+
+Copy the code into the 'do stuff' between the curly brackets.
+
+```{r}
+#| eval: false
+#| include: true
+# NB code will not run
+
+sum_and_absolute <- function(){
+  result <- abs(sum(x, y))
+}
+```
+
+The function still has no inputs or outputs. Add any variables it uses into the inputs between the round brackets, `( )`. 
+
+```{r}
+sum_and_absolute <- function(x, y){
+  result <- abs(sum(x, y))
+}
+```
+
+At this point, the function will run and won't throw any errors, but it also doesn't do what we want it to. For example:
+
+```{r}
+sum_and_absolute(-4, -11)
+```
+
+Check your learning: Why doesn't it do what we want it to? How would we fix it?
+
+::: {.callout-note collapse="true" title="Click to show answer"}
+The function has no outputs defined. 
+
+It calculates the absolute value of the sum and assigns it to the variable `results`, but it does not return this value to the user. This is due to a concept called 'variable scoping', which is a bit more complex and we won't cover here.
+
+Suffice to say: you can fix this by telling the function to not only calculate this value, but also return it using `return()`.
+
+```{r}
+sum_and_absolute <- function(x, y){
+  result <- abs(sum(x, y))
+  return(result)
+}
+```
+:::
+
+Once fixed, you can now call the function and it works correctly. 
+```{r}
+sum_and_absolute(-4, -11)
+```
+
+### Why build functions this way?
+
+Because of variable scoping. Variable scoping means that we are usually unable to see the value of variables defined inside a function from outside that function unless they are returned by the function. 
+
+This is probably not what you're used to in R, which mostly uses 'global' variables. For example, you are used to being able to define `my_text <- "hello"` and then being able to see or use the `my_text` variable elsewhere in your R script. This is not actually the norm in coding; the scope of variables is often more limited, such as being able to access variables created within a function only inside that function. 
+
+tl;dr: because you can't see everything that's happening inside functions, you can't debug and fix them. Instead, write the code as you normally do, and convert working code into a function.
+
+### Automatic function extraction
+
+Once you have code that uses variables, you can actually have RStudio do the 'wrap it' step for you.
+
+In your local copy of this .qmd, highlight the code in the chunk below, click 'Code'>'Extract Function', name it 'sum_and_absolute', and click 'ok'. You can see gifs of this [here](https://www.appsilon.com/post/r-studio-shortcuts-and-tips-part-2).
+
+```{r}
+
+result <- abs(sum(x, y))
+result
+
+```
+
+Buyer beware: This method isn't perfect, as it doesn't add `return()` around `result` or ensure that you have written code to create outputs. But it can save you time.
+
+## Argument defaults
 
 The way to write a function in R is simple. It takes the following format:
 
 `function_name <- function(argument1, argument2, ... argumentN) { [function goes in here] }`
 
-Let's look at a simple example. We'll create a new function called `sum2()`, which is identical to `sum()`, except it also rounds the output to two decimal places at the end. We'll also compare the outputs of `sum()` and `sum2()`:
+Let's look at a simple example. We'll create a new function called `sum2()`, which sums two numbers (using `sum()`, except it also rounds the output to two decimal places at the end. We'll also compare the outputs of `sum()` and `sum2()`:
 
 ```{r}
 
-sum2 <- function(first_number, second_number) {
+sum2 <- function(..., na.rm = FALSE, digits = 2) {
   
-  round(first_number + second_number, digits = 2)
+  round(sum(..., na.rm = na.rm), digits = digits)
   
 }
 
@@ -97,16 +251,6 @@ sum(2.22222, 3.33333)
 sum2(2.22222, 3.33333)
 
 ```
-
-Creating functions is very, very important for Monte Carlo simulations. Recall our five steps:
-
-1. Construct an experiment
-2. Generate data
-3. Analyze the data
-4. Do things many times
-5. Summarise the results
-
-We will use functions in all 5 of these steps. And we will basically always write new functions for steps 2 and 3 (and often, step 5).
 
 ### Archetype
 
@@ -152,56 +296,6 @@ function_name <- function(argument_1, # first argument is often the data, if the
 -   Build the 'do stuff' part outside of a function first!
 -   Wrap the 'do stuff' with input and output after you have 'do stuff' working. Why: so you don't have to fight variable scoping.
 
-
-#### Hard coded
-
-Assuming individual false positives of 5% and 10 total tests.
-
-```{r}
-
-# MAKE THIS ABOUT EXTRACTING A P VALUE
-# 1 - (1 - 0.05)^10
-
-```
-
-#### Extract variables
-
-What about other values of alpha and n? We could make them variables at the top of the chunk that are easier to change.
-
-```{r}
-
-# # variables
-# alpha <- 0.05
-# n <- 10
-# 
-# # code
-# 1 - (1 - alpha)^n
-
-```
-
-#### Wrap it
-
-Defining our own custom function involves putting the variables as arguments inside the `function()` call, and putting the code inside its `{}`.
-
-We can then call the function using its name.
-
-```{r}
-
-# # define function
-# calc_aggregate_fpr <- function(n, alpha = 0.05) {
-#   1 - (1 - alpha)^n
-# }
-# 
-# # usage
-# calc_aggregate_fpr(n = 10)
-
-```
-
-#### Automate this
-
-code > extract function
-
-- function extraction resources https://www.appsilon.com/post/r-studio-shortcuts-and-tips-part-2
 
 
 
