@@ -233,24 +233,67 @@ Buyer beware: This method isn't perfect, as it doesn't add `return()` around `re
 
 ## Argument defaults
 
-The way to write a function in R is simple. It takes the following format:
+Functions often have many arguments, not all of which you want to specify every time. Often, there are reasonable defaults.
 
-`function_name <- function(argument1, argument2, ... argumentN) { [function goes in here] }`
-
-Let's look at a simple example. We'll create a new function called `sum2()`, which sums two numbers (using `sum()`, except it also rounds the output to two decimal places at the end. We'll also compare the outputs of `sum()` and `sum2()`:
+For example, imagine we needed a function to both a) calculate the mean of two numbers and b) round this mean. We might define a new function as:
 
 ```{r}
 
-sum2 <- function(..., na.rm = FALSE, digits = 2) {
-  
-  round(sum(..., na.rm = na.rm), digits = digits)
-  
+# define function
+rounded_mean <- function(x, y, n_digits){
+  mean_x_y <- mean(c(x, y))
+  result <- round(mean_x_y, digits = n_digits)
+  return(result)
 }
 
-sum(2.22222, 3.33333)
-sum2(2.22222, 3.33333)
+# usage
+rounded_mean(x = 2.1, y = 3.01, n_digits = 2)
+rounded_mean(x = 2.1, y = 3.01, n_digits = 3)
 
 ```
+
+In psychology, we often round things to two decimal places. If we want to set the `n_digits = 2` by default, we can define this in the arguments when declaring the function:
+
+```{r}
+
+rounded_mean <- function(x, y, n_digits = 2){
+  mean_x_y <- mean(c(x, y))
+  result <- round(mean_x_y, digits = n_digits)
+  return(result)
+}
+
+```
+
+Now, we don't need to provide n_digits every time. Unless told otherwise, `rounded_mean()` will use `n_digits = 2`.
+
+```{r}
+rounded_mean(x = 2.1, y = 3.01)
+rounded_mean(x = 2.1, y = 3.01, n_digits = 3)
+```
+
+This can be useful when we have a very general function with reasonable defaults. For example, most of `effectize::cohens_d()`'s arguments have default values:
+
+```{r}
+#| eval: false
+#| include: true
+# from its documentation:
+cohens_d(
+  x,
+  y = NULL,
+  data = NULL,
+  pooled_sd = TRUE,
+  mu = 0,
+  paired = FALSE,
+  reference = NULL,
+  adjust = FALSE,
+  ci = 0.95,
+  alternative = "two.sided",
+  verbose = TRUE,
+  ...
+)
+```
+
+
 
 ### Archetype
 
