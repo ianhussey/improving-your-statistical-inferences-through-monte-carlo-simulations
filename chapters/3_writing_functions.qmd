@@ -2,13 +2,6 @@
 
 Two of the key steps in a simulation study (generate data and analyze data) require us to know how to write functions. This chapter explains what functions are and how to write them.
 
-## To add
-
-- requirements / input checks? errors, warnings.
-- [{parameters}](https://easystats.github.io/parameters/)
-- documenting functions using roxygen?
-- unit tests?
-
 ## What is a function?
 
 A function is a piece of code that receives input(s), does something with it, and returns output(s). 
@@ -16,14 +9,12 @@ A function is a piece of code that receives input(s), does something with it, an
 To take two very simple example, the `sum()` function calculates the sum of the number inputs passed to it:
 
 ```{r}
-
 x <- -1
 y <- -3
 
 z <- sum(x, y)
 
 z
-
 ```
 
 When we run the code for a given function, we typically refer to this as 'calling' the function. The inputs we provide to functions are referred to as 'arguments'. Functions are called using its name, with its arguments being placed inside round brackets: `function_name(argument1, argument2, ... argumentN)`. 
@@ -31,9 +22,7 @@ When we run the code for a given function, we typically refer to this as 'callin
 To take a second example, the `abs()` function takes a numeric input and calculates their absolute value (i.e., removes the minus sign):
 
 ```{r}
-
 abs(z)
-
 ```
 
 While base-R contains nearly three thousand functions, they are by no means all the functions you might need while cleaning and analyzing your data. That's why we use `install.packages()` and `library()` to install and load other functions, including those in the tidyverse packages (e.g., `select()` and `mutate()`).
@@ -43,12 +32,10 @@ When writing simulation studies, we often need to need to define our own custom 
 Imagine that you often needed to first sum numbers and then find their absolute values. Maybe you get tired of having to write the following every time:
 
 ```{r}
-
 x <- -1
 y <- -3
 
 z <- abs(sum(x, y))
-
 ```
 
 There is a general rule in coding: *try not to repeat yourself*, because repeating long chunks of code and slightly changing the bits you need is a common source of making errors.
@@ -56,7 +43,6 @@ There is a general rule in coding: *try not to repeat yourself*, because repeati
 Instead, we could write a custom function for this specific purpose:
 
 ```{r}
-
 # define function
 sum_and_absolute <- function(x, y){
   result <- abs(sum(y, x))
@@ -67,7 +53,6 @@ sum_and_absolute <- function(x, y){
 sum_and_absolute(-2, -5)
 sum_and_absolute(1, 4)
 sum_and_absolute(-10, 2)
-
 ```
 
 Being able to do this becomes very important when a) you need to do something many thousands of times, often with small variations b) the thing you are doing becomes more complicated. You will encounter both when writing simulation studies. 
@@ -90,7 +75,6 @@ Function usually have name that is used to call the function and use it.\* This 
 3. Outputs. The `return()` function is used to define what the function should return as output.\*\* 
 
 ```{r}
-
 # inputs between ()
 sum_and_absolute <- function(x, y){ 
   # do stuff, between {}
@@ -98,7 +82,6 @@ sum_and_absolute <- function(x, y){
   # outputs in res()
   return(result)
 }
-
 ```
 
 \* Anonymous functions do exist, but we don't need to know about them right now. 
@@ -113,7 +96,6 @@ Let's write the `sum_and_absolute()` function from scratch, in the way we recomm
 ### Step 1: Write the 'do stuff'
 
 ```{r}
-
 # get just the sum() working
 temp <- sum(-1, -3) 
 temp
@@ -125,7 +107,6 @@ temp2
 # get them both working together
 result <- abs(sum(-1, -3))
 result
-
 ```
 
 ### Step 2: Convert hard-coded values to variables
@@ -133,7 +114,6 @@ result
 Declare variables with hard-coded values, and substitute the hard-coded values in the code for these variables. 
 
 ```{r}
-
 # declare variables
 x <- -1
 y <- -3
@@ -142,12 +122,11 @@ y <- -3
 # result <- abs(sum(-1, -3))
 result <- abs(sum(x, y))
 result
-
 ```
 
 These variables will become the function's arguments.
 
-### Step 3: Wrap it
+### Step 3: Wrap it in a function
 
 Decide on a descriptive name for the function. Declare the function using its name, the `<-` assignment operator, and the `function()` function. Add curly brackets, `{ }`, for where the 'do stuff' code will go.
 
@@ -223,13 +202,15 @@ Once you have code that uses variables, you can actually have RStudio do the 'wr
 In your local copy of this .qmd, highlight the code in the chunk below, click 'Code'>'Extract Function', name it 'sum_and_absolute', and click 'ok'. You can see gifs of this [here](https://www.appsilon.com/post/r-studio-shortcuts-and-tips-part-2).
 
 ```{r}
-
 result <- abs(sum(x, y))
 result
-
 ```
 
 Buyer beware: This method isn't perfect, as it doesn't add `return()` around `result` or ensure that you have written code to create outputs. But it can save you time.
+
+### Help writing the 'do stuff': Pseudocode
+
+[needed]
 
 ## Argument defaults
 
@@ -238,7 +219,6 @@ Functions often have many arguments, not all of which you want to specify every 
 For example, imagine we needed a function to both a) calculate the mean of two numbers and b) round this mean. We might define a new function as:
 
 ```{r}
-
 # define function
 rounded_mean <- function(x, y, n_digits){
   mean_x_y <- mean(c(x, y))
@@ -249,19 +229,16 @@ rounded_mean <- function(x, y, n_digits){
 # usage
 rounded_mean(x = 2.1, y = 3.01, n_digits = 2)
 rounded_mean(x = 2.1, y = 3.01, n_digits = 3)
-
 ```
 
 In psychology, we often round things to two decimal places. If we want to set the `n_digits = 2` by default, we can define this in the arguments when declaring the function:
 
 ```{r}
-
 rounded_mean <- function(x, y, n_digits = 2){
   mean_x_y <- mean(c(x, y))
   result <- round(mean_x_y, digits = n_digits)
   return(result)
 }
-
 ```
 
 Now, we don't need to provide n_digits every time. Unless told otherwise, `rounded_mean()` will use `n_digits = 2`.
@@ -293,71 +270,198 @@ cohens_d(
 )
 ```
 
+## Checking inputs
 
+Functions written for R packages usually have many checks built into them. Users are likely to use - and misuse - functions in a variety of ways and often need informative feedback messages to help them fix code when it's wrong. 
 
-### Archetype
+For example, if you run the code `sum("hello", 3)`, R will return the error message "Error in sum("hello", 3) : invalid 'type' (character) of argument" because you cannot add numbers and character variables. R might have it's flaws but it's not lawless, we [leave that to javascript](https://github.com/denysdovhan/wtfjs).
 
-Note that this is pseudo-code only: chunk is set not to run (`eval=FALSE`).
+Functions written for simulation studies tend to be more 'brittle' or 'fragile': they work under a more limited range of conditions, don't handle errors or exceptions as well, and tend to break without returning clear error messages. In part, this is because the people writing stimulation studies know the code is for a specific purpose and don't need it to be very general. But, in part, it is also because the people writing simulations are less likely to have the same software engineering skillset as R package developers, who are more likely to write functions that follow the principles of "fail early, fail loudly".
 
-```{r eval=FALSE}
+For example, there is nothing stopping us from running the following code using the function we just wrote:
 
-# define function
-function_name <- function(argument_1, # first argument is often the data, if the function takes a data frame as an argument
-                          argument_2 = "default", # arguments can have defaults
-                          argument_3) {
-  # required packages
-  require(dplyr)
-  
-  # checks
-  # well written functions contain checks. 
-  # e.g., if the function assumes that argument_1 is a data frame, check that this is the case.
-  # note that it is more useful to write the function first and add checks later.
-  if(!is.data.frame(argument_1)){
-    stop("argument_1 must be a data frame")
-  }
-  
-  # code that does things
-  object_to_be_returned <- input_data_frame |>
-    # do things
-    mutate(value = value + 1)
-  
-  # object to be returned
-  return(object_to_be_returned)
-}
-
+```{r}
+rounded_mean(x = 2.1, y = 3.01, n_digits = -3)
 ```
 
-### Pseudocode
+Think about the function's arguments and outputs: Does the output represent an error or not?
 
-[needed]
+::: {.callout-note collapse="true" title="Click to show answer"}
+Well... it depends. On the one hand, you can't round a number to less than zero decimal places. On the other hand, this makes certain types of inputs invalid or ignored without telling the user this. In other context, 'silent failures' like this might have serious impacts on the results of your simulation.
+:::
 
-### Built it, wrap it, run it
+### checkmate
 
-[needed]
+Whether or not this specific example represents an error, the situation can be avoided by using adding input checks and error messages to our functions. This makes them 'harder', ie less brittle. It will also help you build your R skills towards being able to write R packages yourself.
 
+```{r}
+#| eval: false
+#| include: true
+# in the local version of this .qmd file, you can run this code to see the error messages
 
--   Build the 'do stuff' part outside of a function first!
--   Wrap the 'do stuff' with input and output after you have 'do stuff' working. Why: so you don't have to fight variable scoping.
+library(checkmate)
 
+rounded_mean <- function(x, y, n_digits = 2) {
+  # input checks
+  # - check that x and y are both single numeric values
+  assert_number(x, finite = TRUE)
+  assert_number(y, finite = TRUE)
+  # - check that n_digits is a non-negative integer
+  assert_count(n_digits) 
 
+  # do stuff
+  mean_x_y <- mean(c(x, y))
+  result <- round(mean_x_y, digits = n_digits)
 
+  # output
+  return(result)
+}
 
-### Easy ways to mess up
+rounded_mean(x = 2.1, y = 3.01, n_digits = -3)
+```
 
-built, wrap it, run it
+If you highlight and run the above code in your local version of this .qmd, it will return the error "Error in rounded_mean(x = 2.1, y = 3.01, n_digits = -3) : Assertion on 'n_digits' failed: Must be >= 0."
 
--   The function must be present in your environment to be usable, and must be called to be used
--   Check that your function actually works as you expect, not just that it runs. Give it lots of different input values that should and should not work, and check you get the correct outputs.
+The {checkmate} library has many other functions for checking other types of inputs.
 
-### Applied example: The false positive rate of AI detection tools
+Note that there are many other ways of checking inputs, including R's build in methods and other R packages. These include:
+
+### Base-R `match.arg()`
+
+```{r}
+#| eval: false
+#| include: true
+# in the local version of this .qmd file, you can run this code to see the error messages
+
+calculate_stat <- function(x, type = c("mean", "median")) {
+  
+  # check input 
+  # - if 'type' isn't "mean" or "median", R stops here and errors
+  # - if the user provides nothing, it uses the first one ("mean")
+  type <- match.arg(type)
+  
+  if (type == "mean") {
+    return(mean(x))
+  }
+  
+  if (type == "median") {
+    return(median(x))
+  }
+}
+
+my_data <- c(10, 20, 30, 40, 100)
+
+# this works 
+calculate_stat(my_data, "mean")
+
+# this works 
+calculate_stat(my_data, "median")
+
+# this fails appropriately ("mode" is not an allowed input)
+calculate_stat(my_data, "mode")
+```
+
+### Base-R `stop()`
+
+```{r}
+#| eval: false
+#| include: true
+# in the local version of this .qmd file, you can run this code to see the error messages
+
+double_allowed_inputs <- function(val) {
+  allowed <- c(1, 10, 100)
+  
+  if (!val %in% allowed) {
+    stop("val must be 1, 10, or 100")
+  }
+  
+  return(val * 2)
+}
+
+# this works
+double_allowed_inputs(val = 10)
+
+# this fails appropriately
+double_allowed_inputs(val = 6)
+```
+
+See also `stopifnot()`.
+
+### assertthat
+
+Another R library that is often used for checking inputs is {assertthat}, which focuses on readable error messages.
+
+```{r}
+#| eval: false
+#| include: true
+# in the local version of this .qmd file, you can run this code to see the error messages
+
+library(assertthat)
+
+rounded_mean <- function(x, y, n_digits = 2) {
+  # check inputs
+  assert_that(is.number(x))
+  assert_that(is.number(y))
+  assert_that(is.count(n_digits))
+
+  # do stuff
+  mean_x_y <- mean(c(x, y))
+  result <- round(mean_x_y, digits = n_digits)
+  
+  # output
+  return(result)
+}
+
+# this works
+rounded_mean(10, 20) 
+
+# this fails with: "x is not a number (a length one numeric vector)."
+rounded_mean(x = c(10, 20), y = 30) 
+
+# this fails with: "n_digits is not a count (a single positive integer)."
+rounded_mean(10, 20, n_digits = -1)
+```
+
+### Do as we say, not as we do
+
+SPOILER: Throughout this book, to make the code as simple as possible, we almost universally ignore our own advice here and do not include input checks in the functions we write.  
+
+## Common mistakes
+
+### Failing to declare your function
+
+The function must be present in your environment to be usable. After you write your function, you must run the code that declares it before you can use it. If you can't see your function in your environment tab under 'Functions', you need to run the code that contains the `function()` call and assigns it a name.
+
+### Code that runs vs. functions correctly
+
+You must cautiously check that your function actually *works* as you expect, not just that the code runs. Give it lots of different input values that should and should not work, and check you get the correct outputs. We have often made the following mistake when writing functions, and you likely will too. 
+
+Check your learning: what is the error in this code? Why does it run without errors?
+
+```{r}
+sum_and_absolute <- function(a, b){
+  result <- abs(sum(x, y))
+  return(result)
+}
+
+sum_and_absolute(1, 5)
+```
+
+::: {.callout-note collapse="true" title="Click to show answer"}
+The function's inputs are defined as a and b, but it actually uses x and y. x and y were defined as global variables earlier in the script, so it will run using these two values every time, eg `sum_and_absolute(1, 5)` and `sum_and_absolute(31, 39)` will return the same result.
+
+This often happens - as least to us - when we use common object names like `dat` and forget to rename them when converting code to a function.
+:::
+
+## Applied example: The false positive rate of AI detection tools
 
 Imagine a test has has a false positive rate of 5%, like the standard alpha value for a p-value. 
 
 If you apply this test many times to independent cases without applying familywise error corrections, what is the resulting false positive rate?
 
-Let's put this in meaningful terms. Many professors and universities now run essays and assignments through AI detection tools. But students submit many essays and assignments throughout their degree. What is the probability that, assuming you never violate the AI policy, one of your assignments is falsely flagged as using AI in a way that wasn't allowed? 
+Let's put this in meaningful terms: Many professors and universities now run essays and assignments through AI detection tools. But students submit many essays and assignments throughout their degree. What is the probability that, assuming you never violate the AI policy, one of your assignments is falsely flagged as using AI in a way that wasn't allowed? 
 
-#### Math
+### Math
 
 The familywise error rate ($\alpha_{\text{total}}$) for independent tests is the probability of observing at least one false positive ($P(V \geq 1)$), which can be reexpressed as the probability of not observing true positives ($1 - P(V = 0)$). This is the product of the individual probabilities of false positives ($1 - \prod_{i=1}^{n} (1 - \alpha_i)$), which simplifies to:
 
@@ -372,39 +476,40 @@ $$
 
 Horrible, disgusting math which most of you want to avoid. But the code to do it is quite simple.
 
-#### Hard coded
+### Write the 'do stuff'
 
-Assuming individual false positives of 5% and 10 total tests.
+This code implements the math assuming each individual test's false positive rate is 5% and that 10 total tests are run. It calculates the aggregate false positive rate, i.e., the probability that at least one test will show a false positive, assuming the null hypothesis is true. 
 
 ```{r}
-
 1 - (1 - 0.05)^10
-
 ```
 
-#### Extract variables
+Check your learning: What do we mean by 'assuming the null hypothesis is true' here?
+
+::: {.callout-note collapse="true" title="Click to show answer"}
+This calculation only considers false positives, not true positives. In the world it considered - ie assumes - all positives are false positives: no true violations of the AI policy ever occur.
+:::
+
+### Convert hard-coded values to variables
 
 What about other values of alpha and n? We could make them variables at the top of the chunk that are easier to change.
 
 ```{r}
-
 # variables
 alpha <- 0.05
 n <- 10
 
 # code
 1 - (1 - alpha)^n
-
 ```
 
-#### Wrap it
+### Wrap it in a function
 
-Defining our own custom function involves putting the variables as arguments inside the `function()` call, and putting the code inside its `{}`.
+Defining our own custom function involves putting the variables as arguments inside the `function()` call, and putting the code inside its `{ }`.
 
 We can then call the function using its name.
 
 ```{r}
-
 # define function
 calc_aggregate_fpr <- function(n, alpha = 0.05) {
   1 - (1 - alpha)^n
@@ -412,76 +517,35 @@ calc_aggregate_fpr <- function(n, alpha = 0.05) {
 
 # usage
 calc_aggregate_fpr(n = 10)
-
 ```
 
 This also lets us call it an arbitrary number of times, eg for different values of n
 
 ```{r}
-
 calc_aggregate_fpr(n =  5)
 calc_aggregate_fpr(n = 10)
 calc_aggregate_fpr(n = 15)
 calc_aggregate_fpr(n = 20)
 calc_aggregate_fpr(n = 25)
-
 ```
 
-#### Use one of {purrr}'s `map()` functions to apply the custom function to many inputs - move to purrr chapter
-
-This previews some skills we'll learn in a future chapter: calling a function multiple times within a tidy workflow by mapping it on to a set of input columns.
+At this point, we'll skip over some code and skills we haven't learned yet. In summary, we use the function we have just created to simulate many different values of `n` (the number of tests run) and `alpha` (the test's alpha value, or nominal false positive rate for a single test) to observe their impact on the familywise error rate across tests. We'll learn how to do this in future chapters. For the moment, let's just observe the results.
 
 ```{r}
-#| include: false
-
+#| echo: false
+# dependencies
+library(purrr)
 library(tibble)
 library(dplyr)
-library(purrr)
-
-experiment <- 
-  # define many values of n as different rows in a data frame or tibble
-  tibble(n = 1:20) 
-
-# view 
-experiment
-
-results <- experiment |>  
-  # use mutate to create a new column, fpr, by calling the custom function for each row, using n as the input
-  # use a _dbl map function as the output is a numeric (double precision floating point) variable
-  mutate(fpr = map_dbl(.x = n, 
-                       .f = calc_aggregate_fpr))
-
-results
-
-```
-
-Because we've done this in a tidy format in a tibble, we can easily plot the results too.
-
-```{r}
-
-library(ggplot2)
-
-ggplot(results, aes(n, fpr)) +
-  geom_line() +
-  geom_point() +
-  theme_linedraw()
-
-```
-
-What if we want to vary not only n but also alpha, and see all combinations of them? This previews some skills we'll learn in a later chapter: defining crossed experiment conditions using `expand_grid()`.
-
-```{r}
-
 library(tidyr)
+library(ggplot2)
 
 # define many values of n and alpha, and then have them 'crossed' to create all permutations of them, using expand_grid()
 experiment <- 
   expand_grid(n = 1:20,
               alpha = c(0.01, 0.05, 0.10)) 
 
-# view the combinations used in the experiment
-experiment
-
+# run the stimulation
 results <- experiment |>  
   # use mutate to create a new column, fpr, by calling the custom function for each row
   # use a map2_ function as there are two inputs, n and alpha
@@ -490,92 +554,29 @@ results <- experiment |>
                         .y = alpha,
                         .f = calc_aggregate_fpr))
 
-results
-
-```
-
-```{r}
-
+# plot
 results |>
   mutate(alpha = as.factor(alpha)) |>
   ggplot(aes(n, fpr, color = alpha, group = alpha)) +
   geom_line() +
   geom_point() +
-  theme_linedraw() 
-
+  theme_linedraw() +
+  scale_x_continuous(name = "Number of AI tests run",
+                     limits = c(0,NA),
+                     breaks = seq(0, 20, by = 2)) +
+  scale_y_continuous(name = "Familywise False Positive Rate",
+                     limits = c(0,1))
 ```
 
+Despite the test being advertised as having high accuracy, in the sense of a low false-positive rate, there is a strong risk of false positives when many tests are run. Students submit many different assignments over their studies. Assuming no AI policy violations occur, 20 assignments are tested, the tests are independent, and an alpha value of 5% is used, there is a strong risk (> 50%) that individual students will still have at least one of their assignments flagged as an AI policy violation across their studies.
 
+This gets even worse when we consider that there are many students, each of which are submitting many assignments. If we track all 25 students in a symposium over 20 assignments they submit, the estimated familywise false positive rate is `r calc_aggregate_fpr(n = 25 * 20) *100`%. Whew.
 
-### Practice
+## Exercises
 
+Write functions for each of the following.
 
-#### Exercises
-
-- math stuff
-- convert ms to s
-- convert n_months to n_years and round
-
-- mean by group
-- mean and sd and N by group
-- differences in means between groups
-- mean and sd and N and differences in means between groups
-
-- rand between 0-9 - runif()
-- two random numbers between 0-9, third column that is the larger number
-
-- remove ms suffix "2000 ms" to 2000L 
-- tidy_gender(): tolower, remove hypens (non-binary), case_when() for different m/male/man, etc
-- tidy_age remove non numbers, convert to number, etc
-
-- rnorm() 
-- rnorm() + round()
-- rnorm() + mean
-
-- rbinom() as coin N flips in a row
-
-- keeping it tidy
-- two rnorm columns in a df, intervention and control
-- two rnorm columns in a df, int and ctrl, then pivoting longer to have a condition and score column
-
-### Content to move
-
-#### Exercise 1 t test p value - analysis functions chapter
-
-```{r}
-
-# data to be analyzed using the analysis function
-data_simulated_intervention <- 
-  tibble(condition = "intervention", 
-         score = rnorm(n = 50, mean = 0, sd = 1))
-
-data_simulated_control <- 
-  tibble(condition = "control", 
-         score = rnorm(n = 50, mean = 0, sd = 1))
-
-data_simulated <- 
-  bind_rows(data_simulated_intervention,
-            data_simulated_control)
-
-```
-
-```{r}
-
-# define function
-t_test_p_value <- function(data) {
-  
-  res <- t.test(formula = score ~ condition, 
-                data = data)
-  
-  return(res$p.value)
-}
-
-# call function
-t_test_p_value(data_simulated)
-
-```
-
-How would I build this from scratch? What's the first thing I would type?
+### Convert milliseconds to seconds
 
 ```{r}
 
@@ -583,111 +584,181 @@ How would I build this from scratch? What's the first thing I would type?
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ```
 
-#### Exercise 2 - analysis functions chapter
+### Convert n_months to n_years and round all values up the next year 
 
-The purpose of a t-test is to test differences in means between groups. 
-
-Weirdly, base-R's built in `t.test()` function does not actually return an estimate of this difference in means between groups, as [Uri Simonsohn recently pointed out](https://datacolada.org/132). 
-
-Write a function that fits a t-test, returns results in tidy format, and includes an estimate of the difference in means between groups.
-
-There are two ways to do this: 1) calculating the means from the data directly, 2) calculating the difference from the two estimated means returned by the `t.test()` function. Practice writing functions by implementing both.
+Use `ceiling()` to round all values ending in something other than .0 up to the next whole value.
 
 ```{r}
 
 
 
+
+
 ```
 
-#### Exercise 3 - move somewhere
+### Calcualte mean by group
+
+What additional arguments might this benefit from to avoid it breaking under common use cases?
 
 ```{r}
 
-library(forcats)
-library(faux)
-
-set.seed(42)
-
-# data for t test
-data_intervention <- 
-  tibble(condition = "intervention", 
-         score = rnorm(n = 50, mean = 0, sd = 1))
-
-data_control <- 
-  tibble(condition = "control", 
-         score = rnorm(n = 50, mean = 0, sd = 1))
-
-data_for_ttest <- 
-  bind_rows(data_intervention,
-            data_control) |>
-  # control's factor levels must be ordered so that intervention is the first level and control is the second
-  # this ensures that positive Cohen's d values refer to intervention > control and not the other way around.
-  mutate(condition = fct_relevel(condition, "intervention", "control"))
 
 
-# data for correlation
-data_for_correlation <- rnorm_multi(n = 100, 
-                                    vars = 2, 
-                                    mu = 0, 
-                                    sd = 1, 
-                                    r = 0.5, 
-                                    varnames = c("X", "Y"))
+
 
 ```
 
-### Further reading
-
-Although we have practiced writing custom functions to extract statistical results / model parameters, it is worth knowing that the {easystats} family of packages includes [{parameters}](https://easystats.github.io/parameters/) package, which does a very good job of extracting model parameters from a very wide range of models including base R functions, {lavaan}, {psych}, and other packages. If you want to extract values from a model, consider using {parameters} to do a lot of the work for you when writing your function.
-
-Separately, the [{report}](https://easystats.github.io/report/) package will fully report the results of many common analyses for you. e.g.:
+### Calculate mean, SD, and N by group
 
 ```{r}
 
-library(report)
 
-data_simulated_intervention <- 
-  tibble(condition = "intervention", 
-         score = rnorm(n = 50, mean = 0, sd = 1))
 
-data_simulated_control <- 
-  tibble(condition = "control", 
-         score = rnorm(n = 50, mean = 0, sd = 1))
 
-data_simulated <- 
-  bind_rows(data_simulated_intervention,
-            data_simulated_control)
-
-t.test(score ~ condition, data = data_simulated) |>
-  report::report()
 
 ```
 
+### Mean, SD, and N by group, and differences in means between groups
 
+Pivot the result to wider format before mutating the difference in means.
+
+```{r}
+
+
+
+
+
+```
+
+### Generate a random number between 0 and 9 using `runif()`
+
+```{r}
+
+
+
+
+
+```
+
+### Generate two random numbers between 0 and 9, return only the larger one
+
+```{r}
+
+
+
+
+
+```
+
+### Remove the ' ms' suffix from data like "2000 ms" 
+
+Use the {stringr} library.
+
+TODO create example
+
+```{r}
+
+
+
+
+
+```
+
+### Tidy messy open-ended gender data
+
+TODO truffle example
+
+```{r}
+
+
+
+
+
+```
+
+### Tidy messy age data
+
+TODO truffle example
+
+```{r}
+
+
+
+
+
+```
+
+### Sample data from a normal distribution and return a tibble  
+
+Use `rnorm()`
+
+```{r}
+
+
+
+
+
+```
+
+### Sample data from a normal distribution, round to the nearest whole number, and return a tibble  
+
+```{r}
+
+
+
+
+
+```
+
+### Sample data from a normal distribution, calculate its average, and return a tibble 
+
+```{r}
+
+
+
+
+
+```
+
+### Calculate the probabilty of n number of 'heads' coin flips in a row
+
+Use `rbinom()`.
+
+```{r}
+
+
+
+
+
+```
+
+### Sample data from two normal disributions, return a tibble with two columns called intervention and control
+
+```{r}
+
+
+
+
+
+```
+
+### Sample data from two normal disributions, return a tibble in long format with a 'score' and 'condition' column
+
+Use `bind_rows()`.
+
+```{r}
+
+
+
+
+
+```
+
+## To add
+
+- Writing TIDY functions and why
 
 
 
