@@ -7,6 +7,11 @@ TODO
 
 - [{parameters}](https://easystats.github.io/parameters/)
 
+
+## To add
+
+- Writing TIDY functions AGAIN and why
+
 ## Further reading
 
 Although we have practiced writing custom functions to extract statistical results / model parameters, it is worth knowing that the {easystats} family of packages includes [{parameters}](https://easystats.github.io/parameters/) package, which does a very good job of extracting model parameters from a very wide range of models including base R functions, {lavaan}, {psych}, and other packages. If you want to extract values from a model, consider using {parameters} to do a lot of the work for you when writing your function.
@@ -14,7 +19,8 @@ Although we have practiced writing custom functions to extract statistical resul
 Separately, the [{report}](https://easystats.github.io/report/) package will fully report the results of many common analyses for you. e.g.:
 
 ```{r}
-
+library(tibble)
+library(dplyr)
 library(report)
 
 data_simulated_intervention <- 

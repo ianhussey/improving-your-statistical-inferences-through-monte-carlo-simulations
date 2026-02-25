@@ -2,12 +2,17 @@
 
 TODO
 
+## To add
 
+- Writing TIDY functions and why
 
 ### Exercise 3 - move somewhere
 
 ```{r}
 
+library(tibble)
+library(dplyr)
+library(tidyr)
 library(forcats)
 library(faux)
 

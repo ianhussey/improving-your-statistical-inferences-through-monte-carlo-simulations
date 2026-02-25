@@ -1,7 +1,7 @@
-# TO-DO
-- add content on positive and negative controls
-
 # Foundation concepts
+
+## TODO
+- add content on positive and negative controls
 
 ```{r}
 #| include: false

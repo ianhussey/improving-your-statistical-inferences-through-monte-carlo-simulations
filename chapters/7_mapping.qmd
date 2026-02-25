@@ -2,6 +2,8 @@
 
 ## Overview of tutorial
 
+ADD TIDY NESTED DATA SLIDES HERE - REITERATE NEED FOR TIDY INPUTS AND OUTPUTS
+
 In the last lesson, you wrote a data-generation function (`generate_data()`) and an analysis function (`analyze()`), then called them once with the pipe:
 
 -   generate one dataset\

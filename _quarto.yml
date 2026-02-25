@@ -24,6 +24,7 @@ book:
     - chapters/7_mapping.qmd # week 4 - nested dfs needs explaining. 
     - chapters/8_summarizing_results.qmd # week 5
     - chapters/9_planning_and_reporting.qmd # come back to this after substantive chapter 1 - week 7?, Siepe paper, assessing performance (MC SE), etc. Diagnostics on already run simulations, go in and check specific iterations, run manually etc.
+    # maybe add sth here on parallelisation and optimisation, eg dropping the nested datasets and using a helper function to use pmap() more directly and efficiently?
     - chapters/10_simulation_template.qmd # week 5, 'putting it all together'; skip to substantive chapter 1?
     
     # Learning from simulations

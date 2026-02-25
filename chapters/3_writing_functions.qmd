@@ -44,15 +44,15 @@ Instead, we could write a custom function for this specific purpose:
 
 ```{r}
 # define function
-sum_and_absolute <- function(x, y){
+absolute_sum <- function(x, y){
   result <- abs(sum(y, x))
   return(result)
 }
 
 # call function
-sum_and_absolute(-2, -5)
-sum_and_absolute(1, 4)
-sum_and_absolute(-10, 2)
+absolute_sum(-2, -5)
+absolute_sum(1, 4)
+absolute_sum(-10, 2)
 ```
 
 Being able to do this becomes very important when a) you need to do something many thousands of times, often with small variations b) the thing you are doing becomes more complicated. You will encounter both when writing simulation studies. 
@@ -76,7 +76,7 @@ Function usually have name that is used to call the function and use it.\* This 
 
 ```{r}
 # inputs between ()
-sum_and_absolute <- function(x, y){ 
+absolute_sum <- function(x, y){ 
   # do stuff, between {}
   result <- abs(sum(y, x))
   # outputs in res()
@@ -91,9 +91,11 @@ sum_and_absolute <- function(x, y){
 
 The worst way to write a function is the way you read the code for it. Instead, write it from the inside out, starting with the 'do stuff' and using hard coded values.
 
-Let's write the `sum_and_absolute()` function from scratch, in the way we recommend.
+Let's write the `absolute_sum()` function from scratch, in the way we recommend.
 
-### Step 1: Write the 'do stuff'
+### Key steps
+
+#### Step 1: Write the 'do stuff'
 
 ```{r}
 # get just the sum() working
@@ -109,7 +111,7 @@ result <- abs(sum(-1, -3))
 result
 ```
 
-### Step 2: Convert hard-coded values to variables
+#### Step 2: Convert hard-coded values to variables
 
 Declare variables with hard-coded values, and substitute the hard-coded values in the code for these variables. 
 
@@ -126,7 +128,7 @@ result
 
 These variables will become the function's arguments.
 
-### Step 3: Wrap it in a function
+#### Step 3: Wrap it in a function
 
 Decide on a descriptive name for the function. Declare the function using its name, the `<-` assignment operator, and the `function()` function. Add curly brackets, `{ }`, for where the 'do stuff' code will go.
 
@@ -135,7 +137,7 @@ Decide on a descriptive name for the function. Declare the function using its na
 #| include: true
 # NB code will not run
 
-sum_and_absolute <- function(){ 
+absolute_sum <- function(){ 
 }
 ```
 
@@ -146,7 +148,7 @@ Copy the code into the 'do stuff' between the curly brackets.
 #| include: true
 # NB code will not run
 
-sum_and_absolute <- function(){
+absolute_sum <- function(){
   result <- abs(sum(x, y))
 }
 ```
@@ -154,7 +156,7 @@ sum_and_absolute <- function(){
 The function still has no inputs or outputs. Add any variables it uses into the inputs between the round brackets, `( )`. 
 
 ```{r}
-sum_and_absolute <- function(x, y){
+absolute_sum <- function(x, y){
   result <- abs(sum(x, y))
 }
 ```
@@ -162,7 +164,7 @@ sum_and_absolute <- function(x, y){
 At this point, the function will run and won't throw any errors, but it also doesn't do what we want it to. For example:
 
 ```{r}
-sum_and_absolute(-4, -11)
+absolute_sum(-4, -11)
 ```
 
 Check your learning: Why doesn't it do what we want it to? How would we fix it?
@@ -175,7 +177,7 @@ It calculates the absolute value of the sum and assigns it to the variable `resu
 Suffice to say: you can fix this by telling the function to not only calculate this value, but also return it using `return()`.
 
 ```{r}
-sum_and_absolute <- function(x, y){
+absolute_sum <- function(x, y){
   result <- abs(sum(x, y))
   return(result)
 }
@@ -184,7 +186,7 @@ sum_and_absolute <- function(x, y){
 
 Once fixed, you can now call the function and it works correctly. 
 ```{r}
-sum_and_absolute(-4, -11)
+absolute_sum(-4, -11)
 ```
 
 ### Why build functions this way?
@@ -199,7 +201,7 @@ Put simply: because you can't see everything that's happening inside functions, 
 
 Once you have code that uses variables, you can actually have RStudio do the 'wrap it' step for you.
 
-In your local copy of this .qmd, highlight the code in the chunk below, click 'Code'>'Extract Function', name it 'sum_and_absolute', and click 'ok'. You can see gifs of this [here](https://www.appsilon.com/post/r-studio-shortcuts-and-tips-part-2).
+In your local copy of this .qmd, highlight the code in the chunk below, click 'Code'>'Extract Function', name it 'absolute_sum', and click 'ok'. You can see gifs of this [here](https://www.appsilon.com/post/r-studio-shortcuts-and-tips-part-2).
 
 ```{r}
 result <- abs(sum(x, y))
@@ -208,75 +210,95 @@ result
 
 Beware: This method isn't perfect, as it doesn't add `return()` around `result` or ensure that you have written code to create outputs. But it can save you time.
 
-### Help writing the 'do stuff': Pseudocode
+## Pseudocode
 
-Before you write the code inside a function, it’s often helpful to write pseudocode first.
+Before you write the 'do stuff' code inside a function - or indeed any complex code - it’s often helpful to write 'pseudocode' first.
 
-Pseudocode is a plain-language (or semi-code) description of what your function should do, step by step. It is not valid R code, and it is not meant to run. Instead, it’s a thinking and planning tool: you use it to clarify the logic of your function before you worry about syntax.
+Pseudocode is a plain-language or code-like description of what your function should do, which breaks the problem down into smaller steps or operations. It is not valid R code, and it is not meant to run. Instead, it’s a thinking and planning tool: you use it to clarify the logic of your function before you worry about syntax or bugs.
 
-Pseudocode has a number of advantages. Specifically:
+Pseudocode has a number of advantages:
+
 - It forces you to be explicit about inputs and outputs. Many function bugs happen because we forget what goes in, what comes out, or what happens in between.
-- It separates the problem from the programming. You can get the logic right first, then translate it into R.
+- It separates the logical problems from the coding problems. You can get the logic right first, then translate it into code.
 - It makes debugging easier. If your function fails, you can compare your code to your pseudocode step-by-step and find where they diverge.
-- It helps you communicate with others (and with your future self). A colleague might not understand your code immediately, but they can usually understand pseudocode.
+- It helps you communicate with other people in the future who might not understand your code, including your future self. Readers might not understand your code immediately, but they can usually understand pseudocode.
 
-#### What does pseudocode look like?
+### What does pseudocode look like?
 
 There isn’t one “correct” format of pseudocode. The main goal is always plain-language readability. A common style is:
 - Start with what the function receives (inputs)
 - List the steps inside the function (do stuff)
 - End with what it returns (output)
 
-Here is pseudocode for our sum_and_absolute() example:
+Here is pseudocode for our `absolute_sum()` function. Note that there is no particular standard for pseudocode, it is just something between text and code that runs.
 
-```{text}
-
-FUNCTION sum_and_absolute takes inputs x and y
-  1. Add x and y to get their sum
+```default
+absolute_sum function
+steps:
+  1. Add two numbers to get their sum
   2. Take the absolute value of that sum
-  3. Return the absolute value
-END FUNCTION
-
+  3. Returns the absolute value
 ```
 
-You can also do this in a way that looks a little more like actual code:
+Maybe we would then improve this by thinking about basic structure of any function, i.e., separating the inputs, 'do stuff' and outputs, and therefore the input variables that are used in the 'do stuff'. 
+
+```default
+absolute_sum function
+inputs(x, y)
+steps:
+  1. sum x, y
+  2. absolute of sum
+output:
+  absolute sum
+```
+
+We might then look up the existing R functions to do each of these steps, making the pseudocode increasingly code-like.
 
 ```{text}
-
-INPUT(S): x, y
-temp_sum = x + y
-result = absolute_value(temp_sum)
-OUTPUT(S): result
-
-
+absolute_sum
+inputs:
+  x, y
+do stuff:
+  sum <- sum(x, y)
+  abs_sum <- abs(sum)
+outputs:
+  abs_sum
 ```
 
-Other ways of writing pseudocode are also fine, as long as the steps are unambiguous and it makes it clear exactly what the function is supposed to take as input, the steps it is intended to follow, and the intended output.
+At this point, you can get individual parts of the 'do stuff' working as R code.
 
-#### Going from pseudocode to R code
+```{r}
+# example values
+x <- -3
+y <- -10
 
-Once you have pseudocode, you can translate each step into R code. For example:
-1. 'Add x and y' becomes `sum(x, y)` 
-2. 'Take absolute value' becomes `abs()`
-3. 'Return result' becomes `return(result)`
+# draft of 'do stuff'
+value_sum <- sum(x, y)
+value_absolute_sum <- abs(value_sum)
+value_absolute_sum
+```
 
-#### Pseudocode for a more typical simulation function
+At this point, the 'do stuff' is working, and your pseudocode is now code. You have enough to go to the 'wrap it in a function' step.
 
-The examples we have explored so far have mainly been for the purposes of introducing you to writing functions. Although you have not yet got to the point where you're writing more complex simulation functions, it is still worth looking quickly at a pseudocode example of this. Indeed, the real value of pseudocode shows up when functions get longer than one line. For example, here’s pseudocode for a very common simulation function that we will explore in the next chapter: generate one dataset.
+### More complex example
+
+The real value of pseudocode shows up when functions are more complex. 
+
+For example, here is pseudocode for a very common simulation function that we will explore in the next chapter: generate one dataset for a Randomized Controlled Trial with two conditions, treatment and control, where the data in each condition comes from a normally distributed population. 
 
 ```{text}
-
-FUNCTION generate_data takes inputs n_per_group, mu_control, mu_treatment, sd
-  1. Create a vector of group labels: "control" and "treatment"
-  2. For control group, draw n_per_group values from a normal distribution with mean mu_control and sd
-  3. For treatment group, draw n_per_group values from a normal distribution with mean mu_treatment and sd
-  4. Combine both groups into one dataset (a data frame)
-  5. Return the dataset
-END FUNCTION
-
+function: generate_data 
+necessary steps, but not necessarily implemented in this order:
+  1. For control group, draw n_per_group values from a normal distribution with mean mu_control and sd sigma
+  2. For treatment group, draw n_per_group values from a normal distribution with mean mu_treatment and sd sigma
+  3. Combine both into one a data frame
+  4. Create a column that labels the groups, eg "control" vs "treatment"
+  5. End up with a data frame with 'group' and 'score' column; output this.
+inputs probably needed based on steps:
+- n_per_group, mu_control, mu_treatment, sigma
 ```
 
-Notice something important: this is basically just a checklist. When you convert it to R, you can translate each step one at a time and test as you go. This makes it much easier to debug your function, too!
+Notice something important: this is basically just a checklist. When you convert it to R code, you can translate each step one at a time and test as you go. You may need to reorder or change the steps, but it gives you a plan. If you get lost in your code, you can go back to check the plan.
 
 ## Argument defaults
 
@@ -505,16 +527,16 @@ You must cautiously check that your function actually *works* as you expect, not
 Check your learning: what is the error in this code? Why does it run without errors?
 
 ```{r}
-sum_and_absolute <- function(a, b){
+absolute_sum <- function(a, b){
   result <- abs(sum(x, y))
   return(result)
 }
 
-sum_and_absolute(1, 5)
+absolute_sum(1, 5)
 ```
 
 ::: {.callout-note collapse="true" title="Click to show answer"}
-The function's inputs are defined as a and b, but it actually uses x and y. x and y were defined as global variables earlier in the script, so it will run using these two values every time, eg `sum_and_absolute(1, 5)` and `sum_and_absolute(31, 39)` will return the same result.
+The function's inputs are defined as a and b, but it actually uses x and y. x and y were defined as global variables earlier in the script, so it will run using these two values every time, eg `absolute_sum(1, 5)` and `absolute_sum(31, 39)` will return the same result.
 
 This often happens - as least to us - when we use common object names like `dat` and forget to rename them when converting code to a function.
 :::
@@ -640,7 +662,7 @@ This gets even worse when we consider that there are many students, each of whic
 
 ## Exercises
 
-Write functions for each of the following.
+Write functions for each of the following. Remember that you can write pseudocode first if it helps.
 
 ### Convert milliseconds to seconds
 
@@ -722,8 +744,6 @@ Pivot the result to wider format before mutating the difference in means.
 
 Use the {stringr} library.
 
-TODO create example
-
 ```{r}
 
 
@@ -734,19 +754,28 @@ TODO create example
 
 ### Tidy messy open-ended gender data
 
-TODO truffle example
+You can use the `dat_demographics_messy` tibble created below.
 
 ```{r}
+#| include: false
+# create a dataset to be cleaned
 
+# install the devtools and truffle packages if you don't have them already:
+# library(devtools)
+# install_github("ianhussey/truffle")
+library(truffle)
+library(tibble)
 
+set.seed(42)
 
-
-
+dat_demographics_messy <- 
+  tibble(id = 1:100) |>
+  dirt_demographics()
 ```
 
 ### Tidy messy age data
 
-TODO truffle example
+You can use the `dat_demographics_messy` tibble again.
 
 ```{r}
 
@@ -821,11 +850,4 @@ Use `bind_rows()`.
 
 
 ```
-
-## To add
-
-- Writing TIDY functions and why
-
-
-
 
