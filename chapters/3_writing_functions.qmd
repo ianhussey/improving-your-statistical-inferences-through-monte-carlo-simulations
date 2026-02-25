@@ -254,7 +254,7 @@ output:
 
 We might then look up the existing R functions to do each of these steps, making the pseudocode increasingly code-like.
 
-```{text}
+```default
 absolute_sum
 inputs:
   x, y
