@@ -68,11 +68,11 @@ Functions have three components.
 It is useful to bear these in mind when writing, debugging and using functions. Most of the errors people make in writing code for functions, or their approach to writing that code, come from confusing the elements or forgetting one. 
 
 
-Function usually have name that is used to call the function and use it.\* This is done by declaring the function, just as you would a variable, using the assignment operator (`<-`) and `function()`, which is the function to define new functions. 
+Functions usually have a name that is used to call the function and use it. This is done by declaring the function, just as you would a variable, using the assignment operator (`<-`) and `function()`, which is the function to define new functions. 
 
 1. Inputs. Inside the `function()` call are the function's arguments. In this case, `x` and `y`. 
 2. Do stuff. Between the curly brackets, `{ }`, code defines what the function does internally.
-3. Outputs. The `return()` function is used to define what the function should return as output.\*\* 
+3. Outputs. The `return()` function is used to define what the function should return as output. 
 
 ```{r}
 # inputs between ()
