@@ -6,4 +6,4 @@
 
 /.quarto/
 /old
-/_book
+/_book/*
