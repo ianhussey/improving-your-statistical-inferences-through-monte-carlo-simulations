@@ -167,9 +167,8 @@ At this point, the function will run and won't throw any errors, but it also doe
 absolute_sum(-4, -11)
 ```
 
-Check your learning: Why doesn't it do what we want it to? How would we fix it?
-
-::: {.callout-note collapse="true" title="Click to show answer"}
+::: {.callout-note collapse="true"}
+## Check your learning: Why doesn't it do what we want it to? How would we fix it?
 The function has no outputs defined. 
 
 It calculates the absolute value of the sum and assigns it to the variable `results`, but it does not return this value to the user. This is due to a concept called 'variable scoping', which is a bit more complex and we won't cover here.
@@ -254,7 +253,7 @@ output:
 
 We might then look up the existing R functions to do each of these steps, making the pseudocode increasingly code-like.
 
-```{text}
+```default
 absolute_sum
 inputs:
   x, y
@@ -286,7 +285,7 @@ The real value of pseudocode shows up when functions are more complex.
 
 For example, here is pseudocode for a very common simulation function that we will explore in the next chapter: generate one dataset for a Randomized Controlled Trial with two conditions, treatment and control, where the data in each condition comes from a normally distributed population. 
 
-```{text}
+```default
 function: generate_data 
 necessary steps, but not necessarily implemented in this order:
   1. For control group, draw n_per_group values from a normal distribution with mean mu_control and sd sigma
@@ -524,8 +523,6 @@ The function must be present in your environment to be usable. After you write y
 
 You must cautiously check that your function actually *works* as you expect, not just that the code runs. Give it lots of different input values that should and should not work, and check you get the correct outputs. We have often made the following mistake when writing functions, and you likely will too. 
 
-Check your learning: what is the error in this code? Why does it run without errors?
-
 ```{r}
 absolute_sum <- function(a, b){
   result <- abs(sum(x, y))
@@ -535,10 +532,13 @@ absolute_sum <- function(a, b){
 absolute_sum(1, 5)
 ```
 
-::: {.callout-note collapse="true" title="Click to show answer"}
+::: {.callout-note collapse="true"}
+## Check your learning: what is the error in the above code? Why does it run without errors?
 The function's inputs are defined as a and b, but it actually uses x and y. x and y were defined as global variables earlier in the script, so it will run using these two values every time, eg `absolute_sum(1, 5)` and `absolute_sum(31, 39)` will return the same result.
 
 This often happens - as least to us - when we use common object names like `dat` and forget to rename them when converting code to a function.
+
+To help you avoid this problem, you may sometimes need to clear your environment (with `rm(list = ls())`) to ensure that a function can be loaded and run without variables from the global environment. 
 :::
 
 ## Applied example: The false positive rate of AI detection tools
@@ -572,9 +572,8 @@ This code implements the math assuming each individual test's false positive rat
 1 - (1 - 0.05)^10
 ```
 
-Check your learning: What do we mean by 'assuming the null hypothesis is true' here?
-
-::: {.callout-note collapse="true" title="Click to show answer"}
+::: {.callout-note collapse="true"}
+## Check your learning: What do we mean by 'assuming the null hypothesis is true' here?
 This calculation only considers false positives, not true positives. In the world it considered - ie assumes - all positives are false positives: no true violations of the AI policy ever occur.
 :::
 
@@ -649,7 +648,7 @@ results |>
   geom_line() +
   geom_point() +
   theme_linedraw() +
-  scale_x_continuous(name = "Number of AI tests run",
+  scale_x_continuous(name = "Number of AI detection tests run",
                      limits = c(0,NA),
                      breaks = seq(0, 20, by = 2)) +
   scale_y_continuous(name = "Familywise False Positive Rate",
@@ -660,194 +659,9 @@ Despite the test being advertised as having high accuracy, in the sense of a low
 
 This gets even worse when we consider that there are many students, each of which are submitting many assignments. If we track all 25 students in a symposium over 20 assignments they submit, the estimated familywise false positive rate is `r calc_aggregate_fpr(n = 25 * 20) *100`%. Whew.
 
-## Exercises
-
-Write functions for each of the following. Remember that you can write pseudocode first if it helps.
-
-### Convert milliseconds to seconds
-
-```{r}
-
-
-
-
-
-```
-
-### Convert n_months to n_years and round all values up the next year 
-
-Use `ceiling()` to round all values ending in something other than .0 up to the next whole value.
-
-```{r}
-
-
-
-
-
-```
-
-### Calcualte mean by group
-
-What additional arguments might this benefit from to avoid it breaking under common use cases?
-
-```{r}
-
-
-
-
-
-```
-
-### Calculate mean, SD, and N by group
-
-```{r}
-
-
-
-
-
-```
-
-### Mean, SD, and N by group, and differences in means between groups
-
-Pivot the result to wider format before mutating the difference in means.
-
-```{r}
-
-
-
-
-
-```
-
-### Generate a random number between 0 and 9 using `runif()`
-
-```{r}
-
-
-
-
-
-```
-
-### Generate two random numbers between 0 and 9, return only the larger one
-
-```{r}
-
-
-
-
-
-```
-
-### Remove the ' ms' suffix from data like "2000 ms" 
-
-Use the {stringr} library.
-
-```{r}
-
-
-
-
-
-```
-
-### Tidy messy open-ended gender data
-
-You can use the `dat_demographics_messy` tibble created below.
-
-```{r}
-#| include: false
-# create a dataset to be cleaned
-
-# install the devtools and truffle packages if you don't have them already:
-# library(devtools)
-# install_github("ianhussey/truffle")
-library(truffle)
-library(tibble)
-
-set.seed(42)
-
-dat_demographics_messy <- 
-  tibble(id = 1:100) |>
-  dirt_demographics()
-```
-
-### Tidy messy age data
-
-You can use the `dat_demographics_messy` tibble again.
-
-```{r}
-
-
-
-
-
-```
-
-### Sample data from a normal distribution and return a tibble  
-
-Use `rnorm()`
-
-```{r}
-
-
-
-
-
-```
-
-### Sample data from a normal distribution, round to the nearest whole number, and return a tibble  
-
-```{r}
-
-
-
-
-
-```
-
-### Sample data from a normal distribution, calculate its average, and return a tibble 
-
-```{r}
-
-
-
-
-
-```
-
-### Calculate the probabilty of n number of 'heads' coin flips in a row
-
-Use `rbinom()`.
-
-```{r}
-
-
-
-
-
-```
-
-### Sample data from two normal disributions, return a tibble with two columns called intervention and control
-
-```{r}
-
-
-
-
-
-```
-
-### Sample data from two normal disributions, return a tibble in long format with a 'score' and 'condition' column
-
-Use `bind_rows()`.
-
-```{r}
-
-
-
-
-
-```
+::: {.callout-tip}
+## Practice Time
+Ready to test your function-writing skills? 
+Download and complete the [exercises for this chapter](../exercises/3_writing_functions_exercises.qmd).
+:::
 

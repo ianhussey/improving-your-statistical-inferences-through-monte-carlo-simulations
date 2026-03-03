@@ -1,0 +1,226 @@
+# Exercises for 'Writing functions' chapter
+
+These exercises accompany the [Writing Functions chapter](../chapters/3_writing_functions.qmd).
+
+You can complete these exercises in your local version of the .qmd file. Either download a copy of the whole book from github (see introduction), or download this .qmd using the download button on the top right of the page.
+
+Write functions for each of the following. Remember that you can write pseudocode first if it helps.
+
+```{r}
+#| include: false
+# create dataset to be used/cleaned
+
+# install the devtools and truffle packages if you don't have them already:
+# library(devtools)
+# install_github("ianhussey/truffle")
+library(truffle)
+library(tibble)
+
+dat_depression_rct <- 
+  truffle_likert(study_design = "factorial_between2",
+                 n_per_condition = 20,
+                 factors  = "X1_latent",
+                 prefixes = "X1_item",
+                 alpha = .70,
+                 n_items = 13,
+                 n_levels = 4,
+                 approx_d_between_groups = 0.40) |>
+  snuffle_sum_scores("X1_", 
+                     min = 1, 
+                     max = 4, 
+                     id_col = "id") |>
+  select(id, group = condition, score = X1_sumscore) |>
+  mutate(score = score - 13) |>
+  dirt_demographics()
+```
+
+## Converting and tidying
+
+### Convert milliseconds to seconds
+
+```{r}
+
+
+
+
+
+```
+
+### Convert n_months to n_years and round all values up the next year 
+
+Use `ceiling()` to round all values ending in something other than .0 up to the next whole value.
+
+```{r}
+
+
+
+
+
+```
+
+### Remove the ' ms' suffix from data like "2000 ms" 
+
+Use the {stringr} library.
+
+```{r}
+
+
+
+
+
+```
+
+### Tidy messy open-ended gender data
+
+You can use the `dat_depression_rct` tibble that was created above.
+
+```{r}
+
+
+
+
+
+```
+
+### Tidy messy age data
+
+You can use the `dat_depression_rct` tibble that was created above.
+
+```{r}
+
+
+
+
+
+```
+
+## Summarizing
+
+### Calculate mean by group
+
+You can use the `dat_depression_rct` tibble that was created above.
+
+What additional arguments might this benefit from to avoid it breaking under common use cases?
+
+```{r}
+
+
+
+
+
+```
+
+### Calculate mean, SD, and N by group
+
+You can use the `dat_depression_rct` tibble that was created above.
+
+```{r}
+
+
+
+
+
+```
+
+### Mean, SD, and N by group, and differences in means between groups
+
+You can use the `dat_depression_rct` tibble that was created above.
+
+Pivot the result to wider format before mutating the difference in means.
+
+```{r}
+
+
+
+
+
+```
+
+## Generating data
+
+### Generate a random number between 0 and 9 using `runif()`
+
+```{r}
+
+
+
+
+
+```
+
+### Generate two random numbers between 0 and 9, return only the larger one
+
+```{r}
+
+
+
+
+
+```
+
+### Sample data from a normal distribution and return a tibble  
+
+Use `rnorm()`
+
+```{r}
+
+
+
+
+
+```
+
+### Sample data from a normal distribution, round to the nearest whole number, and return a tibble  
+
+```{r}
+
+
+
+
+
+```
+
+### Sample data from a normal distribution, calculate its average, and return a tibble 
+
+```{r}
+
+
+
+
+
+```
+
+### Calculate the probabilty of n number of 'heads' coin flips in a row
+
+Use `rbinom()`.
+
+```{r}
+
+
+
+
+
+```
+
+### Sample data from two normal disributions, return a tibble with two columns called intervention and control
+
+```{r}
+
+
+
+
+
+```
+
+### Sample data from two normal disributions, return a tibble in long format with a 'score' and 'condition' column
+
+Use `bind_rows()`.
+
+```{r}
+
+
+
+
+
+```
+
