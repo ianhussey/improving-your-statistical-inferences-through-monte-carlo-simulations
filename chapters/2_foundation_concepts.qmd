@@ -5,6 +5,7 @@
 - add content on positive and negative controls
 - integrate some repetitive content below
 - integrate information from slides, or the slides themselves
+- remove old and new content redundancy
 
 ```{r}
 #| include: false
