@@ -1,6 +1,6 @@
 ## Introduction {.unnumbered}
 
-This [Open Source](chapters/license.qmd) eBook provides materials for the semester-long Master's seminar course "Improving your statistical inferences through Monte Carlo simulations" that I deliver at the University of Bern's Institute of Psychology.
+This [Open Source](license.qmd) eBook provides materials for the semester-long Master's seminar course "Improving your statistical inferences through Monte Carlo simulations" that I deliver at the University of Bern's Institute of Psychology.
 
 This book is split into two parts:
 
@@ -9,7 +9,7 @@ This book is split into two parts:
 
 ## How to use this book
 
-This book is made up of individual Quarto (.qmd) workbooks. Many of the exercises are easiest to complete in your own local copy of these .qmd files.
+This book is made up of individual Quarto (.qmd) files. Many of the exercises are easiest to complete in your own local copy of these .qmd files.
 
 We suggest that you [download a .zip of the contents of this book's code and data from GitHub](https://github.com/ianhussey/improving-your-statistical-inferences-through-monte-carlo-simulations) to run the code locally, complete the exercises, etc.
 
@@ -28,7 +28,7 @@ There are many excellent Open Source resources to learn simulation studies in R 
 
 There is also a growing literature on reporting standards, preregistration, and meta-research on simulations such as the risk of Questionable Research Practices in simulation studies. In particularly I recommend:  
 
--   Siepe et al. (2026) Why, when, and how to (or not to)preregister a simulation study. [osf.io/cxjrb_v1](https://osf.io/preprints/psyarxiv/cxjrb_v1)
+-   Siepe et al. (2026) Why, when, and how to (or not to) preregister a simulation study. [osf.io/cxjrb_v1](https://osf.io/preprints/psyarxiv/cxjrb_v1)
 -   Siepe et al. (2024) Simulation studies for methodological research in psychology: A standardized template for planning, preregistration, and reporting. *Psychological Methods*. doi: [10.1037/met0000695](https://doi.org/10.1037/met0000695)
 -   Pawel et al. (2023) Pitfalls and potentials in simulation studies: Questionable research practices in comparative simulation studies allow for spurious claims of superiority of any method. *Biometrical Journal*. doi: [10.1002/bimj.202200091](https://doi.org/10.1002/bimj.202200091)
 
