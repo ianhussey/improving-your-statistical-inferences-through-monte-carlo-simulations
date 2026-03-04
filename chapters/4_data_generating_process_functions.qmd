@@ -1,59 +1,114 @@
 # Data-generating process functions
 
-## TODO
+In the last chapter, you learned how to write functions. In this chapter, you’ll use that skill to write a specific type of function: **a data-generating process (DGP) function**. This is needed for one of the 5 key components of a Monte Carlo simulation study.
 
-- Concept of DGP
-  - If you sample the entire population, you still need inferential stats to understand the DGP. Eg if you study astronauts, and there are only 12 of them, and you recruit all of them, you don't automatically know the DGP, which is an abstraction, involves error, etc
-- Normal data
-- Skew normal data
-- Uniform data
-- Beta data? to simulate bounded data from psych scales, with multipliers for the scale length.
-- Likert data? (?other than truffle)
-- correlated data
-- mixed cor and factor data
-- Item level data? (lavaan)
-- Writing TIDY functions and why
-
-
-
-
-In Chapter 3, you learned how to write functions. In this chapter, you’ll use that skill to build one of the core pieces of a simulation: **a data-generating process (DGP) function**.
-
-Remember: a Monte Carlo simulation has five steps:
-
+::: {.callout-note collapse="true"}
+## Can you recall the 5 key components of Monte Carlo simulation?
 1. Design an experiment  
 2. Generate data  
 3. Analyse data  
 4. Do this many times  
-5. Summarise results  
-
-
-It is easiest to talk about designing a simulation experiment after you know how to implement the other steps in a simulation. So this chapter is about Step 2: **generate data**. We’ll keep the "design" part simple for now (single choices for things like `n` and effect sizes).
-
-Recall that in the last chapter you learned about how to write functions in R. In this chapter, we're focusing specifically on writing functions that generate data and model data-generating processes.
-
-## Dependencies
-
-```{r}
-
-library(dplyr)
-library(tidyr)
-library(tibble)
-
-```
+5. Summarise results
+:::
 
 ## What is a data-generating process?
 
-A **data-generating process (DGP)** is a description of how your data come to exist.
+A **data-generating process (DGP)** is the theoretical or mathematical mechanism that causally produces observed data. It is the "ground truth". 
 
-- In a real study, the world is the DGP (for example, the heights of humans in the population follow a normal distribution).
-- In a simulation, *you* decide what this data-generating process looks like, and then write code to generate data following this process.
+- In a real-world study, the DPG is unknown and not directly knowable, but may be estimated from empirical data. For example, the heights of humans in the population appear to follow a normal distribution with a given population mean and standard deviation.
+- In a simulation, we have access to the ground truth because we define the data-generating process.
 
-A data-generating process is defined by **parameters**. These, put simply, define what is "true" in the world that we are simulating. For example, let's imagine we want to simulate heights of a population between two groups (e.g., children and adults). In this case, we might decide that the true mean difference in heights between these two groups is 70cm. This means that the value for the parameter of "mean difference in height" is 70cm. 
+A data-generating process is defined by a **probability density function** and its specific **parameters**. Put simply, these define what is "true" in the world that we are simulating. In psychological research, we are most familiar with the normal (or Gaussian) probability density function, but there are many others.
 
-When we specify this DGP, we might then want to take **random draws** from it: this is equivalent to taking a sample from a population in a real study. 
+For example, let's imagine we want to simulate a dataset of the heights of adult women versus men. We can take data from the US Center for Disease Control's NHANES dataset, in this case for the years 2008-2012, which contains data for about 7000 representative US adults.
 
-Remember that functions have three properties:
+Let's plot the data:
+
+```{r}
+#| echo: false
+
+# dependencies
+library(dplyr)
+library(tidyr)
+library(tibble)
+library(roundwork)
+
+# NHANES dataset from the US Center for Disease Control, US adults 2008-2012
+library(NHANES)
+data(NHANES)
+
+# wrangle data
+data_height <- NHANES |>
+  janitor::clean_names() %>%
+  filter(age >= 18) %>%
+  filter(!is.na(height)) %>%
+  select(gender, height)
+
+# summarize
+data_height_summary <- data_height %>%
+  group_by(gender) %>%
+  summarize(
+    n = n(),
+    mean_height = mean(height),
+    sd_height = sd(height),
+    mean_minus_sd = mean(height) - sd(height),
+    mean_plus_sd = mean(height) + sd(height)
+  )
+
+ggplot(data_height, aes(height, fill = gender)) +
+  geom_density(adjust = 2, alpha = 0.4) +
+  theme_linedraw() +
+  labs(title = "Distribution of heights in US adults (2008-2012) by gender",
+       x = "Height",
+       y = "Density") +
+  scale_color_brewer(palette = "Set1") +
+  scale_fill_brewer(palette = "Set1")
+```
+
+We can calculate the means and standard deviations:
+
+```{r}
+#| echo: false
+
+data_height_summary |>
+  select(gender, mean_height, sd_height) %>%
+  mutate_if(is.numeric, round_up, digits = 0)
+```
+
+This is a very common step in psychological research - so common that it's easy to overlook something subtle: means and standard deviations are the parameters that define a normal distribution (i.e., and not other distributions). 
+
+By calculating means and standard deviations, we are implicitly employing a normal probability density function, and endorsing the idea that these are a meaningful summary of the data and, more importantly, a description of the data generating function.
+
+Let's check whether that is accurate. For this simple example, we can do this by checking whether a normal distribution with these parameters fits the observed data.
+
+```{r}
+#| echo: false
+ggplot(data_height, aes(x = height, fill = gender, color = gender)) +
+  # Empirical Density
+  geom_density(adjust = 2, alpha = 0.4, color = NA) +
+  # Normal Distribution Overlay
+  stat_function(fun = dnorm, 
+                args = list(mean = data_height_summary$mean_height[data_height_summary$gender == "female"], 
+                            sd = data_height_summary$sd_height[data_height_summary$gender == "female"]),
+                color = "#E41A1C", linetype = "dashed", linewidth = 1) + 
+  stat_function(fun = dnorm, 
+                args = list(mean = data_height_summary$mean_height[data_height_summary$gender == "male"], 
+                            sd = data_height_summary$sd_height[data_height_summary$gender == "male"]),
+                color = "#377EB8", linetype = "dashed", linewidth = 1) +
+  theme_linedraw() +
+  labs(title = "Distribution of heights in US adults (2008-2012) by gender",
+       subtitle = "Dashed lines represent Normal distributions using the empirical Means and SDs",
+       x = "Height",
+       y = "Density") +
+  scale_color_brewer(palette = "Set1") +
+  scale_fill_brewer(palette = "Set1")
+```
+
+They do. We can therefore say that this probability density function and these parameters represent a good estimate of the DGP. 
+
+These values for the means and standard deviations represent the (assumed) **population** parameters - i.e., the ground truth. If we want to simulate actual datasets - small samples drawn from this population - how would we do this? We would need to write a function that draws such random samples from this population, i.e., following this DGP. This is analogous to recruiting samples from a population in a real study. 
+
+Remember that functions have three components:
 
 1. They take inputs
 2. They do stuff to the inputs
@@ -61,79 +116,13 @@ Remember that functions have three properties:
 
 A DGP function's properties are, then, more specifically:
 
-1. Take parameters as inputs
-2. Simulate data based on these parameters
-3. Return **one** simulated dataset based on these parameters.
+1. Take **parameters** as inputs
+2. Draw samples from a DGP based on a given probability density function and the input parameters
+3. Return a simulated dataset
 
-## Randomness and reproducibility
+## Building our first data-generating function: simulating two groups drawn from a normal distribution
 
-You might have heard people talking about "seeds" before when using R. Seeds, basically, are used to make sure that random output can be reproducible. 
-
-For example, look at the outputs of two calls to the `rnorm()` function below, which samples random values from a normal distribution with a mean of 0 and a standard deviation of 1:
-
-```{r}
-
-output1 <- rnorm(n = 5, mean = 0, sd = 1)
-output2 <- rnorm(n = 5, mean = 0, sd = 1)
-
-output1 
-output2
-
-```
-
-You can see that the outputs of the two calls are different. But sometimes we might not want this: for example, when we want other people to be able to reproduce our simulation results exactly. If we use truly random numbers, then every time we re-run the simulation we'll get slightly different results. What we really want are *pseudo*-random numbers - numbers which are sampled randomly, but where the specific random sampling can be reconstructed and reproduced. This is exactly what seeds are for: if you set a seed to a specific value, then all calls to functions which use randomisation will reproduce their random samples in future runs. 
-
-Put simply: if you start from the same seed, you get the same sequence of "random" values. Check out the example below, now using `set.seed()`:
-
-```{r}
-
-set.seed(123)
-
-output1 <- rnorm(n = 5, mean = 0, sd = 1)
-output2 <- rnorm(n = 5, mean = 0, sd = 1)
-
-output1 
-output2
-
-```
-
-In your own work, you’ll often set a seed once at the top of a script so you (and others) can reproduce your results.
-
-::: {.callout-warning collapse="true" title="A common mistake: setting the seed inside your generator"}
-Don’t put `set.seed()` *inside* a DGP function. If you do, every call will restart the random number generator in the same place, and you will keep generating the same dataset. This becomes a problem when we get to Step 4 (repeat many times), since you just end up repeating the exact same process every time.
-
-```{r}
-
-bad_generate <- function() {
-  set.seed(42)
-  rnorm(3)
-}
-
-bad_generate()
-bad_generate()
-
-```
-
-```{r}
-
-set.seed(42)
-good_generate <- function() {
-  rnorm(3)
-}
-
-good_generate()
-good_generate()
-
-```
-:::
-
-## Building our first data-generating function: simulating two-group mean difference
-
-One of the simplest examples that can be simulated - and the example that we're going to use frequently in the next several chapters - is simulating two groups with a known difference in means. 
-
-The most classic version of this already classic example is to simulate a difference in means in a "control vs intervention" study with a continuous outcome. From your introductory statistics knowledge, you probably recognise that such a design produces the exact type of data we might analyse with an independent-samples *t*-test.
-
-Recall that a good data-generating function has three qualities: inputs, do stuff, and outputs. 
+A simple example that is useful to many simulations of psychological data - and the example that we're going to use frequently in the next several chapters - is the simulation of two groups drawn from normal distributions with known means and standard deviations. In the previous example, these referred to heights for men and women, but in many of the following examples they will instead represent the intervention vs. control group of a randomised controlled trial (e.g., psychotherapy for depression). 
 
 Let's think about our inputs first. What types of things might vary in such a design? The obvious choice is the means in the control and intervention groups. We could also vary the standard deviation (SD) associated with the means. And we could also vary the number of participants we have in each condition. This means we have as inputs:
 
@@ -144,135 +133,237 @@ Let's think about our inputs first. What types of things might vary in such a de
 
 We will use R's `rnorm()` function to generate the data for each group. `rnorm()` takes three arguments: `n` (the sample size), `mean` (the mean value), and `sd` (the standard deviation). `rnorm()` will then give us `n` random draws from a normal distribution with a mean of `mean` and an SD of `sd`.
 
-Let's remember how to write a function: write out the desired process, then wrap it in a function.
+Let's remember the steps to write a function that we learned in the previous chapter: write the 'do stuff' (as pseudocode first if needed) and extract hard-coded values as variables, then wrap it in a function.
 
-### Step 1: generate one dataset (no function yet)
+### Step 1: write the 'do stuff'
 
-Start by getting the data generation working with hard-coded values. Here's what our pseudocode for this looks like:
+Start by getting the data generation working with hard-coded values. Pseudocode for this could look like:
 
 ```default
-
-BEGIN
-
-1) set seed for reproducibility
-2) Define simulation parameters for:
-  - n_per_condition
-  - mean_control 
-  - mean_intervention   
-  - sd                  
-3) Generate data for control group
-data_control is a TABLE with n_per_condition rows:
-  - id = n_per_condition value
-  - condition = control
-  - score = random value from normal distribution with mean = mean_control and sd = sd
-4) Generate data for intervention group (non-overlapping IDs)
-data_intervention is a TABLE with n_per_condition rows:
-  - id = n_per_condition value, not overlapping with id from data_control
-  - condition = intervention
-  - score = random value from normal distribution with mean = mean_intervention and sd = sd
-5) Combine the two groups into one dataset
-6) Output the dataset
-END
-
+1. Sample data from a normal distribution using `rnorm()`
+2. Sample data for two different groups using defined N, M, SD.
+3. Label the groups intervention and control
+4. Return a single tibble with the combined data
 ```
 
-And here is the actual code:
+Start as simply as possible: Get `rnorm()` working by itself.
 
 ```{r}
-
-# set the seed
+#| include: false
+# set the seed - invisibly for the moment - seeds will be explained later
 set.seed(42)
-
-# specify our four parameters
-n_per_condition <- 50
-mean_control <- 0
-mean_intervention <- 0.5
-sd <- 1
-
-# generate data for the control group
-data_control <- tibble(
-  id = 1:n_per_condition,
-  condition = "control",
-  score = rnorm(n_per_condition, mean = mean_control, sd = sd)
-)
-
-# generate data for the intervention group
-data_intervention <- tibble(
-  id = (n_per_condition + 1):(2 * n_per_condition), # this ensures that the IDs don't overlap with those in control condition
-  condition = "intervention",
-  score = rnorm(n_per_condition, mean = mean_intervention, sd = sd)
-)
-
-dat <- bind_rows(data_control, data_intervention)
-
-dat
-
 ```
-
-Before we wrap this into a function, let's do a quick sanity-check: do the group means, roughly, look like what we expected? Doing sanity checks like this is good practice before we wrap our functions, since it helps us make sure that what we're wrapping into a function is what we actually want to be happening. If all is in order, `n` should be 50 for each group; the mean of `score` should be roughly 0 for the control condition and roughly 0.5 for the intervention condition; and SDs should be roughly 1 for both groups. 
 
 ```{r}
-
-dat |>
-  group_by(condition) |>
-  summarise(
-    n = n(),
-    mean = mean(score),
-    sd = sd(score),
-    .groups = "drop"
-  )
-
+rnorm(n = 20, 
+      mean = 28, 
+      sd = 8)
 ```
 
-Looks good! Let's wrap this into a DGP function.
+Return the results as a tibble rather than a vector. We will return to this point about the importance of tidy inputs and outputs later.
+
+```{r}
+tibble(score = rnorm(n = 20, 
+                     mean = 28, 
+                     sd = 8))
+```
+
+Replace the hard-coded values with variables.
+
+```{r}
+n_per_condition <- 20
+mean_intervention <- 28
+sd <- 8
+
+tibble(score = rnorm(n = n_per_condition, 
+                     mean = mean_intervention, 
+                     sd = sd))
+```
+
+Create two different tibbles, one for each group. The appropriate population mean is used in each.
+
+```{r}
+n_per_condition <- 20
+mean_intervention <- 28
+mean_control <- 32
+sd <- 8
+
+data_intervention <- 
+  tibble(score = rnorm(n = n_per_condition, 
+                       mean = mean_intervention, 
+                       sd = sd))
+
+data_control <- 
+  tibble(score = rnorm(n = n_per_condition, 
+                       mean = mean_control, 
+                       sd = sd))
+```
+
+Add a condition variable to each, so you know which condition each score belongs to.
+
+```{r}
+n_per_condition <- 20
+mean_intervention <- 28
+mean_control <- 32
+sd <- 8
+
+data_intervention <- 
+  tibble(condition = "intervention",
+         score = rnorm(n = n_per_condition, 
+                       mean = mean_intervention, 
+                       sd = sd))
+
+data_control <- 
+  tibble(condition = "control",
+         score = rnorm(n = n_per_condition, 
+                       mean = mean_control, 
+                       sd = sd))
+```
+
+Bind the two tibbles together to make a single dataset.
+
+```{r}
+n_per_condition <- 20
+mean_intervention <- 28
+mean_control <- 32
+sd <- 8
+
+data_intervention <- 
+  tibble(condition = "intervention",
+         score = rnorm(n = n_per_condition, 
+                       mean = mean_intervention, 
+                       sd = sd))
+
+data_control <- 
+  tibble(condition = "control",
+         score = rnorm(n = n_per_condition, 
+                       mean = mean_control, 
+                       sd = sd))
+
+data_combined <- bind_rows(data_intervention, 
+                          data_control)
+```
+
+If you `View(data_combined)`, you can see this looks like our desired output. You have written the 'do stuff'!
+
+Or have we? Let's do some sanity checks before we go further. Once it's wrapped as a function, the inner workings of the intermediate steps become somewhat invisible due to varible scoping (see previous chapter). It's easier to verify it first.
+
+Let's increase `n_per_condition` to be large, so that the sample mean and standard deviations are closer to the population values.
+
+```{r}
+n_per_condition <- 10000
+mean_intervention <- 28
+mean_control <- 32
+sd <- 8
+
+data_intervention <- 
+  tibble(condition = "intervention",
+         score = rnorm(n = n_per_condition, 
+                       mean = mean_intervention, 
+                       sd = sd))
+
+data_control <- 
+  tibble(condition = "control",
+         score = rnorm(n = n_per_condition, 
+                       mean = mean_control, 
+                       sd = sd))
+
+data_output <- bind_rows(data_intervention, 
+                         data_control)
+```
+
+Now, let's check that our single simulated dataset's sample mean and sample standard deviation are a close match for the DGP's population mean and population standard deviation.
+
+If all is in order, `n_per_condition` should be 10000 for each condition; the mean of `score` should be roughly 32 for the control condition and roughly 28 for the intervention condition; and SDs should be roughly 8 for both conditions. 
+
+```{r}
+data_combined |>
+  group_by(condition) |>
+  summarise(n_per_condition = n(),
+            mean = mean(score),
+            sd = sd(score),
+            .groups = "drop") |>
+  mutate_if(is.numeric, round_up, digits = 0)
+```
+
+They match! This might seem trivial at first, but it is a) an important sanity check when writing functions, and b) is the basis of **parameter recovery** which we will return to later in the book.
 
 ### Step 2: wrap it into a DGP function
 
-Now let's turn our working code into a reusable function (as we did previously in Chapter 3).
+Now let's turn our working code into a reusable DGP function. 
+
+Move the 'do stuff' code we just wrote into the function skeleton.
+
+```default
+function_name <- function(inputs){
+  # 'do stuff' goes here
+  return(output)
+}
+```
 
 ```{r}
-
-generate_data_two_group <- function(n_per_condition,
-                                    mean_control,
-                                    mean_intervention,
-                                    sd) {
-
+generate_data <- function(n_per_condition,
+                          mean_control,
+                          mean_intervention,
+                          sd) {
+  
   data_control <- tibble(
-    id = 1:n_per_condition,
     condition = "control",
-    score = rnorm(n_per_condition, mean = mean_control, sd = sd)
+    score = rnorm(n = n_per_condition, 
+                  mean = mean_control, 
+                  sd = sd)
   )
 
   data_intervention <- tibble(
-    id = (n_per_condition + 1):(2 * n_per_condition),
     condition = "intervention",
-    score = rnorm(n_per_condition, mean = mean_intervention, sd = sd)
+    score = rnorm(n = n_per_condition, 
+                  mean = mean_intervention, 
+                  sd = sd)
   )
 
-  dat <- bind_rows(data_control, data_intervention) |>
-    as.tibble()
+  data_output <- bind_rows(data_control, data_intervention) 
 
-  return(dat)
+  return(data_output)
 }
-
 ```
 
-Now let's call the `generate_data_two_group` function and see if it works:
+Now let's call the `generate_data` function and see if it works.
 
 ```{r}
-
-set.seed(42)
-
-generate_data_two_group(
-  n_per_condition = 50,
-  mean_control = 0,
-  mean_intervention = 0.3,
-  sd = 1
+generate_data(
+  n_per_condition = 10000,
+  mean_control = 28,
+  mean_intervention = 32,
+  sd = 8
 )
-
 ```
 
-### Why return a tibble?
+If it didn't, how can you bug-fix it? Go back to the last chapter for common errors.
+
+Now sanity check it again. As we discussed in the last chapter, there is a difference between code that runs and code that functions as intended. 
+
+A simple sanity check here is to change the inputs and check that the outputs change appropriately.
+
+```{r}
+# population parameters
+results1 <- generate_data(
+  n_per_condition = 5000,
+  mean_control = 76,
+  mean_intervention = 12,
+  sd = 33
+)
+
+# attempt to recover those parameters in a large sample
+results1 |>
+  group_by(condition) |>
+  summarise(n_per_condition = n(),
+            mean = mean(score),
+            sd = sd(score),
+            .groups = "drop") |>
+  mutate_if(is.numeric, round_up, digits = 0)
+```
+
+## Why return tidy data?
 
 In the next chapter, you’ll write **analysis functions** that take a dataset and return a result (a *p*-value, an estimated effect, a confidence interval, etc). When we write these analysis functions, we will have certain expectations about the output of our data-generating functions (e.g., that they will conform to principles of tidy data).
 
@@ -281,19 +372,8 @@ In order to ensure that every data-generating function returns a tidy dataset wi
 Importantly, the outputs of our DGP functions should usually consist of the following information:
 
 - one row per observation
-- an `id` column
 - relevant grouping variables
-- one column per variable you’ll analyse
-
-
-## A quick checklist for DGP functions
-
-When you write your own `generate_data_*()` functions, aim for these defaults:
-
-- Put all "design choices" in the arguments (sample sizes, effect sizes, standard deviations, etc.).
-- Return **one** dataset per function call.
-- Avoid side effects (don’t call `set.seed()` inside the functionmdon’t write files, don’t make plots).
-- Use clear, consistent column names (which helps both for reading code and for running analysis functions later).
+- one column per variable you'll analyse
 
 ## Common data-generating functions
 
@@ -348,13 +428,13 @@ We can check the observed proportions to make sure our functions is working corr
 
 set.seed(42)
 
-dat_bin <- generate_data_two_group_binary(
+data_bin <- generate_data_two_group_binary(
   n_per_condition = 30,
   prob_control = 0.25,
   prob_intervention = 0.75
 )
 
-dat_bin |>
+data_bin |>
   group_by(condition) |>
   summarise(estimated_mean_score = mean(score), .groups = "drop")
 
@@ -605,7 +685,6 @@ generate_data_scale_score(n = 100,
                           n_items = 10,
                           r = 0.5)
 
-
 ```
 
 What is returned, as we specified in our function above, is a single score for each participant, representing the mean of the 10 item scores for that participant. But we know that these scores are produced based on 10 items with a mean of 0, SD of 1, and correlation of 0.5 among them. 
@@ -715,15 +794,161 @@ cor(data_two_subscales)
 Not every set of correlations is mathematically possible. If `rnorm_multi()` tells you the correlation matrix is “not positive definite”, it usually means your correlations are too extreme or inconsistent with each other. A simple fix is to reduce some of the correlations (move them closer to 0).
 :::
 
-## A note about "design" (before the design chapter)
+## Pseudo-random number generators
 
-Even when you are "just" generating data, you are making design choices: sample size, effect size, correlations, missingness, and so on. For now, we pick a single set of values so we can focus on teaching you how to write good data-generating functions.
+Randomness is impossible to achieve. All "random" number generators are actually pseudo-random number generators (PRNGs). Computer scientists and mathematicians spend lots of time trying to increase the randomness of our random number generators, because any degree of predictability adds bias to any models built on them. Pseudo-random numbers are at the core of simulation studies, as they allow us to (pseudo) randomly sample simulated data from known population distributions.
 
-Later, in the chapter on designing simulation experiments, you’ll learn how to put these choices into a parameter grid and systematically vary them.
+### Sampling from uniform distributions
+
+A uniform distributions is when every value is as likely as every other value, and are selected from a given range. E.g., "pick a number between 1 and 10" where the picker is just as likely to say "1" as any other number in that range. 
+
+`runif()` is a random generation function (the "r" part) for a uniform distribution (the "unif" part). Not 'run if', which confuses some people.
+
+So, this code, which generates a random number between 1 and 10, will generate 3s just as often as it generates 7s. You can re run this code yourself many times to see it generate different numbers between 1 and 10.
+
+```{r}
+
+
+runif(n = 1, 
+      min = 1,
+      max = 10) |>
+  round_up(0)
+
+```
+
+### Random number generators are not truly random
+
+You don't need to understand how PRNGs work, but you do need to know that the these "random" numbers can be predictably reproduced. The 'seed' value from which a PRNG starts can be set to control which random numbers are generated. 
+
+```{r}
+
+set.seed(43) # set the starting seed value for generating the random numbers
+
+runif(n = 1, 
+      min = 1,
+      max = 10) |>
+  round_up(0)
+
+
+set.seed(43) # set it again to the same value starting seed value for generating the random numbers
+
+runif(n = 1, 
+      min = 1,
+      max = 10) |>
+  round_up(0)
+
+```
+
+Note that if you run the function a second time without resetting to a known seed, the second value will be different to the first one.  
+
+```{r}
+
+set.seed(43) # set the starting seed value for generating the random numbers
+
+runif(n = 1, 
+      min = 1,
+      max = 10) |>
+  round_up(0)
+
+runif(n = 1, 
+      min = 1,
+      max = 10) |>
+  round_up(0)
+
+```
+
+This is because the Nth value of any sequence from a given seed is knowable, whether its run once or in multiple runs.
+
+```{r}
+
+set.seed(43) # set the starting seed value for generating the random numbers
+
+# generate both of the above numbers in one function call
+runif(n = 2, # generate two numbers rather than one
+      min = 1,
+      max = 10) |>
+  round_up(0)
+
+```
+
+### Randomness and reproducibility
+
+You might have heard people talking about "seeds" before when using R. Seeds, basically, are used to make sure that random output can be reproducible. 
+
+For example, look at the outputs of two calls to the `rnorm()` function below, which samples random values from a normal distribution with a mean of 0 and a standard deviation of 1:
+
+```{r}
+
+output1 <- rnorm(n = 5, mean = 0, sd = 1)
+output2 <- rnorm(n = 5, mean = 0, sd = 1)
+
+output1 
+output2
+
+```
+
+You can see that the outputs of the two calls are different. But sometimes we might not want this: for example, when we want other people to be able to reproduce our simulation results exactly. If we use truly random numbers, then every time we re-run the simulation we'll get slightly different results. What we really want are *pseudo*-random numbers - numbers which are sampled randomly, but where the specific random sampling can be reconstructed and reproduced. This is exactly what seeds are for: if you set a seed to a specific value, then all calls to functions which use randomisation will reproduce their random samples in future runs. 
+
+Put simply: if you start from the same seed, you get the same sequence of "random" values. Check out the example below, now using `set.seed()`:
+
+```{r}
+
+set.seed(123)
+
+output1 <- rnorm(n = 5, mean = 0, sd = 1)
+output2 <- rnorm(n = 5, mean = 0, sd = 1)
+
+output1 
+output2
+
+```
+
+In your own work, you’ll often set a seed once at the top of a script so you (and others) can reproduce your results.
+
+::: {.callout-warning collapse="true" title="A common mistake: setting the seed inside your generator"}
+Don’t put `set.seed()` *inside* a DGP function. If you do, every call will restart the random number generator in the same place, and you will keep generating the same dataset. This becomes a problem when we get to Step 4 (repeat many times), since you just end up repeating the exact same process every time.
+
+```{r}
+
+bad_generate <- function() {
+  set.seed(42)
+  rnorm(3)
+}
+
+bad_generate()
+bad_generate()
+
+```
+
+```{r}
+
+set.seed(42)
+good_generate <- function() {
+  rnorm(3)
+}
+
+good_generate()
+good_generate()
+
+```
+:::
+
+
+## A checklist for DGP functions
+
+When you write your own `generate_data()` functions, aim for these defaults:
+
+- Put all "design choices" in the arguments (sample sizes, effect sizes, standard deviations, etc.).
+- Return **one** dataset per function call.
+- Avoid side effects (don’t call `set.seed()` inside the function; don’t write files, don’t make plots).
+- Use clear, consistent column names (which helps both for reading code and for running analysis functions later).
 
 ## Summary
 
-- A **data-generating process** is a set of assumptions plus randomness.
+- A **data-generating process** is a set of assumptions plus randomness introduced by the sampling.
 - In simulation, parameters define what is "true" and random draws define what happens in one sample.
 - A DGP function should take explicit inputs and return one tidy dataset.
 - Useful building blocks include `rnorm()` (continuous), `rbinom()` (binary), and multivariate normal draws for correlated variables (`mvrnorm()`, `rnorm_multi()`).
+
+
+

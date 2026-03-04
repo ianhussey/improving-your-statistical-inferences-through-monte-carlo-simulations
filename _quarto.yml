@@ -17,22 +17,19 @@ book:
 
     - part: "Part I: Learning to Simulate"
       chapters: 
-        - chapters/1_required_skills.qmd # week 1 homework
-        - chapters/2_foundation_concepts.qmd # week 1 ian
-        - chapters/3_writing_functions.qmd # week 1 jamie
-        - chapters/4_data_generating_process_functions.qmd # week 2 - really about practicing writing functions, summarizing and plotting - ian
-        - chapters/5_analysis_functions.qmd # week 3 - practice writing functions again, more/less flexible/reusable - jamie
-        - chapters/6_creating_simulation_experiments.qmd # week 4, if it includes Siepe's study on designs
-        - chapters/7_mapping.qmd # week 4 - nested dfs needs explaining. 
-        - chapters/8_summarizing_results.qmd # week 5
-        - chapters/9_planning_and_reporting.qmd # come back to this after substantive chapter 1 - week 7?, Siepe paper, assessing performance (MC SE), etc. Diagnostics on already run simulations, go in and check specific iterations, run manually etc.
-        # maybe add sth here on parallelisation and optimisation, eg dropping the nested datasets and using a helper function to use pmap() more directly and efficiently?
-        - chapters/10_simulation_template.qmd # week 5, 'putting it all together'; skip to substantive chapter 1?
-
+        - chapters/1_required_skills.qmd 
+        - chapters/2_foundation_concepts.qmd 
+        - chapters/3_writing_functions.qmd 
+        - chapters/4_data_generating_process_functions.qmd 
+        - chapters/5_analysis_functions.qmd 
+        - chapters/6_creating_simulation_experiments.qmd 
+        - chapters/7_mapping.qmd 
+        - chapters/8_summarizing_results.qmd 
+        - chapters/9_planning_and_reporting.qmd 
+        - chapters/10_simulation_template.qmd 
+        
     - part: "Part II: Learning from Simulations"
       chapters:
-        # whatever chapter comes next, lay out the final assignment here
-        # substantive chapter 1 - week 5/6
         - chapters/violating_assumptions.qmd
         - chapters/testing_assumptions_and_conditional_tests.qmd
         - chapters/p_hacking.qmd

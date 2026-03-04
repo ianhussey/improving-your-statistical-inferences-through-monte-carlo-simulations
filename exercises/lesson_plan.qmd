@@ -2,6 +2,28 @@
 
 If delivered as a semester-long course, we suggest the following lesson plan. 
 
+Notes to self on structure
+
+- part: "Part I: Learning to Simulate"
+      chapters: 
+        - chapters/1_required_skills.qmd # week 1 homework
+        - chapters/2_foundation_concepts.qmd # week 1 ian
+        - chapters/3_writing_functions.qmd # week 1 jamie
+        - chapters/4_data_generating_process_functions.qmd # week 2 - really about practicing writing functions, summarizing and plotting - ian
+        - chapters/5_analysis_functions.qmd # week 3 - practice writing functions again, more/less flexible/reusable - jamie
+        - chapters/6_creating_simulation_experiments.qmd # week 4, if it includes Siepe's study on designs
+        - chapters/7_mapping.qmd # week 4 - nested dfs needs explaining. 
+        - chapters/8_summarizing_results.qmd # week 5
+        - chapters/9_planning_and_reporting.qmd # come back to this after substantive chapter 1 - week 7?, Siepe paper, assessing performance (MC SE), etc. Diagnostics on already run simulations, go in and check specific iterations, run manually etc.
+        # maybe add sth here on parallelisation and optimisation, eg dropping the nested datasets and using a helper function to use pmap() more directly and efficiently?
+        - chapters/10_simulation_template.qmd # week 5, 'putting it all together'; skip to substantive chapter 1?
+
+    - part: "Part II: Learning from Simulations"
+      chapters:
+        # whatever chapter comes next, lay out the final assignment here
+        # substantive chapter 1 - week 5/6
+        - chapters/violating_assumptions.qmd
+
 ## Week 1
 
 Before class
@@ -32,6 +54,18 @@ After class
 - Chapter 3's exercises (linked in chapter).
 
 ## Week 3
+
+- Concept of DGP
+  - If you sample the entire population, you still need inferential stats to understand the DGP. Eg if you study astronauts, and there are only 12 of them, and you recruit all of them, you don't automatically know the DGP, which is an abstraction, involves error, etc
+- Normal data
+- Skew normal data
+- Uniform data
+- Beta data? to simulate bounded data from psych scales, with multipliers for the scale length.
+- Likert data? (?other than truffle)
+- correlated data
+- mixed cor and factor data
+- Item level data? (lavaan)
+- Writing TIDY functions and why
 
 Before class
 
