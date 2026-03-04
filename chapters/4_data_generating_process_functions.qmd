@@ -240,13 +240,17 @@ generate_data_two_group <- function(n_per_condition,
   data_control <- tibble(
     id = 1:n_per_condition,
     condition = "control",
-    score = rnorm(n_per_condition, mean = mean_control, sd = sd)
+    score = rnorm(n = n_per_condition, 
+                  mean = mean_control, 
+                  sd = sd)
   )
 
   data_intervention <- tibble(
     id = (n_per_condition + 1):(2 * n_per_condition),
     condition = "intervention",
-    score = rnorm(n_per_condition, mean = mean_intervention, sd = sd)
+    score = rnorm(n = n_per_condition, 
+                  mean = mean_intervention, 
+                  sd = sd)
   )
 
   dat <- bind_rows(data_control, data_intervention)
@@ -324,13 +328,13 @@ generate_data_two_group_binary <- function(n_per_condition,
   data_control <- tibble(
     id = 1:n_per_condition,
     condition = "control",
-    score = rbinom(n_per_condition, size = 1, prob = prob_control)
+    score = rbinom(n = n_per_condition, size = 1, prob = prob_control)
   )
 
   data_intervention <- tibble(
     id = (n_per_condition + 1):(2 * n_per_condition),
     condition = "intervention",
-    score = rbinom(n_per_condition, size = 1, prob = prob_intervention)
+    score = rbinom(n = n_per_condition, size = 1, prob = prob_intervention)
   )
 
   dat <- bind_rows(data_control, data_intervention) 
@@ -373,8 +377,8 @@ generate_data_two_timepoints <- function(n_per_timepoint,
 
   dat <- tibble(
     id = 1:n_per_timepoint,
-    score_t1 = rnorm(n_per_timepoint, mean = mean_score_t1, sd = sd),
-    score_t2 = rnorm(n_per_timepoint, mean = mean_score_t2, sd = sd)
+    score_t1 = rnorm(n = n_per_timepoint, mean = mean_score_t1, sd = sd),
+    score_t2 = rnorm(n = n_per_timepoint, mean = mean_score_t2, sd = sd)
   )
 
   return(dat)
