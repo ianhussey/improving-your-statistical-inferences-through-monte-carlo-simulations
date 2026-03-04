@@ -249,8 +249,7 @@ generate_data_two_group <- function(n_per_condition,
     score = rnorm(n_per_condition, mean = mean_intervention, sd = sd)
   )
 
-  dat <- bind_rows(data_control, data_intervention) |>
-    as.tibble()
+  dat <- bind_rows(data_control, data_intervention)
 
   return(dat)
 }
@@ -334,8 +333,7 @@ generate_data_two_group_binary <- function(n_per_condition,
     score = rbinom(n_per_condition, size = 1, prob = prob_intervention)
   )
 
-  dat <- bind_rows(data_control, data_intervention) |>
-    as_tibble()
+  dat <- bind_rows(data_control, data_intervention) 
 
   return(dat)
 }
