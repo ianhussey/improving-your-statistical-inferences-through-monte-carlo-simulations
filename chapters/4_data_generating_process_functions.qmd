@@ -538,7 +538,7 @@ cor(data_simulated_items)
 
 ```
 
-They look roughly right. But we can use the `empirical` argument to make them more precise. Let's try this out again with `empirical = TRUE`:
+They look roughly right. But we can use the `empirical` argument to simulate data where the parameters are exactly matching the ones that we've specified. This is especially useful for when we're building out simulations and want to make sure that we've done everything correctly. Let's try this out again with `empirical = TRUE`:
 
 ```{r}
 
@@ -565,7 +565,7 @@ cor(data_simulated_items_empirical)
 
 ```
 
-Setting `empirical = TRUE` can make the simulation take longer to run, but it can also provide us with data that more precisely adheres to our specified parameter values. Although we usually do not want this in a simulation where we do this process many times.
+Setting `empirical = TRUE` can make the simulation take longer to run, but it can also provide us with data that more precisely adheres to our specified parameter values. We usually do not want this in a simulation where we do this process many times, but it is useful when we're initially building out our simulation workflows.
 
 A full DGP might simulate these items, and then compute a total score based on these individual items:
 
@@ -621,7 +621,7 @@ The trick is that the `r` argument does not have to be a single number. It can a
 - 1s on the diagonal (each variable correlates perfectly with itself)
 - your desired correlations in the off-diagonal cells
 
-This is very similar to what we did previously with `mvrnorm()`, but with one useful difference: we can specify the correlation matrix directly, instead of the covarianece matrix (which is harder to understand since it is unstandardised).
+This is very similar to what we did previously with `mvrnorm()`, but with one useful difference: we can specify the correlation matrix directly, instead of the covariance matrix (which is harder to understand since it is unstandardised).
 
 This is easiest to see with a small example. Suppose we want three variables with these correlations:
 
