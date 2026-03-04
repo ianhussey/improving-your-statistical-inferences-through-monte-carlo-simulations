@@ -1,41 +1,80 @@
 # Exercises
 
-Work through these in order. If you get stuck, try using pseudocode first.
+These exercises accompany the [Data Generating Process functions chapter](../chapters/4_data_generating_process_functions.qmd).
 
-## Reproducibility warm-up
+You can complete these exercises in your local version of the .qmd file. Either download a copy of the whole book from github (see introduction), or download this .qmd using the download button on the top right of the page.
 
-Predict the output before you run it.
+Write functions for each of the following. Remember that you can write pseudocode first if it helps.
 
-```{r}
+## Normally distributed data
 
-# 1) What can this return?
-# rbinom(n = 10, size = 1, prob = 0)
+### Sample data from a normal distribution and return a tibble  
 
-# 2) What about prob = 1?
+Generate data for a study where the population is normally distributed, with defined population mean and SD, and there is a single group.
 
-# 3) What would you expect the value of mean(rbinom(n = 100, size = 1, prob = 0.7)) to be close to?
-
-```
-
-## One-group normal DGP
-
-Write a function `generate_data_one_group()` that takes `n`, `mean`, and `sd` and returns a tibble with columns `id` and `score`.
+Use `rnorm()`. 
 
 ```{r}
 
 
 
+
+
 ```
 
-## Two-group DGP using Cohen’s d
+### Sample data from a normal distribution, round to the nearest whole number, and return a tibble  
 
-Write `generate_data_two_group_d()` with arguments `n_per_condition`, `mean_control`, `d`, and `sd`.
+This makes the data look a bit more like Likert data. Note that properly simulating realistic Likert data is harder than this.
 
-Inside the function convert `d` to a mean difference:
+```{r}
 
-$$\Delta = d \times sd$$
 
-and set `mean_intervention = mean_control + Delta`.
+
+
+
+```
+
+### Sample data from a normal distribution, calculate its average, and return a tibble 
+
+```{r}
+
+
+
+
+
+```
+
+### Sample data from two normal distributions, return a tibble with two columns called intervention and control
+
+This looks more like data from an RCT.
+
+The arguments should be `mean_intervention`, `mean_control`, `sd`, and `n_per_condition`.
+
+```{r}
+
+
+
+
+
+```
+
+### Sample data from two normal distributions, return a tibble in long format with a 'score' and 'condition' column
+
+Use `bind_rows()`.
+
+```{r}
+
+
+
+
+
+```
+
+### Cohen's d simulator
+
+Write a function like the two-group RCT function we did before, but it should only take the arguments `cohens_d` and `n_per_group` (i.e., not means and SDs).
+
+`rnorm()` can produce Cohen's d-like data when we fix the SDs to 1, one mean to 0, and the second mean to the desired population Cohen's d value.
 
 ```{r}
 
@@ -43,9 +82,49 @@ and set `mean_intervention = mean_control + Delta`.
 
 ```
 
-## Binary outcomes with a treatment effect
+## Other probability density functions
 
-Rewrite `generate_data_two_group_binary()` so that it returns `id`, `condition` (as a factor), and `score`.
+### Generate a random number between 0 and 9
+
+Use `runif()`. Look up the help menu if you need with `?runif()`.
+
+```{r}
+
+
+
+
+
+```
+
+### Generate two random numbers between 0 and 9, return only the larger one
+
+Use `runif()`. Look up the help menu if you need with `?runif()`.
+
+There are multiple ways to do this. Don't reach immediately for help from an AI: think about the logic of how you might do it. Write out increasingly detailed pseudocode. There is more than one way of doing it.
+
+```{r}
+
+
+
+
+
+```
+
+### Calculate the probabilty of n number of 'heads' coin flips in a row
+
+Use `rbinom()`. Look up the help menu if you need with `?rbinom()`.
+
+```{r}
+
+
+
+
+
+```
+
+### Binary outcomes with a treatment effect
+
+Rewrite `generate_data_two_group_binary()` so that it returns `id`, `condition` (as a factor), and `score`. Use `rbinom()`.
 
 Simulate one dataset with `prob_control = 0.20` and `prob_intervention = 0.35` and verify the observed proportions with `group_by()` and `summarise()`.
 
@@ -55,9 +134,11 @@ Simulate one dataset with `prob_control = 0.20` and `prob_intervention = 0.35` a
 
 ```
 
-## Missing data
+### Missing data
 
 Modify `generate_data_two_group()` so that a proportion of `score` values are set to `NA` completely at random.
+
+Use [suggestion needed].
 
 Add an argument `missing_rate` between 0 and 1. Test with `missing_rate = 0`, `0.10`, and `0.40`.
 
@@ -67,11 +148,15 @@ Add an argument `missing_rate` between 0 and 1. Test with `missing_rate = 0`, `0
 
 ```
 
+## Multivariate normal distributions
+
+I.e., correlated data.
+
 ## Three time points
 
 Write a function that returns three time points (`pre`, `mid`, `post`) with correlations:
 
-- cor(pre, mid) = 0.7
+- cor(pre, mid)  = 0.7
 - cor(mid, post) = 0.7
 - cor(pre, post) = 0.5
 
@@ -97,12 +182,8 @@ Using `faux::rnorm_multi()`:
 
 ```
 
-
-## Pseudocode first (required)
-
-Choose one of the functions you wrote above and write pseudocode for it (inputs, steps, outputs). Only then write or revise the R function.
-
 ## Reflection
 
-In one paragraph: what assumptions in your DGPs are unrealistic for real psychological data, and which one would you most like to relax later?
+- What features of the DGPs often assumed for psychological data are often unrealistic for real psychological data? These are the sorts of things we a) violate all the time, and yet b) usually don't understand the implications of violating (i.e., do we need to care). We can examine them in simulations in later chapters.
+
 
