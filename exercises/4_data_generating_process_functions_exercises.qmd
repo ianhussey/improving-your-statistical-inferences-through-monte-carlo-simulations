@@ -10,7 +10,7 @@ Write functions for each of the following. Remember that you can write pseudocod
 
 ### Sample data from a normal distribution and return a tibble  
 
-Generate data for a study where the population is normally distributed, with defined population mean and SD, and there is a single group.
+Generate data for a study where the population is normally distributed, with a single sample sampled from a normal population, specifying its population mean and SD, and the number of participants sampled. 
 
 Use `rnorm()`. 
 
@@ -22,9 +22,11 @@ Use `rnorm()`.
 
 ```
 
-### Sample data from a normal distribution, round to the nearest whole number, and return a tibble  
+### Sample data from a normal distribution, round to the nearest whole number, and return a tibble
 
-This makes the data look a bit more like Likert data. Note that properly simulating realistic Likert data is harder than this.
+Again, sample for a single group.  
+
+Rounding the data to the nearest whole number makes the data look a bit more like Likert data. Note that properly simulating realistic Likert data is harder than this.
 
 ```{r}
 
@@ -35,6 +37,10 @@ This makes the data look a bit more like Likert data. Note that properly simulat
 ```
 
 ### Sample data from a normal distribution, calculate its average, and return a tibble 
+
+Again, sample for a single group.  
+
+Calculating its average is an arbtrary choice, suggested only to practice writing functions.
 
 ```{r}
 
@@ -58,6 +64,32 @@ The arguments should be `mean_intervention`, `mean_control`, `sd`, and `n_per_co
 
 ```
 
+### Sample data from two normal distributions, return a tibble with two columns called intervention and control but more flexibly
+
+This time, write a more flexible function that has separate arguments for each condition's M, SD and N.
+
+```{r}
+
+
+
+
+
+```
+
+### Sample data from a normal distribution, add outliers, and return a tibble
+
+Like the previous exercise, this exercise asks you to generate two tibbles of data and then combine them. This time, both datasets are for the same single unnamed condition. One tibble represents the 'legitimate' data. The second tibble represents the outliers. Both should draw from normal distributions. The arguments should be a) the population mean of the legitimate data, b) the SD of the legitimate data, c) the **difference** between the legitimate and the outliers (i.e., outlier mean = legitimate mean + difference), and d) the SD of the outliers.
+
+Note that this is not intended to be a realistic DGP for how outliers occur, other than there being two separate DGPs for legitimate vs. outlier data. It is an arbitrary example designed to help you build your function writing skills.
+
+```{r}
+
+
+
+
+
+```
+
 ### Sample data from two normal distributions, return a tibble in long format with a 'score' and 'condition' column
 
 Use `bind_rows()`.
@@ -72,7 +104,7 @@ Use `bind_rows()`.
 
 ### Cohen's d simulator
 
-Write a function like the two-group RCT function we did before, but it should only take the arguments `cohens_d` and `n_per_group` (i.e., not means and SDs).
+Write a function like the two-group RCT function we did before, but it should only take the arguments `cohens_d` and `n_per_group` (i.e., not means and SDs). Whereas a previous exercise had you practice writing a more flexible function with more arguments, this practices a less flexible one with fewer arguments.
 
 `rnorm()` can produce Cohen's d-like data when we fix the SDs to 1, one mean to 0, and the second mean to the desired population Cohen's d value.
 
@@ -152,7 +184,7 @@ Add an argument `missing_rate` between 0 and 1. Test with `missing_rate = 0`, `0
 
 I.e., correlated data.
 
-## Three time points
+### Three time points
 
 Write a function that returns three time points (`pre`, `mid`, `post`) with correlations:
 
@@ -168,7 +200,7 @@ Assume the same SD at each time point.
 
 ```
 
-## Scale items with `rnorm_multi()`
+### Scale items with `rnorm_multi()`
 
 Using `faux::rnorm_multi()`:
 

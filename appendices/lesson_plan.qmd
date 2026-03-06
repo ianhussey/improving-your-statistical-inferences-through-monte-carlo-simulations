@@ -77,7 +77,8 @@ In class
 
 After class
 
-- XX
+- Chapter 4's exercises (linked in chapter).
+- [Chapter 5: Pseudo-random number generators](../chapters/5_pseudo_random_number_generators.qmd).
 
 ## Week 4
 

@@ -1,0 +1,130 @@
+# Pseudo-random number generators
+
+Randomness is impossible to achieve. All "random" number generators are actually pseudo-random number generators (PRNGs). Computer scientists and mathematicians spend lots of time trying to increase the randomness of our random number generators, because any degree of predictability adds bias to any models built on them. Pseudo-random numbers are at the core of simulation studies, as they allow us to (pseudo) randomly sample simulated data from known population distributions.
+
+
+## TODO
+
+- Discuss the apparent contradiction of **predictable unpredictability**. 
+
+
+## Sampling from uniform distributions
+
+A uniform distributions is when every value is as likely as every other value, and are selected from a given range. E.g., "pick a number between 1 and 10" where the picker is just as likely to say "1" as any other number in that range. 
+
+`runif()` is a random generation function (the "r" part) for a uniform distribution (the "unif" part). Not 'run if', which confuses some people.
+
+So, this code, which generates a random number between 1 and 10, will generate 3s just as often as it generates 7s. You can re run this code yourself many times to see it generate different numbers between 1 and 10.
+
+```{r}
+library(roundwork)
+
+runif(n = 1, 
+      min = 1,
+      max = 10) |>
+  round_up(0)
+```
+
+## Random number generators are not truly random
+
+You don't need to understand how PRNGs work, but you do need to know that the these "random" numbers can be predictably reproduced. The 'seed' value from which a PRNG starts can be set to control which random numbers are generated. 
+
+```{r}
+set.seed(43) # set the starting seed value for generating the random numbers
+
+runif(n = 1, 
+      min = 1,
+      max = 10) |>
+  round_up(0)
+
+
+set.seed(43) # set it again to the same value starting seed value for generating the random numbers
+
+runif(n = 1, 
+      min = 1,
+      max = 10) |>
+  round_up(0)
+```
+
+Note that if you run the function a second time without resetting to a known seed, the second value will be different to the first one.  
+
+```{r}
+set.seed(43) # set the starting seed value for generating the random numbers
+
+runif(n = 1, 
+      min = 1,
+      max = 10) |>
+  round_up(0)
+
+runif(n = 1, 
+      min = 1,
+      max = 10) |>
+  round_up(0)
+```
+
+This is because the Nth value of any sequence from a given seed is knowable, whether its run once or in multiple runs.
+
+```{r}
+set.seed(43) # set the starting seed value for generating the random numbers
+
+# generate both of the above numbers in one function call
+runif(n = 2, # generate two numbers rather than one
+      min = 1,
+      max = 10) |>
+  round_up(0)
+```
+
+## Randomness and reproducibility
+
+You might have heard people talking about "seeds" before when using R. Seeds, basically, are used to make sure that random output can be reproducible. 
+
+For example, look at the outputs of two calls to the `rnorm()` function below, which samples random values from a normal distribution with a mean of 0 and a standard deviation of 1:
+
+```{r}
+output1 <- rnorm(n = 5, mean = 0, sd = 1)
+output2 <- rnorm(n = 5, mean = 0, sd = 1)
+
+output1 
+output2
+```
+
+You can see that the outputs of the two calls are different. But sometimes we might not want this: for example, when we want other people to be able to reproduce our simulation results exactly. If we use truly random numbers, then every time we re-run the simulation we'll get slightly different results. What we really want are *pseudo*-random numbers - numbers which are sampled randomly, but where the specific random sampling can be reconstructed and reproduced. This is exactly what seeds are for: if you set a seed to a specific value, then all calls to functions which use randomisation will reproduce their random samples in future runs. 
+
+Put simply: if you start from the same seed, you get the same sequence of "random" values. Check out the example below, now using `set.seed()`:
+
+```{r}
+set.seed(123)
+
+output1 <- rnorm(n = 5, mean = 0, sd = 1)
+output2 <- rnorm(n = 5, mean = 0, sd = 1)
+
+output1 
+output2
+```
+
+In your own work, you’ll often set a seed once at the top of a script so you (and others) can reproduce your results.
+
+::: {.callout-warning collapse="true" title="A common mistake: setting the seed inside your generator"}
+Don’t put `set.seed()` *inside* a DGP function. If you do, every call will restart the random number generator in the same place, and you will keep generating the same dataset. This becomes a problem when we get to Step 4 (repeat many times), since you just end up repeating the exact same process every time.
+
+```{r}
+bad_generate <- function() {
+  set.seed(42)
+  rnorm(3)
+}
+
+bad_generate()
+bad_generate()
+```
+
+```{r}
+set.seed(42)
+good_generate <- function() {
+  rnorm(3)
+}
+
+good_generate()
+good_generate()
+```
+:::
+

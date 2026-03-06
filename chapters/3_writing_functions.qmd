@@ -659,4 +659,7 @@ Despite the test being advertised as having high accuracy, in the sense of a low
 
 This gets even worse when we consider that there are many students, each of which are submitting many assignments. If we track all 25 students in a symposium over 20 assignments they submit, the estimated familywise false positive rate is `r calc_aggregate_fpr(n = 25 * 20) *100`%. Whew.
 
-
+::: {.callout-tip title = "Practice writing functions"}
+Ready to practice? 
+Download and complete the [exercises for this chapter](../exercises/3_writing_functions_exercises.qmd).
+:::

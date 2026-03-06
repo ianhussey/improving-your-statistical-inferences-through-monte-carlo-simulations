@@ -21,12 +21,13 @@ book:
         - chapters/2_foundation_concepts.qmd 
         - chapters/3_writing_functions.qmd 
         - chapters/4_data_generating_process_functions.qmd 
-        - chapters/5_analysis_functions.qmd 
-        - chapters/6_creating_simulation_experiments.qmd 
-        - chapters/7_mapping.qmd 
-        - chapters/8_summarizing_results.qmd 
-        - chapters/9_planning_and_reporting.qmd 
-        - chapters/10_simulation_template.qmd 
+        - chapters/5_pseudo_random_number_generators.qmd
+        - chapters/6_analysis_functions.qmd 
+        - chapters/7_creating_simulation_experiments.qmd 
+        - chapters/8_mapping.qmd 
+        - chapters/9_summarizing_results.qmd 
+        - chapters/10_planning_and_reporting.qmd 
+        - chapters/11_simulation_template.qmd 
         
     - part: "Part II: Learning from Simulations"
       chapters:
@@ -40,11 +41,16 @@ book:
         - chapters/meta_analysis_and_publication_bias.qmd
         - chapters/causality.qmd
 
-    - part: "Exercises and Appendices"
+    - part: "Exercises"
       chapters:
-        - exercises/lesson_plan.qmd
         - exercises/1_required_skills_exercises.qmd
         - exercises/3_writing_functions_exercises.qmd
+        - exercises/4_data_generating_process_functions_exercises.qmd
+        
+    - part: "Appendices"
+      chapters:
+        - appendices/lesson_plan.qmd
+        - appendices/crowded_room_problem.qmd
         - license.qmd
 
 # bibliography: references.bib

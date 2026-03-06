@@ -22,8 +22,7 @@ Tidy Data is a set of technical ideas about how data should be structured define
 3. Each value is a cell; each cell is a single value.
 :::
 
-::: {.callout-tip}
-## Test your skills
+::: {.callout-tip title = "Test your skills"}
 Ready to test your data wrangling skills? 
 Download and complete the [exercises for this chapter](../exercises/1_required_skills_exercises.qmd).
 :::

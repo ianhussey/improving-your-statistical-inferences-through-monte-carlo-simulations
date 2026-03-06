@@ -2,8 +2,7 @@
 
 In the last chapter, you learned how to write functions. In this chapter, you’ll use that skill to write a specific type of function: **a data-generating process (DGP) function**. This is needed for one of the 5 key components of a Monte Carlo simulation study.
 
-::: {.callout-note collapse="true"}
-## Can you recall the 5 key components of Monte Carlo simulation?
+::: {.callout-note collapse="true" title = "Can you recall the 5 key components of Monte Carlo simulation?"}
 1. Design an experiment  
 2. Generate data  
 3. Analyse data  
@@ -33,6 +32,7 @@ library(tidyr)
 library(tibble)
 library(roundwork)
 library(ggplot2)
+library(scales)
 
 # NHANES dataset from the US Center for Disease Control, US adults 2008-2012
 library(NHANES)
@@ -121,7 +121,19 @@ A DGP function's properties are, then, more specifically:
 2. Draw samples from a DGP based on a given probability density function and the input parameters
 3. Return a simulated dataset
 
-## Building our first data-generating function: simulating two groups drawn from a normal distribution
+## Tidy DGP functions 
+
+In the next chapter, you’ll write **analysis functions** that take a dataset and return a result (a *p*-value, an estimated effect, a confidence interval, etc). When we write these analysis functions, we will have certain expectations about the output of our data-generating functions (e.g., that they will conform to principles of tidy data).
+
+In order to ensure that every data-generating function returns a tidy dataset with predictable column names, it is good practice to make sure that every DGP function returns a tibble as output. Tibbles are like dataframes, but with more consistent behavior that is useful for analysis. For example, if we use `select()` and select a single column from a dataframe, this is automatically treated by R as a vector, which might break some of our analysis functions down the line (which expect tibbles). `select()`ing one column from a tibble, by contrast, still returns a tibble object.
+
+Importantly, the outputs of our DGP functions should usually return Tidy Data:
+
+- one row per observation
+- relevant grouping variables
+- one column per variable you'll analyse
+
+## Building our first data-generation function: two groups sampled from normal distributions
 
 A simple example that is useful to many simulations of psychological data - and the example that we're going to use frequently in the next several chapters - is the simulation of two groups drawn from normal distributions with known means and standard deviations. In the previous example, these referred to heights for men and women, but in many of the following examples they will instead represent the intervention vs. control group of a randomised controlled trial (e.g., psychotherapy for depression). 
 
@@ -247,7 +259,7 @@ data_combined <- bind_rows(data_intervention,
 
 If you `View(data_combined)`, you can see this looks like our desired output. You have written the 'do stuff'!
 
-Or have we? Let's do some sanity checks before we go further. Once it's wrapped as a function, the inner workings of the intermediate steps become somewhat invisible due to varible scoping (see previous chapter). It's easier to verify it first.
+Or have we? Let's do some sanity checks before we go further. Once it's wrapped as a function, the inner workings of the intermediate steps become somewhat invisible due to variable scoping (see previous chapter). It's easier to verify it first.
 
 Let's increase `n_per_condition` to be large, so that the sample mean and standard deviations are closer to the population values.
 
@@ -364,41 +376,351 @@ results1 |>
   mutate_if(is.numeric, round_up, digits = 0)
 ```
 
-## Why return tidy data?
+## How realistic does your simulated data need to be?
 
-In the next chapter, you’ll write **analysis functions** that take a dataset and return a result (a *p*-value, an estimated effect, a confidence interval, etc). When we write these analysis functions, we will have certain expectations about the output of our data-generating functions (e.g., that they will conform to principles of tidy data).
+We can use the generate data function that we defined above to simulate depression scores on the Beck Depression Inventory (BDI-II) for an RCT on psychotherapy for depression. The BDI has a 0-3 response format and 13 items, so it has a minimum score of 0 and a maximum score of 63. What do you notice about the simulated data?
 
-In order to ensure that every data-generating function returns a tidy dataset with predictable column names, it is good practice to make sure that every DGP function returns a tibble as output. Tibbles are like dataframes, but with more consistent behavior that is useful for analysis. For example, if we use `select()` and select a single column from a dataframe, this is automatically treated by R as a vector, which might break some of our analysis functions down the line (which expect tibbles). `select()`ing one column from a tibble, by contrast, still returns a tibble object.
+```{r}
+#| echo: false
 
-Importantly, the outputs of our DGP functions should usually consist of the following information:
+scale_min <- 0
+scale_max <- 63
 
-- one row per observation
-- relevant grouping variables
-- one column per variable you'll analyse
+data_simulated_bdi_normal <- generate_data(
+  n_per_condition  = 10000,
+  mean_control     = 21,
+  mean_intervention = 16,
+  sd               = 10
+)
+
+ggplot(data_simulated_bdi_normal, aes(x = score, fill = condition, color = condition)) +
+  geom_density(adjust = 2, alpha = 0.4, color = NA) +
+  scale_x_continuous(breaks = breaks_pretty(n = 8)) +
+  geom_vline(xintercept = scale_min, linetype = "dotted") +
+  geom_vline(xintercept = scale_max, linetype = "dotted") +
+  theme_linedraw() +
+  labs(
+    title    = "Simulated BDI depression data",
+    subtitle = "from a Normal distribution",
+    x        = "Score",
+    y        = "Density"
+  ) +
+  scale_color_brewer(palette = "Set1") +
+  scale_fill_brewer(palette = "Set1")
+```
+
+Many of the simulated data points are below the scale's minimum of 0, and some might even be above the max of 63. We could instead generate data that adheres to the real-world scale's bounds. This could be done by sampling from a Beta distribution rather than a normal distribution.
+
+Many of us are not familiar with the Beta distribution. Whereas the normal distribution has the two parameters mean and standard deviation, the Beta distribution has the parameters alpha ($\alpha$) and beta ($\beta$). You can play with visualizing Beta distributions, or converting means, SDs and scale limits to Beta distributions in [this web app](https://errors.shinyapps.io/beta-distribution-visualiser/) we wrote.
+
+This below DGP code is quite a bit more advanced because it doesn't merely generate data for a Beta distribution, but takes a mean, standard deviation, and scale limits (e.g., as might be reported in a psychology article for a self-report scale) and calculates the rescaled Beta distribution of best fit to those parameters. The details of this don't matter right now; the point to appreciate here is that we can simulate data that is still sampled from a population with this mean and standard deviation, but does not violate the scale's logical minimum and maximum. 
+
+The generated data in the below plot has the exact same population mean and SD per group as the above one, but it adheres to the scale's bounds. 
+
+```{r}
+#| echo: false
+
+# data generation function
+generate_data <- function(n_per_condition,
+                          mean_control,
+                          mean_intervention,
+                          sd,
+                          scale_min = 0,
+                          scale_max = 1) {
+  
+  # Rescale a value from native scale to (0, 1)
+  to_01 <- function(x) (x - scale_min) / (scale_max - scale_min)
+  
+  # Beta Method-of-Moments: given mean and SD on native scale, return shape params
+  beta_mom <- function(mean_x, sd_x) {
+    mu     <- to_01(mean_x)
+    sigma2 <- (sd_x / (scale_max - scale_min))^2
+    kappa  <- mu * (1 - mu) / sigma2 - 1
+    list(shape1 = mu * kappa, shape2 = (1 - mu) * kappa)
+  }
+  
+  bp_control      <- beta_mom(mean_control, sd)
+  bp_intervention <- beta_mom(mean_intervention, sd)
+  
+  data_control <- tibble(
+    condition = "control",
+    score = rbeta(n = n_per_condition,
+                  shape1 = bp_control$shape1,
+                  shape2 = bp_control$shape2) * (scale_max - scale_min) + scale_min
+  )
+  data_intervention <- tibble(
+    condition = "intervention",
+    score = rbeta(n = n_per_condition,
+                  shape1 = bp_intervention$shape1,
+                  shape2 = bp_intervention$shape2) * (scale_max - scale_min) + scale_min
+  )
+  
+  bind_rows(data_control, data_intervention)
+}
+
+
+# simulate data
+scale_min <- 0
+scale_max <- 63
+
+data_simulated_bdi_beta <- generate_data(
+  n_per_condition  = 10000,
+  mean_control     = 21,
+  mean_intervention = 16,
+  sd               = 10,
+  scale_min        = scale_min,
+  scale_max        = scale_max
+)
+
+# plot
+ggplot(data_simulated_bdi_beta, aes(x = score, fill = condition, color = condition)) +
+  geom_density(adjust = 2, alpha = 0.4, color = NA) +
+  scale_x_continuous(breaks = breaks_pretty(n = 8),
+                     limits = c(scale_min, scale_max)) +
+  geom_vline(xintercept = scale_min, linetype = "dotted") +
+  geom_vline(xintercept = scale_max, linetype = "dotted") +
+  theme_linedraw() +
+  labs(
+    title    = "Simulated BDI depression data",
+    subtitle = "from a rescaled Beta distribution (bounded)",
+    x        = "Score",
+    y        = "Density"
+  ) +
+  scale_color_brewer(palette = "Set1") +
+  scale_fill_brewer(palette = "Set1")
+```
+
+Now, the simulated data is far more realistic, but will violate the analysis's assumptions.
+
+At the same time, the most common ways of analysing this data (e.g., testing for differences means using a t-test, calculating the standardized effect size Cohen's d effect size) treat the data as if they are normally distributed. That is, as if the data actually follows the dashed lines in the below plot.
+
+```{r}
+#| echo: false
+
+ggplot(data_simulated_bdi_beta, aes(x = score, fill = condition, color = condition)) +
+  geom_density(adjust = 2, alpha = 0.4, color = NA) +
+  # Normal Distribution Overlay
+  stat_function(fun = dnorm, 
+                args = list(mean = mean(data_simulated_bdi_beta$score[data_simulated_bdi_beta$condition == "control"]), 
+                            sd = sd(data_simulated_bdi_beta$score[data_simulated_bdi_beta$condition == "control"])),
+                color = "#E41A1C", linetype = "dashed", linewidth = 1) + 
+  stat_function(fun = dnorm, 
+                args = list(mean = mean(data_simulated_bdi_beta$score[data_simulated_bdi_beta$condition == "intervention"]), 
+                            sd = sd(data_simulated_bdi_beta$score[data_simulated_bdi_beta$condition == "intervention"])),
+                color = "#377EB8", linetype = "dashed", linewidth = 1) +
+  scale_x_continuous(breaks = breaks_pretty(n = 8),
+                     limits = c(scale_min, scale_max)) +
+  geom_vline(xintercept = scale_min, linetype = "dotted") +
+  geom_vline(xintercept = scale_max, linetype = "dotted") +
+  theme_linedraw() +
+  labs(
+    title    = "Simulated BDI depression data",
+    subtitle = "from a rescaled Beta distribution (bounded)",
+    x        = "Score",
+    y        = "Density"
+  ) +
+  scale_color_brewer(palette = "Set1") +
+  scale_fill_brewer(palette = "Set1")
+```
+
+Does this mismatch between the data's DGP and the analysis's assumed DPG matter? And, seperately, should our simulations aim for maximum realism in the data, or just adhere to the analysis's assumptions? 
+
+We will come back to questions like this in later chapters. For now, the point is to make you think about DGPs actually generating data, the fact that analyses assume a given DGP (this is what is meant by statistical assumptions), and the fact that these might not match (i.e., assumptions may be violated). Simulation studies can help us answer **when does this matter, and how much?** 
 
 ## Common data-generating functions
 
 In practice, many of the data-generating processes that we want to simulate can be modelled using some useful functions in R. You have already seen one example of this used above: namely, `rnorm()`. In this section, we'll go through a small number of additional data-generating functions that you will likely find useful in your future simulations.
 
-### Simulating binary outcomes with `rbinom()`
+### Bivariate normal data 
 
-`rbinom()` is used to model binomial distributions. This might sound a little offputting, but it's actually very simple: binomial distributions refer to cases where there are only two possible answers. Some examples of such situations are heads/tails in coin-flips, correct/incorrect in testing, dropped out/finished in an intervention study, and many others. 
+Aka pre-post repeated-measures design data.
 
-Let's look at how to use `rbinom()`. It takes three arguments: `n`, `size`, and `prob`. `n` refers to the number of samples (e.g., how many total rounds of coin-flips are done); `size` refers to the number of observations per sample (e.g., 10 coin-flips are done for every round of coin-flips collected); and `prob` refers to the "probability of success" (e.g., in coin-flips both outcomes are equally likely, so the probability of "success" (defined either as getting heads or getting tails) is 0.5).
-
-Let's look at a simple example: we want to simulate 10 rounds of flipping a single coin, assuming a probability of success of 0.5 for that coin. 
+Psychology data often include repeated measurements on the same person. For example, we might measure a person's score on a scale before and after they receive an intervention. In principle, we could just simulate these observations using two different `rnorm()` calls, like this:
 
 ```{r}
+generate_data_two_timepoints <- function(n_per_timepoint,
+                                         mean_pre,
+                                         mean_post,
+                                         sd) {
 
-set.seed(42)
-rbinom(n = 10, size = 1, prob = 0.5)
+  dat <- tibble(
+    id = 1:n_per_timepoint, # add an id column using the integers 1 to n_per_timepoint
+    score_pre = rnorm(n_per_timepoint, mean = mean_pre, sd = sd),
+    score_post = rnorm(n_per_timepoint, mean = mean_post, sd = sd)
+  )
 
+  return(dat)
+}
 ```
 
-Let's expand this into our two-group example from before. Previously, we used `rnorm()` to simulate values for a continuous outcome; now we can simulate binary values (e.g., getting a test question correct, scored as 1, or incorrect, scored as 0) with differences in the probability of correct responses between the two groups. This looks like:
+But look at the correlation between these observations:
 
 ```{r}
+set.seed(44)
 
+two_timepoint_data <- generate_data_two_timepoints(n_per_timepoint = 10000,
+                                                   mean_pre = 0,
+                                                   mean_post = 0.5,
+                                                   sd = 1)
+
+two_timepoint_data %>%
+  summarise(mean_pre = mean(score_pre),
+            mean_post = mean(score_post),
+            cor_pre_post = cor(score_pre, score_post)) %>%
+  round_up(2)
+```
+
+The scores at pre and post are uncorrelated. Why? Because the `rnorm()` calls are separate - effectively assuming the population correlation between the timepoints is zero. In real-world data this is unrealistic; observations from the same participant across time tend to be correlated due to test-retest reliability (e.g., *r* between .3 and .9), even when scores are influenced by an intervention. 
+
+So, how do we simulate *correlated* variables? `rnorm()` samples data from a univariate normal distribution, ie a single variable that is normally distributed in the population. We now want to sample from a multivariate normal distribution, specifically a bivariate normal distribution (two variables, pre and post).  
+
+Base-R does not have a built in function for this, but the {faux} package's `rnorm_multi()` can. We can use `rnorm_multi()` to simulate an arbitrary number of correlated variables. We'll start with just two, for pre-post data. 
+
+```{r}
+#| include: false
+# ensure its installed 
+# install.packages("devtools")
+# devtools::install_github("scienceverse/faux")
+```
+
+```{r}
+library(faux)
+
+set.seed(42)
+
+data_pre_post <- faux::rnorm_multi(
+  n = 10000,
+  vars = 2, # two variables, pre and post
+  varnames = c("score_pre", "score_post"),
+  mu = c(0, 0.5), # population mean by variable
+  sd = 1, # population sd by variable or, if a single value given, SD for all variables
+  r = 0.3 # correlation matrix or, if a single value given, correlation between all variables 
+) %>%
+  as_tibble() # faux returns a data.frame; we convert to tibble for consistency
+```
+
+Let's check parameter recovery. Since we sampled a large number of participants, the sample estimates should closely match the population parameters.
+
+```{r}
+data_pre_post %>%
+  summarise(mean_pre = mean(score_pre),
+            mean_post = mean(score_post),
+            cor_pre_post = cor(score_pre, score_post)) %>%
+  round_up(2)
+```
+
+::: {.callout-note collapse="true" title = "Check your learning: why does the number of sampled participants have to be high to do parameter recovery here?"}
+When the sample size is low, the estimated results will have a lot of uncertainty (e.g., wide confidence intervals and standard errors). By simulating a large number of participants, the estimates should converge on the population parameters, assuming the analysis assumes a similar DGP to the true DGP.
+:::
+
+We might then wrap the DGP in our own custom function to ensure that it returns tidy outputs and has clearly specified inputs. This might not be essential, but is useful for consistency (e.g., always having a data generating function called `generate_data` that specifies inputs as single variables rather than vectors).
+
+```{r}
+generate_data_pre_post <- function(n, 
+                                   mean_pre,
+                                   mean_post,
+                                   sd, 
+                                   r) {
+  
+  output <- faux::rnorm_multi(
+    n = n,
+    vars = 2, 
+    varnames = c("score_pre", "score_post"),
+    mu = c(mean_pre, mean_post), 
+    sd = sd, 
+    r = r 
+  ) %>%
+    as_tibble()
+  
+  return(output)
+}
+```
+
+We can check parameter recovery again:
+
+```{r}
+set.seed(42)
+
+data_pre_post <- generate_data_pre_post(n = 10000, 
+                                        mean_pre = 34,
+                                        mean_post = 27,
+                                        sd = 9,
+                                        r = 0.75)
+
+data_pre_post %>%
+  summarise(mean_pre = mean(score_pre),
+            mean_post = mean(score_post),
+            cor_pre_post = cor(score_pre, score_post)) %>%
+  round_up(2)
+```
+
+### Multivariate normal data
+
+Maybe we want to simulate a larger number of correlated variables, each sampled from normal distributions. To do this, we could increase the number of variables we ask for.
+
+This time, instead of specifying a single correlation value, we specify an entire correlation matrix that represents the population correlations between the variables. Because we didn't supply means and SDs, it will use the defaults for each (0 and 1, respectively). 
+
+```{r}
+set.seed(42)
+
+data_multivariate <- rnorm_multi(
+  n = 10000, 
+  vars = 3, 
+  varnames = c("X1", "X2", "X3"),
+  r = c( 1.0, 0.2, -0.5, 
+         0.2, 1.0,  0.5, 
+        -0.5, 0.5,  1.0)
+)
+```
+
+::: {.callout-tip collapse="false" title = "Common correlation matrix errors"}
+Note that: 
+- The correlation matrix must be symmetrical; its top and bottom triangle must be mirror images of one another
+- The diagonal values must be 1
+
+Not every set of correlations is mathematically possible. If `rnorm_multi()` tells you the correlation matrix is "not positive definite", it usually means your correlations are too extreme or inconsistent with each other. A simple fix is to reduce the magnitude of some of the correlations (move them closer to 0), especially any negative ones. See the appendix on the [Crowded Room problem](../appendices/crowded_room_problem.qmd) in correlations.
+:::
+
+We can check parameter recovery again:
+
+```{r}
+cor(data_multivariate) %>%
+  round_up(2)
+```
+
+### Binary outcomes 
+
+Binary outcomes refer to cases where there are only two possible answers, 0 or 1. Some examples include heads/tails, correct/incorrect, or survived/died. These are represented by the Bernoulli distribution.
+
+The Binomial distribution is used to model the number of these successes across one or more trials. 
+
+R uses the `rbinom()` function to sample from these distributions, either to get a sequence of individual outcomes (where size = 1, i.e., from the Bernoulli distribution) or the total count of successes (where size > 1, i.e., the Binomial distribution).
+
+Let's look at how to use `rbinom()`. It takes three arguments: `n`, `size`, and `prob`. 
+
+- `n` refers to the number of random draws (the number of values you want the function to return).
+- `size` refers to the number of trials per draw (e.g., if you flip a coin 10 times and count the heads, size = 10).
+- `prob` refers to the "probability of success" (e.g., in coin-flips both outcomes are equally likely, so the probability of "success" (defined either as getting heads or getting tails) is 0.5)
+
+Let's take a simple example: we'll simulate 10 coin flips, assuming a probability of heads (1) of 0.5 for each coin flip. 
+
+```{r}
+set.seed(42)
+
+rbinom(n = 10, size = 1, prob = 0.5)
+```
+
+::: {.callout-note collapse="true" title = "Check your learning: does the above code sample from a Bernoulli or Binomial distribution? Why?"}
+It samples from a Bernoulli distribution.
+
+Even though we use the `rbinom()` function, setting size = 1 restricts each individual draw to a single trial with only two possible outcomes (0 or 1). In probability theory, a Binomial distribution with only one trial ($n=1$) is defined as a Bernoulli distribution. 
+:::
+
+Let's expand this into our two-group example from before, which we might use to simulate an RCT on psychotherapy for alcoholism. In this case, a 1 represents an 'event', in this case the participant relapsing, whereas a 0 represents abstinence from alcohol.
+
+Previously, we used `rnorm()` to simulate values for a continuous outcome; now we can simulate binary values (e.g., getting a test question correct, scored as 1, or incorrect, scored as 0) with differences in the probability of correct responses between the two groups. 
+
+```{r}
 generate_data_two_group_binary <- function(n_per_condition,
                                            prob_control,
                                            prob_intervention) {
@@ -420,520 +742,23 @@ generate_data_two_group_binary <- function(n_per_condition,
 
   return(dat)
 }
-
 ```
 
-We can check the observed proportions to make sure our functions is working correctly. Specifically, if we simulate with `n_per_condition` = 30, `prob_control` = 0.25, and `prob_intervention` = 0.75, then we should see these proportions in the estimated mean scores of each group:
+We can check parameter recovery again:
 
 ```{r}
-
 set.seed(42)
 
-data_bin <- generate_data_two_group_binary(
-  n_per_condition = 30,
-  prob_control = 0.25,
-  prob_intervention = 0.75
+data_binary <- generate_data_two_group_binary(
+  n_per_condition = 10000,
+  prob_control = 0.40,
+  prob_intervention = 0.32
 )
 
-data_bin |>
+data_binary |>
   group_by(condition) |>
-  summarise(estimated_mean_score = mean(score), .groups = "drop")
-
+  summarise(probability_of_event = mean(score), .groups = "drop")
 ```
-
-Using `rbinom()` is crucial for simulating binary outcome DGPs. Later, your analysis function might be use a logistic regression to analyse these binary data. But note that, even though the specific DGP function has changed, the *structure* of the `generate_data_two_group_binary` function looks the same as `generate_data_two_group` from before: take inputs -> do stuff -> output a tibble.
-
-### Correlated data: repeated measures
-
-Psychology data often include repeated measurements on the same person. For example, we might measure a person's score on a scale before and after they receive an intervention. In principle, we could just simulate these observations using two different `rnorm()` calls, like this:
-
-```{r}
-
-generate_data_two_timepoints <- function(n_per_timepoint,
-                                    mean_score_t1,
-                                    mean_score_t2,
-                                    sd) {
-
-  dat <- tibble(
-    id = 1:n_per_timepoint,
-    score_t1 = rnorm(n_per_timepoint, mean = mean_score_t1, sd = sd),
-    score_t2 = rnorm(n_per_timepoint, mean = mean_score_t2, sd = sd)
-  )
-
-  return(dat)
-}
-
-
-```
-
-But let's run this function and look at the correlation between these observations:
-
-```{r}
-
-set.seed(42)
-
-two_timepoint_data <- generate_data_two_timepoints(n_per_timepoint = 50,
-                                                   mean_score_t1 = 0,
-                                                   mean_score_t2 = 0.5,
-                                                   sd = 1)
-
-broom::tidy(
-  cor.test(two_timepoint_data$score_t1,
-           two_timepoint_data$score_t2)
-)
-
-```
-
-The scores from timepoint 1 (T1) and timepoint 2 (T2) are uncorrelated. But in real life, this rarely happens: two observations from the same participant across time tend to be correlated, even when they are influenced by an intervention. 
-
-So, how do we simulate *correlated* variables?
-
-One simple way to do this is to draw from what is known as a **multivariate normal distribution**. This is a distribution that lets us specify both the means and SDs of variables, as well as the correlation between them. The function `mvrnorm()` from the {MASS} library does this very well.
-
-Let's simulate a design where we have a pre-intervention score variable `mean-pre`, and a post-ntervention score variable `mean-post`, and a correlation between these two variables `cor_pre_post`. 
-
-To use a multivariate normal distribution, we need to specify the *covariance matrix* between the variables. This is just a matrix that specifies how related each variable is to each other. Since we have two variables here, we need to create a 2x2 matrix. 
-
-You can think of a covariance matrix as an unstandardised correlation matrix. The correlation between a variable and itself is always 1. The covariance between a variable and itself is always the square of its standard deviation, namely `sd^2`. 
-
-When the SD is the same at both time points, the covariance between two variables is the correlation between them multiplied by `sd^2`, AKA `cor_pre_post * sd^2`. When we use the `mvrnorm()` function, we supply this covariance matrix to it as the parameter `Sigma`. 
-
-Our simple multivariate DGP function is as follows:
-
-```{r}
-
-generate_data_pre_post <- function(n,
-                                   mean_pre,
-                                   mean_post,
-                                   sd,
-                                   cor_pre_post) {
-
-  # construct the covariance matrix
-  covariance_matrix <- matrix(
-    c(sd^2, cor_pre_post * sd^2,
-      cor_pre_post * sd^2, sd^2),
-    nrow = 2,
-    byrow = TRUE
-  )
-
-  # simulate from the multivariate normal distribution
-  raw_dat <- MASS::mvrnorm(
-    n = n,
-    mu = c(mean_pre, mean_post),
-    Sigma = covariance_matrix
-  )
-
-
-  dat <- as_tibble(raw_dat) |>
-    setNames(c("score_pre", "score_post")) |>
-    mutate(id = 1:n) |> # create an identifier
-    relocate(id)
-
-  return(dat)
-}
-
-```
-
-And here's what the output of this looks like:
-
-```{r}
-
-set.seed(42)
-
-data_pre_post <- generate_data_pre_post(
-  n = 50,
-  mean_pre = 0,
-  mean_post = 0.5,
-  sd = 1,
-  cor_pre_post = 0.7
-)
-
-data_pre_post
-
-```
-
-Once again, we can sanity-check our code to make sure we see both means and between-variable correlations like we expect:
-
-```{r}
-
-data_pre_post |>
-  summarise(mean_pre = mean(score_pre),
-            mean_post = mean(score_post),
-            cor_pre_post = cor(score_pre, score_post))
-
-```
-
-### Many variables at once: `faux::rnorm_multi()`
-
-{MASS}'s `mvrnorm()` function is handy for generating multiple correlated variables. However, you may have noticed a couple of things that are not ideal about it. First, we need to manually construct the covariance matrix, which requires a little bit of fiddling and is generally a bit of a pain - especially if we want to simulate many variables, it can become quite a lot of work. Second, `mvrnorm()` does not give tidy output, meaning we have to do extra data cleaning and processing. 
-
-Fortunately, there exists a much handier function for simulating multivariate normal data: `rnorm_multi()` from the {faux} R package. We can use `rnorm_multi()` to simulate many correlated variables at once. This is especially useful for tasks like generating many items of a scale which should be correlated.
-
-If you don’t have it installed yet, install it once:
-
-```{r}
-#| eval: false
-
-install.packages("faux")
-
-```
-
-`rnorm_multi()` can take a few different arguments. They are:
-
-- `n` = the sample size per variable
-- `vars` = the number of variables to be generated
-- `mu` = the means of the variables
-- `sd` = the SDs of the variables
-- `r` = the correlation between each of the variables
-- `varnames` = the desired names of the variables
-- `empirical` = whether the correlations and means should exactly match the input values or not
-- `as.matrix` = whether the output should be returned as a matrix (TRUE) or not (FALSE)
-
-Obviously, we want our output as a tibble, not a matrix, so we will set `as.matrix` to FALSE. This is actually the default value, so we can leave it alone.
-
-Let's use `rnorm_multi()` to generate 5 variables, each with 200 observations `n`, each with a mean `mu` of 0, a sd `sd` of 1, and a correlation `r` of 0.3. 
-
-```{r}
-
-set.seed(42)
-
-data_simulated_items <- faux::rnorm_multi(
-  n = 200,
-  vars = 5,
-  mu = 0,
-  sd = 1,
-  r = 0.3,
-  varnames = c("variable1", "variable2", "variable3", "variable4", "variable5")
-) |>
-  as_tibble()
-
-```
-
-Let's look at the correlations between the simulated items:
-
-```{r}
-
-cor(data_simulated_items)
-
-```
-
-They look roughly right. But we can use the `empirical` argument to make them more precise. Let's try this out again with `empirical = TRUE`:
-
-```{r}
-
-set.seed(42)
-
-data_simulated_items_empirical <- faux::rnorm_multi(
-  n = 200,
-  vars = 5,
-  mu = 0,
-  sd = 1,
-  r = 0.3,
-  varnames = c("variable1", "variable2", "variable3", "variable4", "variable5"),
-  empirical = TRUE
-) |>
-  as_tibble()
-
-```
-
-Let's look at the correlations between the simulated items:
-
-```{r}
-
-cor(data_simulated_items_empirical)
-
-```
-
-Setting `empirical = TRUE` can make the simulation take longer to run, but it can also provide us with data that more precisely adheres to our specified parameter values. Although we usually do not want this in a simulation where we do this process many times.
-
-A full DGP might simulate these items, and then compute a total score based on these individual items:
-
-```{r}
-
-generate_data_scale_score <- function(n, 
-                                mean, 
-                                sd, 
-                                n_items,
-                                r) {
-
-  items <- faux::rnorm_multi(
-    n = n,
-    vars = n_items,
-    mu = mean,
-    sd = sd,
-    r = r,
-    varnames = paste0("variable", 1:n_items)
-  ) |>
-    as_tibble()
-
-  dat <- tibble(
-    id = 1:n,
-    score = rowMeans(items)
-  )
-
-  return(dat)
-}
-
-```
-
-Let's run this function where we assume 100 participants completed 10 items, each item having a mean of 0, SD of 1, and a correlation with the other items of 0.5:
-
-```{r}
-
-generate_data_scale_score(n = 100, 
-                          mean = 0, 
-                          sd = 1, 
-                          n_items = 10,
-                          r = 0.5)
-
-```
-
-What is returned, as we specified in our function above, is a single score for each participant, representing the mean of the 10 item scores for that participant. But we know that these scores are produced based on 10 items with a mean of 0, SD of 1, and correlation of 0.5 among them. 
-
-### Generating variables with different correlations
-
-Above, we looked at how we can use `rnorm_multi()` to generate multiple variables all with the same mean, SD, and correlation between them. But we can actually also use `rnorm_multi()` to generate data where variables have different means, SDs, and inter-variable correlations.
-
-The trick is that the `r` argument does not have to be a single number. It can also be a **correlation matrix**: a square matrix with:
-
-- 1s on the diagonal (each variable correlates perfectly with itself)
-- your desired correlations in the off-diagonal cells
-
-This is very similar to what we did previously with `mvrnorm()`, but with one useful difference: we can specify the correlation matrix directly, instead of the covarianece matrix (which is harder to understand since it is unstandardised).
-
-This is easiest to see with a small example. Suppose we want three variables with these correlations:
-
-- cor(x, y) = 0.6
-- cor(x, z) = 0.2
-- cor(y, z) = 0.4
-
-We can write that as a correlation matrix:
-
-```{r}
-
-cor_matrix <- matrix(
-  c(1, 0.6, 0.2,
-    0.6, 1, 0.4,
-    0.2, 0.4, 1),
-  nrow = 3,
-  byrow = TRUE
-)
-
-cor_matrix
-
-```
-
-Now we can pass that matrix into `rnorm_multi()`. Here we also set different means and SDs for each variable by passing vectors to `mu` and `sd`. We set `empirical = TRUE` to illustrate that the sample correlations match what we specified exactly.
-
-```{r}
-
-set.seed(42)
-
-data_different_correlations <- faux::rnorm_multi(
-  n = 200,
-  vars = 3,
-  mu = c(0, 0.5, -0.25),
-  sd = c(1, 1, 1.5),
-  r = cor_matrix,
-  varnames = c("x", "y", "z"),
-  empirical = TRUE
-) |>
-  as_tibble()
-
-data_different_correlations |>
-  summarise(
-    mean_x = mean(x),
-    sd_x = sd(x),
-    mean_y = mean(y),
-    sd_y = sd(y),
-    mean_z = mean(z),
-    sd_z = sd(z)
-  )
-
-cor(data_different_correlations)
-
-```
-
-This same idea can scale up. For example, we can build a “two-subscale” correlation structure for six items: items 1–3 correlate highly with each other (within-subscale), items 4–6 correlate highly with each other, and correlations across subscales are weaker. Think about this in the context of scales like personality questionnaires, which usually have 5 "subscales" where items correlate strongly with one another within subscales, and more weakly across subscales.
-
-```{r}
-
-n_items <- 6
-r_within <- 0.6
-r_between <- 0.2
-
-cor_items <- matrix(r_between, nrow = n_items, ncol = n_items)
-diag(cor_items) <- 1
-cor_items[1:3, 1:3] <- r_within
-cor_items[4:6, 4:6] <- r_within
-diag(cor_items) <- 1
-
-cor_items
-
-```
-
-```{r}
-
-set.seed(42)
-
-data_two_subscales <- faux::rnorm_multi(
-  n = 200,
-  vars = n_items,
-  mu = 0,
-  sd = 1,
-  r = cor_items,
-  varnames = paste0("item", 1:n_items),
-  empirical = TRUE
-) |>
-  as_tibble()
-
-cor(data_two_subscales)
-
-```
-
-::: {.callout-note collapse="true" title="If you get an error about the correlation matrix"}
-Not every set of correlations is mathematically possible. If `rnorm_multi()` tells you the correlation matrix is “not positive definite”, it usually means your correlations are too extreme or inconsistent with each other. A simple fix is to reduce some of the correlations (move them closer to 0).
-:::
-
-## Pseudo-random number generators
-
-Randomness is impossible to achieve. All "random" number generators are actually pseudo-random number generators (PRNGs). Computer scientists and mathematicians spend lots of time trying to increase the randomness of our random number generators, because any degree of predictability adds bias to any models built on them. Pseudo-random numbers are at the core of simulation studies, as they allow us to (pseudo) randomly sample simulated data from known population distributions.
-
-### Sampling from uniform distributions
-
-A uniform distributions is when every value is as likely as every other value, and are selected from a given range. E.g., "pick a number between 1 and 10" where the picker is just as likely to say "1" as any other number in that range. 
-
-`runif()` is a random generation function (the "r" part) for a uniform distribution (the "unif" part). Not 'run if', which confuses some people.
-
-So, this code, which generates a random number between 1 and 10, will generate 3s just as often as it generates 7s. You can re run this code yourself many times to see it generate different numbers between 1 and 10.
-
-```{r}
-
-
-runif(n = 1, 
-      min = 1,
-      max = 10) |>
-  round_up(0)
-
-```
-
-### Random number generators are not truly random
-
-You don't need to understand how PRNGs work, but you do need to know that the these "random" numbers can be predictably reproduced. The 'seed' value from which a PRNG starts can be set to control which random numbers are generated. 
-
-```{r}
-
-set.seed(43) # set the starting seed value for generating the random numbers
-
-runif(n = 1, 
-      min = 1,
-      max = 10) |>
-  round_up(0)
-
-
-set.seed(43) # set it again to the same value starting seed value for generating the random numbers
-
-runif(n = 1, 
-      min = 1,
-      max = 10) |>
-  round_up(0)
-
-```
-
-Note that if you run the function a second time without resetting to a known seed, the second value will be different to the first one.  
-
-```{r}
-
-set.seed(43) # set the starting seed value for generating the random numbers
-
-runif(n = 1, 
-      min = 1,
-      max = 10) |>
-  round_up(0)
-
-runif(n = 1, 
-      min = 1,
-      max = 10) |>
-  round_up(0)
-
-```
-
-This is because the Nth value of any sequence from a given seed is knowable, whether its run once or in multiple runs.
-
-```{r}
-
-set.seed(43) # set the starting seed value for generating the random numbers
-
-# generate both of the above numbers in one function call
-runif(n = 2, # generate two numbers rather than one
-      min = 1,
-      max = 10) |>
-  round_up(0)
-
-```
-
-### Randomness and reproducibility
-
-You might have heard people talking about "seeds" before when using R. Seeds, basically, are used to make sure that random output can be reproducible. 
-
-For example, look at the outputs of two calls to the `rnorm()` function below, which samples random values from a normal distribution with a mean of 0 and a standard deviation of 1:
-
-```{r}
-
-output1 <- rnorm(n = 5, mean = 0, sd = 1)
-output2 <- rnorm(n = 5, mean = 0, sd = 1)
-
-output1 
-output2
-
-```
-
-You can see that the outputs of the two calls are different. But sometimes we might not want this: for example, when we want other people to be able to reproduce our simulation results exactly. If we use truly random numbers, then every time we re-run the simulation we'll get slightly different results. What we really want are *pseudo*-random numbers - numbers which are sampled randomly, but where the specific random sampling can be reconstructed and reproduced. This is exactly what seeds are for: if you set a seed to a specific value, then all calls to functions which use randomisation will reproduce their random samples in future runs. 
-
-Put simply: if you start from the same seed, you get the same sequence of "random" values. Check out the example below, now using `set.seed()`:
-
-```{r}
-
-set.seed(123)
-
-output1 <- rnorm(n = 5, mean = 0, sd = 1)
-output2 <- rnorm(n = 5, mean = 0, sd = 1)
-
-output1 
-output2
-
-```
-
-In your own work, you’ll often set a seed once at the top of a script so you (and others) can reproduce your results.
-
-::: {.callout-warning collapse="true" title="A common mistake: setting the seed inside your generator"}
-Don’t put `set.seed()` *inside* a DGP function. If you do, every call will restart the random number generator in the same place, and you will keep generating the same dataset. This becomes a problem when we get to Step 4 (repeat many times), since you just end up repeating the exact same process every time.
-
-```{r}
-
-bad_generate <- function() {
-  set.seed(42)
-  rnorm(3)
-}
-
-bad_generate()
-bad_generate()
-
-```
-
-```{r}
-
-set.seed(42)
-good_generate <- function() {
-  rnorm(3)
-}
-
-good_generate()
-good_generate()
-
-```
-:::
-
 
 ## A checklist for DGP functions
 
@@ -944,18 +769,14 @@ When you write your own `generate_data()` functions, aim for these defaults:
 - Avoid side effects (don’t call `set.seed()` inside the function; don’t write files, don’t make plots).
 - Use clear, consistent column names (which helps both for reading code and for running analysis functions later).
 
-## Summary
-
-- A **data-generating process** is a set of assumptions plus randomness introduced by the sampling.
-- In simulation, parameters define what is "true" and random draws define what happens in one sample.
-- A DGP function should take explicit inputs and return one tidy dataset.
-- Useful building blocks include `rnorm()` (continuous), `rbinom()` (binary), and multivariate normal draws for correlated variables (`mvrnorm()`, `rnorm_multi()`).
-
+::: {.callout-tip title = "Practice writing DGP functions"}
+Ready to practice? 
+Download and complete the [exercises for this chapter](../exercises/4_data_generating_process_functions_exercises.qmd).
+:::
 
 ## TODO
 
-- move the set seed bit to a "predictable unpredictability" section that is left to a reading.
+- improve tidy section
 - add the "is this data normal?" exercise to this lesson or as a recap; remind people about the difference between sample and population, and that simulated data gives you access to the ground truth.
-- add the counterfactual to the fit of the normal curve to the data, ie what if it was very skewed; would it matter if we were summarising it as a mean and sd and assuming normality? we'll quantify the answer to this question in later chapters.
-
+- standardize use of set.seed above
 
