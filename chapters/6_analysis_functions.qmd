@@ -1,99 +1,250 @@
 # Analysis functions
 
-TODO
+## Extracting parameters from model objects
 
+model objects are non-tidy. for simulations, we usually want tidy inputs and outputs. so, we need to write analysis functions that receive tidy inputs and return tidy outputs.
 
+this requires us to know how to access model parameters from their fitted objects.
 
-
-- [{parameters}](https://easystats.github.io/parameters/)
-
-
-## To add
-
-- Writing TIDY functions AGAIN and why
-
-## Further reading
-
-Although we have practiced writing custom functions to extract statistical results / model parameters, it is worth knowing that the {easystats} family of packages includes [{parameters}](https://easystats.github.io/parameters/) package, which does a very good job of extracting model parameters from a very wide range of models including base R functions, {lavaan}, {psych}, and other packages. If you want to extract values from a model, consider using {parameters} to do a lot of the work for you when writing your function.
-
-Separately, the [{report}](https://easystats.github.io/report/) package will fully report the results of many common analyses for you. e.g.:
+this, again, involves writing the 'do stuff' part of the function first.
 
 ```{r}
 library(tibble)
 library(dplyr)
-library(report)
-
-data_simulated_intervention <- 
-  tibble(condition = "intervention", 
-         score = rnorm(n = 50, mean = 0, sd = 1))
-
-data_simulated_control <- 
-  tibble(condition = "control", 
-         score = rnorm(n = 50, mean = 0, sd = 1))
-
-data_simulated <- 
-  bind_rows(data_simulated_intervention,
-            data_simulated_control)
-
-t.test(score ~ condition, data = data_simulated) |>
-  report::report()
-
-```
-
-
-
-
-
-### Exercise 1 t test p value - analysis functions chapter
-
-```{r}
-
-# data to be analyzed using the analysis function
-data_simulated_intervention <- 
-  tibble(condition = "intervention", 
-         score = rnorm(n = 50, mean = 0, sd = 1))
-
-data_simulated_control <- 
-  tibble(condition = "control", 
-         score = rnorm(n = 50, mean = 0, sd = 1))
-
-data_simulated <- 
-  bind_rows(data_simulated_intervention,
-            data_simulated_control)
-
 ```
 
 ```{r}
+#| include: false
+# create dataset to be used/cleaned
 
-# define function
-t_test_p_value <- function(data) {
-  
-  res <- t.test(formula = score ~ condition, 
-                data = data)
-  
-  return(res$p.value)
-}
+# install the devtools and truffle packages if you don't have them already:
+# library(devtools)
+# install_github("ianhussey/truffle")
+library(truffle)
 
-# call function
-t_test_p_value(data_simulated)
+dat_depression_rct <- 
+  truffle_likert(study_design = "factorial_between2",
+                 n_per_condition = 20,
+                 factors  = "X1_latent",
+                 prefixes = "X1_item",
+                 alpha = .70,
+                 n_items = 13,
+                 n_levels = 4,
+                 approx_d_between_groups = 0.60) |>
+  snuffle_sum_scores("X1_", 
+                     min = 1, 
+                     max = 4, 
+                     id_col = "id") |>
+  select(id, condition, score = X1_sumscore) |>
+  mutate(score = score - 13) |>
+  truffle_demographics()
+```
+
+### Accessing model results
+
+assign model results to object; use $ on model object to see its elements
+
+```{r}
+
+fit_hypthesis_test <- t.test(formula = score ~ condition,
+                             var.equal = FALSE, # students t test: assumes equal variances
+                             data = dat_depression_rct)
+
+fit_hypthesis_test
+
+fit_hypthesis_test$statistic
+fit_hypthesis_test$parameter
+fit_hypthesis_test$p.value
+fit_hypthesis_test$estimate
+
+```
+
+Note that, despite the fact that a t-test is for estimating the differences in means between groups, R's t-test function does not return an esimate of the difference in means! we have to calculate it ourselves. [Uri Simonsohn recently pointed this out in a blog post](https://datacolada.org/132).
+
+```{r}
+
+as.numeric(fit_hypthesis_test$estimate[1] - fit_hypthesis_test$estimate[2])
 
 ```
 
 
-### Exercise 2 - analysis functions chapter
+exercise: tidy the result into a tibble
 
-The purpose of a t-test is to test differences in means between groups. 
+```{r}
+# answer:
+tibble(
+  t = fit_hypthesis_test$statistic,
+  df = fit_hypthesis_test$parameter,
+  p = fit_hypthesis_test$p.value,
+  m_diff = as.numeric(fit_hypthesis_test$estimate[1] - fit_hypthesis_test$estimate[2])
+)
 
-Weirdly, base-R's built in `t.test()` function does not actually return an estimate of this difference in means between groups, as [Uri Simonsohn recently pointed out](https://datacolada.org/132). 
+```
 
-Write a function that fits a t-test, returns results in tidy format, and includes an estimate of the difference in means between groups.
 
-There are two ways to do this: 1) calculating the means from the data directly, 2) calculating the difference from the two estimated means returned by the `t.test()` function. Practice writing functions by implementing both.
+## Tests of means
+
+### Independent t test
+
+exercise: using the above, write a function to extract the t, df, p, and m_diff from a students t test. The inputs are only the tibble containing the data; it can assume score ~ group
 
 ```{r}
 
 
 
 ```
+
+getting fancier - often won't be needed. use {{ column name }} to make the function more flexible.
+
+```{r}
+
+
+
+```
+
+Because this extracting parameters such a common task, R libraries have been written to help us do it: [{parameters}](https://easystats.github.io/parameters/).
+
+```{r}
+
+library(parameters)
+
+model_parameters(fit_hypthesis_test) %>%
+  as_tibble() %>%
+  janitor::clean_names() %>% # use snake_case
+  # we might still need to rename things for clarity
+  rename(m_diff = difference,
+         m_diff_ci_low = ci_low,
+         m_diff_ci_high = ci_high)
+
+```
+
+extracting effect sizes
+
+use the {effectsize} package where possible over alternatives, as its written by the same group who write {parameters} and plays nice with it and tidyverse
+
+```{r}
+
+library(effectsize)
+
+fit_effect_size <- 
+  cohens_d(score ~ condition,
+           data = dat_depression_rct) %>%
+  as_tibble() %>%
+  janitor::clean_names() %>% # use snake_case
+  rename(cohens_d_ci_low = ci_low, cohens_d_ci_high = ci_high)
+
+fit_effect_size
+
+```
+
+exercise: write a function that extracts the t, df, p, m_diff and its CIs, cohens d and its CIs, using {parameters} and {effectsize}
+
+```{r}
+
+
+
+```
+
+
+#### Write more flexible functions
+
+- students t vs Welches' t
+- alternative
+- different mu
+
+### Dependent t test and cohen's d_rm
+
+...
+
+### (RM)ANOVA F-tests
+
+afex::aov_ex is the gold standard for fitting (repeated measures) anovas in R using type III sum of squares, while avoiding the weird things that can happen with base-R's aov().
+
+```{r}
+
+library(tidyverse)
+library(afex)
+
+# 1. Correct Simulation
+set.seed(123)
+n_subjects <- 40
+
+# Assign each ID to only ONE group (Between-subjects)
+subjects <- data.frame(
+  id = factor(1:n_subjects),
+  group = rep(c("Treatment", "Control"), each = n_subjects/2)
+)
+
+# Expand only the Within-subjects factor (Time)
+df_corrected <- subjects %>%
+  group_by(id, group) %>%
+  reframe(time = factor(c("Pre", "Post"))) %>%
+  mutate(
+    score = rnorm(n(), mean = 10, sd = 2) + 
+            (time == "Post") * 2 + 
+            (group == "Treatment" & time == "Post") * 3
+  )
+
+# 2. Fit the model again
+model <- aov_ez(
+  id = "id", 
+  dv = "score", 
+  data = df_corrected,
+  between = "group", 
+  within = "time"
+)
+
+# Extract parameters
+parameters::model_parameters(model) %>%
+  as_tibble() %>%
+  janitor::clean_names() # use snake_case
+
+
+# Partial Eta-Squared (Standard)
+effectsize::eta_squared(model, partial = TRUE) %>%
+  as_tibble() %>%
+  janitor::clean_names() # use snake_case
+
+# Generalized Eta-Squared (Recommended for Mixed Designs)
+effectsize::eta_squared(model, generalized = TRUE) %>%
+  as_tibble() %>%
+  janitor::clean_names() # use snake_case
+
+```
+
+write a function to provide tidy results of an RM ANOVA for a 2X2 pre/post intervention/control design, its f values, p values, dfs, peta2 and geta2 effect sizes.
+
+## Tests of correlation/covariance
+
+### Bivariate correlations
+
+...
+
+### Regressions
+
+...
+
+## Test of other parameters (aka assumption tests)
+
+- equal variances
+- normality
+- etc
+
+
+## Pre-analysis functions 
+
+- data transformation / outlier exclusions / etc
+- hacking
+- ...
+
+
+
+
+## To add
+
+- 
+
+
+
 
 
