@@ -1,0 +1,72 @@
+---
+title: "Is this normally distributed?"
+format:
+  revealjs:
+    theme: default
+    embed-resources: true
+---
+
+```{r}
+#| include: false
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(purrr)
+library(tibble)
+library(moments)
+```
+
+## Sample data from a normally distributed population
+
+```{r}
+#| echo: true
+#| fig-width: 10
+#| fig-height: 5
+#| layout-ncol: 2
+
+set.seed(100000)
+data_simulated <- rnorm(30)
+
+```
+
+## Is this normally distributed?
+
+```{r}
+#| echo: false
+#| fig-width: 6
+#| fig-height: 2.5
+#| layout-ncol: 1
+
+ggplot() +
+  aes(x = data_simulated) +
+  geom_density() +
+  theme_linedraw() +
+  xlab("Score") +
+  ylab("Probability density")
+
+ggplot() +
+  aes(x = data_simulated) +
+  geom_histogram() +
+  theme_linedraw() +
+  xlab("Score") +
+  ylab("Frequency")
+```
+
+## Yes it is normal!
+
+- We sampled from a normal population. 
+
+```{r}
+#| echo: true
+#| fig-width: 10
+
+set.seed(100000)
+data_simulated <- rnorm(30)
+
+```
+
+- We know the ground truth
+  - ie the Data Generating Process
+- We must get used to thinking this way with Monte Carlo simulations
+
+
