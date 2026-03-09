@@ -50,6 +50,7 @@ book:
     - part: "Appendices"
       chapters:
         - appendices/lesson_plan.qmd
+        - appendices/ADEMP_preregistration_template
         - appendices/crowded_room_problem.qmd
         - license.qmd
 

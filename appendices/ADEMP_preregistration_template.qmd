@@ -1,0 +1,159 @@
+---
+title: "Project title here"
+author: "Authors here"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    theme: cosmo
+    embed-resources: true
+---
+
+## General Information
+
+<!-- Note: Guidance text is provided within these tags and does not render to the .html file. You should write normal text outside of these tags, like the next line, so that it renders. -->
+
+Template based on [Siepe et al. (2024)](https://doi.org/10.1037/met0000695), see GitHub repository [here](https://github.com/bsiepe/ADEMP-PreReg/).
+
+
+
+### Project description
+
+<!-- Provide a brief description of the project, including any empirical examples. -->
+
+
+
+### Prior related work
+
+<!-- Did any contributors already conduct related simulation studies on this specific question, including any preliminary simulations? -->
+
+
+
+## Aims
+
+<!-- What is the aim of the simulation study? Be specific about the statistical task (estimation, hypothesis testing, model selection, prediction, design). -->
+
+
+
+## Data-Generating Mechanism
+
+### DGM specification approach
+
+<!-- How will the parameters for the DGM be specified? (parametric based on real data / parametric / resampled) If based on real data, describe the dataset and model used. -->
+
+
+
+### DGM factors
+
+<!-- What will be the different factors of the DGM — i.e., parameters/settings varied across simulation conditions? -->
+
+
+
+### Factor values and settings
+
+<!-- Provide specific factor values and any settings held constant across conditions. Include justification for chosen values where relevant. -->
+
+
+
+### Factor combination and number of conditions
+
+<!-- If there is more than one factor: how will factor levels be combined? (fully factorial / partially factorial / one-at-a-time / scattershot) How many conditions does this create? -->
+
+
+
+## Estimands and Targets
+
+<!-- What are the estimands and/or targets of the simulation study? Distinguish primary and secondary targets if applicable. -->
+
+
+
+## Methods and extracted quantities
+
+<!-- How many and which methods will be included? What quantities will be extracted from each? Include code or pseudocode where helpful. Justify method and parameter choices; note where package defaults are used. -->
+
+
+
+## Performance and Uncertainty
+
+### Performance measures
+
+<!-- Which performance measures will be used? Provide formulas and justification. If multiple parameters are aggregated, specify how. -->
+
+
+
+### Monte Carlo uncertainty
+
+<!-- How will Monte Carlo Standard Errors (MCSEs) be calculated and reported? -->
+
+<!-- **Example1:** We will report Monte Carlo uncertainty in tables (MCSEs next to the estimated performance measures) and in plots (error bars with ±1 MCSE around estimated performance measures). We will use the formulas provided in Siepe et al. (2024) to calculate MCSEs. -->
+<!-- **Example2:** We will report Monte Carlo uncertainty in tables (Jackknife MCSEs next to the estimated performance measures) and in plots (error bars with ±1 Jackknife MCSE around estimated performance measures). We will use the Jackknife-based MCSEs computed using the [rsimsum (Gasparini 2018) / simhelpers (Joshi and Pustejovsky 2022)] R package. -->
+
+
+
+### Number of simulation repetitions
+
+<!-- How many repetitions per condition? Justify the number (sample size calculation, computational constraints, rule of thumb, etc.). -->
+
+<!-- **Example1:** We will perform 10,000 repetitions per condition. We determined this number by aiming for a MCSE of 0.005 for the type I error rate and the power under the “worst-case” rejection rate of 50% in the sense that the MCSE is maximal for a given number of repetitions (0.50×((1-0.50))⁄〖0.005〗^2 =10,000 repetitions). -->
+<!-- **Example2:** We determined the required number of repetitions to achieve a MCSE of 0.005 for the bias for each of the methods. The sample size calculation requires the empirical variance of the effect estimates S_θ ^^2 for each method. Since the empirical variances of the effect estimates can vary across simulation conditions, we compute the sample size using the largest estimated variance across all conditions. We obtain the empirical variance estimates for each condition and method using 100 pilot simulation runs. We found that the required sample sizes would be (S_θ ^^2)⁄〖0.005〗^2 =1,986 for ANCOVA, (S_θ ^^2)⁄〖0.005〗^2 =3,812 for change score analysis, and (S_θ ^^2)⁄〖0.005〗^2 =1,996 for post score analysis. -->
+
+
+
+### Non-convergence and missing values
+
+<!-- How will missing values due to non-convergence or other failures be handled? -->
+
+<!-- **Example:** We do not expect missing values or non-convergence. If we observe any non-convergence, we exclude the non-converged cases case-wise (keeping the converged values from the other methods in the same repetition) and report the number of non-converged cases per method and condition. -->
+
+
+
+### Interpretation of performance measures *(optional)*
+
+<!-- What constitutes acceptable/unacceptable performance? Are any regression models or effect sizes planned for analysing simulation results? -->
+
+
+
+## Other
+
+### Software and packages
+
+<!-- Which statistical software/packages will be used? Include version numbers where known. -->
+
+<!-- **Example:** Example: We will use the following packages of R version 4.5.2 in their most recent versions: The mvtnorm package (Genz and Bretz 2009) to generate data, the lm() function included in the stats package (R Core Team 2023) to fit the different models, the SimDesign package (Chalmers and Adkins 2020) to set up and run the simulation study, and the ggplot2 package (Wickham 2016) to create visualizations. The complete output of `sessionInfo()` will be saved and reported in the supplementary materials. -->
+
+
+
+### Computational environment
+
+<!-- Which operating system and hardware will be used? If multiple machines, describe each. -->
+
+<!-- **Example:** We will run the simulation study on a Apple machine running macOS 15.6. The complete output of `sessionInfo()` will be saved and reported in the supplementary materials. -->
+
+
+
+### Reproducibility measures *(optional)*
+
+<!-- What steps will be taken to make results reproducible? (code sharing, OSF/GitHub repository, supplementary materials, Shiny app, etc.). These are technically optional but strongly recommended for any public project. -->
+
+<!-- **Example:** We will upload the simulation script and a data set containing all relevant estimates, standard errors, and p-values for each repetition of the simulation to OSF (project URL) and GitHub (repository URL). -->
+<!-- **Example:** We will also employ the {groundhog} R package to increase the reproducibility of our R scripts. -->
+
+
+
+### Additional preregistration items *(optional)*
+
+<!-- Anything else to preregister? For example, the answer could include the most likely obstacles in the simulation design, and the plans to overcome them, or measures that increase the trust in the preregistration date (e.g., setting the seed based on a future event). -->
+
+
+
+## References
+
+<!-- Add references here, or use a .bib file by adding: -->
+<!-- bibliography: references.bib -->
+
+Siepe, B. S., Bartoš, F., Morris, T. P., Boulesteix, A.-L., Heck, D. W., & Pawel, S. (2024). Simulation studies for methodological research in psychology: A standardized template for planning, preregistration, and reporting. *Psychological Methods*. <https://doi.org/10.1037/met0000695>
+
+Morris, T. P., White, I. R., & Crowther, M. J. (2019). Using simulation studies to evaluate statistical methods. *Statistics in Medicine*, *38*(11), 2074–2102. <https://doi.org/10.1002/sim.8086>
+
