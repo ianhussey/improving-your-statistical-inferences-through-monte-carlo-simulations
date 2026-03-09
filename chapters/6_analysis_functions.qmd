@@ -1,36 +1,32 @@
 # Analysis functions
 
-## Extracting parameters from model objects
+Monte Carlo simulations involve generating data, analyzing data, and repeating this multiple times. In the last chapter you learned how to write functions to generate tidy data for analysis. In this chapter you'll learn how to analyze data and return tidy results, so that it can be repeated many times.
 
-model objects are non-tidy. for simulations, we usually want tidy inputs and outputs. so, we need to write analysis functions that receive tidy inputs and return tidy outputs.
+Many of us are used to running analyses a small number of times, and therefore working with the default output of R's analysis functions. For example, below we have simulated some data for an RCT on psychotherapy where depression is measured in both groups after the treatment (or waiting-list control).
 
-this requires us to know how to access model parameters from their fitted objects.
-
-this, again, involves writing the 'do stuff' part of the function first.
-
-```{r}
-library(tibble)
-library(dplyr)
-```
+We use a Student's *t*-test to estimate the difference in the sample means between groups and make an inference about whether the population means differ - i.e., whether the treatment is effective.  
 
 ```{r}
 #| include: false
-# create dataset to be used/cleaned
+# create dataset to be used
 
 # install the devtools and truffle packages if you don't have them already:
 # library(devtools)
 # install_github("ianhussey/truffle")
 library(truffle)
+library(tibble)
+library(dplyr)
 
 dat_depression_rct <- 
   truffle_likert(study_design = "factorial_between2",
-                 n_per_condition = 20,
+                 n_per_condition = 25,
                  factors  = "X1_latent",
                  prefixes = "X1_item",
-                 alpha = .70,
+                 alpha = .80,
                  n_items = 13,
                  n_levels = 4,
-                 approx_d_between_groups = 0.60) |>
+                 approx_d_between_groups = 0.70,
+                 seed = 45) |>
   snuffle_sum_scores("X1_", 
                      min = 1, 
                      max = 4, 
@@ -40,215 +36,286 @@ dat_depression_rct <-
   truffle_demographics()
 ```
 
-### Accessing model results
-
-assign model results to object; use $ on model object to see its elements
 
 ```{r}
+# fit t test
+fit_hypthesis_test <- t.test(
+  formula = score ~ condition,
+  var.equal = TRUE, # students t test: assumes equal variances
+  data = dat_depression_rct # simulated in a previous chunk not visible in the ebook
+)
 
-fit_hypthesis_test <- t.test(formula = score ~ condition,
-                             var.equal = FALSE, # students t test: assumes equal variances
-                             data = dat_depression_rct)
+# return the results using the function's print method
+fit_hypthesis_test %>%
+  print()
+```
 
+The output of `t.test()` does what we need to: we get estimates of the means and the *p*-value for the difference. But the output is very non-tidy. Of course, we could work with the list object that function returns, which has the following elements and values:
+
+```{r}
+# return the results as the literal contents of the list object
+fit_hypthesis_test %>%
+  unclass() %>%
+  print()
+```
+
+List objects can be tricky to work with. Instead, we will try to stay within the tidyverse workflow that returns tidy, tabular data (i.e., a tibble) by writing an analysis function around `t.test()`. 
+
+## Tidy data as format standardization
+
+A useful analogy here is that, in the past, cargo ships carried irregularly sized cargo. Before 1956, it would take a week or more to load or unload a large cargo ship, at an average of just over one tonne of cargo per hour. Because of this, ships usually spent 50% of their life being loaded and unloaded. 
+
+![](../images/unloading_ship.jpg){.center width="60%"}
+
+The invention of the standardized shipping container, the Twenty-foot Equivalent Unit (TEU), had a massive impact on global trade. Because of their standardized shape, they can be loaded or unloaded at roughly 5000 tonnes per hour - thousands of times more efficiently. Sure, the robots and logistics systems are part of this improved efficiency, but much of the benefit comes from simply standardizing the inputs and inputs to follow a similar structure.
+
+![](../images/shipping_containers.jpg){.center width="60%"}
+
+This book is written around a similar philosophy: that we can learn to write simulations, and reuse code more between simulations, when they employ tidy inputs and outputs. 
+
+Even if the steps within a given function are more complex, the inputs and outputs of a each function should be either single value parameters or tidy data frames. Making the inputs and outputs of the function **modular** like this means that they can be reused or modified for new purposes.
+
+![](../images/assembly_line.jpg){.center width="100%"}
+
+## Writing analysis functions
+
+### Accessing models' results
+
+To be able to write 'wrapper' functions for existing analysis functions that return tidy outputs, we often need to access elements of the lists (or other objects) those functions return. 
+
+Just like writing the 'do stuff' part of any function, this is much easier to write as normal code to get it working once, before later wrapping it in a function.
+
+If you have already fit a model and assigned its results to an object, like `fit_hypthesis_test` above, you can then access previews of its elements using `$`:
+
+![](../images/screenshot_subset_model_object.png){.center width="50%"}
+
+
+```{r}
+#| eval: false
+#| include: false
+# practice exploring and printing different elements by adding a `$` after the object: 
 fit_hypthesis_test
+```
 
+You can also use `unclass()` and then print an object to see all its elements. This stops the `print()` method for that object type converting it to a summary (i.e., the difference between `print(fit_hypthesis_test)` and `print(unclass(fit_hypthesis_test))`.).
+
+```{r}
+# return the results as the literal contents of the list object
+unclass(fit_hypthesis_test)
+```
+
+### Write the 'do stuff'
+
+This allows you to write code for the various elements you want to extract. For example, for the *t*-test we might want the following.
+
+```{r}
 fit_hypthesis_test$statistic
 fit_hypthesis_test$parameter
 fit_hypthesis_test$p.value
 fit_hypthesis_test$estimate
-
 ```
 
-Note that, despite the fact that a t-test is for estimating the differences in means between groups, R's t-test function does not return an esimate of the difference in means! we have to calculate it ourselves. [Uri Simonsohn recently pointed this out in a blog post](https://datacolada.org/132).
+At this point, it's worth pointing out that the `t.test()` function does not fully do what it is intended to. 
+
+Recall that a *t*-test a) estimates the differences between two groups' sample means and b) produces a *p*-value to allow the user to make an inferenence regarding whether the population means are likely to differ or not.
+
+As [Uri Simonsohn recently pointed this out in a blog post](https://datacolada.org/132), `t.test()` doesn't actually do (a)! It doesn't produce an estimate of the *difference* between the two sample means, only estimates of the mean in each sample. This is a bit odd, given that it does provide the 95% Confidence Intervals around this different in means, just not the difference in means itself (see '95 percent confidence interval:' in the above output). 
+
+If you want to estimate the *difference* between them, you have to calculate this yourself.
 
 ```{r}
-
-as.numeric(fit_hypthesis_test$estimate[1] - fit_hypthesis_test$estimate[2])
-
+unname(fit_hypthesis_test$estimate[1] - fit_hypthesis_test$estimate[2])
 ```
 
-
-exercise: tidy the result into a tibble
+Now that we have each of these, we can assemble them as a tibble. We'll repeat the code that runs the analysis here so that you can see we have all the code for the 'do stuff' now.
 
 ```{r}
-# answer:
+fit_hypthesis_test <- t.test(
+  formula = score ~ condition,
+  var.equal = TRUE, # students t test: assumes equal variances
+  data = dat_depression_rct # simulated in a previous chunk not visible in the ebook
+)
+
 tibble(
   t = fit_hypthesis_test$statistic,
   df = fit_hypthesis_test$parameter,
   p = fit_hypthesis_test$p.value,
-  m_diff = as.numeric(fit_hypthesis_test$estimate[1] - fit_hypthesis_test$estimate[2])
+  mean_diff = unname(fit_hypthesis_test$estimate[1] - fit_hypthesis_test$estimate[2])
 )
-
 ```
 
+### Wrap as a function
 
-## Tests of means
+Now we can wrap it as a function. No need to get fancy with this and make it highly flexible: it takes only one input (the data) and assumes that the type of test (Student's *t*-test rather than Welch's *t*-test) and the names of the variables (`score ~ data`).
 
-### Independent t test
+```{r}
+# define function
+analyse_data <- function(data){
+  fit <- t.test(
+    formula = score ~ condition,
+    var.equal = TRUE, # students t test: assumes equal variances
+    data = data 
+  )
+  
+  res <- tibble(
+    t = fit$statistic,
+    df = fit$parameter,
+    p = fit$p.value,
+    mean_diff = unname(fit$estimate[1] - fit$estimate[2])
+  )
+  
+  return(res)
+}
 
-exercise: using the above, write a function to extract the t, df, p, and m_diff from a students t test. The inputs are only the tibble containing the data; it can assume score ~ group
+# usage
+analyse_data(dat_depression_rct)
+```
+
+::: {.callout-note collapse="true" title = "What should you now do, following the usual steps of writing a function?"}
+You must always sanity test your function to make sure that the code does not merely run, but that it performs as intended. 
+
+One of the easiest ways to do so is via parameter recovery.
+
+Create a dataset that simulates two conditions, uses a very large sample size (eg n = 10000) and a large population difference in means. Write this as a Data Generating Process function. Generate a dataset using the function, then supply this data to the data analysis function and ensure that you recover a sample estimate close to the population parameters. 
+
+This exercise is as much about practicing your skills writing data generating process functions as your sanity testing/parameter recovery skills.
 
 ```{r}
 
 
 
 ```
+:::
 
-getting fancier - often won't be needed. use {{ column name }} to make the function more flexible.
+### The parameters library
 
-```{r}
+Because extracting model parameters is such a common task, R libraries have been written specifically for this purpose. The [{parameters}](https://easystats.github.io/parameters/) package is in the {easystats} universe of packages, all of which play nicely with {tidyverse} code.
 
-
-
-```
-
-Because this extracting parameters such a common task, R libraries have been written to help us do it: [{parameters}](https://easystats.github.io/parameters/).
+`parameters::model_parameters()` extracts many different analysis functions' results as a data frame.
 
 ```{r}
-
 library(parameters)
+library(janitor)
 
 model_parameters(fit_hypthesis_test) %>%
-  as_tibble() %>%
-  janitor::clean_names() %>% # use snake_case
-  # we might still need to rename things for clarity
-  rename(m_diff = difference,
-         m_diff_ci_low = ci_low,
-         m_diff_ci_high = ci_high)
-
+  as_tibble() # convert to tibble to print the tibble rather than via the print() method
 ```
 
-extracting effect sizes
+Does this render the above lesson on how to do this yourself obsolete? Mostly yes. But it's important do know how to do it yourself, as not all model types are accomodated by {parameters}.
 
-use the {effectsize} package where possible over alternatives, as its written by the same group who write {parameters} and plays nice with it and tidyverse
+We can still wrangle this further if we:
+
+- Want to select only some of these columns
+- Need to prevent duplicate names that would cause problems later
+- Want to clarify variables names
+- Prefer a different naming convention
 
 ```{r}
-
-library(effectsize)
-
-fit_effect_size <- 
-  cohens_d(score ~ condition,
-           data = dat_depression_rct) %>%
-  as_tibble() %>%
-  janitor::clean_names() %>% # use snake_case
-  rename(cohens_d_ci_low = ci_low, cohens_d_ci_high = ci_high)
-
-fit_effect_size
-
+model_parameters(fit_hypthesis_test) %>%
+  as_tibble() %>% # convert to tibble 
+  # we are in the habit of using snake_case for naming, so convert. the janitor package has a function for this.
+  janitor::clean_names() %>% 
+  # despite how good {parameters} is, we may need to rename columns for clarity or to prevent duplicates later
+  # select-and-rename the columns of interest
+  select(t,
+         df = df_error,
+         p,
+         mean_diff = difference,
+         mean_diff_ci_low = ci_low,
+         mean_diff_ci_high = ci_high)
 ```
 
-exercise: write a function that extracts the t, df, p, m_diff and its CIs, cohens d and its CIs, using {parameters} and {effectsize}
+## Writing more flexible functions
+
+### Additional arguments 
+
+We often want our analysis function to take arguments other than just the data to be analyzed. For example, instead of forcing the use of a Student's *t*-test via `var.equal = TRUE`, we might want to choose wehteh to use a Students' *t*-test (`var.equal = TRUE`) or Welch's *t*-test (`var.equal = FALSE`) each time we call the function. 
+
+- How would you do this?
+- How would you specify defaults?
+
+Look back to the [chapter on Writing Functions](../exercises/3_writing_functions.qmd) to refresh your memory. 
+
+### Interpolating column names via the curly-curly operator (`{{ }}`) 
+
+There can be cases where we need a more flexible function so that it can take take variables other than `score` and `condition`. 
+
+However, this isn't quite as easy to do. The ways that might be intuitive won't work. 
 
 ```{r}
-
-
-
-```
-
-
-#### Write more flexible functions
-
-- students t vs Welches' t
-- alternative
-- different mu
-
-### Dependent t test and cohen's d_rm
-
-...
-
-### (RM)ANOVA F-tests
-
-afex::aov_ex is the gold standard for fitting (repeated measures) anovas in R using type III sum of squares, while avoiding the weird things that can happen with base-R's aov().
-
-```{r}
-
-library(tidyverse)
-library(afex)
-
-# 1. Correct Simulation
-set.seed(123)
-n_subjects <- 40
-
-# Assign each ID to only ONE group (Between-subjects)
-subjects <- data.frame(
-  id = factor(1:n_subjects),
-  group = rep(c("Treatment", "Control"), each = n_subjects/2)
-)
-
-# Expand only the Within-subjects factor (Time)
-df_corrected <- subjects %>%
-  group_by(id, group) %>%
-  reframe(time = factor(c("Pre", "Post"))) %>%
-  mutate(
-    score = rnorm(n(), mean = 10, sd = 2) + 
-            (time == "Post") * 2 + 
-            (group == "Treatment" & time == "Post") * 3
+#| eval: false
+#| include: true
+# 'dv' and 'iv' have been made input arguments and used in the formula
+analyse_data <- function(data, dv, iv){
+  fit <- t.test(
+    formula = dv ~ iv,
+    var.equal = TRUE, # students t test: assumes equal variances
+    data = data 
   )
+  
+  res <- tibble(
+    t = fit$statistic,
+    df = fit$parameter,
+    p = fit$p.value,
+    mean_diff = unname(fit$estimate[1] - fit$estimate[2])
+  )
+  
+  return(res)
+}
 
-# 2. Fit the model again
-model <- aov_ez(
-  id = "id", 
-  dv = "score", 
-  data = df_corrected,
-  between = "group", 
-  within = "time"
-)
+# however, none of these will work:
+# 1. 
+analyse_data(data = dat_depression_rct, 
+             dv = score,
+             iv = condition)
+# > Error: object 'score' not found
 
-# Extract parameters
-parameters::model_parameters(model) %>%
-  as_tibble() %>%
-  janitor::clean_names() # use snake_case
+# 2.
+analyse_data(data = dat_depression_rct, 
+             dv = "score",
+             iv = "condition")
+# > Error in t.test.formula(formula = dv ~ iv, var.equal = TRUE, data = data) :
+# >   grouping factor must have exactly 2 levels
 
-
-# Partial Eta-Squared (Standard)
-effectsize::eta_squared(model, partial = TRUE) %>%
-  as_tibble() %>%
-  janitor::clean_names() # use snake_case
-
-# Generalized Eta-Squared (Recommended for Mixed Designs)
-effectsize::eta_squared(model, generalized = TRUE) %>%
-  as_tibble() %>%
-  janitor::clean_names() # use snake_case
-
+# 3.
+# neither will defining the function as `formula = "dv" ~ "iv",` etc.
 ```
 
-write a function to provide tidy results of an RM ANOVA for a 2X2 pre/post intervention/control design, its f values, p values, dfs, peta2 and geta2 effect sizes.
+This is because `score` and `condition` are neither values nor objects, but elements of another object (i.e., columns in the `data` tibble). 
 
-## Tests of correlation/covariance
+There are other ways to solve this, but a convenient one is the use of the 'curly-curly' operator, `{{ column }}`. While these can't be used directly in `formula`, they can be called in a tidy workflow to rename columns just before they're used.
 
-### Bivariate correlations
+```{r}
+# define function
+analyse_data <- function(data, dv, iv){
+  data_renamed <- data %>%
+    rename(dv = {{ dv }},
+           iv = {{ iv }})
 
-...
+  fit <- t.test(
+    formula = dv ~ iv,
+    var.equal = TRUE, # students t test: assumes equal variances
+    data = data_renamed 
+  )
+  
+  res <- tibble(
+    t = fit$statistic,
+    df = fit$parameter,
+    p = fit$p.value,
+    mean_diff = unname(fit$estimate[1] - fit$estimate[2])
+  )
+  
+  return(res)
+}
 
-### Regressions
+# usage
+analyse_data(data = dat_depression_rct, 
+             dv   = score,
+             iv   = condition)
+```
 
-...
-
-## CFA/SEM
-
-lavaan
-
-## Test of other parameters (aka assumption tests)
-
-- equal variances
-- normality
-- etc
-
-
-## Pre-analysis functions 
-
-- data transformation / outlier exclusions / etc
-- hacking
-- ...
-
-
-
-
-## To add
-
-- 
-
-
-
-
+::: {.callout-tip title="Practice writing analysis functions"}
+Ready to practice? 
+Download and complete [the exercises for this chapter](https://raw.githubusercontent.com/ianhussey/improving-your-statistical-inferences-through-monte-carlo-simulations/main/exercises/6_analysis_functions_exercises.qmd){download="6_analysis_functions_exercises.qmd"}
+:::
 

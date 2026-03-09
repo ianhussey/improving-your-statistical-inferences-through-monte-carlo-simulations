@@ -1,0 +1,254 @@
+# Analysis functions
+
+These exercises accompany the [analysis functions chapter](../chapters/6_analysis_functions.qmd).
+
+You can complete these exercises in your local version of the .qmd file. Either download a copy of the whole book from github (see introduction), or download this .qmd using the download button on the top right of the page.
+
+Write functions for each of the following. Remember that you can write pseudocode first if it helps.
+
+```{r}
+library(tibble)
+library(dplyr)
+library(parameters)
+library(janitor)
+library(effectsize)
+library(afex)
+```
+
+```{r}
+#| include: false
+# create dataset to be used
+
+# install the devtools and truffle packages if you don't have them already:
+# library(devtools)
+# install_github("ianhussey/truffle")
+library(truffle)
+
+dat_depression_rct <- 
+  truffle_likert(study_design = "factorial_between2",
+                 n_per_condition = 25,
+                 factors  = "X1_latent",
+                 prefixes = "X1_item",
+                 alpha = .80,
+                 n_items = 13,
+                 n_levels = 4,
+                 approx_d_between_groups = 0.70,
+                 seed = 45) |>
+  snuffle_sum_scores("X1_", 
+                     min = 1, 
+                     max = 4, 
+                     id_col = "id") |>
+  select(id, condition, score = X1_sumscore) |>
+  mutate(score = score - 13) |>
+  truffle_demographics()
+```
+
+## Estimation and tests of means
+
+### Independent *t*-test
+
+Using the `dat_depression_rct` tibble, write a function to extract the t, df, p, and mean_diff from a students t test. The inputs are only the tibble containing the data; it can assume score ~ group
+
+```{r}
+
+
+
+```
+
+#### Write more flexible functions
+
+Instead of the assuming forcing the use of a Student's *t*-test via `var.equal = TRUE`, make this a) an option the user can specify when calling the function and b) make TRUE the default value. Can't remember how to do this? Go back to the Writing Functions chapter. 
+
+```{r}
+
+
+```
+
+Add arguments to specify `t.test()`'s `alternative` argument, i.e., whether the hypothesis test is two-sided or directional
+
+```{r}
+
+
+```
+
+Add arguments to specify `t.test()`'s `mu` argument, i.e., whether the population mean difference being tested by the p value is zero (default) or some other value. We will use this in later chapters. 
+
+```{r}
+
+
+```
+
+Use the curly-curly operator (`{{ column }}`) to specify the `t.test()`'s IV and DV in its formula. 
+
+```{r}
+
+
+
+```
+
+#### Extracting Cohen's *d* effect sizes
+
+Use the {effectsize} package where possible over alternatives, as its written by the same group who write {parameters} and plays nice with it and tidyverse.
+
+Use `effectsize::cohens_d()` to extract Cohen's *d* and its 95% CIs and return these as a tibble. In between groups designs, this version of Cohen's d is referred to as Cohen's $d_s$.
+
+```{r}
+
+
+
+```
+
+Write a function that extracts the t, df, p, mean_diff and its CIs, Cohen's *d* and its CIs, using {parameters} and {effectsize}
+
+```{r}
+
+
+
+```
+
+### Dependent *t*-test and Cohen's $d_{rm}$
+
+[TODO dataset needed]
+
+Use `t.test()` with `paired = TRUE` and `effectsize::repeated_measures_d()`.
+
+```{r}
+
+
+
+```
+
+### Non-parameteric alternative measures
+
+[TODO dataset needed]
+
+Non-parametric alternative to `t.test()` to test differences in ranks rather than differences in means using `wilcox.test()`
+
+```{r}
+
+
+
+```
+
+### (RM-)ANOVA F-tests
+
+[TODO more generic data generation function needed]
+
+Estimating and testing differences in means in within, between, or mixed within-between factorial designs with more than two cells using (RM-)ANOVA. 
+
+`afex::aov_ex()` is the gold standard for fitting (repeated measures) (RM-)ANOVAs in R using type III sum of squares, while avoiding the weird things that can happen with base-R's aov().
+
+```{r}
+#| include: false
+# generate mixed within-between RCT data
+set.seed(42)
+n_subjects <- 40
+
+dat_depression_rct_mixed <- tibble(
+  id = factor(1:n_subjects),
+  condition = rep(c("treatment", "control"), each = n_subjects/2)
+) %>%
+  group_by(id, condition) %>%
+  reframe(time = factor(c("baseline", "post"))) %>%
+  mutate(
+    score = rnorm(n(), mean = 10, sd = 1) + 
+            (time == "post") * 2 + 
+            (condition == "treatment" & time == "post") * 3
+  )
+```
+
+```{r}
+# fit 
+fit_rm_anova <- afex::aov_ez(
+  id = "id", 
+  dv = "score", 
+  data = dat_depression_rct_mixed,
+  between = "condition", 
+  within = "time"
+)
+
+# extract parameters
+## p values and df
+parameters::model_parameters(fit_rm_anova) %>%
+  as_tibble() %>%
+  janitor::clean_names() # use snake_case
+
+## partial Eta-Squared (more common but flawed metric)
+effectsize::eta_squared(fit_rm_anova, partial = TRUE) %>%
+  as_tibble() %>%
+  janitor::clean_names() # use snake_case
+
+## generalized Eta-Squared (recommended; ideally both)
+effectsize::eta_squared(fit_rm_anova, generalized = TRUE) %>%
+  as_tibble() %>%
+  janitor::clean_names() # use snake_case
+```
+
+Write a function to provide tidy results of an RM ANOVA for a 2X2 pre/post intervention/control design, its f values, p values, dfs, partial-Eta-squared and generalized-Eta-squared effect sizes.
+
+```{r}
+
+
+```
+
+## Estimation and tests of correlation/covariance
+
+### Bivariate correlations
+
+[TODO dataset needed]
+
+Estimating and testing correlations with `cor.test()`
+
+```{r}
+
+
+
+```
+
+### Regressions
+
+[TODO dataset needed]
+
+Estimating and testing regression slopes with `lm()`
+
+```{r}
+
+
+
+```
+
+## Estimation and tests of other parameters (aka assumption tests)
+
+[TODO dataset needed]
+
+Estimating and testing differences in variances with Levene's test `rstatix::levene_test`
+
+```{r}
+
+library(rstatix)
+rstatix::levene_test(formula = score ~ condition,
+                     data = dat_depression_rct)
+
+```
+
+Testing normality with Shapiro-Wilk's test `shapiro.test()`. See also Anderson Darling test `nortest::ad.test()`.
+
+```{r}
+
+
+
+```
+
+## Pre-analysis functions 
+
+- data transformation / outlier exclusions / etc
+- hacking
+- ...
+
+
+
+
+
+
+
+
