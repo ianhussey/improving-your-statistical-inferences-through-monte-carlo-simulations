@@ -55,24 +55,9 @@ After class
 
 ## Week 3
 
-- Concept of DGP
-  - If you sample the entire population, you still need inferential stats to understand the DGP. Eg if you study astronauts, and there are only 12 of them, and you recruit all of them, you don't automatically know the DGP, which is an abstraction, involves error, etc
-- Normal data
-- Skew normal data
-- Uniform data
-- Beta data? to simulate bounded data from psych scales, with multipliers for the scale length.
-- Likert data? (?other than truffle)
-- correlated data
-- mixed cor and factor data
-- Item level data? (lavaan)
-- Writing TIDY functions and why
-
-Before class
-
-- XX
-
 In class
 
+- [Slides: Is this normally distributed?](../slides/week3/is_this_normally_distributed.html).
 - [Chapter 4: Data Generating Process functions](../chapters/4_data_generating_process_functions.qmd).
 
 After class
