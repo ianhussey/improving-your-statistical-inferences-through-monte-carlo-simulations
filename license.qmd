@@ -10,5 +10,5 @@ You are free to copy, share, adapt, and reuse the contents of this book — text
 
 Citation:
 
-Hussey, I. (2025) Improving your statistical inferences using Monte Carlo simulation studies in tidyverse. github.com/ianhussey/improving-your-statistical-inferences-through-monte-carlo-simulation-studies
+Hussey, I. & Cummins, J. (2025) Improving your statistical inferences using Monte Carlo simulation studies in tidyverse. github.com/ianhussey/improving-your-statistical-inferences-through-monte-carlo-simulation-studies
 
