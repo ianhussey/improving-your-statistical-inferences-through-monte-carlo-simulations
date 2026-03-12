@@ -1,4 +1,10 @@
-# Meta-analysis and publication bias
+# Meta-analysis and publication bias <span class="badge badge-draft1">✎ Very rough draft</span>
+
+```{r}
+#| include: false
+# if it is available, run the setup script that tells quarto to round all df/tibble outputs to three decimal places
+if(file.exists("../_setup.R")){source("../_setup.R")}
+```
 
 ## Dependencies
 
@@ -18,8 +24,6 @@ library(tibble)
 #library(sn)
 library(metafor)
 library(parameters)
-library(knitr)
-library(kableExtra)
 library(pwr)
 library(ggstance)
 
@@ -54,9 +58,7 @@ es <- escalc(measure = "SMD",
 
 es |>
   as_tibble() |>
-  mutate_all(round_half_up, digits = 2) |>
-  kable() |>
-  kable_classic(full_width = FALSE)
+  mutate_all(round_half_up, digits = 2)
 
 ```
 
@@ -69,9 +71,7 @@ The simplest form of meta-analysis - although it would not be acceptable to use 
 ```{r}
 
 es |>
-  summarize(mean_effect_size = round_half_up(mean(yi), digits = 2)) |>
-  kable() |>
-  kable_classic(full_width = FALSE)
+  summarize(mean_effect_size = round_half_up(mean(yi), digits = 2))
 
 ```
 
@@ -356,8 +356,6 @@ library(tibble)
 library(forcats)
 library(purrr) 
 library(ggplot2)
-library(knitr)
-library(kableExtra)
 library(janitor)
 library(metafor)
 
@@ -534,8 +532,6 @@ How could we assess the power of a method like Egger's test for funnel plot asym
 # library(forcats)
 # library(purrr) 
 # library(ggplot2)
-# library(knitr)
-# library(kableExtra)
 # library(janitor)
 # library(metafor)
 # 
@@ -765,9 +761,7 @@ How could we assess the power of a method like Egger's test for funnel plot asym
 # 
 # # print table
 # simulation_summary |>
-#   mutate_if(is.numeric, round_half_up, digits = 2) |>
-#   kable() |>
-#   kable_classic(full_width = FALSE)
+#   mutate_if(is.numeric, round_half_up, digits = 2) 
 
 # Error in `mutate()`:
 # ℹ In argument: `analysis_meta = future_pmap(...)`.

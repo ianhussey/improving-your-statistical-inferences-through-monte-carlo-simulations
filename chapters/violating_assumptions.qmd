@@ -1,4 +1,10 @@
-# Assessing the impact of violating the assumption of normality
+# Assessing the impact of violating the assumption of normality <span class="badge badge-draft2">✎ Rough draft</span>
+
+```{r}
+#| include: false
+# if it is available, run the setup script that tells quarto to round all df/tibble outputs to three decimal places
+if(file.exists("../_setup.R")){source("../_setup.R")}
+```
 
 ## Dependencies
 
@@ -12,8 +18,6 @@ library(forcats)
 library(ggplot2)
 library(scales)
 library(sn)
-library(knitr)
-library(kableExtra)
 library(janitor)
 library(effsize)
 
@@ -66,9 +70,7 @@ data_combined |>
             mean_skewnormal = mean(skewnormal),
             sd_normal = sd(normal),
             sd_skewnormal = sd(skewnormal)) |>
-  mutate_if(is.numeric, round_half_up, digits = 2) |>
-  kable() |>
-  kable_classic(full_width = FALSE)
+  mutate_if(is.numeric, round_half_up, digits = 2)
 
 # plot
 ggplot(data_combined) +
@@ -222,9 +224,7 @@ experiment_parameters <- expand_grid(
 
 # do some sanity checks on the experiment's grid
 experiment_parameters |>
-  count(skew_control, skew_intervention) |>
-  kable() |>
-  kable_classic(full_width = FALSE)
+  count(skew_control, skew_intervention)
 
 ```
 
@@ -306,10 +306,9 @@ simulation_summary <- simulation |>
   summarize(proportion_significant = mean(p < .05)) 
 
 # print table
+# note: only ever do rounding at the point of printing results!
 simulation_summary |>
-  mutate_if(is.numeric, janitor::round_half_up, digits = 2) |> # note: only ever do rounding at the point of printing results!
-  kable() |>
-  kable_classic(full_width = FALSE)
+  mutate_if(is.numeric, janitor::round_half_up, digits = 2) 
 
 ```
 
@@ -436,10 +435,9 @@ simulation_summary <- simulation |>
   group_by(distribution) |>
   summarize(proportion_significant = mean(p < .05)) 
 
+# note: only ever do rounding at the point of printing results!
 simulation_summary |>
-  mutate_if(is.numeric, janitor::round_half_up, digits = 2) |> # note: only ever do rounding at the point of printing results!
-  kable() |>
-  kable_classic(full_width = FALSE)
+  mutate_if(is.numeric, janitor::round_half_up, digits = 2) 
 
 ```
 
@@ -456,10 +454,9 @@ simulation_summary <- simulation |>
   group_by(distribution, population_effect_size) |> 
   summarize(proportion_significant = mean(p < .05)) 
 
+# note: only ever do rounding at the point of printing results!
 simulation_summary |>
-  mutate_if(is.numeric, janitor::round_half_up, digits = 2) |> # note: only ever do rounding at the point of printing results!
-  kable() |>
-  kable_classic(full_width = FALSE)
+  mutate_if(is.numeric, janitor::round_half_up, digits = 2)
 
 ```
 
@@ -492,9 +489,7 @@ simulation_summary <- simulation |>
 
 # table
 simulation_summary |>
-  mutate_if(is.numeric, janitor::round_half_up, digits = 2) |>
-  kable() |>
-  kable_classic(full_width = FALSE)
+  mutate_if(is.numeric, janitor::round_half_up, digits = 2) 
 
 ```
 

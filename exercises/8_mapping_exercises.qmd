@@ -1,0 +1,53 @@
+# Exercises for 'Mapping over functions' chapter <span class="badge badge-draft1">✎ Very rough draft</span>
+
+```{r}
+#| include: false
+# if it is available, run the setup script that tells quarto to round all df/tibble outputs to three decimal places
+if(file.exists("../_setup.R")){source("../_setup.R")}
+```
+
+### Warm-up: map a simple function
+
+1.  Create iterations \<- 1:20.
+
+2.  Use map() to compute sqrt() of each iteration.
+
+3.  What type of object does map() return?
+
+### Map a simulation 200 times
+
+1.  Set iterations \<- 1:200.
+
+2.  Use map_dfr() to run generate_data(...) \|\> analyze() 200 times.
+
+3.  Compute the proportion of p \< .05.
+
+### Extract a numeric vector of p-values
+
+1.  Repeat the last exercise, but use map_dbl() to return a numeric vector.
+
+2.  Plot a histogram of the p-values.
+
+### Make a tiny experiment with expand_grid() + pmap()
+
+1.  Use expand_grid() to create an experiment with:
+
+    -   mean_intervention = c(0.3, 0.7)
+
+    -   iteration = 1:1000
+
+    -   n_per_condition = c(25, 100)
+
+    -   mean_control = 0
+
+    -   sd = c(0.5, 1)
+
+2.  Use `pmap()` + `map()` to generate and analyze.
+
+3.  Plot the distribution of p-values and estimate power for each condition (one number per effect size).
+
+### (Optional) Parallelize
+
+1.  Replace your `pmap()` call with `future_pmap()`.
+
+2.  Does it run faster?

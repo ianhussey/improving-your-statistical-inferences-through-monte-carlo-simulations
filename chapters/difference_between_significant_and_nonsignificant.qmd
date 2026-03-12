@@ -1,4 +1,10 @@
-# The differences between significant and non-significant is not itself significant
+# The differences between significant and non-significant is not itself significant <span class="badge badge-draft1">✎ Very rough draft</span>
+
+```{r}
+#| include: false
+# if it is available, run the setup script that tells quarto to round all df/tibble outputs to three decimal places
+if(file.exists("../_setup.R")){source("../_setup.R")}
+```
 
 ## Dependencies
 
@@ -12,8 +18,6 @@ library(forcats)
 library(ggplot2)
 library(scales)
 library(patchwork)
-library(knitr)
-library(kableExtra)
 library(janitor)
 library(effsize)
 library(metafor)

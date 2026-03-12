@@ -1,4 +1,10 @@
-# Analysis functions
+# Exercises for 'Analysis functions' chapter <span class="badge badge-draft3">✎ Polishing</span>
+
+```{r}
+#| include: false
+# if it is available, run the setup script that tells quarto to round all df/tibble outputs to three decimal places
+if(file.exists("../_setup.R")){source("../_setup.R")}
+```
 
 These exercises accompany the [analysis functions chapter](../chapters/6_analysis_functions.qmd).
 
@@ -7,47 +13,96 @@ You can complete these exercises in your local version of the .qmd file. Either 
 Write functions for each of the following. Remember that you can write pseudocode first if it helps.
 
 ```{r}
+#| include: false
+# dependencies
 library(tibble)
 library(dplyr)
+library(tidyr)
 library(parameters)
 library(janitor)
 library(effectsize)
 library(afex)
-```
+library(faux)
+library(forcats)
 
-```{r}
-#| include: false
-# create dataset to be used
+# create datasets to be used
+set.seed(43)
 
-# install the devtools and truffle packages if you don't have them already:
-# library(devtools)
-# install_github("ianhussey/truffle")
-library(truffle)
+data_crosssectional <- faux::rnorm_multi(
+  n = 600,
+  vars = 2, 
+  varnames = c("x", "y"),
+  mu = c(0, 0.5), 
+  sd = 1, 
+  r = 0.35 
+) %>%
+  as_tibble() # faux returns a data.frame; we convert to tibble for consistency
 
-dat_depression_rct <- 
-  truffle_likert(study_design = "factorial_between2",
-                 n_per_condition = 25,
-                 factors  = "X1_latent",
-                 prefixes = "X1_item",
-                 alpha = .80,
-                 n_items = 13,
-                 n_levels = 4,
-                 approx_d_between_groups = 0.70,
-                 seed = 45) |>
-  snuffle_sum_scores("X1_", 
-                     min = 1, 
-                     max = 4, 
-                     id_col = "id") |>
-  select(id, condition, score = X1_sumscore) |>
-  mutate(score = score - 13) |>
-  truffle_demographics()
+dat_experiment <- 
+  bind_rows(
+    tibble(condition = rep("intervention", 40),
+           score = rnorm(n = 40, mean = 0.45, sd = 1)),
+    tibble(condition = rep("control", 40),
+           score = rnorm(n = 40, mean = 0, sd = 1))
+  ) %>%
+  mutate(condition = fct_relevel(condition, "intervention", "control"),
+         condition_numeric = case_when(condition == "intervention" ~ 1,
+                                       condition == "control" ~ 0))
+
+data_pre_post <- faux::rnorm_multi(
+  n = 70,
+  vars = 2, 
+  varnames = c("score_pre", "score_post"),
+  mu = c(0, 0.5), 
+  sd = 1, 
+  r = 0.7 
+) %>%
+  as_tibble() # faux returns a data.frame; we convert to tibble for consistency
+
+# mixed within-between RCT: treatment vs control at baseline vs post intervention
+n_per_group <- 30
+r_within    <- 0.6   # pre-post correlation
+
+dat_mixed_within_between <- rbind(
+  # Control group: slight reduction in scores from pre to post due to regression to the mean
+  rnorm_multi(
+    n = n_per_group,
+    vars = 2,
+    mu = c(pre = 28, post = 25),
+    sd = c(9, 9),
+    r = r_within
+  ) %>% 
+    mutate(condition = "control", 
+           id = row_number()),
+
+  # Treatment group: improvement at post
+  rnorm_multi(
+    n = n_per_group,
+    vars = 2,
+    mu = c(pre = 5, post = 6),
+    sd = c(1, 1),
+    r = r_within
+  ) %>% 
+    mutate(condition = "treatment", 
+           id = row_number() + n_per_group)
+) %>%
+  # Pivot to long format for analysis
+  pivot_longer(cols = c(pre, post), 
+               names_to = "timepoint", 
+               values_to = "score") %>%
+  mutate(
+    id        = factor(id),
+    condition = factor(condition),
+    time      = factor(timepoint, levels = c("pre", "post")),
+    score     = round(score, 0) # round score to make it more like a sum-score of the BDI-II
+  )
 ```
 
 ## Estimation and tests of means
 
 ### Independent *t*-test
 
-Using the `dat_depression_rct` tibble, write a function to extract the t, df, p, and mean_diff from a students t test. The inputs are only the tibble containing the data; it can assume score ~ group
+Using the `dat_experiment` tibble, write a function to extract the t, df, p, and mean_diff from a students t test. The inputs are only the tibble containing the data; it can assume score ~ group
 
 ```{r}
 
@@ -62,6 +117,7 @@ Instead of the assuming forcing the use of a Student's *t*-test via `var.equal =
 ```{r}
 
 
+
 ```
 
 Add arguments to specify `t.test()`'s `alternative` argument, i.e., whether the hypothesis test is two-sided or directional
@@ -69,11 +125,13 @@ Add arguments to specify `t.test()`'s `alternative` argument, i.e., whether the 
 ```{r}
 
 
+
 ```
 
 Add arguments to specify `t.test()`'s `mu` argument, i.e., whether the population mean difference being tested by the p value is zero (default) or some other value. We will use this in later chapters. 
 
 ```{r}
+
 
 
 ```
@@ -108,7 +166,7 @@ Write a function that extracts the t, df, p, mean_diff and its CIs, Cohen's *d* 
 
 ### Dependent *t*-test and Cohen's $d_{rm}$
 
-[TODO dataset needed]
+Use the `data_pre_post` tibble.
 
 Use `t.test()` with `paired = TRUE` and `effectsize::repeated_measures_d()`.
 
@@ -120,7 +178,7 @@ Use `t.test()` with `paired = TRUE` and `effectsize::repeated_measures_d()`.
 
 ### Non-parameteric alternative measures
 
-[TODO dataset needed]
+Use the `dat_experiment` tibble.
 
 Non-parametric alternative to `t.test()` to test differences in ranks rather than differences in means using `wilcox.test()`
 
@@ -132,9 +190,9 @@ Non-parametric alternative to `t.test()` to test differences in ranks rather tha
 
 ### (RM-)ANOVA F-tests
 
-[TODO more generic data generation function needed]
-
 Estimating and testing differences in means in within, between, or mixed within-between factorial designs with more than two cells using (RM-)ANOVA. 
+
+Use the `dat_mixed_within_between` tibble.
 
 `afex::aov_ex()` is the gold standard for fitting (repeated measures) (RM-)ANOVAs in R using type III sum of squares, while avoiding the weird things that can happen with base-R's aov().
 
@@ -189,15 +247,16 @@ Write a function to provide tidy results of an RM ANOVA for a 2X2 pre/post inter
 ```{r}
 
 
+
 ```
 
 ## Estimation and tests of correlation/covariance
 
 ### Bivariate correlations
 
-[TODO dataset needed]
+Use the `data_crosssectional` tibble.
 
-Estimating and testing correlations with `cor.test()`
+Estimating and testing correlations between x and y with `cor.test()`
 
 ```{r}
 
@@ -207,9 +266,9 @@ Estimating and testing correlations with `cor.test()`
 
 ### Regressions
 
-[TODO dataset needed]
+Use the `data_crosssectional` tibble.
 
-Estimating and testing regression slopes with `lm()`
+Estimating and testing regression slopes with `lm()`. Predict y based on x.
 
 ```{r}
 
@@ -219,19 +278,11 @@ Estimating and testing regression slopes with `lm()`
 
 ## Estimation and tests of other parameters (aka assumption tests)
 
-[TODO dataset needed]
+### Testing differences in variances 
 
-Estimating and testing differences in variances with Levene's test `rstatix::levene_test`
+With Levene's test `rstatix::levene_test()`
 
-```{r}
-
-library(rstatix)
-rstatix::levene_test(formula = score ~ condition,
-                     data = dat_depression_rct)
-
-```
-
-Testing normality with Shapiro-Wilk's test `shapiro.test()`. See also Anderson Darling test `nortest::ad.test()`.
+Use the `dat_experiment` tibble.
 
 ```{r}
 
@@ -239,15 +290,43 @@ Testing normality with Shapiro-Wilk's test `shapiro.test()`. See also Anderson D
 
 ```
 
-## Pre-analysis functions 
+### Testing normality
 
-- data transformation / outlier exclusions / etc
-- hacking
-- ...
+With Shapiro-Wilk's test `shapiro.test()`. See also Anderson Darling test `nortest::ad.test()`.
+
+Use the `dat_experiment` tibble.
+
+```{r}
 
 
 
+```
 
+## Pre-analysis functions [TODO]
+
+### Data transformation 
+
+Log transform a variable with `log()`.
+
+Use the `dat_experiment` tibble.
+
+```{r}
+
+
+
+```
+
+### Exclusions
+
+Exclude outliers that are more than three standard deviations from the mean.
+
+Use the `dat_experiment` tibble, even though this is unlikely to contain outliers.
+
+```{r}
+
+
+
+```
 
 
 

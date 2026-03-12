@@ -1,4 +1,10 @@
-# Creating simulation experiments
+# Creating simulation experiments <span class="badge badge-draft2">✎ Rough draft</span>
+
+```{r}
+#| include: false
+# if it is available, run the setup script that tells quarto to round all df/tibble outputs to three decimal places
+if(file.exists("../_setup.R")){source("../_setup.R")}
+```
 
 ## Dependencies
 
@@ -108,7 +114,7 @@ parameter_grid <- tibble(
   n_per_condition = rep(c(30, 50), 2)
 )
 
-print(parameter_grid)
+parameter_grid
 
 ```
 
@@ -253,7 +259,7 @@ height_parameters <- expand_grid(
   filter(!(mean_height %in% c(160, 180) & mean_age == 12),
          !(mean_height == 140 & mean_age > 12))
 
-print(height_parameters)
+height_parameters
 
 ```
 

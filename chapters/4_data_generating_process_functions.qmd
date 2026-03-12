@@ -1,4 +1,10 @@
-# Data-generating process functions
+# Data-generating process functions <span class="badge badge-draft3">✎ Polishing</span>
+
+```{r}
+#| include: false
+# if it is available, run the setup script that tells quarto to round all df/tibble outputs to three decimal places
+if(file.exists("../_setup.R")){source("../_setup.R")}
+```
 
 In the last chapter, you learned how to write functions. In this chapter, you’ll use that skill to write a specific type of function: **a data-generating process (DGP) function**. This is needed for one of the 5 key components of a Monte Carlo simulation study.
 
@@ -344,7 +350,7 @@ Now let's call the `generate_data` function and see if it works.
 
 ```{r}
 generate_data(
-  n_per_condition = 10000,
+  n_per_condition = 10,
   mean_control = 28,
   mean_intervention = 32,
   sd = 8
@@ -378,7 +384,7 @@ results1 |>
 
 ## How realistic does your simulated data need to be?
 
-We can use the generate data function that we defined above to simulate depression scores on the Beck Depression Inventory (BDI-II) for an RCT on psychotherapy for depression. The BDI has a 0-3 response format and 13 items, so it has a minimum score of 0 and a maximum score of 63. What do you notice about the simulated data?
+We can use the generate data function that we defined above to simulate depression scores on the Beck Depression Inventory (BDI-II) for an RCT on psychotherapy for depression. The BDI has a 0-3 response format and 21 items, so it has a minimum score of 0 and a maximum score of 63. What do you notice about the simulated data?
 
 ```{r}
 #| echo: false
@@ -413,7 +419,7 @@ Many of the simulated data points are below the scale's minimum of 0, and some m
 
 Many of us are not familiar with the Beta distribution. Whereas the normal distribution has the two parameters mean and standard deviation, the Beta distribution has the parameters alpha ($\alpha$) and beta ($\beta$). You can play with visualizing Beta distributions, or converting means, SDs and scale limits to Beta distributions in [this web app](https://errors.shinyapps.io/beta-distribution-visualiser/) we wrote.
 
-This below DGP code is quite a bit more advanced because it doesn't merely generate data for a Beta distribution, but takes a mean, standard deviation, and scale limits (e.g., as might be reported in a psychology article for a self-report scale) and calculates the rescaled Beta distribution of best fit to those parameters. The details of this don't matter right now; the point to appreciate here is that we can simulate data that is still sampled from a population with this mean and standard deviation, but does not violate the scale's logical minimum and maximum. 
+This code to implement this DGP is quite a bit more advanced because it doesn't merely generate data for a Beta distribution, but instead takes a mean, standard deviation, and scale limits (e.g., as might be reported in a psychology article for a self-report scale) and calculates the rescaled Beta distribution of best fit to those parameters. The details of this don't matter right now; the point to appreciate here is that we can simulate data that is still sampled from a population with this mean and standard deviation, but does not violate the scale's logical minimum and maximum. 
 
 The generated data in the below plot has the exact same population mean and SD per group as the above one, but it adheres to the scale's bounds. 
 

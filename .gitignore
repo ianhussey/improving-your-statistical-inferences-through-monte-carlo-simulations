@@ -7,3 +7,5 @@
 /.quarto/
 old/*
 _book/*
+
+**/*.quarto_ipynb

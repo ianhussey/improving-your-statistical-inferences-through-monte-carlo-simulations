@@ -1,4 +1,4 @@
-# Required skills
+# Required skills <span class="badge badge-draft3">✎ Polishing</span>
 
 This book assumes some existing knowledge of data wrangling and visualization in R/tidyverse. Specifically, familiarity with RStudio, reproducible reports written in {quarto} (.qmd) documents, the 'pipe' (`|>` and `%>%`), the packages {dplyr}, {tidyr}, {forcats}, and {ggplot2}, and the concept of Tidy Data ([Wickham, 2014](https://www.jstatsoft.org/article/view/v059i10/0)). 
 

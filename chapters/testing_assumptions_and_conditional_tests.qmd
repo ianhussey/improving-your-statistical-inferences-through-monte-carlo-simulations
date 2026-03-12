@@ -1,4 +1,10 @@
-# The statistical power of assumptions tests and the conditional use of non-parameteric tests
+# The statistical power of assumptions tests and the conditional use of non-parameteric tests <span class="badge badge-draft2">✎ Rough draft</span>
+
+```{r}
+#| include: false
+# if it is available, run the setup script that tells quarto to round all df/tibble outputs to three decimal places
+if(file.exists("../_setup.R")){source("../_setup.R")}
+```
 
 ## Check your understanding
 
@@ -12,7 +18,7 @@ What is the difference between a hypothesis test like a Student's t-test and a t
 
 ```{r}
 
-knitr::include_graphics("../figs/common_statistical_tests_are_linear_models_cheat_sheet.png")
+knitr::include_graphics("../images/common_statistical_tests_are_linear_models_cheat_sheet.png")
 
 ```
 
@@ -45,8 +51,6 @@ library(furrr)
 library(ggplot2)
 library(scales)
 library(sn)
-library(knitr)
-library(kableExtra)
 
 # set up parallelization
 plan(multisession)

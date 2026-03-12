@@ -1,4 +1,9 @@
-# Lesson plan
+# Lesson plan <span class="badge badge-draft1">✎ Very rough draft</span>
+
+- badge 1 <span class="badge badge-draft1">✎ Very rough draft</span>
+- badge 2 <span class="badge badge-draft2">✎ Rough draft</span>
+- badge 3 <span class="badge badge-draft3">✎ Polishing</span>
+- badge 4 <span class="badge badge-complete">✓ Complete</span>
 
 If delivered as a semester-long course, we suggest the following lesson plan. 
 

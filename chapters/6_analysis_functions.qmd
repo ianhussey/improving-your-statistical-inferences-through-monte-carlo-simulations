@@ -1,4 +1,10 @@
-# Analysis functions
+# Analysis functions <span class="badge badge-draft3">✎ Polishing</span>
+
+```{r}
+#| include: false
+# if it is available, run the setup script that tells quarto to round all df/tibble outputs to three decimal places
+if(file.exists("../_setup.R")){source("../_setup.R")}
+```
 
 Monte Carlo simulations involve generating data, analyzing data, and repeating this multiple times. In the last chapter you learned how to write functions to generate tidy data for analysis. In this chapter you'll learn how to analyze data and return tidy results, so that it can be repeated many times.
 
@@ -314,8 +320,8 @@ analyse_data(data = dat_depression_rct,
              iv   = condition)
 ```
 
-::: {.callout-tip title="Practice writing analysis functions"}
+::: {.callout-tip title = "Practice writing analysis functions"}
 Ready to practice? 
-Download and complete [the exercises for this chapter](https://raw.githubusercontent.com/ianhussey/improving-your-statistical-inferences-through-monte-carlo-simulations/main/exercises/6_analysis_functions_exercises.qmd){download="6_analysis_functions_exercises.qmd"}
+Download and complete the [exercises for this chapter](../exercises/6_analysis_functions_exercises.qmd).
 :::
 

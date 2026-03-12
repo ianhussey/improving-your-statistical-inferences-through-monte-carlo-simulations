@@ -27,10 +27,10 @@ book:
         - chapters/8_mapping.qmd 
         - chapters/9_summarizing_results.qmd 
         - chapters/10_planning_and_reporting.qmd 
-        - chapters/11_simulation_template.qmd 
         
     - part: "Part II: Learning from Simulations"
       chapters:
+        - chapters/11_everything_is_regression.qmd 
         - chapters/violating_assumptions.qmd
         - chapters/testing_assumptions_and_conditional_tests.qmd
         - chapters/p_hacking.qmd
@@ -53,40 +53,43 @@ book:
       chapters:
         - appendices/lesson_plan.qmd
         - appendices/ADEMP_preregistration_template.qmd
+        - appendices/simulation_template.qmd 
         - appendices/crowded_room_problem.qmd
         - license.qmd
         
-  navbar:
-    tools:
-      - icon: sun-fill
-        menu:
-          - text: Light
-            href: javascript:void(0)
-    background: primary
-    search: true
-    
 # bibliography: references.bib
 
 format:
   html:
     toc: true
     toc_float: true
-    code-fold: show
+    code-fold: false
     code-overflow: wrap
     code-tools: true
     warning: false
-    #theme: cosmo
     df-print: kable
-    #embed-resources: false
-    #highlight-style: monokai
     theme:
       light: cosmo
       dark: darkly
     highlight-style:
-      light: haddock
+      light: breeze
       dark: dracula
+    include-in-header:
+      text: |
+        <style>
+          .kable-table table { width: 70%; margin: 0 auto; }
+          .badge {
+            display: inline-flex; align-items: center; gap: 0.3em;
+            padding: 0.2em 0.65em; border-radius: 20px;
+            font-size: 0.72em; font-weight: 500; font-family: monospace;
+            vertical-align: middle; position: relative; top: -0.1em;
+          }
+          .badge-draft1   { background: #fdecea; color: #8b2a2a; border: 1px solid #f5b8b8; }
+          .badge-draft2   { background: #fef0e6; color: #8b4a1a; border: 1px solid #f5cfa0; }
+          .badge-draft3   { background: #fef9e7; color: #7a5c00; border: 1px solid #f5d97a; }
+          .badge-complete { background: #e6f4ea; color: #1e6e3a; border: 1px solid #b7dfbe; }
+        </style>
 
 editor: visual
 
 cover-image: cover.png
-

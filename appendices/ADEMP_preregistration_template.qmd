@@ -1,6 +1,6 @@
 ---
-title: "Project title here"
-author: "Authors here"
+title: "ADEMP simulation preregistration template"
+author: "List authors here"
 date: today
 format:
   html:
@@ -11,12 +11,13 @@ format:
     embed-resources: true
 ---
 
+Guidance text for each section is provided in comments that do not render to the .html file. You should write your preregistration as normal text outside of these tags, like in this line.
+
 ## General Information
 
-<!-- Note: Guidance text is provided within these tags and does not render to the .html file. You should write normal text outside of these tags, like the next line, so that it renders. -->
+<!-- Note: Replace "ADEMP simulation preregistration template" in the YAML header above with the project name. -->
 
 Template based on [Siepe et al. (2024)](https://doi.org/10.1037/met0000695), see GitHub repository [here](https://github.com/bsiepe/ADEMP-PreReg/).
-
 
 
 ### Project description

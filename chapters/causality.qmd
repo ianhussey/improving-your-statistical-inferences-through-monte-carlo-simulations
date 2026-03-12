@@ -1,4 +1,10 @@
-# Regression assumes causality
+# Regression assumes causality <span class="badge badge-draft1">✎ Very rough draft</span>
+
+```{r}
+#| include: false
+# if it is available, run the setup script that tells quarto to round all df/tibble outputs to three decimal places
+if(file.exists("../_setup.R")){source("../_setup.R")}
+```
 
 ## Dependencies
 
@@ -10,8 +16,6 @@ library(purrr)
 library(parameters)
 library(lavaan)
 library(semPlot)
-library(knitr)
-library(kableExtra)
 
 ```
 
@@ -129,9 +133,7 @@ simulation_summary <- simulation |>
             proportion_signficiant = mean(p < .05))
 
 simulation_summary |>
-  mutate_if(is.numeric, janitor::round_half_up, digits = 2) |>
-  kable() |>
-  kable_classic(full_width = FALSE)
+  mutate_if(is.numeric, janitor::round_half_up, digits = 2)
 
 ```
 
@@ -209,8 +211,6 @@ simulation_summary <- simulation |>
             proportion_signficiant = mean(p < .05))
 
 simulation_summary |>
-  mutate_if(is.numeric, janitor::round_half_up, digits = 2) |>
-  kable() |>
-  kable_classic(full_width = FALSE)
+  mutate_if(is.numeric, janitor::round_half_up, digits = 2)
 
 ```

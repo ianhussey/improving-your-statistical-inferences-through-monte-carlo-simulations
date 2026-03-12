@@ -1,4 +1,10 @@
-# Mapping over functions
+# Mapping over functions <span class="badge badge-draft2">✎ Rough draft</span>
+
+```{r}
+#| include: false
+# if it is available, run the setup script that tells quarto to round all df/tibble outputs to three decimal places
+if(file.exists("../_setup.R")){source("../_setup.R")}
+```
 
 ## Overview of tutorial
 
@@ -37,12 +43,9 @@ library(purrr)
 library(furrr)
 library(ggplot2)
 library(scales)
-library(knitr)
-library(kableExtra)
 
 # set up parallelization (we will use this later in the chapter)
 plan(multisession)
-
 
 ```
 
@@ -196,7 +199,8 @@ If we change the number of iterations, then the number of times `map()` is calle
 
 ```{r}
 
-iterations <- 1:20
+n_iterations <- 20
+iterations <- 1:n_iterations
 iterations
 
 ```
@@ -362,7 +366,7 @@ This means we have four combinations in total. We could handle this using `map()
 
 ```{r}
 
-iterations <- 1:2000
+iterations <- 1:20 # lowered for testing
 
 simulation_results_null_twenty_per_group <-
   tibble(iteration = iterations) |>
@@ -428,10 +432,12 @@ Let's first define our experiment parameters in a dataframe:
 
 set.seed(42) # Ian: we can omit the set seed if they haven't learned it at this point
 
+n_iterations <- 20 # lowered for testing
+
 experiment_parameters <- tibble(
-  iteration = rep(1:2000, 4), # repeat each value of simulation 4 times
-  n_per_condition = rep(rep(c(20, 50), each = 2000), 2), # repeat each condition 2000 times, and do this twice
-  mean_intervention = rep(rep(c(0, .5, .5, 0), each = 2000)), # repeat each condition value 2000 times, but specify them in different combinations with n_per_condition
+  iteration = rep(1:n_iterations, 4), # repeat each value of simulation 4 times
+  n_per_condition = rep(rep(c(20, 50), each = n_iterations), 2), # repeat each condition 2000 times, and do this twice
+  mean_intervention = rep(rep(c(0, .5, .5, 0), each = n_iterations)), # repeat each condition value 2000 times, but specify them in different combinations with n_per_condition
   mean_control = 0, # mean control always = 0
   sd = 1 # sd always = 1
 )
@@ -445,9 +451,7 @@ As you can see, we now have our range of experiments defined: 2000 iterations fo
 We’ll now run all of this over `map2()` and store:
 
 -   the generated dataset in a list-column (generated_data)
-
 -   the analysis result in a list-column (results)
-
 -   then unnest results
 
 To do this, we need to specify one input in `map2()` with the .x argument (just like `map()`), and another input with the .y argument. We specify the function (`generate_data()`, in this case) with .f.
@@ -470,7 +474,7 @@ simulation_results <- experiment_parameters |>
   ) |>
   unnest(results)
 
-simulation_results
+head(simulation_results, 10)
 
 ```
 
@@ -495,10 +499,12 @@ In the example above, you will recall we constructed our parameter grid like thi
 
 ```{r}
 
+n_iterations <- 20 # lowered for testing
+
 experiment_parameters <- tibble(
-  iteration = rep(1:2000, 4), # repeat each value of simulation 4 times
-  n_per_condition = rep(rep(c(20, 50), each = 2000), 2), # repeat each condition 2000 times, and do this twice
-  mean_intervention = rep(rep(c(0, .5, .5, 0), each = 2000)), # repeat each condition value 2000 times, but specify them in different combinations with n_per_condition
+  iteration = rep(1:n_iterations, 4), # repeat each value of simulation 4 times
+  n_per_condition = rep(rep(c(20, 50), each = n_iterations), 2), # repeat each condition 2000 times, and do this twice
+  mean_intervention = rep(rep(c(0, .5, .5, 0), each = n_iterations)), # repeat each condition value 2000 times, but specify them in different combinations with n_per_condition
   mean_control = 0, # mean control always = 0
   sd = 1 # sd always = 1
 )
@@ -513,8 +519,10 @@ For our example above, this looks like:
 
 ```{r}
 
+n_iterations <- 20 # lowered for testing
+
 experiment_parameters <- expand_grid(
-  iteration = 1:2000,
+  iteration = 1:n_iterations,
   n_per_condition = c(20, 50),
   mean_intervention = c(0, .5),
   mean_control = 0,
@@ -535,9 +543,11 @@ With `pmap()`, we supply all of the parameters as a list to the .l argument, and
 
 ```{r}
 
+n_iterations <- 20 # lowered for testing
+
 # specify the parameters
 experiment_parameters <- expand_grid(
-  iteration = 1:100, # we'll use 100 iterations to make sure this doesn't take too long
+  iteration = 1:n_iterations, 
   n_per_condition = c(20, 50),
   mean_intervention = c(0, .5),
   mean_control = c(0, .1),
@@ -575,10 +585,12 @@ Here’s another example: statistical power as a function of sample size and eff
 
 set.seed(42)
 
+n_iterations <- 20 # lowered for testing
+
 experiment_parameters <- expand_grid(
   n_per_condition = c(20, 50, 100),
   mean_intervention = c(0, 0.2, 0.5),
-  iteration = 1:1000
+  iteration = 1:n_iterations
 ) |>
   mutate(mean_control = 0,
          sd = 1)
@@ -684,61 +696,10 @@ simulation_parallel |>
 You now have the core “engine” for simulation in tidyverse form:
 
 -   `expand_grid()` creates the experiment
-
 -   `map()` / `map2()` / `pmap()` repeats the simulation
-
 -   list-columns store complex outputs cleanly
-
 -   `unnest()` flattens results for summarizing and plotting
-
 -   `map_dbl()` and `map_dfr()` help you get outputs in the shape you want
-
 -   `future_*()` variants can make big simulations faster
 
-## Exercises
 
-### Warm-up: map a simple function
-
-1.  Create iterations \<- 1:20.
-
-2.  Use map() to compute sqrt() of each iteration.
-
-3.  What type of object does map() return?
-
-### Map a simulation 200 times
-
-1.  Set iterations \<- 1:200.
-
-2.  Use map_dfr() to run generate_data(...) \|\> analyze() 200 times.
-
-3.  Compute the proportion of p \< .05.
-
-### Extract a numeric vector of p-values
-
-1.  Repeat the last exercise, but use map_dbl() to return a numeric vector.
-
-2.  Plot a histogram of the p-values.
-
-### Make a tiny experiment with expand_grid() + pmap()
-
-1.  Use expand_grid() to create an experiment with:
-
-    -   mean_intervention = c(0.3, 0.7)
-
-    -   iteration = 1:1000
-
-    -   n_per_condition = c(25, 100)
-
-    -   mean_control = 0
-
-    -   sd = c(0.5, 1)
-
-2.  Use `pmap()` + `map()` to generate and analyze.
-
-3.  Plot the distribution of p-values and estimate power for each condition (one number per effect size).
-
-### (Optional) Parallelize
-
-1.  Replace your `pmap()` call with `future_pmap()`.
-
-2.  Does it run faster?

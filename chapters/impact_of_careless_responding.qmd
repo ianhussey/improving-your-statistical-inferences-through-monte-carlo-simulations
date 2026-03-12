@@ -1,4 +1,10 @@
-# The impact of one form of careless responding on power and the false positive rate
+# The impact of one form of careless responding on power and the false positive rate <span class="badge badge-draft1">✎ Very rough draft</span>
+
+```{r}
+#| include: false
+# if it is available, run the setup script that tells quarto to round all df/tibble outputs to three decimal places
+if(file.exists("../_setup.R")){source("../_setup.R")}
+```
 
 ## Assignment
 
@@ -37,8 +43,6 @@ library(scales)
 library(sn)
 library(janitor)
 library(effsize)
-library(knitr)
-library(kableExtra)
 library(faux)
 
 ```

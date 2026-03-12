@@ -1,11 +1,10 @@
-# Foundation concepts
+# Foundation concepts <span class="badge badge-draft3">✎ Polishing</span>
 
-## TODO
-
-- add content on positive and negative controls
-- integrate some repetitive content below
-- integrate information from slides, or the slides themselves
-- remove old and new content redundancy
+```{r}
+#| include: false
+# if it is available, run the setup script that tells quarto to round all df/tibble outputs to three decimal places
+if(file.exists("../_setup.R")){source("../_setup.R")}
+```
 
 ```{r}
 #| include: false
@@ -346,6 +345,11 @@ The answers to these questions require us to dig deeper into *p*-values and what
 5. Summarize results over the experiment conditions
 :::
 
+## TODO
 
+- add content on positive and negative controls
+- integrate some repetitive content below
+- integrate information from slides, or the slides themselves
+- remove old and new content redundancy
 
 

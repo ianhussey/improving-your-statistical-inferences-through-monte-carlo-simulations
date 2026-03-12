@@ -13,3 +13,11 @@ or
 quarto publish quarto-pub --no-render
 ```
 
+
+
+preview
+
+``` 
+quarto preview
+```
+

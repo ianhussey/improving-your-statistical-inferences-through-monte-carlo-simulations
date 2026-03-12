@@ -1,4 +1,10 @@
-# Exercises for 'Writing functions' chapter
+# Exercises for 'Writing functions' chapter <span class="badge badge-draft3">✎ Polishing</span>
+
+```{r}
+#| include: false
+# if it is available, run the setup script that tells quarto to round all df/tibble outputs to three decimal places
+if(file.exists("../_setup.R")){source("../_setup.R")}
+```
 
 These exercises accompany the [Writing Functions chapter](../chapters/3_writing_functions.qmd).
 

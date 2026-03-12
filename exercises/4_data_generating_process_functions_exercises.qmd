@@ -1,4 +1,12 @@
-# Exercises
+# Exercises for 'Data Generating Process functions' chapter <span class="badge badge-draft3">✎ Polishing</span>
+
+TODO write a few lines on why we're writing wrapper functions; in the boook talk about wrapping functions eg rnorm_multi().
+
+```{r}
+#| include: false
+# if it is available, run the setup script that tells quarto to round all df/tibble outputs to three decimal places
+if(file.exists("../_setup.R")){source("../_setup.R")}
+```
 
 These exercises accompany the [Data Generating Process functions chapter](../chapters/4_data_generating_process_functions.qmd).
 
@@ -40,7 +48,7 @@ Rounding the data to the nearest whole number makes the data look a bit more lik
 
 Again, sample for a single group.  
 
-Calculating its average is an arbtrary choice, suggested only to practice writing functions.
+Calculating its average is an arbitrary choice, suggested only to practice writing functions.
 
 ```{r}
 
@@ -142,9 +150,11 @@ There are multiple ways to do this. Don't reach immediately for help from an AI:
 
 ```
 
-### Calculate the probabilty of n number of 'heads' coin flips in a row
+### Calculate the probabilty of n number of 'heads' among k number of coin flips 
 
 Use `rbinom()`. Look up the help menu if you need with `?rbinom()`.
+
+FEEDBACK- questionable value, dbinom() instead? TODO
 
 ```{r}
 
@@ -159,6 +169,9 @@ Use `rbinom()`. Look up the help menu if you need with `?rbinom()`.
 Rewrite `generate_data_two_group_binary()` so that it returns `id`, `condition` (as a factor), and `score`. Use `rbinom()`.
 
 Simulate one dataset with `prob_control = 0.20` and `prob_intervention = 0.35` and verify the observed proportions with `group_by()` and `summarise()`.
+
+
+TODO in between question needed before this one to scale the difficulty; but also this doens't change much from the in-class code - @jamie
 
 ```{r}
 
@@ -192,7 +205,9 @@ Write a function that returns three time points (`pre`, `mid`, `post`) with corr
 - cor(mid, post) = 0.7
 - cor(pre, post) = 0.5
 
-Assume the same SD at each time point.
+Assume the same mean and SD at each time point.
+
+Use `rnorm_multi()`.
 
 ```{r}
 

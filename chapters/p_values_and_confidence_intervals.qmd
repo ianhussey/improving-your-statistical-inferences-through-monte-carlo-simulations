@@ -1,4 +1,10 @@
-# Understanding the link between p-values, Confidence Intervals, and power
+# Understanding the link between p-values, Confidence Intervals, and power <span class="badge badge-draft1">✎ Very rough draft</span>
+
+```{r}
+#| include: false
+# if it is available, run the setup script that tells quarto to round all df/tibble outputs to three decimal places
+if(file.exists("../_setup.R")){source("../_setup.R")}
+```
 
 ## Overview of tutorial
 
@@ -18,8 +24,6 @@ library(forcats)
 library(ggplot2)
 library(scales)
 library(patchwork)
-library(knitr)
-library(kableExtra)
 library(janitor)
 library(effsize)
 

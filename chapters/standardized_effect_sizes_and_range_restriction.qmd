@@ -1,4 +1,10 @@
-# Standardized effect sizes and range restriction
+# Standardized effect sizes and range restriction <span class="badge badge-draft1">✎ Very rough draft</span>
+
+```{r}
+#| include: false
+# if it is available, run the setup script that tells quarto to round all df/tibble outputs to three decimal places
+if(file.exists("../_setup.R")){source("../_setup.R")}
+```
 
 ## Dependencies
 
@@ -9,8 +15,6 @@ library(scales)
 library(sn)
 library(janitor)
 library(effsize)
-library(knitr)
-library(kableExtra)
 library(faux)
 
 ```
@@ -480,9 +484,7 @@ simulation_summary |>
   group_by(n) |>
   summarize(average_sample_means = mean(sample_mean),
             average_sample_sds = mean(sample_sd)) |>
-  mutate_if(is.numeric, janitor::round_half_up, digits = 2) |>
-  kable() |>
-  kable_classic(full_width = FALSE)
+  mutate_if(is.numeric, janitor::round_half_up, digits = 2) 
 
 ```
 

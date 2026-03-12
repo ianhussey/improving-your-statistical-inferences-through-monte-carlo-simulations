@@ -1,4 +1,4 @@
-# The Crowded Room problem: Constraints on correlations
+# The Crowded Room problem: Constraints on correlations <span class="badge badge-draft2">✎ Rough draft</span>
 
 Not all combinations of correlations are possible in a correlation matrix. This is sometimes described as the 'crowded room' problem. By analogy, the more people are packed into a room, the closer they have to stand to one another, and there is less and less freedom for how each individual occupies the space. Similarly, the more correlations are in a matrix, the less freedom they, with each value required to be within narrower and narrower bounds. 
 
