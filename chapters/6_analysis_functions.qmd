@@ -73,7 +73,7 @@ A useful analogy here is that, in the past, cargo ships carried irregularly size
 
 ![](../images/unloading_ship.jpg){.center width="60%"}
 
-The invention of the standardized shipping container, the Twenty-foot Equivalent Unit (TEU), had a massive impact on global trade. Because of their standardized shape, they can be loaded or unloaded at roughly 5000 tonnes per hour - thousands of times more efficiently. Sure, the robots and logistics systems are part of this improved efficiency, but much of the benefit comes from simply standardizing the inputs and inputs to follow a similar structure.
+The invention of the standardized shipping container, the Twenty-foot Equivalent Unit (TEU), had a massive impact on global trade. Because of their standardized shape, they can be loaded or unloaded at roughly 5000 tonnes per hour - thousands of times more efficiently. Sure, the robots and logistics systems are part of this improved efficiency, but much of the benefit comes from simply standardizing the inputs and outputs to follow a similar structure.
 
 ![](../images/shipping_containers.jpg){.center width="60%"}
 

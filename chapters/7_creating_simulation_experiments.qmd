@@ -15,14 +15,25 @@ library(dplyr)
 
 ```
 
-In our earlier chapter, you saw examples of generating data, and specifying different parameter values in doing so. This is at the core of simulation: generating data with different parameter values, running the process lots of times, and summarising across each set of parameter values. But how do we actually create these many types of parameter values? Or, in other words: how do we actually design simulation experiments?
+Recall the five steps of Monte Carlo simulation studies:
+
+1. Make an experiment 
+2. Generate data
+3. Analyse data
+4. Repeat this many times
+5. Summarise results
+
+In our previous chapters, we skipped over Step 1 and went straight to Steps 2 and 3. Now, we're going all the way back to Step 1: making the experiment in the first place.
+
+In our earlier chapter, you saw examples of generating data, and specifying different parameter values in doing so. This is at the core of simulation: generating data with *different* parameter values and experimenting with how results of simulations change across these different values. But how do we actually create these many types of parameter values? Or, in other words: how do we actually design simulation experiments?
 
 ## Varying experiment parameters manually
 
-The way that we ideally design simulation experiments is through the use of a parameter grid. This is, basically, a dataframe or tibble that specifies all of the variations of our simulations that we would want to run. For example, imagine we want to use our `generate_data()` and `analyze()` functions from the previous lessons to analyse data from two groups and get the p-value. Remember:
+The way that we ideally design simulation experiments is through the use of a parameter grid. This is, basically, a dataframe or tibble that specifies all of the variations of our simulations that we would want to run. For example, imagine we want to use simulation to analyse the difference in means between two groups (and get the p-value). We can write `generate_data()` and `analyse_data()` functions for this firstly, like we have done in previous lessons. Specifically:
 
 ```{r}
 
+# our data generation function
 generate_data <- function(n_per_condition,
                           mean_control,
                           mean_intervention,
@@ -41,22 +52,24 @@ generate_data <- function(n_per_condition,
   return(data_combined)
 }
 
-analyze <- function(data) {
+# our analysis function
+analyse_data <- function(data) {
 
+  # run a t-test
   res_t_test <- t.test(formula = score ~ condition,
                        data = data,
                        var.equal = TRUE,
                        alternative = "two.sided")
 
+  # get the p-value, put it in a tibble
   res <- tibble(p = res_t_test$p.value)
 
   return(res)
 }
 
-
 ```
 
-Now, let's suppose we want to generate data for when n_per_condition is either 30 or 50, and where mean_intervention is either 0.3 or 0.5 (in all cases, we want mean_control = 0 and sd = 1). We could do this by just typing out each simulation, like:
+Let's suppose we want to generate data for when n_per_condition is either 30 or 50, and where mean_intervention is either 0.3 or 0.5 (in all cases, we want mean_control = 0 and sd = 1). We could do this by just typing out each simulation, like:
 
 ```{r}
 
@@ -67,7 +80,7 @@ generate_data(
   mean_intervention = .3,
   sd = 1
 ) |>
-  analyze()
+  analyse_data()
 
 # n = 50, mean = .3
 generate_data(
@@ -76,7 +89,7 @@ generate_data(
   mean_intervention = .3,
   sd = 1
 ) |>
-  analyze()
+  analyse_data()
 
 # n = 30, mean = .5
 generate_data(
@@ -85,7 +98,7 @@ generate_data(
   mean_intervention = .3,
   sd = 1
 ) |>
-  analyze()
+  analyse_data()
 
 # n = 50, mean = .5
 generate_data(
@@ -94,16 +107,16 @@ generate_data(
   mean_intervention = .3,
   sd = 1
 ) |>
-  analyze()
+  analyse_data()
 
 
 ```
 
-Clearly this works, but the problem is pretty obvious: if we want to repeat these processes lots of times, or look at lots of different parameter combinations, then this will involve *a lot* of copy-pasting! This is not ideal. We will cover how to more efficiently "repeat the process lots of times" in the next lesson. But for now, let's focus on how to look at lots of different parameter combinations more efficiently.
+Clearly this works. But the problem is pretty obvious: if we want to repeat these processes lots of times, or look at lots of different parameter combinations, then this will involve *a lot* of copy-pasting! This is not ideal. We will cover how to more efficiently "repeat the process lots of times" (i.e., Step 4 of Monte Carlo simulation) in the next lesson. But for now, let's focus on how to look at lots of different parameter combinations more efficiently.
 
 ## Varying experiment parameters using parameter grids
 
-Instead of copy-pasting each setting, we can instead create a *parameter grid*, which specifies each combination of parameters we're interested in. For example, suppose we want to create a grid that specifies the parameters we specified above (mean_intervention either 0.3 or 0.5, n_per_condition either 30 or 50, sd = 1, mean_control = 0). We could specify a parameter grid by repeating each level of each variable as a single row in a tibble, like this:
+Instead of copy-pasting each setting, we can instead create a *parameter grid*, which specifies each combination of parameters we're interested in. For example, suppose we want to create a grid that specifies the parameters we used above (mean_intervention either 0.3 or 0.5, n_per_condition either 30 or 50, sd = 1, mean_control = 0). We could specify a parameter grid by repeating each level of each variable as a single row in a tibble, like this:
 
 ```{r}
 
@@ -129,7 +142,7 @@ generate_data(
   mean_control = parameter_grid$mean_control[1],
   sd = parameter_grid$sd[1]
 ) |>
-  analyze()
+  analyse_data()
 
 # generate data based on second row of parameter_grid
 generate_data(
@@ -138,12 +151,13 @@ generate_data(
   mean_control = parameter_grid$mean_control[2],
   sd = parameter_grid$sd[2]
 ) |>
-  analyze()
+  analyse_data()
 
 
 ```
+And so on. 
 
-Again, we will cover how to do this mapping of parameter grids to simulations more efficiently in the next lesson. But for now, there is one other inefficiency we should handle.
+Again, we will cover how to do this mapping of parameter grids to simulations more efficiently in the next lesson. But for now, there is one other inefficiency we should handle: creating this parameter grid more smoothly.
 
 ## **Creating parameter grids more efficiently:** `expand_grid()`
 
@@ -160,7 +174,7 @@ parameter_grid <- tibble(
 
 ```
 
-However, this is actually not an ideal approach. You can see we are using the `rep()` function, which repeats a value a number of times. This can be confusing, because we need to count the overall number of times we want each variable to be present, and we also want to have all combinations of parameters while not repeating anything. Especially if we ever want to move to more complex simulations (e.g., with many different parameter combinations) then it would become quite difficult to ensure that all combinations are accurately covered.
+However, this is also not an ideal approach. You can see we are using the `rep()` function, which repeats a value a number of times. This can be confusing, because we need to count the overall number of times we want each variable to be present, and we also want to have all combinations of parameters while not repeating anything. Especially if we ever want to move to more complex simulations (e.g., with many different parameter combinations) then it would become quite difficult to ensure that all combinations are accurately covered.
 
 Instead, we can use the handy function `expand_grid()`. With this function, we give each desired value of each parameter once, and then `expand_grid()` maps this into a tibble with all combinations of all parameters.
 
