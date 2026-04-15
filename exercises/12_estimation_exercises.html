@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>28&nbsp; Exercises for ‘Estimation’ chapter – Understanding statistics through Monte Carlo simulations</title>
+<title>25&nbsp; Exercises for ‘Estimation’ chapter – Understanding statistics through Monte Carlo simulations</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../appendices/lesson_plan.html" rel="next">
+<link href="../exercises/13_hypothesis_testing_exercises.html" rel="next">
 <link href="../exercises/11_everything_is_regression_exercises.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -121,6 +121,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   .badge-draft2   { background: #fef0e6; color: #8b4a1a; border: 1px solid #f5cfa0; }
   .badge-draft3   { background: #fef9e7; color: #7a5c00; border: 1px solid #f5d97a; }
   .badge-complete { background: #e6f4ea; color: #1e6e3a; border: 1px solid #b7dfbe; }
+  .quarto-color-scheme-toggle::after { content: " Dark mode"; font-family: sans-serif; font-size: 0.85em; }
 </style>
 
 
@@ -297,7 +298,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/1_required_skills_exercises.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/12_estimation_exercises.html"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Exercises for ‘Estimation’ chapter</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/1_required_skills_exercises.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/12_estimation_exercises.html"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Exercises for ‘Estimation’ chapter</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -425,50 +426,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/violating_assumptions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality <span class="badge badge-draft2">✎ Rough draft</span></span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/testing_assumptions_and_conditional_tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of non-parameteric tests <span class="badge badge-draft2">✎ Rough draft</span></span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/p_hacking.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting <span class="badge badge-draft1">✎ Very rough draft</span></span></span></a>
+  <a href="../chapters/13_hypothesis_testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Hypothesis Testing <span class="badge badge-draft2">✎ Rough draft</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/difference_between_significant_and_nonsignificant.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">The differences between significant and non-significant is not itself significant <span class="badge badge-draft1">✎ Very rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">The differences between significant and non-significant is not itself significant <span class="badge badge-draft1">✎ Very rough draft</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/standardized_effect_sizes_and_range_restriction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Standardized effect sizes and range restriction <span class="badge badge-draft1">✎ Very rough draft</span></span></span></a>
+  <a href="../chapters/violating_assumptions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality <span class="badge badge-draft2">✎ Rough draft</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/impact_of_careless_responding.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">The impact of one form of careless responding on power and the false positive rate <span class="badge badge-draft1">✎ Very rough draft</span></span></span></a>
+  <a href="../chapters/testing_assumptions_and_conditional_tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of non-parameteric tests <span class="badge badge-draft2">✎ Rough draft</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/meta_analysis_and_publication_bias.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Meta-analysis and publication bias <span class="badge badge-draft1">✎ Very rough draft</span></span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/causality.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regression assumes causality <span class="badge badge-draft1">✎ Very rough draft</span></span></span></a>
+  <a href="../chapters/p_hacking.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting <span class="badge badge-draft1">✎ Very rough draft</span></span></span></a>
   </div>
 </li>
       </ul>
@@ -485,49 +468,55 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/1_required_skills_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises for ‘Required skills’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Exercises for ‘Required skills’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/3_writing_functions_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises for ‘Writing functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises for ‘Writing functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/4_data_generating_process_functions_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises for ‘Data Generating Process functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises for ‘Data Generating Process functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/6_analysis_functions_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Exercises for ‘Analysis functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises for ‘Analysis functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/7_creating_simulation_experiments_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Exercises for ‘Creating simulation experiments’ chapter <span class="badge badge-draft1">✎ Very rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises for ‘Creating simulation experiments’ chapter <span class="badge badge-draft1">✎ Very rough draft</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/8_mapping_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Exercises for ‘Mapping over functions’ chapter <span class="badge badge-draft2">✎ Rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises for ‘Mapping over functions’ chapter <span class="badge badge-draft2">✎ Rough draft</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/11_everything_is_regression_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Exercises for ‘Everything is regression’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Exercises for ‘Everything is regression’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/12_estimation_exercises.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Exercises for ‘Estimation’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Exercises for ‘Estimation’ chapter</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exercises/13_hypothesis_testing_exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Exercises for ‘Hypothesis Testing’ chapter</span></span></a>
   </div>
 </li>
       </ul>
@@ -544,31 +533,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../appendices/lesson_plan.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Lesson plan <span class="badge badge-draft1">✎ Very rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Lesson plan <span class="badge badge-draft1">✎ Very rough draft</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../appendices/ADEMP_preregistration_template.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">ADEMP simulation preregistration template</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">ADEMP simulation preregistration template</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../appendices/simulation_template.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Simulation template <span class="badge badge-draft1">✎ Very rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Simulation template <span class="badge badge-draft1">✎ Very rough draft</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../appendices/crowded_room_problem.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">The Crowded Room problem: Constraints on correlations <span class="badge badge-draft2">✎ Rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">The Crowded Room problem: Constraints on correlations <span class="badge badge-draft2">✎ Rough draft</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
   </div>
 </li>
       </ul>
@@ -583,13 +572,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#basis-simulation" id="toc-basis-simulation" class="nav-link active" data-scroll-target="#basis-simulation"><span class="header-section-number">28.1</span> Basis simulation</a></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">28.2</span> Exercises</a>
+  <li><a href="#basis-simulation" id="toc-basis-simulation" class="nav-link active" data-scroll-target="#basis-simulation"><span class="header-section-number">25.1</span> Basis simulation</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">25.2</span> Exercises</a>
   <ul class="collapse">
-  <li><a href="#for-each-sample-size-what-proportion-of-the-95-confidence-intervals-exclude-0" id="toc-for-each-sample-size-what-proportion-of-the-95-confidence-intervals-exclude-0" class="nav-link" data-scroll-target="#for-each-sample-size-what-proportion-of-the-95-confidence-intervals-exclude-0"><span class="header-section-number">28.2.1</span> For each sample size, what proportion of the 95% Confidence Intervals exclude 0?</a></li>
-  <li><a href="#when-the-population-difference-in-means-is-1-what-proportion-of-the-p-values-are-statistically-significant-for-each-sample-size" id="toc-when-the-population-difference-in-means-is-1-what-proportion-of-the-p-values-are-statistically-significant-for-each-sample-size" class="nav-link" data-scroll-target="#when-the-population-difference-in-means-is-1-what-proportion-of-the-p-values-are-statistically-significant-for-each-sample-size"><span class="header-section-number">28.2.2</span> When the population difference in means is 1, what proportion of the p values are statistically significant for each sample size?</a></li>
-  <li><a href="#what-is-the-relationship-between-the-confidence-interval-excluding-0-and-the-significance-of-the-p-value" id="toc-what-is-the-relationship-between-the-confidence-interval-excluding-0-and-the-significance-of-the-p-value" class="nav-link" data-scroll-target="#what-is-the-relationship-between-the-confidence-interval-excluding-0-and-the-significance-of-the-p-value"><span class="header-section-number">28.2.3</span> What is the relationship between the confidence interval excluding 0 and the significance of the p value?</a></li>
-  <li><a href="#when-the-population-difference-in-means-is-0-what-proportion-of-the-p-values-are-statistically-significant-for-each-sample-size" id="toc-when-the-population-difference-in-means-is-0-what-proportion-of-the-p-values-are-statistically-significant-for-each-sample-size" class="nav-link" data-scroll-target="#when-the-population-difference-in-means-is-0-what-proportion-of-the-p-values-are-statistically-significant-for-each-sample-size"><span class="header-section-number">28.2.4</span> When the population difference in means is 0, what proportion of the p values are statistically significant for each sample size?</a></li>
+  <li><a href="#for-each-sample-size-what-proportion-of-the-95-confidence-intervals-exclude-0" id="toc-for-each-sample-size-what-proportion-of-the-95-confidence-intervals-exclude-0" class="nav-link" data-scroll-target="#for-each-sample-size-what-proportion-of-the-95-confidence-intervals-exclude-0"><span class="header-section-number">25.2.1</span> For each sample size, what proportion of the 95% Confidence Intervals exclude 0?</a></li>
+  <li><a href="#when-the-population-difference-in-means-is-1-what-proportion-of-the-p-values-are-statistically-significant-for-each-sample-size" id="toc-when-the-population-difference-in-means-is-1-what-proportion-of-the-p-values-are-statistically-significant-for-each-sample-size" class="nav-link" data-scroll-target="#when-the-population-difference-in-means-is-1-what-proportion-of-the-p-values-are-statistically-significant-for-each-sample-size"><span class="header-section-number">25.2.2</span> When the population difference in means is 1, what proportion of the p values are statistically significant for each sample size?</a></li>
+  <li><a href="#what-is-the-relationship-between-the-confidence-interval-excluding-0-and-the-significance-of-the-p-value" id="toc-what-is-the-relationship-between-the-confidence-interval-excluding-0-and-the-significance-of-the-p-value" class="nav-link" data-scroll-target="#what-is-the-relationship-between-the-confidence-interval-excluding-0-and-the-significance-of-the-p-value"><span class="header-section-number">25.2.3</span> What is the relationship between the confidence interval excluding 0 and the significance of the p value?</a></li>
+  <li><a href="#when-the-population-difference-in-means-is-0-what-proportion-of-the-p-values-are-statistically-significant-for-each-sample-size" id="toc-when-the-population-difference-in-means-is-0-what-proportion-of-the-p-values-are-statistically-significant-for-each-sample-size" class="nav-link" data-scroll-target="#when-the-population-difference-in-means-is-0-what-proportion-of-the-p-values-are-statistically-significant-for-each-sample-size"><span class="header-section-number">25.2.4</span> When the population difference in means is 0, what proportion of the p values are statistically significant for each sample size?</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -598,9 +587,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/1_required_skills_exercises.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/12_estimation_exercises.html"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Exercises for ‘Estimation’ chapter</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/1_required_skills_exercises.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/12_estimation_exercises.html"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Exercises for ‘Estimation’ chapter</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Exercises for ‘Estimation’ chapter</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Exercises for ‘Estimation’ chapter</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -638,8 +627,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># set up parallelization</span></span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(multisession)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="basis-simulation" class="level2" data-number="28.1">
-<h2 data-number="28.1" class="anchored" data-anchor-id="basis-simulation"><span class="header-section-number">28.1</span> Basis simulation</h2>
+<section id="basis-simulation" class="level2" data-number="25.1">
+<h2 data-number="25.1" class="anchored" data-anchor-id="basis-simulation"><span class="header-section-number">25.1</span> Basis simulation</h2>
 <p>Same as in the chapter.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># functions for simulation</span></span>
@@ -679,9 +668,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">confidence_interval_width =</span> ci_high <span class="sc">-</span> ci_low) <span class="sc">|&gt;</span></span>
 <span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    <span class="co"># select columns of interest</span></span>
 <span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="at">mean_diff =</span> difference, <span class="co"># for parameter recovery</span></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>           ci_low, <span class="co"># plotting</span></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>           ci_high, <span class="co"># plotting</span></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>           confidence_interval_width) <span class="co"># estimand</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>           ci_low, <span class="co"># for plotting</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>           ci_high, <span class="co"># for plotting</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>           confidence_interval_width) <span class="co"># the estimand</span></span>
 <span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(results)</span>
 <span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>}</span>
@@ -858,24 +847,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="exercises" class="level2" data-number="28.2">
-<h2 data-number="28.2" class="anchored" data-anchor-id="exercises"><span class="header-section-number">28.2</span> Exercises</h2>
+<section id="exercises" class="level2" data-number="25.2">
+<h2 data-number="25.2" class="anchored" data-anchor-id="exercises"><span class="header-section-number">25.2</span> Exercises</h2>
 <p>For each of the exercises below, create a copy of the simulation above. Modify it appropriately to answer the exercise.</p>
-<section id="for-each-sample-size-what-proportion-of-the-95-confidence-intervals-exclude-0" class="level3" data-number="28.2.1">
-<h3 data-number="28.2.1" class="anchored" data-anchor-id="for-each-sample-size-what-proportion-of-the-95-confidence-intervals-exclude-0"><span class="header-section-number">28.2.1</span> For each sample size, what proportion of the 95% Confidence Intervals exclude 0?</h3>
+<section id="for-each-sample-size-what-proportion-of-the-95-confidence-intervals-exclude-0" class="level3" data-number="25.2.1">
+<h3 data-number="25.2.1" class="anchored" data-anchor-id="for-each-sample-size-what-proportion-of-the-95-confidence-intervals-exclude-0"><span class="header-section-number">25.2.1</span> For each sample size, what proportion of the 95% Confidence Intervals exclude 0?</h3>
 <p>Use <code>between()</code>.</p>
 </section>
-<section id="when-the-population-difference-in-means-is-1-what-proportion-of-the-p-values-are-statistically-significant-for-each-sample-size" class="level3" data-number="28.2.2">
-<h3 data-number="28.2.2" class="anchored" data-anchor-id="when-the-population-difference-in-means-is-1-what-proportion-of-the-p-values-are-statistically-significant-for-each-sample-size"><span class="header-section-number">28.2.2</span> When the population difference in means is 1, what proportion of the p values are statistically significant for each sample size?</h3>
+<section id="when-the-population-difference-in-means-is-1-what-proportion-of-the-p-values-are-statistically-significant-for-each-sample-size" class="level3" data-number="25.2.2">
+<h3 data-number="25.2.2" class="anchored" data-anchor-id="when-the-population-difference-in-means-is-1-what-proportion-of-the-p-values-are-statistically-significant-for-each-sample-size"><span class="header-section-number">25.2.2</span> When the population difference in means is 1, what proportion of the p values are statistically significant for each sample size?</h3>
 <p>Also have the analysis extract a p-value for the difference in means.</p>
 <p>Think about it: what statistical property does this represent?</p>
 </section>
-<section id="what-is-the-relationship-between-the-confidence-interval-excluding-0-and-the-significance-of-the-p-value" class="level3" data-number="28.2.3">
-<h3 data-number="28.2.3" class="anchored" data-anchor-id="what-is-the-relationship-between-the-confidence-interval-excluding-0-and-the-significance-of-the-p-value"><span class="header-section-number">28.2.3</span> What is the relationship between the confidence interval excluding 0 and the significance of the p value?</h3>
+<section id="what-is-the-relationship-between-the-confidence-interval-excluding-0-and-the-significance-of-the-p-value" class="level3" data-number="25.2.3">
+<h3 data-number="25.2.3" class="anchored" data-anchor-id="what-is-the-relationship-between-the-confidence-interval-excluding-0-and-the-significance-of-the-p-value"><span class="header-section-number">25.2.3</span> What is the relationship between the confidence interval excluding 0 and the significance of the p value?</h3>
 <p>For each iteration, calculate if (95% CI!=0) == (p&lt;.05)</p>
 </section>
-<section id="when-the-population-difference-in-means-is-0-what-proportion-of-the-p-values-are-statistically-significant-for-each-sample-size" class="level3" data-number="28.2.4">
-<h3 data-number="28.2.4" class="anchored" data-anchor-id="when-the-population-difference-in-means-is-0-what-proportion-of-the-p-values-are-statistically-significant-for-each-sample-size"><span class="header-section-number">28.2.4</span> When the population difference in means is 0, what proportion of the p values are statistically significant for each sample size?</h3>
+<section id="when-the-population-difference-in-means-is-0-what-proportion-of-the-p-values-are-statistically-significant-for-each-sample-size" class="level3" data-number="25.2.4">
+<h3 data-number="25.2.4" class="anchored" data-anchor-id="when-the-population-difference-in-means-is-0-what-proportion-of-the-p-values-are-statistically-significant-for-each-sample-size"><span class="header-section-number">25.2.4</span> When the population difference in means is 0, what proportion of the p values are statistically significant for each sample size?</h3>
 <p>Change the population effect difference-in-means to zero.</p>
 <p>Think about it: what statistical property does this represent?</p>
 
@@ -1353,12 +1342,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../exercises/11_everything_is_regression_exercises.html" class="pagination-link" aria-label="Exercises for 'Everything is regression' chapter">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Exercises for ‘Everything is regression’ chapter</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Exercises for ‘Everything is regression’ chapter</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../appendices/lesson_plan.html" class="pagination-link" aria-label="Lesson plan <span class=&quot;badge badge-draft1&quot;>✎ Very rough draft</span>">
-        <span class="nav-page-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Lesson plan <span class="badge badge-draft1">✎ Very rough draft</span></span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../exercises/13_hypothesis_testing_exercises.html" class="pagination-link" aria-label="Exercises for 'Hypothesis Testing' chapter">
+        <span class="nav-page-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Exercises for ‘Hypothesis Testing’ chapter</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
@@ -1434,9 +1423,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">confidence_interval_width =</span> ci_high <span class="sc">-</span> ci_low) <span class="sc">|&gt;</span></span>
 <span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>    <span class="co"># select columns of interest</span></span>
 <span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="at">mean_diff =</span> difference, <span class="co"># for parameter recovery</span></span>
-<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>           ci_low, <span class="co"># plotting</span></span>
-<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>           ci_high, <span class="co"># plotting</span></span>
-<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>           confidence_interval_width) <span class="co"># estimand</span></span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>           ci_low, <span class="co"># for plotting</span></span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>           ci_high, <span class="co"># for plotting</span></span>
+<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>           confidence_interval_width) <span class="co"># the estimand</span></span>
 <span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(results)</span>
 <span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a>}</span>

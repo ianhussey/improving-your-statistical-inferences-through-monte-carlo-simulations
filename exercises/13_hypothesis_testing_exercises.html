@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>18&nbsp; Exercises for ‘Required skills’ chapter ✎ Polishing – Understanding statistics through Monte Carlo simulations</title>
+<title>26&nbsp; Exercises for ‘Hypothesis Testing’ chapter – Understanding statistics through Monte Carlo simulations</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../exercises/3_writing_functions_exercises.html" rel="next">
-<link href="../chapters/p_hacking.html" rel="prev">
+<link href="../appendices/lesson_plan.html" rel="next">
+<link href="../exercises/12_estimation_exercises.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -124,35 +124,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   .quarto-color-scheme-toggle::after { content: " Dark mode"; font-family: sans-serif; font-size: 0.85em; }
 </style>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -327,7 +298,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/1_required_skills_exercises.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/1_required_skills_exercises.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Exercises for ‘Required skills’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/1_required_skills_exercises.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/13_hypothesis_testing_exercises.html"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Exercises for ‘Hypothesis Testing’ chapter</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -496,7 +467,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../exercises/1_required_skills_exercises.html" class="sidebar-item-text sidebar-link active">
+  <a href="../exercises/1_required_skills_exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Exercises for ‘Required skills’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
   </div>
 </li>
@@ -544,7 +515,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../exercises/13_hypothesis_testing_exercises.html" class="sidebar-item-text sidebar-link">
+  <a href="../exercises/13_hypothesis_testing_exercises.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Exercises for ‘Hypothesis Testing’ chapter</span></span></a>
   </div>
 </li>
@@ -601,23 +572,12 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#data-wrangling" id="toc-data-wrangling" class="nav-link active" data-scroll-target="#data-wrangling"><span class="header-section-number">18.1</span> Data wrangling</a>
+  <li><a href="#reading" id="toc-reading" class="nav-link active" data-scroll-target="#reading"><span class="header-section-number">26.1</span> Reading</a></li>
+  <li><a href="#basis-simulation" id="toc-basis-simulation" class="nav-link" data-scroll-target="#basis-simulation"><span class="header-section-number">26.2</span> Basis simulation</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">26.3</span> Exercises</a>
   <ul class="collapse">
-  <li><a href="#calculate-mean" id="toc-calculate-mean" class="nav-link" data-scroll-target="#calculate-mean"><span class="header-section-number">18.1.1</span> Calculate mean</a></li>
-  <li><a href="#calculate-sd" id="toc-calculate-sd" class="nav-link" data-scroll-target="#calculate-sd"><span class="header-section-number">18.1.2</span> Calculate <em>SD</em></a></li>
-  <li><a href="#calculate-mean-for-each-condition" id="toc-calculate-mean-for-each-condition" class="nav-link" data-scroll-target="#calculate-mean-for-each-condition"><span class="header-section-number">18.1.3</span> Calculate mean for each condition</a></li>
-  <li><a href="#calculate-mean-and-sd-for-each-condition" id="toc-calculate-mean-and-sd-for-each-condition" class="nav-link" data-scroll-target="#calculate-mean-and-sd-for-each-condition"><span class="header-section-number">18.1.4</span> Calculate mean and <em>SD</em> for each condition</a></li>
-  <li><a href="#calculate-mean-and-sd-for-each-condition-rounded-to-two-decimal-places" id="toc-calculate-mean-and-sd-for-each-condition-rounded-to-two-decimal-places" class="nav-link" data-scroll-target="#calculate-mean-and-sd-for-each-condition-rounded-to-two-decimal-places"><span class="header-section-number">18.1.5</span> Calculate mean and <em>SD</em> for each condition rounded to two decimal places</a></li>
-  </ul></li>
-  <li><a href="#generate-data" id="toc-generate-data" class="nav-link" data-scroll-target="#generate-data"><span class="header-section-number">18.2</span> Generate data</a>
-  <ul class="collapse">
-  <li><a href="#normally-distributed-data-in-a-tibble" id="toc-normally-distributed-data-in-a-tibble" class="nav-link" data-scroll-target="#normally-distributed-data-in-a-tibble"><span class="header-section-number">18.2.1</span> Normally distributed data in a tibble</a></li>
-  </ul></li>
-  <li><a href="#extract-parameters" id="toc-extract-parameters" class="nav-link" data-scroll-target="#extract-parameters"><span class="header-section-number">18.3</span> Extract parameters</a>
-  <ul class="collapse">
-  <li><a href="#t-tests-p-value" id="toc-t-tests-p-value" class="nav-link" data-scroll-target="#t-tests-p-value"><span class="header-section-number">18.3.1</span> <em>t</em>-test’s <em>p</em>-value</a></li>
-  <li><a href="#cohens-d-and-its-95-confidence-intervals" id="toc-cohens-d-and-its-95-confidence-intervals" class="nav-link" data-scroll-target="#cohens-d-and-its-95-confidence-intervals"><span class="header-section-number">18.3.2</span> Cohen’s <em>d</em> and its 95% Confidence Intervals</a></li>
-  <li><a href="#extract-parameters-from-a-pearsons-r-correlation-test" id="toc-extract-parameters-from-a-pearsons-r-correlation-test" class="nav-link" data-scroll-target="#extract-parameters-from-a-pearsons-r-correlation-test"><span class="header-section-number">18.3.3</span> Extract parameters from a Pearson’s <em>r</em> correlation test</a></li>
+  <li><a href="#statistical-power-for-equivalence-test" id="toc-statistical-power-for-equivalence-test" class="nav-link" data-scroll-target="#statistical-power-for-equivalence-test"><span class="header-section-number">26.3.1</span> Statistical power for equivalence test</a></li>
+  <li><a href="#statistical-power-for-equivalence-test-1" id="toc-statistical-power-for-equivalence-test-1" class="nav-link" data-scroll-target="#statistical-power-for-equivalence-test-1"><span class="header-section-number">26.3.2</span> Statistical power for equivalence test</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -626,9 +586,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/1_required_skills_exercises.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/1_required_skills_exercises.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Exercises for ‘Required skills’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/1_required_skills_exercises.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/13_hypothesis_testing_exercises.html"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Exercises for ‘Hypothesis Testing’ chapter</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Exercises for ‘Required skills’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Exercises for ‘Hypothesis Testing’ chapter</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -645,110 +605,236 @@ window.Quarto = {
 </header>
 
 
-<p>These exercises accompany the <a href="../chapters/1_required_skills.html">Required skills chapter</a>.</p>
-<p>Complete the following exercises in your local copy of this .qmd file to check your data tidying skills. Either download a copy of the whole book from github (see introduction), or download this .qmd using the download button on the top right of the page. Most of them involve extracting estimates from objects created by data simulation or statistical modelling functions.</p>
-<p>If you need a refresher, see the chapter on tidy data and reshaping in Ian’s <a href="https://ianhussey.quarto.pub/reproducible-data-processing-and-visualization/chapters/reshaping_and_pivots.html">other book</a>.</p>
-<section id="data-wrangling" class="level2" data-number="18.1">
-<h2 data-number="18.1" class="anchored" data-anchor-id="data-wrangling"><span class="header-section-number">18.1</span> Data wrangling</h2>
-<section id="calculate-mean" class="level3" data-number="18.1.1">
-<h3 data-number="18.1.1" class="anchored" data-anchor-id="calculate-mean"><span class="header-section-number">18.1.1</span> Calculate mean</h3>
-<ul>
-<li>Use <code>dplyr::summarize()</code>.</li>
-<li>Use the <code>data_intervention</code> data set.</li>
-<li>Return results in a tibble.</li>
-</ul>
-</section>
-<section id="calculate-sd" class="level3" data-number="18.1.2">
-<h3 data-number="18.1.2" class="anchored" data-anchor-id="calculate-sd"><span class="header-section-number">18.1.2</span> Calculate <em>SD</em></h3>
-<ul>
-<li>Use <code>dplyr::summarize()</code>.</li>
-<li>Use the <code>data_intervention</code> data set.</li>
-<li>Return results in a tibble.</li>
-</ul>
-</section>
-<section id="calculate-mean-for-each-condition" class="level3" data-number="18.1.3">
-<h3 data-number="18.1.3" class="anchored" data-anchor-id="calculate-mean-for-each-condition"><span class="header-section-number">18.1.3</span> Calculate mean for each condition</h3>
-<ul>
-<li>Use <code>dplyr::summarize()</code>, <code>group_by()</code> and the pipe (<code>%&gt;%</code> or <code>|&gt;</code>).</li>
-<li>Use the <code>data_for_ttest</code> data set.</li>
-<li>Return results in a tibble.</li>
-</ul>
-</section>
-<section id="calculate-mean-and-sd-for-each-condition" class="level3" data-number="18.1.4">
-<h3 data-number="18.1.4" class="anchored" data-anchor-id="calculate-mean-and-sd-for-each-condition"><span class="header-section-number">18.1.4</span> Calculate mean and <em>SD</em> for each condition</h3>
-<ul>
-<li>Use <code>dplyr::summarize()</code>, <code>group_by()</code> and the pipe (<code>%&gt;%</code> or <code>|&gt;</code>).</li>
-<li>Use the <code>data_for_ttest</code> data set.</li>
-<li>Return results in a tibble.</li>
-</ul>
-</section>
-<section id="calculate-mean-and-sd-for-each-condition-rounded-to-two-decimal-places" class="level3" data-number="18.1.5">
-<h3 data-number="18.1.5" class="anchored" data-anchor-id="calculate-mean-and-sd-for-each-condition-rounded-to-two-decimal-places"><span class="header-section-number">18.1.5</span> Calculate mean and <em>SD</em> for each condition rounded to two decimal places</h3>
-<ul>
-<li>Use <code>dplyr::summarize()</code>, <code>group_by()</code> and the pipe (<code>%&gt;%</code> or <code>|&gt;</code>).</li>
-<li>Use the <code>data_for_ttest</code> data set.</li>
-<li>Return results in a tibble.</li>
-<li>Round the means and SDs to two decimal places, using the round-half-up method, eg via <code>roundwork::round_up()</code>. Ideally, use <code>mutate_if()</code> or <code>across()</code> to round multiple columns.</li>
-</ul>
-</section>
-</section>
-<section id="generate-data" class="level2" data-number="18.2">
-<h2 data-number="18.2" class="anchored" data-anchor-id="generate-data"><span class="header-section-number">18.2</span> Generate data</h2>
-<section id="normally-distributed-data-in-a-tibble" class="level3" data-number="18.2.1">
-<h3 data-number="18.2.1" class="anchored" data-anchor-id="normally-distributed-data-in-a-tibble"><span class="header-section-number">18.2.1</span> Normally distributed data in a tibble</h3>
-<p>The <code>rnorm()</code> samples data from a normally distributed population with a given population mean (<span class="math inline">\(\mu\)</span>) and population standard deviation (<span class="math inline">\(\sigma\)</span>).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set seed for reproducibility</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10</span>, </span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">mean =</span> <span class="dv">0</span>, </span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1]  1.37095845 -0.56469817  0.36312841  0.63286260  0.40426832 -0.10612452
- [7]  1.51152200 -0.09465904  2.01842371 -0.06271410</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dependencies</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(furrr) </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(parameters)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forcats)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggstance)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effectsize)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggstance)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># set up parallelization</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(multisession)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="reading" class="level2" data-number="26.1">
+<h2 data-number="26.1" class="anchored" data-anchor-id="reading"><span class="header-section-number">26.1</span> Reading</h2>
+<p>Read <a href="https://doi.org/10.1177/2515245918770963">Lakens et al.&nbsp;(2018) “Equivalence Testing for Psychological Research: A Tutorial”</a>.</p>
+</section>
+<section id="basis-simulation" class="level2" data-number="26.2">
+<h2 data-number="26.2" class="anchored" data-anchor-id="basis-simulation"><span class="header-section-number">26.2</span> Basis simulation</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># functions for simulation</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>generate_data <span class="ot">&lt;-</span> <span class="cf">function</span>(n_per_condition,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                          mean_control,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                          mean_intervention,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                          sd) {</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  data_control <span class="ot">&lt;-</span> </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(<span class="at">condition =</span> <span class="st">"control"</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">score =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> n_per_condition, <span class="at">mean =</span> mean_control, <span class="at">sd =</span> sd))</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  data_intervention <span class="ot">&lt;-</span> </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(<span class="at">condition =</span> <span class="st">"intervention"</span>,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>           <span class="at">score =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> n_per_condition, <span class="at">mean =</span> mean_intervention, <span class="at">sd =</span> sd))</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  data_combined <span class="ot">&lt;-</span> </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_rows</span>(data_control,</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>              data_intervention) <span class="sc">|&gt;</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">condition =</span> <span class="fu">factor</span>(condition, <span class="at">level =</span> <span class="fu">c</span>(<span class="st">"intervention"</span>, <span class="st">"control"</span>)))</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(data_combined)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>analyse <span class="ot">&lt;-</span> <span class="cf">function</span>(data, <span class="at">direction_h1 =</span> <span class="st">"two.sided"</span>, <span class="at">alpha =</span> <span class="fl">0.05</span>, <span class="at">mean_difference_h0 =</span> <span class="dv">0</span>){</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  fit <span class="ot">&lt;-</span> <span class="fu">t.test</span>(</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">formula =</span> score <span class="sc">~</span> condition,</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">mu =</span> mean_difference_h0,</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">alternative =</span> direction_h1,</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">conf.level =</span> <span class="dv">1</span><span class="sc">-</span>alpha,</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">var.equal =</span> <span class="cn">TRUE</span>, <span class="co"># students t test: assumes equal variances</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> data</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>  results <span class="ot">&lt;-</span> fit <span class="sc">%&gt;%</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">model_parameters</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    <span class="co"># create estimand</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">significant_p =</span> p <span class="sc">&lt;</span> .<span class="dv">05</span>, <span class="co"># statistically significant in the sense that p &lt; .05</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>           <span class="at">signficiant_ci =</span> <span class="sc">!</span>dplyr<span class="sc">::</span><span class="fu">between</span>(<span class="dv">0</span>, ci_low, ci_high)) <span class="sc">|&gt;</span> <span class="co"># statistically significant in the sense that 95% CI excludes a mean difference of 0</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    <span class="co"># select columns of interest</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="at">mean_diff =</span> difference,</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>           ci_low,</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>           ci_high,</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>           signficiant_ci,</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>           p,</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>           significant_p)</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(results)</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a><span class="co"># simulation parameters</span></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>experiment_parameters <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_per_condition =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">25</span>, <span class="at">to =</span> <span class="dv">100</span>, <span class="at">by =</span> <span class="dv">25</span>),</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_control =</span> <span class="dv">0</span>,</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_intervention =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="dv">1</span>,</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>  <span class="at">direction_h1 =</span> <span class="st">"two.sided"</span>, </span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="fl">0.05</span>,</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_difference_h0 =</span> <span class="dv">0</span>,</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>  <span class="at">iteration =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pop_mean_diff =</span> mean_intervention <span class="sc">-</span> mean_control)</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a><span class="co"># set seed</span></span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a><span class="co"># run simulation</span></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>simulation <span class="ot">&lt;-</span> experiment_parameters <span class="sc">|&gt;</span></span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">generated_data =</span> <span class="fu">future_pmap</span>(<span class="at">.l =</span> <span class="fu">list</span>(<span class="at">n_per_condition =</span> n_per_condition, </span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>                                                <span class="at">mean_control =</span> mean_control,</span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>                                                <span class="at">mean_intervention =</span> mean_intervention,</span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>                                                <span class="at">sd =</span> sd),</span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">.f =</span> generate_data,</span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">.progress =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">.options =</span> <span class="fu">furrr_options</span>(<span class="at">seed =</span> <span class="cn">TRUE</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">results =</span> <span class="fu">future_pmap</span>(<span class="at">.l =</span> <span class="fu">list</span>(<span class="at">data =</span> generated_data),</span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>                               <span class="at">.f =</span> analyse,</span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>                               <span class="at">.progress =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>                               <span class="at">.options =</span> <span class="fu">furrr_options</span>(<span class="at">seed =</span> <span class="cn">TRUE</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(results)</span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate summary</span></span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>results_summary <span class="ot">&lt;-</span> simulation <span class="sc">|&gt;</span></span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pop_mean_diff,</span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>           n_per_condition) <span class="sc">|&gt;</span></span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_difference_in_means =</span> <span class="fu">mean</span>(mean_diff),</span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean_ci_low =</span> <span class="fu">mean</span>(ci_low),</span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean_ci_high =</span> <span class="fu">mean</span>(ci_high),</span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>            <span class="at">proportion_significant_p =</span> <span class="fu">mean</span>(significant_p),</span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>)</span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>results_summary <span class="sc">|&gt;</span></span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.numeric, round, <span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 15%">
+<col style="width: 23%">
+<col style="width: 11%">
+<col style="width: 12%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">pop_mean_diff</th>
+<th style="text-align: right;">n_per_condition</th>
+<th style="text-align: right;">mean_difference_in_means</th>
+<th style="text-align: right;">mean_ci_low</th>
+<th style="text-align: right;">mean_ci_high</th>
+<th style="text-align: right;">proportion_significant_p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">-0.01</td>
+<td style="text-align: right;">-0.57</td>
+<td style="text-align: right;">0.56</td>
+<td style="text-align: right;">0.05</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">-0.39</td>
+<td style="text-align: right;">0.40</td>
+<td style="text-align: right;">0.05</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">75</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">-0.32</td>
+<td style="text-align: right;">0.32</td>
+<td style="text-align: right;">0.04</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">-0.28</td>
+<td style="text-align: right;">0.28</td>
+<td style="text-align: right;">0.05</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">-0.07</td>
+<td style="text-align: right;">1.07</td>
+<td style="text-align: right;">0.42</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">0.49</td>
+<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">0.89</td>
+<td style="text-align: right;">0.69</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">75</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">0.18</td>
+<td style="text-align: right;">0.83</td>
+<td style="text-align: right;">0.87</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">0.22</td>
+<td style="text-align: right;">0.78</td>
+<td style="text-align: right;">0.94</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
-<p>Make this tidier by returning this simulated values as the column <code>score</code> in a tibble. Assign the tibble to the object <code>data_control</code>.</p>
-<p>Create a second object, <code>data_intervention</code>, where the observations are sampled from a population mean (<span class="math inline">\(\mu\)</span>) of 0.4.</p>
-<p>Create a new column called <code>condition</code> in each tibble using the appropriate {dplyr} function, setting it to “control” and “intervention” in the respective tibbles.</p>
-<p>Create a new object, <code>data_rct</code>, from <code>data_control</code> and <code>data_intervention</code> by binding the two tibbles together using the appropriate {dplyr} <code>bind_</code> function.</p>
 </section>
-</section>
-<section id="extract-parameters" class="level2" data-number="18.3">
-<h2 data-number="18.3" class="anchored" data-anchor-id="extract-parameters"><span class="header-section-number">18.3</span> Extract parameters</h2>
-<section id="t-tests-p-value" class="level3" data-number="18.3.1">
-<h3 data-number="18.3.1" class="anchored" data-anchor-id="t-tests-p-value"><span class="header-section-number">18.3.1</span> <em>t</em>-test’s <em>p</em>-value</h3>
+<section id="exercises" class="level2" data-number="26.3">
+<h2 data-number="26.3" class="anchored" data-anchor-id="exercises"><span class="header-section-number">26.3</span> Exercises</h2>
+<p>For each of the exercises below, create a copy of the basis simulation above. Modify it appropriately to answer the exercise.</p>
+<section id="statistical-power-for-equivalence-test" class="level3" data-number="26.3.1">
+<h3 data-number="26.3.1" class="anchored" data-anchor-id="statistical-power-for-equivalence-test"><span class="header-section-number">26.3.1</span> Statistical power for equivalence test</h3>
+<p>When using a classic Null Hypothesis Significance Test (independent t-test testing a population difference in means (mu) of 0), what is the statistical power to detect a population mean difference of 1, 2, or 3 across different sample sizes (n per condition = 25, 50, 75, 100)?</p>
+<p>Notes:</p>
 <ul>
-<li>A Student’s <em>t</em>-test and extract its <em>p</em> value.</li>
-<li>Use the <code>data_for_ttest</code> data set.</li>
-<li>Return the <em>p</em> value as a column in a tibble.</li>
+<li>We’re only interested in statistical power here, so set the population difference in means to zero. Why?</li>
 </ul>
 </section>
-<section id="cohens-d-and-its-95-confidence-intervals" class="level3" data-number="18.3.2">
-<h3 data-number="18.3.2" class="anchored" data-anchor-id="cohens-d-and-its-95-confidence-intervals"><span class="header-section-number">18.3.2</span> Cohen’s <em>d</em> and its 95% Confidence Intervals</h3>
+<section id="statistical-power-for-equivalence-test-1" class="level3" data-number="26.3.2">
+<h3 data-number="26.3.2" class="anchored" data-anchor-id="statistical-power-for-equivalence-test-1"><span class="header-section-number">26.3.2</span> Statistical power for equivalence test</h3>
+<p>When using a Two One-Sided Test (TOST), with a Smallest Effect Size of Interest (SESOI) of difference-in-means = ±0.2, what is the statistical power across different sample sizes (n per condition = 25, 50, 75, 100)? What N is needed for 80% power to detect a true null effect size as equivalent to zero?</p>
+<p>Notes:</p>
 <ul>
-<li>Calculate Cohen’s <em>d</em> using <code>effectsize::cohens_d()</code> and extract the Cohen’s <em>d</em> estimate and its 95% CIs.</li>
-<li>Use the <code>data_for_ttest</code> data set.</li>
-<li>Return the Cohen’s d estimate and its 95% CIs in tidy format tibble as the columns <code>d_estimate</code>, <code>d_ci_lower</code>, <code>d_ci_upper</code></li>
-</ul>
-</section>
-<section id="extract-parameters-from-a-pearsons-r-correlation-test" class="level3" data-number="18.3.3">
-<h3 data-number="18.3.3" class="anchored" data-anchor-id="extract-parameters-from-a-pearsons-r-correlation-test"><span class="header-section-number">18.3.3</span> Extract parameters from a Pearson’s <em>r</em> correlation test</h3>
-<p>Fit a correlation test using <code>cor.test()</code> and extract the correlation estimate.</p>
-<ul>
-<li>Use the <code>data_for_correlation</code> data set.</li>
-<li>Return results in a tibble.</li>
-</ul>
-<p>Extract the <em>p</em>-value from correlation test</p>
-<ul>
-<li>Use the <code>data_for_correlation</code> data set.</li>
-<li>Return results in a tibble.</li>
-</ul>
-<p>Extract both the correlation and the <em>p</em> value</p>
-<ul>
-<li>Use the <code>data_for_correlation</code> data set.</li>
-<li>Return results in a tibble.</li>
+<li>We’re only interested in statistical power here, so set the population difference in means to zero. Why?</li>
+<li>Because reasons (see Lakens et al., 2018), use the 90% Confidence Interval instead of 95% CI.</li>
 </ul>
 
 
@@ -1224,17 +1310,17 @@ window.Quarto = {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/p_hacking.html" class="pagination-link" aria-label="p-hacking via different forms of selecting reporting <span class=&quot;badge badge-draft1&quot;>✎ Very rough draft</span>">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting <span class="badge badge-draft1">✎ Very rough draft</span></span></span>
+      <a href="../exercises/12_estimation_exercises.html" class="pagination-link" aria-label="Exercises for 'Estimation' chapter">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Exercises for ‘Estimation’ chapter</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../exercises/3_writing_functions_exercises.html" class="pagination-link" aria-label="Exercises for 'Writing functions' chapter <span class=&quot;badge badge-draft3&quot;>✎ Polishing</span>">
-        <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises for ‘Writing functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../appendices/lesson_plan.html" class="pagination-link" aria-label="Lesson plan <span class=&quot;badge badge-draft1&quot;>✎ Very rough draft</span>">
+        <span class="nav-page-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Lesson plan <span class="badge badge-draft1">✎ Very rough draft</span></span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercises for 'Required skills' chapter &lt;span class="badge badge-draft3"&gt;✎ Polishing&lt;/span&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercises for 'Hypothesis Testing' chapter </span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
@@ -1242,184 +1328,157 @@ window.Quarto = {
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">file.exists</span>(<span class="st">"../_setup.R"</span>)){<span class="fu">source</span>(<span class="st">"../_setup.R"</span>)}</span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>These exercises accompany the <span class="co">[</span><span class="ot">Required skills chapter</span><span class="co">](../chapters/1_required_skills.qmd)</span>.</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>Complete the following exercises in your local copy of this .qmd file to check your data tidying skills. Either download a copy of the whole book from github (see introduction), or download this .qmd using the download button on the top right of the page. Most of them involve extracting estimates from objects created by data simulation or statistical modelling functions. </span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>If you need a refresher, see the chapter on tidy data and reshaping in Ian's <span class="co">[</span><span class="ot">other book</span><span class="co">](https://ianhussey.quarto.pub/reproducible-data-processing-and-visualization/chapters/reshaping_and_pivots.html)</span>.</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data wrangling </span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate some data to work with</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co"># dependencies</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forcats)</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(faux)</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="co"># set seed for reproduciblity</span></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># dependencies</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(furrr) </span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(parameters)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forcats)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggstance)</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effectsize)</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggstance)</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="co"># set up parallelization</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(multisession)</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="co"># data for t-test</span></span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>data_intervention <span class="ot">&lt;-</span> </span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">condition =</span> <span class="st">"intervention"</span>, </span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>         <span class="at">score =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">50</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>))</span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>data_control <span class="ot">&lt;-</span> </span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">condition =</span> <span class="st">"control"</span>, </span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>         <span class="at">score =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">50</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>))</span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>data_for_ttest <span class="ot">&lt;-</span> </span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(data_intervention,</span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>            data_control) <span class="sc">|&gt;</span></span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>  <span class="co"># control's factor levels must be ordered so that intervention is the first level and control is the second</span></span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>  <span class="co"># this ensures that positive Cohen's d values refer to intervention &gt; control and not the other way around.</span></span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">condition =</span> <span class="fu">fct_relevel</span>(condition, <span class="st">"intervention"</span>, <span class="st">"control"</span>))</span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="co"># data for correlation</span></span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>data_for_correlation <span class="ot">&lt;-</span> <span class="fu">rnorm_multi</span>(<span class="at">n =</span> <span class="dv">100</span>, </span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">vars =</span> <span class="dv">2</span>, </span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">mu =</span> <span class="dv">0</span>, </span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">sd =</span> <span class="dv">1</span>, </span>
-<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">r =</span> <span class="fl">0.5</span>, </span>
-<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">varnames =</span> <span class="fu">c</span>(<span class="st">"X"</span>, <span class="st">"Y"</span>))</span>
-<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a><span class="fu">### Calculate mean</span></span>
-<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Use <span class="in">`dplyr::summarize()`</span>.</span>
-<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Use the <span class="in">`data_intervention`</span> data set.</span>
-<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Return results in a tibble.</span>
-<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a><span class="fu">### Calculate *SD*</span></span>
-<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Use <span class="in">`dplyr::summarize()`</span>.</span>
-<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Use the <span class="in">`data_intervention`</span> data set.</span>
-<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Return results in a tibble.</span>
-<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a><span class="fu">### Calculate mean for each condition</span></span>
-<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Use <span class="in">`dplyr::summarize()`</span>, <span class="in">`group_by()`</span> and the pipe (<span class="in">`%&gt;%`</span> or <span class="in">`|&gt;`</span>).</span>
-<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Use the <span class="in">`data_for_ttest`</span> data set.</span>
-<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Return results in a tibble.</span>
-<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="fu">## Reading</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>Read <span class="co">[</span><span class="ot">Lakens et al. (2018) "Equivalence Testing for Psychological Research: A Tutorial"</span><span class="co">](https://doi.org/10.1177/2515245918770963)</span>.</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="fu">## Basis simulation</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="co"># functions for simulation</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>generate_data <span class="ot">&lt;-</span> <span class="cf">function</span>(n_per_condition,</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>                          mean_control,</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>                          mean_intervention,</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>                          sd) {</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>  data_control <span class="ot">&lt;-</span> </span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(<span class="at">condition =</span> <span class="st">"control"</span>,</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>           <span class="at">score =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> n_per_condition, <span class="at">mean =</span> mean_control, <span class="at">sd =</span> sd))</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>  data_intervention <span class="ot">&lt;-</span> </span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(<span class="at">condition =</span> <span class="st">"intervention"</span>,</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>           <span class="at">score =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> n_per_condition, <span class="at">mean =</span> mean_intervention, <span class="at">sd =</span> sd))</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>  data_combined <span class="ot">&lt;-</span> </span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_rows</span>(data_control,</span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>              data_intervention) <span class="sc">|&gt;</span></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">condition =</span> <span class="fu">factor</span>(condition, <span class="at">level =</span> <span class="fu">c</span>(<span class="st">"intervention"</span>, <span class="st">"control"</span>)))</span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(data_combined)</span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>analyse <span class="ot">&lt;-</span> <span class="cf">function</span>(data, <span class="at">direction_h1 =</span> <span class="st">"two.sided"</span>, <span class="at">alpha =</span> <span class="fl">0.05</span>, <span class="at">mean_difference_h0 =</span> <span class="dv">0</span>){</span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>  fit <span class="ot">&lt;-</span> <span class="fu">t.test</span>(</span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>    <span class="at">formula =</span> score <span class="sc">~</span> condition,</span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>    <span class="at">mu =</span> mean_difference_h0,</span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>    <span class="at">alternative =</span> direction_h1,</span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>    <span class="at">conf.level =</span> <span class="dv">1</span><span class="sc">-</span>alpha,</span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>    <span class="at">var.equal =</span> <span class="cn">TRUE</span>, <span class="co"># students t test: assumes equal variances</span></span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> data</span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a>  results <span class="ot">&lt;-</span> fit <span class="sc">%&gt;%</span></span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>    <span class="fu">model_parameters</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a>    janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>    <span class="co"># create estimand</span></span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">significant_p =</span> p <span class="sc">&lt;</span> .<span class="dv">05</span>, <span class="co"># statistically significant in the sense that p &lt; .05</span></span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a>           <span class="at">signficiant_ci =</span> <span class="sc">!</span>dplyr<span class="sc">::</span><span class="fu">between</span>(<span class="dv">0</span>, ci_low, ci_high)) <span class="sc">|&gt;</span> <span class="co"># statistically significant in the sense that 95% CI excludes a mean difference of 0</span></span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a>    <span class="co"># select columns of interest</span></span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="at">mean_diff =</span> difference,</span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a>           ci_low,</span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a>           ci_high,</span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a>           signficiant_ci,</span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a>           p,</span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a>           significant_p)</span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(results)</span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a><span class="fu">### Calculate mean and *SD* for each condition</span></span>
-<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Use <span class="in">`dplyr::summarize()`</span>, <span class="in">`group_by()`</span> and the pipe (<span class="in">`%&gt;%`</span> or <span class="in">`|&gt;`</span>).</span>
-<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Use the <span class="in">`data_for_ttest`</span> data set.</span>
-<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Return results in a tibble.</span>
-<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a><span class="fu">### Calculate mean and *SD* for each condition rounded to two decimal places</span></span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a><span class="co"># simulation parameters</span></span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a>experiment_parameters <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_per_condition =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">25</span>, <span class="at">to =</span> <span class="dv">100</span>, <span class="at">by =</span> <span class="dv">25</span>),</span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_control =</span> <span class="dv">0</span>,</span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_intervention =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="dv">1</span>,</span>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a>  <span class="at">direction_h1 =</span> <span class="st">"two.sided"</span>, </span>
+<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="fl">0.05</span>,</span>
+<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_difference_h0 =</span> <span class="dv">0</span>,</span>
+<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a>  <span class="at">iteration =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span></span>
+<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pop_mean_diff =</span> mean_intervention <span class="sc">-</span> mean_control)</span>
 <span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Use <span class="in">`dplyr::summarize()`</span>, <span class="in">`group_by()`</span> and the pipe (<span class="in">`%&gt;%`</span> or <span class="in">`|&gt;`</span>).</span>
-<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Use the <span class="in">`data_for_ttest`</span> data set.</span>
-<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Return results in a tibble.</span>
-<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Round the means and SDs to two decimal places, using the round-half-up method, eg via <span class="in">`roundwork::round_up()`</span>. Ideally, use <span class="in">`mutate_if()`</span> or <span class="in">`across()`</span> to round multiple columns.</span>
-<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a><span class="fu">## Generate data</span></span>
-<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a><span class="fu">### Normally distributed data in a tibble </span></span>
-<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a>The <span class="in">`rnorm()`</span> samples data from a normally distributed population with a given population mean ($\mu$) and population standard deviation ($\sigma$).</span>
-<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a><span class="co"># set seed for reproducibility</span></span>
-<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
-<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10</span>, </span>
-<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a>      <span class="at">mean =</span> <span class="dv">0</span>, </span>
-<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a>      <span class="at">sd =</span> <span class="dv">1</span>)</span>
-<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a>Make this tidier by returning this simulated values as the column <span class="in">`score`</span> in a tibble. Assign the tibble to the object <span class="in">`data_control`</span>.</span>
-<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a><span class="co"># set seed</span></span>
+<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a><span class="co"># run simulation</span></span>
+<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a>simulation <span class="ot">&lt;-</span> experiment_parameters <span class="sc">|&gt;</span></span>
+<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">generated_data =</span> <span class="fu">future_pmap</span>(<span class="at">.l =</span> <span class="fu">list</span>(<span class="at">n_per_condition =</span> n_per_condition, </span>
+<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a>                                                <span class="at">mean_control =</span> mean_control,</span>
+<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a>                                                <span class="at">mean_intervention =</span> mean_intervention,</span>
+<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a>                                                <span class="at">sd =</span> sd),</span>
+<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">.f =</span> generate_data,</span>
+<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">.progress =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">.options =</span> <span class="fu">furrr_options</span>(<span class="at">seed =</span> <span class="cn">TRUE</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">results =</span> <span class="fu">future_pmap</span>(<span class="at">.l =</span> <span class="fu">list</span>(<span class="at">data =</span> generated_data),</span>
+<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a>                               <span class="at">.f =</span> analyse,</span>
+<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a>                               <span class="at">.progress =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a>                               <span class="at">.options =</span> <span class="fu">furrr_options</span>(<span class="at">seed =</span> <span class="cn">TRUE</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(results)</span>
+<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate summary</span></span>
+<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a>results_summary <span class="ot">&lt;-</span> simulation <span class="sc">|&gt;</span></span>
+<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pop_mean_diff,</span>
+<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a>           n_per_condition) <span class="sc">|&gt;</span></span>
+<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_difference_in_means =</span> <span class="fu">mean</span>(mean_diff),</span>
+<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean_ci_low =</span> <span class="fu">mean</span>(ci_low),</span>
+<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean_ci_high =</span> <span class="fu">mean</span>(ci_high),</span>
+<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a>            <span class="at">proportion_significant_p =</span> <span class="fu">mean</span>(significant_p),</span>
+<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>)</span>
+<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a>results_summary <span class="sc">|&gt;</span></span>
+<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.numeric, round, <span class="at">digits =</span> <span class="dv">2</span>)</span>
+<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises</span></span>
 <span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-142"><a href="#cb3-142" aria-hidden="true" tabindex="-1"></a>Create a second object, <span class="in">`data_intervention`</span>, where the observations are sampled from a population mean ($\mu$) of 0.4.</span>
+<span id="cb3-142"><a href="#cb3-142" aria-hidden="true" tabindex="-1"></a>For each of the exercises below, create a copy of the basis simulation above. Modify it appropriately to answer the exercise.</span>
 <span id="cb3-143"><a href="#cb3-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-146"><a href="#cb3-146" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-147"><a href="#cb3-147" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-148"><a href="#cb3-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a>Create a new column called <span class="in">`condition`</span> in each tibble using the appropriate {dplyr} function, setting it to "control" and "intervention" in the respective tibbles.</span>
-<span id="cb3-150"><a href="#cb3-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-153"><a href="#cb3-153" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-154"><a href="#cb3-154" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-156"><a href="#cb3-156" aria-hidden="true" tabindex="-1"></a>Create a new object, <span class="in">`data_rct`</span>, from <span class="in">`data_control`</span> and <span class="in">`data_intervention`</span> by binding the two tibbles together using the appropriate {dplyr} <span class="in">`bind_`</span> function.</span>
+<span id="cb3-144"><a href="#cb3-144" aria-hidden="true" tabindex="-1"></a><span class="fu">### Statistical power for a classic Null Hypothesis Significance Test (Two-Sided)</span></span>
+<span id="cb3-145"><a href="#cb3-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-146"><a href="#cb3-146" aria-hidden="true" tabindex="-1"></a>When using a classic Null Hypothesis Significance Test (independent t-test testing a population difference in means (mu) of 0), what is the statistical power to detect a population mean difference of 1, 2, or 3 across different sample sizes (n per condition = 25, 50, 75, 100)? </span>
+<span id="cb3-147"><a href="#cb3-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-148"><a href="#cb3-148" aria-hidden="true" tabindex="-1"></a>Notes:</span>
+<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-150"><a href="#cb3-150" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>We're only interested in statistical power here, so set the population difference in means to zero. Check you understand why.</span>
+<span id="cb3-151"><a href="#cb3-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-152"><a href="#cb3-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-153"><a href="#cb3-153" aria-hidden="true" tabindex="-1"></a><span class="fu">### Statistical power for a Minimal-Effects Test (One-Sided) </span></span>
+<span id="cb3-154"><a href="#cb3-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a>When using a Minimal-Effects Test (One-Sided) (independent t-test testing a population difference in means (mu) of 1), what is the statistical power to detect a population mean difference of 0, 1, 2, or 3 across different sample sizes (n per condition = 25, 50, 75, 100)? What is the false positive rate across these sample sizes?</span>
+<span id="cb3-156"><a href="#cb3-156" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-157"><a href="#cb3-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-160"><a href="#cb3-160" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-161"><a href="#cb3-161" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-162"><a href="#cb3-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-163"><a href="#cb3-163" aria-hidden="true" tabindex="-1"></a><span class="fu">## Extract parameters</span></span>
-<span id="cb3-164"><a href="#cb3-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-165"><a href="#cb3-165" aria-hidden="true" tabindex="-1"></a><span class="fu">### *t*-test's *p*-value</span></span>
-<span id="cb3-166"><a href="#cb3-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-167"><a href="#cb3-167" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>A Student's *t*-test and extract its *p* value.</span>
-<span id="cb3-168"><a href="#cb3-168" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Use the <span class="in">`data_for_ttest`</span> data set.</span>
-<span id="cb3-169"><a href="#cb3-169" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Return the *p* value as a column in a tibble.</span>
-<span id="cb3-170"><a href="#cb3-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-173"><a href="#cb3-173" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-174"><a href="#cb3-174" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-175"><a href="#cb3-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-176"><a href="#cb3-176" aria-hidden="true" tabindex="-1"></a><span class="fu">### Cohen's *d* and its 95% Confidence Intervals</span></span>
-<span id="cb3-177"><a href="#cb3-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-178"><a href="#cb3-178" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Calculate Cohen's *d* using `effectsize::cohens_d()` and extract the Cohen's *d* estimate and its 95% CIs.</span>
-<span id="cb3-179"><a href="#cb3-179" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Use the <span class="in">`data_for_ttest`</span> data set.</span>
-<span id="cb3-180"><a href="#cb3-180" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Return the Cohen's d estimate and its 95% CIs in tidy format tibble as the columns <span class="in">`d_estimate`</span>, <span class="in">`d_ci_lower`</span>, <span class="in">`d_ci_upper`</span></span>
-<span id="cb3-181"><a href="#cb3-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-184"><a href="#cb3-184" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-185"><a href="#cb3-185" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-186"><a href="#cb3-186" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-187"><a href="#cb3-187" aria-hidden="true" tabindex="-1"></a><span class="fu">### Extract parameters from a Pearson's *r* correlation test</span></span>
-<span id="cb3-188"><a href="#cb3-188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-189"><a href="#cb3-189" aria-hidden="true" tabindex="-1"></a>Fit a correlation test using <span class="in">`cor.test()`</span> and extract the correlation estimate.</span>
-<span id="cb3-190"><a href="#cb3-190" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-191"><a href="#cb3-191" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Use the <span class="in">`data_for_correlation`</span> data set.</span>
-<span id="cb3-192"><a href="#cb3-192" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Return results in a tibble.</span>
-<span id="cb3-193"><a href="#cb3-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-196"><a href="#cb3-196" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-197"><a href="#cb3-197" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-198"><a href="#cb3-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-199"><a href="#cb3-199" aria-hidden="true" tabindex="-1"></a>Extract the *p*-value from correlation test</span>
-<span id="cb3-200"><a href="#cb3-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-201"><a href="#cb3-201" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Use the <span class="in">`data_for_correlation`</span> data set.</span>
-<span id="cb3-202"><a href="#cb3-202" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Return results in a tibble.</span>
-<span id="cb3-203"><a href="#cb3-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-206"><a href="#cb3-206" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-207"><a href="#cb3-207" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-208"><a href="#cb3-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-209"><a href="#cb3-209" aria-hidden="true" tabindex="-1"></a>Extract both the correlation and the *p* value</span>
-<span id="cb3-210"><a href="#cb3-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-211"><a href="#cb3-211" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Use the <span class="in">`data_for_correlation`</span> data set.</span>
-<span id="cb3-212"><a href="#cb3-212" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Return results in a tibble.</span>
-<span id="cb3-213"><a href="#cb3-213" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-216"><a href="#cb3-216" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-217"><a href="#cb3-217" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-218"><a href="#cb3-218" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-219"><a href="#cb3-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-220"><a href="#cb3-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-158"><a href="#cb3-158" aria-hidden="true" tabindex="-1"></a><span class="fu">### Statistical power for equivalence test</span></span>
+<span id="cb3-159"><a href="#cb3-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-160"><a href="#cb3-160" aria-hidden="true" tabindex="-1"></a>When using a Two One-Sided Test (TOST), with a Smallest Effect Size of Interest (SESOI) of difference-in-means = ±0.2, what is the statistical power across different sample sizes (n per condition = 25, 50, 75, 100)? What N is needed for 80% power to detect a true null effect size as equivalent to zero?</span>
+<span id="cb3-161"><a href="#cb3-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-162"><a href="#cb3-162" aria-hidden="true" tabindex="-1"></a>Notes:</span>
+<span id="cb3-163"><a href="#cb3-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-164"><a href="#cb3-164" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>We're only interested in statistical power here, so set the population difference in means to zero. Why?</span>
+<span id="cb3-165"><a href="#cb3-165" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Because reasons (see Lakens et al., 2018), use the 90% Confidence Interval instead of 95% CI.</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
