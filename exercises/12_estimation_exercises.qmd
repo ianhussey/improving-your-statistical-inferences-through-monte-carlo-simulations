@@ -70,9 +70,9 @@ analyse <- function(data){
     mutate(confidence_interval_width = ci_high - ci_low) |>
     # select columns of interest
     select(mean_diff = difference, # for parameter recovery
-           ci_low, # plotting
-           ci_high, # plotting
-           confidence_interval_width) # estimand
+           ci_low, # for plotting
+           ci_high, # for plotting
+           confidence_interval_width) # the estimand
   
   return(results)
 }

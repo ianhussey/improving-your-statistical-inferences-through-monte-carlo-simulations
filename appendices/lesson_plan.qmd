@@ -1,33 +1,6 @@
 # Lesson plan <span class="badge badge-draft1">✎ Very rough draft</span>
 
-- badge 1 <span class="badge badge-draft1">✎ Very rough draft</span>
-- badge 2 <span class="badge badge-draft2">✎ Rough draft</span>
-- badge 3 <span class="badge badge-draft3">✎ Polishing</span>
-- badge 4 <span class="badge badge-complete">✓ Complete</span>
-
 If delivered as a semester-long course, we suggest the following lesson plan. 
-
-Notes to self on structure
-
-- part: "Part I: Learning to Simulate"
-      chapters: 
-        - chapters/1_required_skills.qmd # week 1 homework
-        - chapters/2_foundation_concepts.qmd # week 1 ian
-        - chapters/3_writing_functions.qmd # week 1 jamie
-        - chapters/4_data_generating_process_functions.qmd # week 2 - really about practicing writing functions, summarizing and plotting - ian
-        - chapters/5_analysis_functions.qmd # week 3 - practice writing functions again, more/less flexible/reusable - jamie
-        - chapters/6_creating_simulation_experiments.qmd # week 4, if it includes Siepe's study on designs
-        - chapters/7_mapping.qmd # week 4 - nested dfs needs explaining. 
-        - chapters/8_summarizing_results.qmd # week 5
-        - chapters/9_planning_and_reporting.qmd # come back to this after substantive chapter 1 - week 7?, Siepe paper, assessing performance (MC SE), etc. Diagnostics on already run simulations, go in and check specific iterations, run manually etc.
-        # maybe add sth here on parallelisation and optimisation, eg dropping the nested datasets and using a helper function to use pmap() more directly and efficiently?
-        - chapters/10_simulation_template.qmd # week 5, 'putting it all together'; skip to substantive chapter 1?
-
-    - part: "Part II: Learning from Simulations"
-      chapters:
-        # whatever chapter comes next, lay out the final assignment here
-        # substantive chapter 1 - week 5/6
-        - chapters/violating_assumptions.qmd
 
 ## Week 1
 
@@ -78,43 +51,42 @@ After class
 In class
 
 - [Chapter 7: Creating simulation experiments](../chapters/6_creating_simulation_experiments.qmd). 
-- [Chapter 8: Mapping functions](../chapters/7_mapping.qmd). 
 
 After class
 
 - Chapter 7's exercises (linked in chapter).
-- Chapter 8's exercises (linked in chapter).
 
 ## Week 6
 
 In class
 
-- [Chapter 8: Summarizing results](../chapters/8_summarizing_results.qmd).
-- [Chapter 10: Summarizing results](../chapters/10_simulation_template.qmd).
+- [Chapter 8: Mapping functions](../chapters/7_mapping.qmd). 
 
 After class
 
-- XX
+- Chapter 8's exercises (linked in chapter).
 
 ## Week 7
 
 In class
 
-- XX
+- More discussion of [Chapter 8: Mapping functions](../chapters/7_mapping.qmd) specifically map() and unnest().
+- [Chapter 12: Estimation](../chapters/12_estimation.qmd). 
 
 After class
 
-- XX
+- Chapter 12's exercises (linked in chapter).
 
 ## Week 8
 
 In class
 
-- XX
+- [Chapter 13: Hypothesis Testing](../chapters/13_hypothesis_testing.qmd).
 
 After class
 
-- XX
+- Read [Lakens et al. (2018) "Equivalence Testing for Psychological Research: A Tutorial"](https://doi.org/10.1177/2515245918770963).
+- Chapter 13's exercises (linked in chapter).
 
 ## Week 9
 
@@ -175,4 +147,20 @@ In class
 After class
 
 - XX
+
+## Notes to self on structure
+
+- [Chapter 8: Summarizing results](../chapters/8_summarizing_results.qmd).
+- [Chapter 10: Summarizing results](../chapters/10_simulation_template.qmd).
+chapters/9_planning_and_reporting - come back to this after substantive chapter 1 - week 7?, Siepe paper, assessing performance (MC SE), etc. Diagnostics on already run simulations, go in and check specific iterations, run manually etc.
+
+where to add some additional material on parallelisation and optimisation, eg dropping the nested datasets and using a helper function to use pmap() more directly and efficiently?
+
+## Note to self: badges:
+
+- badge 1 <span class="badge badge-draft1">✎ Very rough draft</span>
+- badge 2 <span class="badge badge-draft2">✎ Rough draft</span>
+- badge 3 <span class="badge badge-draft3">✎ Polishing</span>
+- badge 4 <span class="badge badge-complete">✓ Complete</span>
+
 

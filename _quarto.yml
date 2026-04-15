@@ -28,35 +28,44 @@ book:
         - chapters/6_analysis_functions.qmd 
         - chapters/7_creating_simulation_experiments.qmd 
         - chapters/8_mapping.qmd 
-        - chapters/9_summarizing_results.qmd 
-        - chapters/10_planning_and_reporting.qmd 
+        - chapters/9_summarizing_results.qmd # return in later weeks?
+        - chapters/10_planning_and_reporting.qmd # return in later weeks?
         
     - part: "Part II: Learning from Simulations"
       chapters:
+        # GLM and inference
         - chapters/11_everything_is_regression.qmd 
         - chapters/12_estimation.qmd
-        #- chapters/13_hypothesis_testing.qmd
-        #- chapters/se_sd_confusion.qmd
-        #- chapters/estimands_and_inappropriate_analyses.qmd # add chapter on how not to analyze RCTs! 
-        - chapters/violating_assumptions.qmd
-        - chapters/testing_assumptions_and_conditional_tests.qmd
-        - chapters/p_hacking.qmd
-        - chapters/difference_between_significant_and_nonsignificant.qmd
-        - chapters/standardized_effect_sizes_and_range_restriction.qmd
-        - chapters/impact_of_careless_responding.qmd
-        - chapters/meta_analysis_and_publication_bias.qmd
-        - chapters/causality.qmd
+        - chapters/13_hypothesis_testing.qmd # week 8? - NHST, alpha, power, other forms of HT like equivalence
+        - chapters/difference_between_significant_and_nonsignificant.qmd # week 9? - ways to mess up inference, interpretation errors 
+        - chapters/violating_assumptions.qmd # week 10? - ways to mess up inference
+        - chapters/testing_assumptions_and_conditional_tests.qmd # week 11? 
+        #- chapters/estimands_and_inappropriate_analyses.qmd # week 12? on how not to analyze RCTs - misalignment errors, ways to mess up inference
+        - chapters/p_hacking.qmd # week 13? - ways to mess up inference
+        #- chapters/standardized_effect_sizes_and_range_restriction.qmd
+        
+        # meta-analysis
+        #- chapters/meta_analysis_and_publication_bias.qmd # week 14? go from "everything is a linear model, including meta analysis" to "how is MA distorted"
+        #- chapters/se_sd_confusion.qmd # week 14? recognise errors in MA, starting with the main ones of extraction errors and misreporting
+        
+        # cross sectional data, Likert-like data, and causality
+        #- chapters/impact_of_careless_responding.qmd
+        #- chapters/causality.qmd
 
     - part: "Exercises"
       chapters:
         - exercises/1_required_skills_exercises.qmd
         - exercises/3_writing_functions_exercises.qmd
         - exercises/4_data_generating_process_functions_exercises.qmd
+        # 5 has no excercises (yet?)
         - exercises/6_analysis_functions_exercises.qmd 
         - exercises/7_creating_simulation_experiments_exercises.qmd 
         - exercises/8_mapping_exercises.qmd 
+        # 9 has no excercises yet
+        # 10 has no excercises yet
         - exercises/11_everything_is_regression_exercises.qmd 
         - exercises/12_estimation_exercises.qmd 
+        - exercises/13_hypothesis_testing_exercises.qmd
         
     - part: "Appendices"
       chapters:
@@ -97,6 +106,7 @@ format:
           .badge-draft2   { background: #fef0e6; color: #8b4a1a; border: 1px solid #f5cfa0; }
           .badge-draft3   { background: #fef9e7; color: #7a5c00; border: 1px solid #f5d97a; }
           .badge-complete { background: #e6f4ea; color: #1e6e3a; border: 1px solid #b7dfbe; }
+          .quarto-color-scheme-toggle::after { content: " Dark mode"; font-family: sans-serif; font-size: 0.85em; }
         </style>
 
 editor: visual
