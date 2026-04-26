@@ -15,6 +15,7 @@ library(dplyr)
 library(purrr) 
 library(furrr)
 library(forcats)
+library(parameters)
 library(ggplot2)
 library(scales)
 library(sn)
@@ -23,7 +24,6 @@ library(effsize)
 
 # set up parallelization
 plan(multisession)
-
 ```
 
 ## Skew-normal distributions
@@ -40,47 +40,59 @@ Note that when alpha = 0, skew-normal data is the same as normal data:
 
 ```{r}
 
-mu    <- 0    # population mean 
-sigma <- 1    # population standard deviation
-skew  <- 12   # skewness parameter
+mean  <- 700    # population mean 
+sd    <- 300    # population standard deviation
+skew  <- 12     # skewness parameter
 
-# convert m, sd, and skewness into skew-normal parameters scale, location, and alpha (skew)
-delta_val <- skew / sqrt(1 + skew^2)  # delta is an intermediate value
-scale_val <- sigma / sqrt(1 - 2 * delta_val^2 / pi)  
-location_val <- mu - scale_val * delta_val * sqrt(2 / pi) 
+# convert m, sd, and skewness into skew-normal parameters scale, location, and alpha (skew) while retaining the original M and SD
+# nb understanding this math is not the point of the lesson
+skewnormal_from_m_sd_skew <- function(mean, sd, skew) {
+  delta_val <- skew / sqrt(1 + skew^2)  # delta is an intermediate value
+  scale_val <- sd / sqrt(1 - 2 * delta_val^2 / pi)  
+  location_val <- mean - scale_val * delta_val * sqrt(2 / pi)
+  res <- data.frame(xi = location_val,
+                    omega = scale_val,
+                    alpha = skew)
+  return(res)
+} 
+
+skewnormal_parameters <- skewnormal_from_m_sd_skew(mean = mean, 
+                                                   sd = sd, 
+                                                   skew = skew)
 
 # generate data
 set.seed(42)  
 
-sample_size <- 1000000
+n <- 1000000
 
 data_combined <- tibble(
-  normal = rnorm(n = sample_size, 
-                 mean = mu, 
-                 sd = sigma),
-  skewnormal = rsn(n = sample_size, 
-                   xi = location_val, 
-                   omega = scale_val, 
-                   alpha = skew)
+  normal = rnorm(n = n, 
+                 mean = mean, 
+                 sd = sd),
+  skewnormal = rsn(n = n, 
+                   xi = skewnormal_parameters$xi, 
+                   omega = skewnormal_parameters$omega, 
+                   alpha = skewnormal_parameters$alpha)
 )
+
+# plot
+ggplot(data_combined) +
+  geom_vline(xintercept = 0, linetype = "dashed") +
+  geom_density(aes(x = normal), adjust = 1.5, fill = "darkgreen", alpha = 0.3) +
+  geom_density(aes(x = skewnormal), adjust = 1.5, fill = "darkorange", alpha = 0.3) +
+  labs(x = "Reaction Times",
+       y = "Density",
+       title = "Normal vs. Skew-Normal Distributions with equal mean and SD") +
+  scale_x_continuous(breaks = breaks_pretty(n = 9)) +
+  theme_linedraw()
 
 # table
 data_combined |>
   summarize(mean_normal = mean(normal),
-            mean_skewnormal = mean(skewnormal),
             sd_normal = sd(normal),
+            mean_skewnormal = mean(skewnormal),
             sd_skewnormal = sd(skewnormal)) |>
-  mutate_if(is.numeric, round_half_up, digits = 2)
-
-# plot
-ggplot(data_combined) +
-  geom_density(aes(x = normal)) +
-  geom_density(aes(x = skewnormal)) +
-  labs(x = "Scores",
-       y = "Density",
-       title = "Normal vs. Skew-Normal Distributions with equal mean and SD") +
-  scale_x_continuous(breaks = breaks_pretty(n = 9), limits = c(-4, 4)) +
-  theme_linedraw()
+  mutate_if(is.numeric, round_half_up, digits = 0)
 
 ```
 
@@ -169,8 +181,18 @@ analyze <- function(data) {
                           data = data,
                           pooled = TRUE)
   
-  res <- tibble(p = res_t_test$p.value, 
-                cohens_d = res_cohens_d$estimate)
+  res <- res_t_test %>%
+    model_parameters() %>%
+    as_tibble() %>% 
+    janitor::clean_names() %>% 
+    # create estimand
+    mutate(significant = p < .05,
+           cohens_d = res_cohens_d$estimate) |> 
+    # select columns of interest
+    select(mean_diff = difference,
+           cohens_d,
+           p,
+           significant)
 
   return(res)
 }
@@ -193,10 +215,10 @@ This is an important lesson in thinking carefully about how you set up a simulat
 experiment_parameters <- expand_grid(
   n_control = 100,
   n_intervention = 100,
-  mu_control = 0,
-  mu_intervention = 0, 
-  sigma_control = 1,
-  sigma_intervention = 1,
+  mu_control = 700,
+  mu_intervention = 700, 
+  sigma_control = 300,
+  sigma_intervention = 300,
   skew_control = c(0, 12),
   skew_intervention = c(0, 12),
   iteration = 1:1000 
@@ -212,10 +234,10 @@ experiment_parameters <- expand_grid(
 experiment_parameters <- expand_grid(
   n_control = 100,
   n_intervention = 100,
-  mu_control = 0,
-  mu_intervention = 0, 
-  sigma_control = 1,
-  sigma_intervention = 1,
+  mu_control = 700,
+  mu_intervention = 700, 
+  sigma_control = 300,
+  sigma_intervention = 300,
   skew_control = c(0, 12),
   iteration = 1:1000 
 ) |>
@@ -238,10 +260,10 @@ I have added the normal-to-skew-normal parameter conversions and the convenience
 experiment_parameters <- expand_grid(
   n_control = 100,
   n_intervention = 100,
-  mu_control = 0,
-  mu_intervention = 0, 
-  sigma_control = 1,
-  sigma_intervention = 1,
+  mu_control = 700,
+  mu_intervention = 700, 
+  sigma_control = 300,
+  sigma_intervention = 300,
   skew_control = c(0, 12),
   iteration = 1:1000 
 ) |>
@@ -249,7 +271,9 @@ experiment_parameters <- expand_grid(
   
   # make an intuitive label for the conditions
   mutate(distribution = case_when(skew_intervention == 0 ~ "Normal data",
-                                  skew_intervention == 12 ~ "Skew-Normal data")) |>
+                                  skew_intervention == 12 ~ "Skew-Normal data"),
+         population_unstandardized_effect_size = paste(mu_intervention - mu_control, "ms"),
+         population_standardized_effect_size = paste("Cohen's d =", round((mu_intervention - mu_control) / sqrt((sigma_control^2 + sigma_intervention^2) / 2), 2))) |>
   
   # calculate skew-normal parameters
   # don't worry about the math, it's not important to understand
@@ -267,7 +291,7 @@ experiment_parameters <- expand_grid(
 ```{r}
 
 # set the seed ----
-set.seed(42)
+set.seed(44)
 
 # run simulation ----
 simulation <- 
@@ -275,19 +299,23 @@ simulation <-
   experiment_parameters |>
   
   # generate data using the data generating function and the parameters relevant to data generation
-  mutate(generated_data = pmap(list(n_control,
-                                    n_intervention,
-                                    location_control,
-                                    location_intervention,
-                                    scale_control,
-                                    scale_intervention,
-                                    skew_control,
-                                    skew_intervention),
-                               generate_data)) |>
+  mutate(generated_data = future_pmap(.l = list(n_control = n_control,
+                                                n_intervention = n_intervention,
+                                                location_control = location_control,
+                                                location_intervention = location_intervention,
+                                                scale_control = scale_control,
+                                                scale_intervention = scale_intervention,
+                                                skew_control = skew_control,
+                                                skew_intervention = skew_intervention),
+                                      .f = generate_data,
+                                      .progress = TRUE,
+                                      .options = furrr_options(seed = TRUE))) |>
   
   # apply the analysis function to the generated data using the parameters relevant to analysis
-  mutate(analysis_results = pmap(list(generated_data),
-                                 analyze))
+  mutate(results = future_pmap(.l = list(data = generated_data),
+                               .f = analyze,
+                               .progress = TRUE,
+                               .options = furrr_options(seed = TRUE)))
 
 ```
 
@@ -301,9 +329,9 @@ Summarize the proportion of significant *p*-values, i.e., the false positive rat
 
 # summarise simulation results over the iterations ----
 simulation_summary <- simulation |>
-  unnest(analysis_results) |>
+  unnest(results) |>
   group_by(distribution) |>
-  summarize(proportion_significant = mean(p < .05)) 
+  summarize(proportion_significant = mean(significant)) 
 
 # print table
 # note: only ever do rounding at the point of printing results!
@@ -330,10 +358,10 @@ How would we modify the parameters to study not only the false-positive rate but
 experiment_parameters <- expand_grid(
   n_control = 100,
   n_intervention = 100,
-  mu_control = 0,
-  mu_intervention = 0,
-  sigma_control = 1,
-  sigma_intervention = 1,
+  mu_control = 700,
+  mu_intervention = 700, 
+  sigma_control = 300,
+  sigma_intervention = 300,
   skew_control = c(0, 12),
   iteration = 1:1000 
 ) |>
@@ -342,7 +370,8 @@ experiment_parameters <- expand_grid(
   # make an intuitive label for the conditions
   mutate(distribution = case_when(skew_intervention == 0 ~ "Normal data",
                                   skew_intervention == 12 ~ "Skew-Normal data"),
-         population_effect_size = paste("Cohen's d =", mu_intervention)) |>
+         population_unstandardized_effect_size = paste(mu_intervention - mu_control, "ms"),
+         population_standardized_effect_size = paste("Cohen's d =", round((mu_intervention - mu_control) / sqrt((sigma_control^2 + sigma_intervention^2) / 2), 2))) |>
   
   # calculate skew-normal parameters
   # don't worry about the math, it's not important to understand
@@ -363,10 +392,10 @@ experiment_parameters <- expand_grid(
 experiment_parameters <- expand_grid(
   n_control = 100,
   n_intervention = 100,
-  mu_control = 0,
-  mu_intervention = c(0, 0.5), # multiple location values
-  sigma_control = 1,
-  sigma_intervention = 1,
+  mu_control = 700,
+  mu_intervention = c(700, 820),  # multiple location values
+  sigma_control = 300,
+  sigma_intervention = 300,
   skew_control = c(0, 12),
   iteration = 1:1000 
 ) |>
@@ -375,7 +404,8 @@ experiment_parameters <- expand_grid(
   # make an intuitive label for the conditions
   mutate(distribution = case_when(skew_intervention == 0 ~ "Normal data",
                                   skew_intervention == 12 ~ "Skew-Normal data"),
-         population_effect_size = paste("Cohen's d =", mu_intervention)) |>
+         population_unstandardized_effect_size = paste(mu_intervention - mu_control, "ms"),
+         population_standardized_effect_size = paste("Cohen's d =", round((mu_intervention - mu_control) / sqrt((sigma_control^2 + sigma_intervention^2) / 2), 2))) |>
   
   # calculate skew-normal parameters
   # don't worry about the math, it's not important to understand
@@ -403,20 +433,24 @@ simulation <-
   experiment_parameters |>
   
   # generate data using the data generating function and the parameters relevant to data generation
-  mutate(generated_data = pmap(list(n_control,
-                                    n_intervention,
-                                    location_control,
-                                    location_intervention,
-                                    scale_control,
-                                    scale_intervention,
-                                    skew_control,
-                                    skew_intervention),
-                               generate_data)) |>
+  mutate(generated_data = future_pmap(.l = list(n_control = n_control,
+                                                n_intervention = n_intervention,
+                                                location_control = location_control,
+                                                location_intervention = location_intervention,
+                                                scale_control = scale_control,
+                                                scale_intervention = scale_intervention,
+                                                skew_control = skew_control,
+                                                skew_intervention = skew_intervention),
+                                      .f = generate_data,
+                                      .progress = TRUE,
+                                      .options = furrr_options(seed = TRUE))) |>
   
   # apply the analysis function to the generated data using the parameters relevant to analysis
-  mutate(analysis_results = pmap(list(generated_data),
-                                 analyze))
-  
+  mutate(results = future_pmap(.l = list(data = generated_data),
+                               .f = analyze,
+                               .progress = TRUE,
+                               .options = furrr_options(seed = TRUE)))
+
 ```
 
 ### Summarize results
@@ -431,9 +465,9 @@ How do we need to modify the summarization compared to last time? Modify the bel
 
 # summarise simulation results over the iterations
 simulation_summary <- simulation |>
-  unnest(analysis_results) |>
+  unnest(results) |>
   group_by(distribution) |>
-  summarize(proportion_significant = mean(p < .05)) 
+  summarize(proportion_significant = mean(significant)) 
 
 # note: only ever do rounding at the point of printing results!
 simulation_summary |>
@@ -449,10 +483,10 @@ simulation_summary |>
 
 # summarise simulation results over the iterations ----
 simulation_summary <- simulation |>
-  unnest(analysis_results) |>
+  unnest(results) |>
   # group_by ALL the manipulated factors
-  group_by(distribution, population_effect_size) |> 
-  summarize(proportion_significant = mean(p < .05)) 
+  group_by(distribution, population_unstandardized_effect_size) |> 
+  summarize(proportion_significant = mean(significant)) 
 
 # note: only ever do rounding at the point of printing results!
 simulation_summary |>
@@ -464,7 +498,7 @@ simulation_summary |>
 -   What does this not tell us?
 -   If we want to understand why violating the assumption of normality might be bad, what else can we do?
 
-## 3. Impact of non-normality on the t-test's false-positive and true-positive (power) rates and estimates of Cohens's d
+## 3. Impact of non-normality on the t-test's false-positive and true-positive (power) rates and estimates of effect size
 
 As well as the false-positive and false-negative rate of the t-test's *p*-values, we could also examine the estimates of standardized effect size.
 
@@ -476,14 +510,18 @@ We can summarize the results of the previous simulation differently, by adding C
 
 # summarise simulation results over the iterations ----
 simulation_summary <- simulation |>
-  unnest(analysis_results) |>
+  unnest(results) |>
   # group by ALL the manipulated factors
   group_by(distribution, 
-           population_effect_size) |>
-  summarize(proportion_significant = mean(p < .05),
+           population_unstandardized_effect_size,
+           population_standardized_effect_size) |>
+  summarize(proportion_significant = mean(significant),
+            average_mean_difference = mean(mean_diff),
             cohens_d = mean(cohens_d)) |>
-  select(distribution, 
-         population_effect_size,
+  select(distribution,
+         population_unstandardized_effect_size,
+         average_mean_difference,
+         population_standardized_effect_size,
          cohens_d,
          proportion_significant)
 
@@ -496,7 +534,11 @@ simulation_summary |>
 -   The false-positive and false-negative rates of the t-test's *p*-value are maintained when data is skewed.
 -   The effect size recovery is maintained when data is skewed.
 
+## Check your learning
+
 So, why do we care about the assumption of normality for a t-test if violating it in these ways doesn't substantially change much?
+
+Can we yet conclude that non-normality does not influence inferences or estimations much? What estimands? What data generating conditions?
 
 ## At-home exercises
 
@@ -536,3 +578,10 @@ Note that this isn't a trivial exercise, it would take you some time to answer. 
 
 
 ```
+
+## TODO
+
+- Modify each of the above expand grids to use skewnormal_from_m_sd_skew() before it rather than calculating manually after it. 
+- The other simulation of heteroscedasticity should come first, its easier to implement.
+
+
