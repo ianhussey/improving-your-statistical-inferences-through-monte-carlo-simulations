@@ -37,8 +37,8 @@ book:
         - chapters/11_everything_is_regression.qmd 
         - chapters/12_estimation.qmd
         - chapters/13_hypothesis_testing.qmd # week 8? - NHST, alpha, power, other forms of HT like equivalence
+        - chapters/14_violating_assumptions.qmd # week 10? - ways to mess up inference
         - chapters/difference_between_significant_and_nonsignificant.qmd # week 9? - ways to mess up inference, interpretation errors 
-        - chapters/violating_assumptions.qmd # week 10? - ways to mess up inference
         - chapters/testing_assumptions_and_conditional_tests.qmd # week 11? 
         #- chapters/estimands_and_inappropriate_analyses.qmd # week 12? on how not to analyze RCTs - misalignment errors, ways to mess up inference
         - chapters/p_hacking.qmd # week 13? - ways to mess up inference
