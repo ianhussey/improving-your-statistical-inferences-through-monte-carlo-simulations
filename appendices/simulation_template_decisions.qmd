@@ -271,7 +271,7 @@ simulation <- experiment_parameters_grid |>
 <!-- Performance and uncertainty of the method(s) across conditions -->
 
 ```{r}
-simulation_summary_inference <- simulation |>
+simulation_summary <- simulation |>
   unnest(results) |>
   group_by(n_per_condition,
            population_mean_diff,
@@ -291,59 +291,12 @@ simulation_summary_inference <- simulation |>
 #     empirical_detection_rate_mcse = sqrt(empirical_detection_rate * (1 - empirical_detection_rate) / n()),
 #     .groups = "drop"
 #   )
-
-
-simulation_summary_estimation <- simulation |>
-  unnest(results) |>
-  group_by(n_per_condition,
-           population_mean_diff,
-           condition) |>
-  # performance and uncertainty metrics for parameter estimation (continuous estimates)
-  reframe(
-    calc_absolute(data         = pick(everything()),
-                  estimates    = mean_diff,
-                  true_param   = population_mean_diff,
-                  criteria     = c("bias", "variance"))
-  )
-
-# # identical summarize results, more manual:
-#   summarize(
-#     bias      = mean(mean_diff - population_mean_diff),
-#     bias_mcse = sd(mean_diff - population_mean_diff) / sqrt(n()),
-#     var       = var(mean_diff),
-#     var_mcse  = var * sqrt(2 / (n() - 1)),
-#     .groups   = "drop"
-#   )
-
-simulation_summary_coverage <- simulation |>
-  unnest(results) |>
-  group_by(n_per_condition,
-           population_mean_diff,
-           condition) |>
-  # performance and uncertainty metrics for parameter estimation (continuous estimates)
-  reframe(
-    calc_coverage(data         = pick(everything()),
-                  lower_bound  = ci_lower,
-                  upper_bound  = ci_upper,
-                  true_param   = population_mean_diff,
-                  criteria     = c("coverage", "width"))
-  )
-
-# # identical summarize results, more manual:
-  # summarize(
-  #   K            = n(),
-  #   coverage     = mean(between(population_mean_diff, ci_lower, ci_upper)),
-  #   coverage_mcse = sqrt(coverage * (1 - coverage) / K),
-  #   width        = mean(ci_upper - ci_lower),
-  #   width_mcse   = sqrt(var(ci_upper - ci_lower) / K),
-  #   .groups      = "drop"
-  # )
 ```
 
 ### Table
 
 ```{r}
-simulation_summary_inference |>
+simulation_summary |>
   select(n_per_condition, 
          population_mean_diff,
          empirical_detection_rate, 
@@ -356,7 +309,7 @@ simulation_summary_inference |>
 ### Plot
 
 ```{r}
-ggplot(simulation_summary_inference, 
+ggplot(simulation_summary, 
        aes(x = n_per_condition, 
            y = empirical_detection_rate, 
            color = as.factor(population_mean_diff))) +
