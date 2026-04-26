@@ -66,12 +66,14 @@ book:
         - exercises/11_everything_is_regression_exercises.qmd 
         - exercises/12_estimation_exercises.qmd 
         - exercises/13_hypothesis_testing_exercises.qmd
+        # 14 has no excercises yet
         
     - part: "Appendices"
       chapters:
         - appendices/lesson_plan.qmd
         - appendices/ADEMP_preregistration_template.qmd
-        - appendices/simulation_template.qmd 
+        - appendices/simulation_template_hypothesis_testing.qmd 
+        - appendices/simulation_template_estimation.qmd
         - appendices/crowded_room_problem.qmd
         - license.qmd
         
