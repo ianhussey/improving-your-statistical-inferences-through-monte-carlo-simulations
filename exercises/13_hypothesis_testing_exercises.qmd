@@ -143,10 +143,203 @@ Notes:
 
 - We're only interested in statistical power here, so set the population difference in means to zero. Check you understand why.
 
+```{r}
+# functions for simulation
+generate_data <- function(n_per_condition,
+                          mean_control,
+                          mean_intervention,
+                          sd) {
+  
+  data_control <- 
+    tibble(condition = "control",
+           score = rnorm(n = n_per_condition, mean = mean_control, sd = sd))
+  
+  data_intervention <- 
+    tibble(condition = "intervention",
+           score = rnorm(n = n_per_condition, mean = mean_intervention, sd = sd))
+  
+  data_combined <- 
+    bind_rows(data_control,
+              data_intervention) |>
+    mutate(condition = factor(condition, level = c("intervention", "control")))
+  
+  return(data_combined)
+}
+
+analyse <- function(data, direction_h1 = "two.sided", alpha = 0.05, mean_difference_h0 = 0){
+  fit <- t.test(
+    formula = score ~ condition,
+    mu = mean_difference_h0,
+    alternative = direction_h1,
+    conf.level = 1-alpha,
+    var.equal = TRUE, # students t test: assumes equal variances
+    data = data
+  )
+  
+  results <- fit %>%
+    model_parameters() %>%
+    as_tibble() %>% 
+    janitor::clean_names() %>% 
+    # create estimand
+    mutate(significant_p = p < .05, # statistically significant in the sense that p < .05
+           signficiant_ci = !dplyr::between(0, ci_low, ci_high)) |> # statistically significant in the sense that 95% CI excludes a mean difference of 0
+    # select columns of interest
+    select(mean_diff = difference,
+           ci_low,
+           ci_high,
+           signficiant_ci,
+           p,
+           significant_p)
+  
+  return(results)
+}
+
+
+# simulation parameters
+experiment_parameters <- expand_grid(
+  n_per_condition = seq(from = 25, to = 100, by = 25),
+  mean_control = 0,
+  mean_intervention = c(1, 2, 3),
+  sd = 1,
+  direction_h1 = "two.sided", 
+  alpha = 0.05,
+  mean_difference_h0 = 0,
+  iteration = 1:1000
+) |>
+  mutate(pop_mean_diff = mean_intervention - mean_control)
+
+# set seed
+set.seed(42)
+
+# run simulation
+simulation <- experiment_parameters |>
+  mutate(generated_data = future_pmap(.l = list(n_per_condition = n_per_condition, 
+                                                mean_control = mean_control,
+                                                mean_intervention = mean_intervention,
+                                                sd = sd),
+                                      .f = generate_data,
+                                      .progress = TRUE,
+                                      .options = furrr_options(seed = TRUE))) |>
+  mutate(results = future_pmap(.l = list(data = generated_data),
+                               .f = analyse,
+                               .progress = TRUE,
+                               .options = furrr_options(seed = TRUE))) |>
+  unnest(results)
+
+# calculate summary
+results_summary <- simulation |>
+  group_by(pop_mean_diff,
+           n_per_condition) |>
+  summarize(mean_difference_in_means = mean(mean_diff),
+            mean_ci_low = mean(ci_low),
+            mean_ci_high = mean(ci_high),
+            proportion_significant_p = mean(significant_p),
+            .groups = "drop")
+
+results_summary |>
+  mutate_if(is.numeric, round, digits = 2)
+```
 
 ### Statistical power for a Minimal-Effects Test (One-Sided) 
 
-When using a Minimal-Effects Test (One-Sided) (independent t-test testing a population difference in means (mu) of 1), what is the statistical power to detect a population mean difference of 0, 1, 2, or 3 across different sample sizes (n per condition = 25, 50, 75, 100)? What is the false positive rate across these sample sizes?
+When using a Minimal-Effects Test (One-Sided) (independent t-test testing a population difference in means (mu) of 1), what is the statistical power to detect a population mean difference of 1, 2, or 3 across different sample sizes (n per condition = 25, 50, 75, 100)? What is the false positive rate across these sample sizes?
+
+```{r}
+# functions for simulation
+generate_data <- function(n_per_condition,
+                          mean_control,
+                          mean_intervention,
+                          sd) {
+  
+  data_control <- 
+    tibble(condition = "control",
+           score = rnorm(n = n_per_condition, mean = mean_control, sd = sd))
+  
+  data_intervention <- 
+    tibble(condition = "intervention",
+           score = rnorm(n = n_per_condition, mean = mean_intervention, sd = sd))
+  
+  data_combined <- 
+    bind_rows(data_control,
+              data_intervention) |>
+    mutate(condition = factor(condition, level = c("intervention", "control")))
+  
+  return(data_combined)
+}
+
+analyse <- function(data, direction_h1 = "two.sided", alpha = 0.05, mean_difference_h0 = 0){
+  fit <- t.test(
+    formula = score ~ condition,
+    mu = mean_difference_h0,
+    alternative = direction_h1,
+    conf.level = 1-alpha,
+    var.equal = TRUE, # students t test: assumes equal variances
+    data = data
+  )
+  
+  results <- fit %>%
+    model_parameters() %>%
+    as_tibble() %>% 
+    janitor::clean_names() %>% 
+    # create estimand
+    mutate(significant_p = p < .05, # statistically significant in the sense that p < .05
+           signficiant_ci = !dplyr::between(0, ci_low, ci_high)) |> # statistically significant in the sense that 95% CI excludes a mean difference of 0
+    # select columns of interest
+    select(mean_diff = difference,
+           ci_low,
+           ci_high,
+           signficiant_ci,
+           p,
+           significant_p)
+  
+  return(results)
+}
+
+
+# simulation parameters
+experiment_parameters <- expand_grid(
+  n_per_condition = seq(from = 25, to = 100, by = 25),
+  mean_control = 0,
+  mean_intervention = c(1, 2, 3),
+  sd = 1,
+  direction_h1 = "greater", 
+  alpha = 0.05,
+  mean_difference_h0 = 1,
+  iteration = 1:1000
+) |>
+  mutate(pop_mean_diff = mean_intervention - mean_control)
+
+# set seed
+set.seed(42)
+
+# run simulation
+simulation <- experiment_parameters |>
+  mutate(generated_data = future_pmap(.l = list(n_per_condition = n_per_condition, 
+                                                mean_control = mean_control,
+                                                mean_intervention = mean_intervention,
+                                                sd = sd),
+                                      .f = generate_data,
+                                      .progress = TRUE,
+                                      .options = furrr_options(seed = TRUE))) |>
+  mutate(results = future_pmap(.l = list(data = generated_data),
+                               .f = analyse,
+                               .progress = TRUE,
+                               .options = furrr_options(seed = TRUE))) |>
+  unnest(results)
+
+# calculate summary
+results_summary <- simulation |>
+  group_by(pop_mean_diff,
+           n_per_condition) |>
+  summarize(mean_difference_in_means = mean(mean_diff),
+            mean_ci_low = mean(ci_low),
+            mean_ci_high = mean(ci_high),
+            proportion_significant_p = mean(significant_p),
+            .groups = "drop")
+
+results_summary |>
+  mutate_if(is.numeric, round, digits = 2)
+```
 
 
 ### Statistical power for equivalence test
