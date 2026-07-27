@@ -10,7 +10,7 @@ authors:
     given-names: Jamie
     orcid: "https://orcid.org/0000-0002-9729-4900"
 date-released: "2026-04-05"
-doi: "10.5281/zenodo.19420665"
+doi: "10.5281/zenodo.19420477"
 url: "https://simulations.tidyver.se/"
 repository-code: "https://github.com/ianhussey/understanding-statistics-through-monte-carlo-simulations"
 license: CC-BY-4.0
