@@ -110,6 +110,13 @@ format:
     include-in-header:
       text: |
         <style>
+          /* more breathing room before section headings.
+             scoped to main.content so the sidebar/TOC headings are left alone.
+             this <style> block is emitted after the bootstrap theme css, so these
+             win without needing !important. */
+          main.content h2 { margin-top: 3rem; }
+          main.content h3 { margin-top: 2rem; }
+          main.content h4 { margin-top: 1.5rem; }
           .kable-table table { width: 70%; margin: 0 auto; }
           .badge {
             display: inline-flex; align-items: center; gap: 0.3em;
