@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>8&nbsp; Creating simulation experiments – Understanding statistics through Monte Carlo simulations</title>
+<title>7&nbsp; Creating simulation experiments – Understanding statistics through Monte Carlo simulations</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -110,6 +110,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <style>
+  /* more breathing room before section headings.
+     scoped to main.content so the sidebar/TOC headings are left alone.
+     this <style> block is emitted after the bootstrap theme css, so these
+     win without needing !important. */
+  main.content h2 { margin-top: 3rem; }
+  main.content h3 { margin-top: 2rem; }
+  main.content h4 { margin-top: 1.5rem; }
   .kable-table table { width: 70%; margin: 0 auto; }
   .badge {
     display: inline-flex; align-items: center; gap: 0.3em;
@@ -298,7 +305,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01_required_skills.html">Part I: Learning to Simulate</a></li><li class="breadcrumb-item"><a href="../chapters/07_creating_simulation_experiments.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Creating simulation experiments</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01_required_skills.html">Part I: Learning to Simulate</a></li><li class="breadcrumb-item"><a href="../chapters/07_creating_simulation_experiments.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Creating simulation experiments</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -334,8 +341,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/00_lesson_plan.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Lesson plan</span></span></a>
+  <a href="../lesson_plan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson plan</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -350,61 +357,61 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/01_required_skills.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Required skills</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Required skills</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/02_foundation_concepts.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Foundation concepts</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Foundation concepts</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/03_writing_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Writing functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Writing functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/04_data_generating_process_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data-generating process functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data-generating process functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/05_pseudo_random_number_generators.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Pseudo-random number generators</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Pseudo-random number generators</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/06_analysis_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Analysis functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Analysis functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/07_creating_simulation_experiments.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Creating simulation experiments</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Creating simulation experiments</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/08_mapping.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Mapping over functions <span class="badge badge-draft2">✎ Rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Mapping over functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/09_summarizing_results.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summarizing results <span class="badge badge-draft1">✎ TODO</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Summarizing results <span class="badge badge-draft1">✎ TODO</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/10_planning_and_reporting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Planning and reporting <span class="badge badge-draft1">✎ TODO</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Planning and reporting <span class="badge badge-draft1">✎ TODO</span></span></span></a>
   </div>
 </li>
       </ul>
@@ -421,43 +428,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/11_everything_is_regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Everything is regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Everything is regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/12_estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/13_hypothesis_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/14_violating_assumptions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/15_testing_assumptions_and_conditional_tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of non-parameteric tests</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of non-parameteric tests</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/16_p_hacking.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/17_causality_and_selection_effects.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Weird causality and selection effects</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Weird causality and selection effects</span></span></a>
   </div>
 </li>
       </ul>
@@ -474,67 +481,67 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/01_required_skills_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises for ‘Required skills’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Exercises for ‘Required skills’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/03_writing_functions_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises for ‘Writing functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises for ‘Writing functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/04_data_generating_process_functions_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises for ‘Data Generating Process functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises for ‘Data Generating Process functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/06_analysis_functions_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises for ‘Analysis functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises for ‘Analysis functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/07_creating_simulation_experiments_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises for ‘Creating simulation experiments’ chapter <span class="badge badge-draft1">✎ Very rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises for ‘Creating simulation experiments’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/08_mapping_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Exercises for ‘Mapping over functions’ chapter <span class="badge badge-draft2">✎ Rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises for ‘Mapping over functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/11_everything_is_regression_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Exercises for ‘Everything is regression’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Exercises for ‘Everything is regression’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/12_estimation_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Exercises for ‘Estimation’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Exercises for ‘Estimation’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/13_hypothesis_testing_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Exercises for ‘Hypothesis Testing’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Exercises for ‘Hypothesis Testing’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/16_p_hacking_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Exercises for ‘p-hacking’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Exercises for ‘p-hacking’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/end_of_course_assignment.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">End of course assignment</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">End of course assignment</span></span></a>
   </div>
 </li>
       </ul>
@@ -551,31 +558,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/ADEMP_preregistration_template.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">ADEMP simulation preregistration template</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">ADEMP simulation preregistration template</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/simulation_template_hypothesis_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Simulation template: hypothesis testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Simulation template: hypothesis testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/simulation_template_estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Simulation template: estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Simulation template: estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/simulation_template_hpc.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Minimal HPC simulation template (Everything)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Minimal HPC simulation template (Everything)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
+ <span class="menu-text">License</span></a>
   </div>
 </li>
       </ul>
@@ -592,19 +599,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../classics/crowded_room_problem.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">The Crowded Room problem: Constraints on correlations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">The Crowded Room problem: Constraints on correlations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../classics/cohens_d_biased.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Simulation template: Cohen’s d is a biased estimator</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Simulation template: Cohen’s d is a biased estimator</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
+ <span class="menu-text">License</span></a>
   </div>
 </li>
       </ul>
@@ -619,17 +626,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#varying-experiment-parameters-manually" id="toc-varying-experiment-parameters-manually" class="nav-link active" data-scroll-target="#varying-experiment-parameters-manually"><span class="header-section-number">8.1</span> Varying experiment parameters manually</a></li>
-  <li><a href="#varying-experiment-parameters-using-parameter-grids" id="toc-varying-experiment-parameters-using-parameter-grids" class="nav-link" data-scroll-target="#varying-experiment-parameters-using-parameter-grids"><span class="header-section-number">8.2</span> Varying experiment parameters using parameter grids</a></li>
-  <li><a href="#creating-parameter-grids-more-efficiently-expand_grid" id="toc-creating-parameter-grids-more-efficiently-expand_grid" class="nav-link" data-scroll-target="#creating-parameter-grids-more-efficiently-expand_grid"><span class="header-section-number">8.3</span> <strong>Creating parameter grids more efficiently:</strong> <code>expand_grid()</code></a></li>
-  <li><a href="#sanity-checking-your-parameter-grid" id="toc-sanity-checking-your-parameter-grid" class="nav-link" data-scroll-target="#sanity-checking-your-parameter-grid"><span class="header-section-number">8.4</span> Sanity checking your parameter grid</a></li>
-  <li><a href="#types-of-simulation-designs" id="toc-types-of-simulation-designs" class="nav-link" data-scroll-target="#types-of-simulation-designs"><span class="header-section-number">8.5</span> Types of Simulation Designs</a>
+  <li><a href="#varying-experiment-parameters-manually" id="toc-varying-experiment-parameters-manually" class="nav-link active" data-scroll-target="#varying-experiment-parameters-manually"><span class="header-section-number">7.1</span> Varying experiment parameters manually</a></li>
+  <li><a href="#varying-experiment-parameters-using-parameter-grids" id="toc-varying-experiment-parameters-using-parameter-grids" class="nav-link" data-scroll-target="#varying-experiment-parameters-using-parameter-grids"><span class="header-section-number">7.2</span> Varying experiment parameters using parameter grids</a></li>
+  <li><a href="#creating-parameter-grids-more-efficiently-expand_grid" id="toc-creating-parameter-grids-more-efficiently-expand_grid" class="nav-link" data-scroll-target="#creating-parameter-grids-more-efficiently-expand_grid"><span class="header-section-number">7.3</span> <strong>Creating parameter grids more efficiently:</strong> <code>expand_grid()</code></a></li>
+  <li><a href="#sanity-checking-your-parameter-grid" id="toc-sanity-checking-your-parameter-grid" class="nav-link" data-scroll-target="#sanity-checking-your-parameter-grid"><span class="header-section-number">7.4</span> Sanity checking your parameter grid</a></li>
+  <li><a href="#types-of-simulation-designs" id="toc-types-of-simulation-designs" class="nav-link" data-scroll-target="#types-of-simulation-designs"><span class="header-section-number">7.5</span> Types of Simulation Designs</a>
   <ul class="collapse">
-  <li><a href="#fully-crossed-designs" id="toc-fully-crossed-designs" class="nav-link" data-scroll-target="#fully-crossed-designs"><span class="header-section-number">8.5.1</span> Fully crossed designs</a></li>
-  <li><a href="#non-fully-crossed-designs" id="toc-non-fully-crossed-designs" class="nav-link" data-scroll-target="#non-fully-crossed-designs"><span class="header-section-number">8.5.2</span> Non-fully-crossed designs</a></li>
+  <li><a href="#fully-crossed-designs" id="toc-fully-crossed-designs" class="nav-link" data-scroll-target="#fully-crossed-designs"><span class="header-section-number">7.5.1</span> Fully crossed designs</a></li>
+  <li><a href="#non-fully-crossed-designs" id="toc-non-fully-crossed-designs" class="nav-link" data-scroll-target="#non-fully-crossed-designs"><span class="header-section-number">7.5.2</span> Non-fully-crossed designs</a></li>
   </ul></li>
-  <li><a href="#designs-with-dependencies" id="toc-designs-with-dependencies" class="nav-link" data-scroll-target="#designs-with-dependencies"><span class="header-section-number">8.6</span> Designs with dependencies</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">8.7</span> Summary</a></li>
+  <li><a href="#designs-with-dependencies" id="toc-designs-with-dependencies" class="nav-link" data-scroll-target="#designs-with-dependencies"><span class="header-section-number">7.6</span> Designs with dependencies</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">7.7</span> Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -637,9 +644,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01_required_skills.html">Part I: Learning to Simulate</a></li><li class="breadcrumb-item"><a href="../chapters/07_creating_simulation_experiments.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Creating simulation experiments</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01_required_skills.html">Part I: Learning to Simulate</a></li><li class="breadcrumb-item"><a href="../chapters/07_creating_simulation_experiments.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Creating simulation experiments</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Creating simulation experiments</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Creating simulation experiments</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -668,8 +675,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <p>In our previous chapters, we skipped over Step 1 and went straight to Steps 2 and 3. Now, we’re going all the way back to Step 1: making the experiment in the first place.</p>
 <p>In our earlier chapter, you saw examples of generating data, and specifying different parameter values in doing so. This is at the core of simulation: generating data with <em>different</em> parameter values and experimenting with how results of simulations change across these different values. But how do we actually create these many types of parameter values? Or, in other words: how do we actually design simulation experiments?</p>
-<section id="varying-experiment-parameters-manually" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="varying-experiment-parameters-manually"><span class="header-section-number">8.1</span> Varying experiment parameters manually</h2>
+<section id="varying-experiment-parameters-manually" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="varying-experiment-parameters-manually"><span class="header-section-number">7.1</span> Varying experiment parameters manually</h2>
 <p>The way that we ideally design simulation experiments is through the use of a parameter grid. This is, basically, a dataframe or tibble that specifies all of the variations of our simulations that we would want to run. For example, imagine we want to use simulation to analyse the difference in means between two groups (and get the p-value). We can write <code>generate_data()</code> and <code>analyse_data()</code> functions for this firstly, like we have done in previous lessons. Specifically:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dependencies</span></span>
@@ -729,7 +736,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">0.1189764</td>
+<td style="text-align: right;">0.4502481</td>
 </tr>
 </tbody>
 </table>
@@ -751,7 +758,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">0.7142306</td>
+<td style="text-align: right;">0.0138863</td>
 </tr>
 </tbody>
 </table>
@@ -773,7 +780,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">0.9343993</td>
+<td style="text-align: right;">0.7847067</td>
 </tr>
 </tbody>
 </table>
@@ -795,7 +802,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">0.1268943</td>
+<td style="text-align: right;">0.7625181</td>
 </tr>
 </tbody>
 </table>
@@ -803,8 +810,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Clearly this works. But the problem is pretty obvious: if we want to repeat these processes lots of times, or look at lots of different parameter combinations, then this will involve <em>a lot</em> of copy-pasting! This is not ideal. We will cover how to more efficiently “repeat the process lots of times” (i.e., Step 4 of Monte Carlo simulation) in the next lesson. But for now, let’s focus on how to look at lots of different parameter combinations more efficiently.</p>
 </section>
-<section id="varying-experiment-parameters-using-parameter-grids" class="level2" data-number="8.2">
-<h2 data-number="8.2" class="anchored" data-anchor-id="varying-experiment-parameters-using-parameter-grids"><span class="header-section-number">8.2</span> Varying experiment parameters using parameter grids</h2>
+<section id="varying-experiment-parameters-using-parameter-grids" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="varying-experiment-parameters-using-parameter-grids"><span class="header-section-number">7.2</span> Varying experiment parameters using parameter grids</h2>
 <p>Instead of copy-pasting each setting, we can instead create a <em>parameter grid</em>, which specifies each combination of parameters we’re interested in. For example, suppose we want to create a grid that specifies the parameters we used above (mean_intervention either 0.3 or 0.5, n_per_condition either 30 or 50, sd = 1, mean_control = 0). We could specify a parameter grid by repeating each level of each variable as a single row in a tibble, like this:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>parameter_grid <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
@@ -873,7 +880,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">0.0270263</td>
+<td style="text-align: right;">0.1971624</td>
 </tr>
 </tbody>
 </table>
@@ -895,7 +902,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">0.1043421</td>
+<td style="text-align: right;">0.0331303</td>
 </tr>
 </tbody>
 </table>
@@ -904,8 +911,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>And so on.</p>
 <p>Again, we will cover how to do this mapping of parameter grids to simulations more efficiently in the next lesson. But for now, there is one other inefficiency we should handle: creating this parameter grid more smoothly.</p>
 </section>
-<section id="creating-parameter-grids-more-efficiently-expand_grid" class="level2" data-number="8.3">
-<h2 data-number="8.3" class="anchored" data-anchor-id="creating-parameter-grids-more-efficiently-expand_grid"><span class="header-section-number">8.3</span> <strong>Creating parameter grids more efficiently:</strong> <code>expand_grid()</code></h2>
+<section id="creating-parameter-grids-more-efficiently-expand_grid" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="creating-parameter-grids-more-efficiently-expand_grid"><span class="header-section-number">7.3</span> <strong>Creating parameter grids more efficiently:</strong> <code>expand_grid()</code></h2>
 <p>In the example above, we constructed our parameter grid like this:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>parameter_grid <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
@@ -928,8 +935,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p><code>expand_grid()</code> greatly simplifies the process of specifying parameters for our simulations, and figures out all of the combinations for us.</p>
 </section>
-<section id="sanity-checking-your-parameter-grid" class="level2" data-number="8.4">
-<h2 data-number="8.4" class="anchored" data-anchor-id="sanity-checking-your-parameter-grid"><span class="header-section-number">8.4</span> Sanity checking your parameter grid</h2>
+<section id="sanity-checking-your-parameter-grid" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="sanity-checking-your-parameter-grid"><span class="header-section-number">7.4</span> Sanity checking your parameter grid</h2>
 <p>It can be good practice to sanity-check your parameter grid - specifically, to make sure that the number of rows in the grid is consistent with what you would expect. For example, in our example above, we would expect <code>experiment_parameters</code> to have 4 rows: one for each combination of mean_intervention and n_per_condition. Let’s double-check this by counting the number of rows:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>experiment_parameters <span class="sc">|&gt;</span> </span>
@@ -949,11 +956,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Looks good!</p>
 </section>
-<section id="types-of-simulation-designs" class="level2" data-number="8.5">
-<h2 data-number="8.5" class="anchored" data-anchor-id="types-of-simulation-designs"><span class="header-section-number">8.5</span> Types of Simulation Designs</h2>
+<section id="types-of-simulation-designs" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="types-of-simulation-designs"><span class="header-section-number">7.5</span> Types of Simulation Designs</h2>
 <p>There are different types of experiment designs that we might want to use in our simulation studies, usually depending on how many total combinations are possible, which of those combinations we actually find interesting, and how much time we are willing to let the simulation run for. Let’s start with the most simple design first: a fully-crossed design.</p>
-<section id="fully-crossed-designs" class="level3" data-number="8.5.1">
-<h3 data-number="8.5.1" class="anchored" data-anchor-id="fully-crossed-designs"><span class="header-section-number">8.5.1</span> Fully crossed designs</h3>
+<section id="fully-crossed-designs" class="level3" data-number="7.5.1">
+<h3 data-number="7.5.1" class="anchored" data-anchor-id="fully-crossed-designs"><span class="header-section-number">7.5.1</span> Fully crossed designs</h3>
 <p>A <strong>fully-crossed</strong> design is what <code>expand_grid()</code> gives you by default: every level of every parameter is combined with every level of every other parameter. This is especially relevant for small simulation designs (e.g., like our one above) or where we care about every level of the simulation.</p>
 <p>Fully-crossed designs are also easy to interpret: we can look at every combination of every parameter, summarise over them, and look at the whole trend. For much of this course, we will be using fully-crossed designs most often for this reason.</p>
 <p>Let’s suppose, for example, we want to expand our experiment above to also have two different standard deviation possibilities (0.5 or 1) and two different mean_control values (0 and 0.1). A fully-crossed version of this would be:</p>
@@ -1031,8 +1038,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Clearly, some of these combinations are unrealistic, and probably would end up just being a waste of time to compute in our simulation. This brings us to designs that do not consider all combinations of all values: <em>non-fully-crossed designs</em>.</p>
 </section>
-<section id="non-fully-crossed-designs" class="level3" data-number="8.5.2">
-<h3 data-number="8.5.2" class="anchored" data-anchor-id="non-fully-crossed-designs"><span class="header-section-number">8.5.2</span> Non-fully-crossed designs</h3>
+<section id="non-fully-crossed-designs" class="level3" data-number="7.5.2">
+<h3 data-number="7.5.2" class="anchored" data-anchor-id="non-fully-crossed-designs"><span class="header-section-number">7.5.2</span> Non-fully-crossed designs</h3>
 <p>In non-fully-crossed designs, we remove values that we do not think are possible, plausible, or that we simply don’t care about for whatever reason. This means that we would, for example, exclude the possibility of scarily-tall children in our <code>height_parameters</code> specification above.</p>
 <p>The best way to achieve this is to start with a fully-crossed design, and then use <code>filter()</code> to remove combinations we think are implausible. For example:</p>
 <div class="cell">
@@ -1869,8 +1876,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Empty!</p>
 </section>
 </section>
-<section id="designs-with-dependencies" class="level2" data-number="8.6">
-<h2 data-number="8.6" class="anchored" data-anchor-id="designs-with-dependencies"><span class="header-section-number">8.6</span> Designs with dependencies</h2>
+<section id="designs-with-dependencies" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="designs-with-dependencies"><span class="header-section-number">7.6</span> Designs with dependencies</h2>
 <p>In fully-crossed designs, the presence of variables is independent from each other: all levels in a given variable are assumed to be possible across all levels of all other variables.</p>
 <p>In non-fully-crossed designs, we recognise that not all variable combinations are possible, and remove those impossible/implausible combinations. In other words, there are dependencies between variables: the value of one variable <em>depends</em> on the value of other(s).</p>
 <p>We can actually take these kinds of dependencies a step further. Instead of just creating a fully-crossed design and filtering out the ones that are impossible or implausible, we can instead define variables in the first place in relation to others.</p>
@@ -2125,8 +2132,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="summary" class="level2" data-number="8.7">
-<h2 data-number="8.7" class="anchored" data-anchor-id="summary"><span class="header-section-number">8.7</span> Summary</h2>
+<section id="summary" class="level2" data-number="7.7">
+<h2 data-number="7.7" class="anchored" data-anchor-id="summary"><span class="header-section-number">7.7</span> Summary</h2>
 <p>In this chapter, we covered how to design simulation experiments by specifying the parameter values we want to vary. Key takeaways:</p>
 <ul>
 <li><p><strong>Parameter grids</strong> are tibbles where each row represents one combination of simulation parameters. They replace error-prone copy-pasting with a structured, inspectable object.</p></li>
@@ -2624,12 +2631,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../chapters/06_analysis_functions.html" class="pagination-link" aria-label="Analysis functions">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Analysis functions</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Analysis functions</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/08_mapping.html" class="pagination-link" aria-label="Mapping over functions <span class=&quot;badge badge-draft2&quot;>✎ Rough draft</span>">
-        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Mapping over functions <span class="badge badge-draft2">✎ Rough draft</span></span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/08_mapping.html" class="pagination-link" aria-label="Mapping over functions">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Mapping over functions</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">

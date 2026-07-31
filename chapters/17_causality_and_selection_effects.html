@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>18&nbsp; Weird causality and selection effects – Understanding statistics through Monte Carlo simulations</title>
+<title>17&nbsp; Weird causality and selection effects – Understanding statistics through Monte Carlo simulations</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -110,6 +110,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <style>
+  /* more breathing room before section headings.
+     scoped to main.content so the sidebar/TOC headings are left alone.
+     this <style> block is emitted after the bootstrap theme css, so these
+     win without needing !important. */
+  main.content h2 { margin-top: 3rem; }
+  main.content h3 { margin-top: 2rem; }
+  main.content h4 { margin-top: 1.5rem; }
   .kable-table table { width: 70%; margin: 0 auto; }
   .badge {
     display: inline-flex; align-items: center; gap: 0.3em;
@@ -327,7 +334,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/11_everything_is_regression.html">Part II: Learning from Simulations</a></li><li class="breadcrumb-item"><a href="../chapters/17_causality_and_selection_effects.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Weird causality and selection effects</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/11_everything_is_regression.html">Part II: Learning from Simulations</a></li><li class="breadcrumb-item"><a href="../chapters/17_causality_and_selection_effects.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Weird causality and selection effects</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -363,8 +370,8 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/00_lesson_plan.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Lesson plan</span></span></a>
+  <a href="../lesson_plan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson plan</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -379,61 +386,61 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/01_required_skills.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Required skills</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Required skills</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/02_foundation_concepts.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Foundation concepts</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Foundation concepts</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/03_writing_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Writing functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Writing functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/04_data_generating_process_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data-generating process functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data-generating process functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/05_pseudo_random_number_generators.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Pseudo-random number generators</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Pseudo-random number generators</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/06_analysis_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Analysis functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Analysis functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/07_creating_simulation_experiments.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Creating simulation experiments</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Creating simulation experiments</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/08_mapping.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Mapping over functions <span class="badge badge-draft2">✎ Rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Mapping over functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/09_summarizing_results.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summarizing results <span class="badge badge-draft1">✎ TODO</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Summarizing results <span class="badge badge-draft1">✎ TODO</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/10_planning_and_reporting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Planning and reporting <span class="badge badge-draft1">✎ TODO</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Planning and reporting <span class="badge badge-draft1">✎ TODO</span></span></span></a>
   </div>
 </li>
       </ul>
@@ -450,43 +457,43 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/11_everything_is_regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Everything is regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Everything is regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/12_estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/13_hypothesis_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/14_violating_assumptions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/15_testing_assumptions_and_conditional_tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of non-parameteric tests</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of non-parameteric tests</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/16_p_hacking.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/17_causality_and_selection_effects.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Weird causality and selection effects</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Weird causality and selection effects</span></span></a>
   </div>
 </li>
       </ul>
@@ -503,67 +510,67 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/01_required_skills_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises for ‘Required skills’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Exercises for ‘Required skills’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/03_writing_functions_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises for ‘Writing functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises for ‘Writing functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/04_data_generating_process_functions_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises for ‘Data Generating Process functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises for ‘Data Generating Process functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/06_analysis_functions_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises for ‘Analysis functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises for ‘Analysis functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/07_creating_simulation_experiments_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises for ‘Creating simulation experiments’ chapter <span class="badge badge-draft1">✎ Very rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises for ‘Creating simulation experiments’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/08_mapping_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Exercises for ‘Mapping over functions’ chapter <span class="badge badge-draft2">✎ Rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises for ‘Mapping over functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/11_everything_is_regression_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Exercises for ‘Everything is regression’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Exercises for ‘Everything is regression’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/12_estimation_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Exercises for ‘Estimation’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Exercises for ‘Estimation’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/13_hypothesis_testing_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Exercises for ‘Hypothesis Testing’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Exercises for ‘Hypothesis Testing’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/16_p_hacking_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Exercises for ‘p-hacking’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Exercises for ‘p-hacking’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/end_of_course_assignment.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">End of course assignment</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">End of course assignment</span></span></a>
   </div>
 </li>
       </ul>
@@ -580,31 +587,31 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/ADEMP_preregistration_template.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">ADEMP simulation preregistration template</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">ADEMP simulation preregistration template</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/simulation_template_hypothesis_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Simulation template: hypothesis testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Simulation template: hypothesis testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/simulation_template_estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Simulation template: estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Simulation template: estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/simulation_template_hpc.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Minimal HPC simulation template (Everything)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Minimal HPC simulation template (Everything)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
+ <span class="menu-text">License</span></a>
   </div>
 </li>
       </ul>
@@ -621,19 +628,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../classics/crowded_room_problem.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">The Crowded Room problem: Constraints on correlations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">The Crowded Room problem: Constraints on correlations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../classics/cohens_d_biased.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Simulation template: Cohen’s d is a biased estimator</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Simulation template: Cohen’s d is a biased estimator</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
+ <span class="menu-text">License</span></a>
   </div>
 </li>
       </ul>
@@ -648,26 +655,26 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#weird-causality-does-regression-assume-causality" id="toc-weird-causality-does-regression-assume-causality" class="nav-link active" data-scroll-target="#weird-causality-does-regression-assume-causality"><span class="header-section-number">18.1</span> Weird causality: Does regression assume causality?</a>
+  <li><a href="#weird-causality-does-regression-assume-causality" id="toc-weird-causality-does-regression-assume-causality" class="nav-link active" data-scroll-target="#weird-causality-does-regression-assume-causality"><span class="header-section-number">17.1</span> Weird causality: Does regression assume causality?</a>
   <ul class="collapse">
-  <li><a href="#plots" id="toc-plots" class="nav-link" data-scroll-target="#plots"><span class="header-section-number">18.1.1</span> Plots</a></li>
-  <li><a href="#simulate" id="toc-simulate" class="nav-link" data-scroll-target="#simulate"><span class="header-section-number">18.1.2</span> Simulate</a></li>
+  <li><a href="#plots" id="toc-plots" class="nav-link" data-scroll-target="#plots"><span class="header-section-number">17.1.1</span> Plots</a></li>
+  <li><a href="#simulate" id="toc-simulate" class="nav-link" data-scroll-target="#simulate"><span class="header-section-number">17.1.2</span> Simulate</a></li>
   </ul></li>
-  <li><a href="#weird-selection-effects-placebo-effect-as-selection-artifact" id="toc-weird-selection-effects-placebo-effect-as-selection-artifact" class="nav-link" data-scroll-target="#weird-selection-effects-placebo-effect-as-selection-artifact"><span class="header-section-number">18.2</span> Weird selection effects: Placebo effect as selection artifact</a>
+  <li><a href="#weird-selection-effects-placebo-effect-as-selection-artifact" id="toc-weird-selection-effects-placebo-effect-as-selection-artifact" class="nav-link" data-scroll-target="#weird-selection-effects-placebo-effect-as-selection-artifact"><span class="header-section-number">17.2</span> Weird selection effects: Placebo effect as selection artifact</a>
   <ul class="collapse">
-  <li><a href="#plots-1" id="toc-plots-1" class="nav-link" data-scroll-target="#plots-1"><span class="header-section-number">18.2.1</span> Plots</a></li>
-  <li><a href="#data-generating-process-1" id="toc-data-generating-process-1" class="nav-link" data-scroll-target="#data-generating-process-1"><span class="header-section-number">18.2.2</span> Data generating process</a></li>
-  <li><a href="#analysis-models-1" id="toc-analysis-models-1" class="nav-link" data-scroll-target="#analysis-models-1"><span class="header-section-number">18.2.3</span> Analysis models</a></li>
-  <li><a href="#simulate-1" id="toc-simulate-1" class="nav-link" data-scroll-target="#simulate-1"><span class="header-section-number">18.2.4</span> Simulate</a></li>
-  <li><a href="#rct-with-randomisation-to-intervention" id="toc-rct-with-randomisation-to-intervention" class="nav-link" data-scroll-target="#rct-with-randomisation-to-intervention"><span class="header-section-number">18.2.5</span> RCT with randomisation to intervention</a></li>
-  <li><a href="#a-correct-analysis-of-the-placebo-effect" id="toc-a-correct-analysis-of-the-placebo-effect" class="nav-link" data-scroll-target="#a-correct-analysis-of-the-placebo-effect"><span class="header-section-number">18.2.6</span> A correct analysis of the placebo effect</a></li>
+  <li><a href="#plots-1" id="toc-plots-1" class="nav-link" data-scroll-target="#plots-1"><span class="header-section-number">17.2.1</span> Plots</a></li>
+  <li><a href="#data-generating-process-1" id="toc-data-generating-process-1" class="nav-link" data-scroll-target="#data-generating-process-1"><span class="header-section-number">17.2.2</span> Data generating process</a></li>
+  <li><a href="#analysis-models-1" id="toc-analysis-models-1" class="nav-link" data-scroll-target="#analysis-models-1"><span class="header-section-number">17.2.3</span> Analysis models</a></li>
+  <li><a href="#simulate-1" id="toc-simulate-1" class="nav-link" data-scroll-target="#simulate-1"><span class="header-section-number">17.2.4</span> Simulate</a></li>
+  <li><a href="#rct-with-randomisation-to-intervention" id="toc-rct-with-randomisation-to-intervention" class="nav-link" data-scroll-target="#rct-with-randomisation-to-intervention"><span class="header-section-number">17.2.5</span> RCT with randomisation to intervention</a></li>
+  <li><a href="#a-correct-analysis-of-the-placebo-effect" id="toc-a-correct-analysis-of-the-placebo-effect" class="nav-link" data-scroll-target="#a-correct-analysis-of-the-placebo-effect"><span class="header-section-number">17.2.6</span> A correct analysis of the placebo effect</a></li>
   </ul></li>
-  <li><a href="#weird-causalityselection-effects-collider-bias" id="toc-weird-causalityselection-effects-collider-bias" class="nav-link" data-scroll-target="#weird-causalityselection-effects-collider-bias"><span class="header-section-number">18.3</span> Weird causality+selection effects: Collider bias</a>
+  <li><a href="#weird-causalityselection-effects-collider-bias" id="toc-weird-causalityselection-effects-collider-bias" class="nav-link" data-scroll-target="#weird-causalityselection-effects-collider-bias"><span class="header-section-number">17.3</span> Weird causality+selection effects: Collider bias</a>
   <ul class="collapse">
-  <li><a href="#data-generating-process-2" id="toc-data-generating-process-2" class="nav-link" data-scroll-target="#data-generating-process-2"><span class="header-section-number">18.3.1</span> Data generating process</a></li>
-  <li><a href="#analysis-models-2" id="toc-analysis-models-2" class="nav-link" data-scroll-target="#analysis-models-2"><span class="header-section-number">18.3.2</span> Analysis models</a></li>
-  <li><a href="#simulate-2" id="toc-simulate-2" class="nav-link" data-scroll-target="#simulate-2"><span class="header-section-number">18.3.3</span> Simulate</a></li>
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">18.3.4</span> Examples</a></li>
+  <li><a href="#data-generating-process-2" id="toc-data-generating-process-2" class="nav-link" data-scroll-target="#data-generating-process-2"><span class="header-section-number">17.3.1</span> Data generating process</a></li>
+  <li><a href="#analysis-models-2" id="toc-analysis-models-2" class="nav-link" data-scroll-target="#analysis-models-2"><span class="header-section-number">17.3.2</span> Analysis models</a></li>
+  <li><a href="#simulate-2" id="toc-simulate-2" class="nav-link" data-scroll-target="#simulate-2"><span class="header-section-number">17.3.3</span> Simulate</a></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">17.3.4</span> Examples</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -676,9 +683,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/11_everything_is_regression.html">Part II: Learning from Simulations</a></li><li class="breadcrumb-item"><a href="../chapters/17_causality_and_selection_effects.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Weird causality and selection effects</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/11_everything_is_regression.html">Part II: Learning from Simulations</a></li><li class="breadcrumb-item"><a href="../chapters/17_causality_and_selection_effects.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Weird causality and selection effects</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Weird causality and selection effects</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Weird causality and selection effects</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -840,13 +847,13 @@ Maybe expand the last point with effect attenuation: survivor bias decreases the
 add: 
 ## Range restrictions and standaridzed effect sizes as a selection effect
 -->
-<section id="weird-causality-does-regression-assume-causality" class="level2" data-number="18.1">
-<h2 data-number="18.1" class="anchored" data-anchor-id="weird-causality-does-regression-assume-causality"><span class="header-section-number">18.1</span> Weird causality: Does regression assume causality?</h2>
+<section id="weird-causality-does-regression-assume-causality" class="level2" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="weird-causality-does-regression-assume-causality"><span class="header-section-number">17.1</span> Weird causality: Does regression assume causality?</h2>
 <p>What does ‘assume’ mean here? What would violating it mean?</p>
-<section id="plots" class="level3" data-number="18.1.1">
-<h3 data-number="18.1.1" class="anchored" data-anchor-id="plots"><span class="header-section-number">18.1.1</span> Plots</h3>
-<section id="data-generating-process" class="level4" data-number="18.1.1.1">
-<h4 data-number="18.1.1.1" class="anchored" data-anchor-id="data-generating-process"><span class="header-section-number">18.1.1.1</span> Data generating process</h4>
+<section id="plots" class="level3" data-number="17.1.1">
+<h3 data-number="17.1.1" class="anchored" data-anchor-id="plots"><span class="header-section-number">17.1.1</span> Plots</h3>
+<section id="data-generating-process" class="level4" data-number="17.1.1.1">
+<h4 data-number="17.1.1.1" class="anchored" data-anchor-id="data-generating-process"><span class="header-section-number">17.1.1.1</span> Data generating process</h4>
 <p><span class="math inline">\(x\)</span> causes <span class="math inline">\(y\)</span> (<code>y ~ x</code>):</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -858,8 +865,8 @@ add:
 </div>
 </div>
 </section>
-<section id="analysis-models" class="level4" data-number="18.1.1.2">
-<h4 data-number="18.1.1.2" class="anchored" data-anchor-id="analysis-models"><span class="header-section-number">18.1.1.2</span> Analysis models</h4>
+<section id="analysis-models" class="level4" data-number="17.1.1.2">
+<h4 data-number="17.1.1.2" class="anchored" data-anchor-id="analysis-models"><span class="header-section-number">17.1.1.2</span> Analysis models</h4>
 <p><span class="math inline">\(x\)</span> causes <span class="math inline">\(y\)</span> (<code>y ~ x</code>):</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -882,8 +889,8 @@ add:
 </div>
 </section>
 </section>
-<section id="simulate" class="level3" data-number="18.1.2">
-<h3 data-number="18.1.2" class="anchored" data-anchor-id="simulate"><span class="header-section-number">18.1.2</span> Simulate</h3>
+<section id="simulate" class="level3" data-number="17.1.2">
+<h3 data-number="17.1.2" class="anchored" data-anchor-id="simulate"><span class="header-section-number">17.1.2</span> Simulate</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># functions</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>generate_data <span class="ot">&lt;-</span> <span class="cf">function</span>(n, population_model) {</span>
@@ -1017,13 +1024,13 @@ add:
 </ul>
 </section>
 </section>
-<section id="weird-selection-effects-placebo-effect-as-selection-artifact" class="level2" data-number="18.2">
-<h2 data-number="18.2" class="anchored" data-anchor-id="weird-selection-effects-placebo-effect-as-selection-artifact"><span class="header-section-number">18.2</span> Weird selection effects: Placebo effect as selection artifact</h2>
+<section id="weird-selection-effects-placebo-effect-as-selection-artifact" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="weird-selection-effects-placebo-effect-as-selection-artifact"><span class="header-section-number">17.2</span> Weird selection effects: Placebo effect as selection artifact</h2>
 <p>Note that the below does not model all forms of placebo effect; only the quantification of the placebo effect (e.g., without a no-intervention comparison arm); see Hróbjartsson &amp; Gøtzsche (2001, 2010) who even under those proper conditions show no evidence for placebo effects except for subjective measures and even then small effects.</p>
-<section id="plots-1" class="level3" data-number="18.2.1">
-<h3 data-number="18.2.1" class="anchored" data-anchor-id="plots-1"><span class="header-section-number">18.2.1</span> Plots</h3>
-<section id="raincloud-plots" class="level4" data-number="18.2.1.1">
-<h4 data-number="18.2.1.1" class="anchored" data-anchor-id="raincloud-plots"><span class="header-section-number">18.2.1.1</span> Raincloud plots</h4>
+<section id="plots-1" class="level3" data-number="17.2.1">
+<h3 data-number="17.2.1" class="anchored" data-anchor-id="plots-1"><span class="header-section-number">17.2.1</span> Plots</h3>
+<section id="raincloud-plots" class="level4" data-number="17.2.1.1">
+<h4 data-number="17.2.1.1" class="anchored" data-anchor-id="raincloud-plots"><span class="header-section-number">17.2.1.1</span> Raincloud plots</h4>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrain)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(faux)</span>
@@ -1244,8 +1251,8 @@ add:
 </div>
 </div>
 </section>
-<section id="scatter-plots" class="level4" data-number="18.2.1.2">
-<h4 data-number="18.2.1.2" class="anchored" data-anchor-id="scatter-plots"><span class="header-section-number">18.2.1.2</span> Scatter plots</h4>
+<section id="scatter-plots" class="level4" data-number="17.2.1.2">
+<h4 data-number="17.2.1.2" class="anchored" data-anchor-id="scatter-plots"><span class="header-section-number">17.2.1.2</span> Scatter plots</h4>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>enrolled_ids_temp <span class="ot">&lt;-</span> data_all_participants <span class="sc">|&gt;</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(timepoint <span class="sc">==</span> <span class="dv">1</span>, score <span class="sc">&gt;=</span> <span class="dv">25</span>) <span class="sc">|&gt;</span></span>
@@ -1410,8 +1417,8 @@ add:
 </div>
 </section>
 </section>
-<section id="data-generating-process-1" class="level3" data-number="18.2.2">
-<h3 data-number="18.2.2" class="anchored" data-anchor-id="data-generating-process-1"><span class="header-section-number">18.2.2</span> Data generating process</h3>
+<section id="data-generating-process-1" class="level3" data-number="17.2.2">
+<h3 data-number="17.2.2" class="anchored" data-anchor-id="data-generating-process-1"><span class="header-section-number">17.2.2</span> Data generating process</h3>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -1445,8 +1452,8 @@ add:
 </div>
 </div>
 </section>
-<section id="analysis-models-1" class="level3" data-number="18.2.3">
-<h3 data-number="18.2.3" class="anchored" data-anchor-id="analysis-models-1"><span class="header-section-number">18.2.3</span> Analysis models</h3>
+<section id="analysis-models-1" class="level3" data-number="17.2.3">
+<h3 data-number="17.2.3" class="anchored" data-anchor-id="analysis-models-1"><span class="header-section-number">17.2.3</span> Analysis models</h3>
 <p>Naive within-arm change (<code>change_score ~ 1</code>): mean pre–post difference in the enrolled sample, attributing all change to placebo.</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -1468,8 +1475,8 @@ add:
 </div>
 </div>
 </section>
-<section id="simulate-1" class="level3" data-number="18.2.4">
-<h3 data-number="18.2.4" class="anchored" data-anchor-id="simulate-1"><span class="header-section-number">18.2.4</span> Simulate</h3>
+<section id="simulate-1" class="level3" data-number="17.2.4">
+<h3 data-number="17.2.4" class="anchored" data-anchor-id="simulate-1"><span class="header-section-number">17.2.4</span> Simulate</h3>
 <p>TODO change the counterfactual - the 0 condition has the wrong analytic model i think</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>pop_model_placebo <span class="ot">&lt;-</span> <span class="st">"</span></span>
@@ -1606,8 +1613,8 @@ add:
 <li>notes to self: instead of being used to just demonstrate selection effects, this could be used for the lesson on the appropriate analysis of RCT data, why pre post change isn’t valid, and why ANCOVA is more appropriate than change scores etc.</li>
 </ul>
 </section>
-<section id="rct-with-randomisation-to-intervention" class="level3" data-number="18.2.5">
-<h3 data-number="18.2.5" class="anchored" data-anchor-id="rct-with-randomisation-to-intervention"><span class="header-section-number">18.2.5</span> RCT with randomisation to intervention</h3>
+<section id="rct-with-randomisation-to-intervention" class="level3" data-number="17.2.5">
+<h3 data-number="17.2.5" class="anchored" data-anchor-id="rct-with-randomisation-to-intervention"><span class="header-section-number">17.2.5</span> RCT with randomisation to intervention</h3>
 <p>The placebo DAG above has <code>enrolled → placebo</code>: every enrolled participant gets the same (placebo) “treatment”, so the treatment indicator is a deterministic function of selection. In a randomised controlled trial the treatment indicator (<code>condition</code>) is instead set by a coin flip <em>after</em> enrolment, so it has <strong>no parents</strong> in the DAG. That single structural change is what makes the RCT estimable.</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -1624,8 +1631,8 @@ add:
 <li>A new arrow <code>condition → symptom_post</code> is <strong>added</strong>. This is the causal treatment effect we want to estimate.</li>
 <li><code>stable_severity → symptom_pre → enrolled</code> is unchanged: the trial can still recruit on baseline severity, but that no longer threatens identification of the treatment effect (see below).</li>
 </ul>
-<section id="why-symptom_post-symptom_pre-condition-works" class="level4" data-number="18.2.5.1">
-<h4 data-number="18.2.5.1" class="anchored" data-anchor-id="why-symptom_post-symptom_pre-condition-works"><span class="header-section-number">18.2.5.1</span> Why <code>symptom_post ~ symptom_pre + condition</code> works</h4>
+<section id="why-symptom_post-symptom_pre-condition-works" class="level4" data-number="17.2.5.1">
+<h4 data-number="17.2.5.1" class="anchored" data-anchor-id="why-symptom_post-symptom_pre-condition-works"><span class="header-section-number">17.2.5.1</span> Why <code>symptom_post ~ symptom_pre + condition</code> works</h4>
 <p>Trace the paths from <code>condition</code> to <code>symptom_post</code>:</p>
 <ul>
 <li><strong>Direct causal path:</strong> <code>condition → symptom_post</code>. This is the effect we want.</li>
@@ -1733,21 +1740,21 @@ symptom_pre -&gt; stable_severity
 </div>
 </section>
 </section>
-<section id="a-correct-analysis-of-the-placebo-effect" class="level3" data-number="18.2.6">
-<h3 data-number="18.2.6" class="anchored" data-anchor-id="a-correct-analysis-of-the-placebo-effect"><span class="header-section-number">18.2.6</span> A correct analysis of the placebo effect</h3>
+<section id="a-correct-analysis-of-the-placebo-effect" class="level3" data-number="17.2.6">
+<h3 data-number="17.2.6" class="anchored" data-anchor-id="a-correct-analysis-of-the-placebo-effect"><span class="header-section-number">17.2.6</span> A correct analysis of the placebo effect</h3>
 <p>randomisation to remove the enrollment -&gt; placebo path, plus a placebo -&gt; symptoms_post path</p>
 </section>
 </section>
-<section id="weird-causalityselection-effects-collider-bias" class="level2" data-number="18.3">
-<h2 data-number="18.3" class="anchored" data-anchor-id="weird-causalityselection-effects-collider-bias"><span class="header-section-number">18.3</span> Weird causality+selection effects: Collider bias</h2>
+<section id="weird-causalityselection-effects-collider-bias" class="level2" data-number="17.3">
+<h2 data-number="17.3" class="anchored" data-anchor-id="weird-causalityselection-effects-collider-bias"><span class="header-section-number">17.3</span> Weird causality+selection effects: Collider bias</h2>
 <p>Collider bias is a great example of a scientific error that has the ‘holy trinity’ of problematic features: it is boring, complicated, and consequential.</p>
 <p>One you understand collider biases, you will spot people making this error all around you in the research literature.</p>
 <p>Collider biases are replicable/robust in that they can be shown over and over again. They are ‘true’ in the sense that the numbers represent that the results reported in articles for them are correctly reported from the statistical analyses, and repeating the study will likely produce the same result.</p>
 <p>But they are incorrect/false/erroneous in that the conclusions we reach from them are wrong. They are the product of asking the wrong question and coming to the wrong answer. They are a robust ‘statistical artifact’ rather than a description of the world around us.</p>
 <p>Let’s start with an abstract explanation of collider bias to prove that it happens, and then give concrete examples of conclusions in the literature that are incorrect and represent statistical artifacts.</p>
 <p>The key question to ask to avoid collider biases is often “what have I preselected my sample for?”</p>
-<section id="data-generating-process-2" class="level3" data-number="18.3.1">
-<h3 data-number="18.3.1" class="anchored" data-anchor-id="data-generating-process-2"><span class="header-section-number">18.3.1</span> Data generating process</h3>
+<section id="data-generating-process-2" class="level3" data-number="17.3.1">
+<h3 data-number="17.3.1" class="anchored" data-anchor-id="data-generating-process-2"><span class="header-section-number">17.3.1</span> Data generating process</h3>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -1758,8 +1765,8 @@ symptom_pre -&gt; stable_severity
 </div>
 </div>
 </section>
-<section id="analysis-models-2" class="level3" data-number="18.3.2">
-<h3 data-number="18.3.2" class="anchored" data-anchor-id="analysis-models-2"><span class="header-section-number">18.3.2</span> Analysis models</h3>
+<section id="analysis-models-2" class="level3" data-number="17.3.2">
+<h3 data-number="17.3.2" class="anchored" data-anchor-id="analysis-models-2"><span class="header-section-number">17.3.2</span> Analysis models</h3>
 <p><span class="math inline">\(c\)</span> is caused by both <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> (<code>C ~ 0.5*X; C ~ 0.5*Y</code>):</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -1781,8 +1788,8 @@ symptom_pre -&gt; stable_severity
 </div>
 </div>
 </section>
-<section id="simulate-2" class="level3" data-number="18.3.3">
-<h3 data-number="18.3.3" class="anchored" data-anchor-id="simulate-2"><span class="header-section-number">18.3.3</span> Simulate</h3>
+<section id="simulate-2" class="level3" data-number="17.3.3">
+<h3 data-number="17.3.3" class="anchored" data-anchor-id="simulate-2"><span class="header-section-number">17.3.3</span> Simulate</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># functions</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>generate_data <span class="ot">&lt;-</span> <span class="cf">function</span>(n, population_model) {</span>
@@ -1912,33 +1919,33 @@ symptom_pre -&gt; stable_severity
 </div>
 </div>
 </section>
-<section id="examples" class="level3" data-number="18.3.4">
-<h3 data-number="18.3.4" class="anchored" data-anchor-id="examples"><span class="header-section-number">18.3.4</span> Examples</h3>
-<section id="chess-and-iq" class="level4" data-number="18.3.4.1">
-<h4 data-number="18.3.4.1" class="anchored" data-anchor-id="chess-and-iq"><span class="header-section-number">18.3.4.1</span> Chess and IQ</h4>
+<section id="examples" class="level3" data-number="17.3.4">
+<h3 data-number="17.3.4" class="anchored" data-anchor-id="examples"><span class="header-section-number">17.3.4</span> Examples</h3>
+<section id="chess-and-iq" class="level4" data-number="17.3.4.1">
+<h4 data-number="17.3.4.1" class="anchored" data-anchor-id="chess-and-iq"><span class="header-section-number">17.3.4.1</span> Chess and IQ</h4>
 <p><a href="https://bsky.app/profile/pengzell.bsky.social/post/3mllhairses2d">bsky post</a></p>
 <p><img src="../images/collider.png" class="img-fluid"></p>
 <p><span class="math display">\[IQ \rightarrow Elite \leftarrow Chess Ability\]</span></p>
 <p>In the general population, IQ and Chess Ability are likely positively correlated. However, Elite Status is determined by a combination of both. To be an “elite” young player, a child usually needs either extremely high natural IQ, extremely high technical chess skill, or a high combination of both.When you “zoom in” on only the elite group, you create a trade-off: if an elite player has a lower IQ, they must have exceptionally high technical chess ability to have made it into the elite group at all. This induces a spurious negative correlation within that specific sub-population.</p>
 </section>
-<section id="smoking-and-birthweight" class="level4" data-number="18.3.4.2">
-<h4 data-number="18.3.4.2" class="anchored" data-anchor-id="smoking-and-birthweight"><span class="header-section-number">18.3.4.2</span> Smoking and birthweight</h4>
+<section id="smoking-and-birthweight" class="level4" data-number="17.3.4.2">
+<h4 data-number="17.3.4.2" class="anchored" data-anchor-id="smoking-and-birthweight"><span class="header-section-number">17.3.4.2</span> Smoking and birthweight</h4>
 <p>See See Yerushalmy (1971) for the original claim that smoking improves birth weight, and Hernandez-Diaz, Schisterman, and Hernán (2006) for the later critique on the basis of collider bias.</p>
 </section>
-<section id="the-obesity-paradox" class="level4" data-number="18.3.4.3">
-<h4 data-number="18.3.4.3" class="anchored" data-anchor-id="the-obesity-paradox"><span class="header-section-number">18.3.4.3</span> The obesity paradox</h4>
+<section id="the-obesity-paradox" class="level4" data-number="17.3.4.3">
+<h4 data-number="17.3.4.3" class="anchored" data-anchor-id="the-obesity-paradox"><span class="header-section-number">17.3.4.3</span> The obesity paradox</h4>
 <p>In studies of patients with chronic diseases (like heart failure or end-stage renal disease), researchers often find that obese patients have better survival rates than those with “normal” BMIs.The DAG: <span class="math inline">\(Obesity \rightarrow Disease \leftarrow Unknown Protective Factors\)</span></p>
 <p>By conditioning on having the disease and being alive, you compare people whose obesity likely contributed to the disease with people who developed the disease despite being “fit.” The thin people in the study likely have some other, much more aggressive risk factor (genetic, etc.) that led to their illness, making them more likely to die than the obese group.</p>
 <p>See Banack and Kaufman (2013), “The Obesity Paradox: Understanding the Effect of Selection on Data Analysis.”</p>
 </section>
-<section id="smoking-and-covid-mortality" class="level4" data-number="18.3.4.4">
-<h4 data-number="18.3.4.4" class="anchored" data-anchor-id="smoking-and-covid-mortality"><span class="header-section-number">18.3.4.4</span> Smoking and COVID mortality</h4>
+<section id="smoking-and-covid-mortality" class="level4" data-number="17.3.4.4">
+<h4 data-number="17.3.4.4" class="anchored" data-anchor-id="smoking-and-covid-mortality"><span class="header-section-number">17.3.4.4</span> Smoking and COVID mortality</h4>
 <p>COVID-19 and the Smoking ParadoxEarly in the pandemic, several studies suggested that smokers were significantly less likely to be hospitalized with COVID-19, leading to wild theories about nicotine being protective.</p>
 <p>The DAG: <span class="math inline">\(Smoking \rightarrow Hospitalization \leftarrow Severe COVID Symptoms\)</span></p>
 <p>This was largely a result of collider stratification. Researchers were often looking at data from people already in the hospital or those who were tested because they had symptoms. If you condition on being in the hospital, and smoking causes you to be in the hospital for other reasons (like COPD or heart issues), then a smoker in the hospital is less likely to be there specifically because of severe COVID-19 compared to a non-smoker. See Griffith et al.&nbsp;(2020), “Collider bias undermines our understanding of COVID-19 disease risk and severity.”</p>
 </section>
-<section id="berksons-paradox-the-dumb-jock-stereotype" class="level4" data-number="18.3.4.5">
-<h4 data-number="18.3.4.5" class="anchored" data-anchor-id="berksons-paradox-the-dumb-jock-stereotype"><span class="header-section-number">18.3.4.5</span> Berkson’s Paradox / The ‘dumb jock’ stereotype</h4>
+<section id="berksons-paradox-the-dumb-jock-stereotype" class="level4" data-number="17.3.4.5">
+<h4 data-number="17.3.4.5" class="anchored" data-anchor-id="berksons-paradox-the-dumb-jock-stereotype"><span class="header-section-number">17.3.4.5</span> Berkson’s Paradox / The ‘dumb jock’ stereotype</h4>
 <p>Imagine that in the general population of USA 18-year-olds, being good at sports and being good at math are not correlated at all (<span class="math inline">\(r = 0\)</span>). There are plenty of people who are good at both, bad at both, or good at one and not the other.</p>
 <p>However, an elite US university has a “cutoff” for admission. To get in (<span class="math inline">\(S = 1\)</span>), you generally need to be:</p>
 <ul>
@@ -1950,8 +1957,8 @@ symptom_pre -&gt; stable_severity
 <p>Why the Stereotype Emerges: When you walk onto a university campus, you are only looking at the people who passed the filter (<span class="math inline">\(S = 1\)</span>). By conditioning on the collider (Admission), you have removed the “Low-Low” quadrant of the population. This induces a spurious negative correlation - a collider bias. In the cafeteria, if you see someone who is a world-class athlete, the statistical probability that they are also an academic genius is lower than it is for the “average” student, because they didn’t need the genius-level grades to get past the admission filter—their sports ability already carried them over the line. Conversely, the “nerds” didn’t need to be able to throw a football to get in. This makes it look like you “sacrifice” one for the other, when in reality, the “dumb and non-athletic” people just aren’t on campus for you to see them.</p>
 <p>Social groupings on campus may then replicate this pattern, with jocks and nerds socialising more within-group than between-groups. What began as a statistical artifact can become a social dynamic that influences friendships etc. This is an example of collider bias that may produce downstream real-world effects.</p>
 </section>
-<section id="the-hollywood-paradox" class="level4" data-number="18.3.4.6">
-<h4 data-number="18.3.4.6" class="anchored" data-anchor-id="the-hollywood-paradox"><span class="header-section-number">18.3.4.6</span> The Hollywood paradox</h4>
+<section id="the-hollywood-paradox" class="level4" data-number="17.3.4.6">
+<h4 data-number="17.3.4.6" class="anchored" data-anchor-id="the-hollywood-paradox"><span class="header-section-number">17.3.4.6</span> The Hollywood paradox</h4>
 <p>The stereotype that “beautiful actors can’t act” and “great actors aren’t conventionally attractive.”</p>
 <p>In the general population, acting talent and physical attractiveness are completely independent traits—they aren’t biologically or socially linked.</p>
 <ul>
@@ -2450,12 +2457,12 @@ symptom_pre -&gt; stable_severity
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../chapters/16_p_hacking.html" class="pagination-link" aria-label="p-hacking via different forms of selecting reporting">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../exercises/01_required_skills_exercises.html" class="pagination-link" aria-label="Exercises for 'Required skills' chapter <span class=&quot;badge badge-draft3&quot;>✎ Polishing</span>">
-        <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises for ‘Required skills’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../exercises/01_required_skills_exercises.html" class="pagination-link" aria-label="Exercises for 'Required skills' chapter">
+        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Exercises for ‘Required skills’ chapter</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">

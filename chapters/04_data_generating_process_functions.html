@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>5&nbsp; Data-generating process functions – Understanding statistics through Monte Carlo simulations</title>
+<title>4&nbsp; Data-generating process functions – Understanding statistics through Monte Carlo simulations</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -110,6 +110,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <style>
+  /* more breathing room before section headings.
+     scoped to main.content so the sidebar/TOC headings are left alone.
+     this <style> block is emitted after the bootstrap theme css, so these
+     win without needing !important. */
+  main.content h2 { margin-top: 3rem; }
+  main.content h3 { margin-top: 2rem; }
+  main.content h4 { margin-top: 1.5rem; }
   .kable-table table { width: 70%; margin: 0 auto; }
   .badge {
     display: inline-flex; align-items: center; gap: 0.3em;
@@ -327,7 +334,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01_required_skills.html">Part I: Learning to Simulate</a></li><li class="breadcrumb-item"><a href="../chapters/04_data_generating_process_functions.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data-generating process functions</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01_required_skills.html">Part I: Learning to Simulate</a></li><li class="breadcrumb-item"><a href="../chapters/04_data_generating_process_functions.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data-generating process functions</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -363,8 +370,8 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/00_lesson_plan.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Lesson plan</span></span></a>
+  <a href="../lesson_plan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson plan</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -379,61 +386,61 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/01_required_skills.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Required skills</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Required skills</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/02_foundation_concepts.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Foundation concepts</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Foundation concepts</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/03_writing_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Writing functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Writing functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/04_data_generating_process_functions.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data-generating process functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data-generating process functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/05_pseudo_random_number_generators.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Pseudo-random number generators</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Pseudo-random number generators</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/06_analysis_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Analysis functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Analysis functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/07_creating_simulation_experiments.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Creating simulation experiments</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Creating simulation experiments</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/08_mapping.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Mapping over functions <span class="badge badge-draft2">✎ Rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Mapping over functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/09_summarizing_results.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summarizing results <span class="badge badge-draft1">✎ TODO</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Summarizing results <span class="badge badge-draft1">✎ TODO</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/10_planning_and_reporting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Planning and reporting <span class="badge badge-draft1">✎ TODO</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Planning and reporting <span class="badge badge-draft1">✎ TODO</span></span></span></a>
   </div>
 </li>
       </ul>
@@ -450,43 +457,43 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/11_everything_is_regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Everything is regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Everything is regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/12_estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/13_hypothesis_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/14_violating_assumptions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/15_testing_assumptions_and_conditional_tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of non-parameteric tests</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of non-parameteric tests</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/16_p_hacking.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/17_causality_and_selection_effects.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Weird causality and selection effects</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Weird causality and selection effects</span></span></a>
   </div>
 </li>
       </ul>
@@ -503,67 +510,67 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/01_required_skills_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises for ‘Required skills’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Exercises for ‘Required skills’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/03_writing_functions_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises for ‘Writing functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises for ‘Writing functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/04_data_generating_process_functions_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises for ‘Data Generating Process functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises for ‘Data Generating Process functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/06_analysis_functions_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises for ‘Analysis functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises for ‘Analysis functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/07_creating_simulation_experiments_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises for ‘Creating simulation experiments’ chapter <span class="badge badge-draft1">✎ Very rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises for ‘Creating simulation experiments’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/08_mapping_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Exercises for ‘Mapping over functions’ chapter <span class="badge badge-draft2">✎ Rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises for ‘Mapping over functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/11_everything_is_regression_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Exercises for ‘Everything is regression’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Exercises for ‘Everything is regression’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/12_estimation_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Exercises for ‘Estimation’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Exercises for ‘Estimation’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/13_hypothesis_testing_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Exercises for ‘Hypothesis Testing’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Exercises for ‘Hypothesis Testing’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/16_p_hacking_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Exercises for ‘p-hacking’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Exercises for ‘p-hacking’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/end_of_course_assignment.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">End of course assignment</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">End of course assignment</span></span></a>
   </div>
 </li>
       </ul>
@@ -580,31 +587,31 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/ADEMP_preregistration_template.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">ADEMP simulation preregistration template</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">ADEMP simulation preregistration template</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/simulation_template_hypothesis_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Simulation template: hypothesis testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Simulation template: hypothesis testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/simulation_template_estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Simulation template: estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Simulation template: estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/simulation_template_hpc.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Minimal HPC simulation template (Everything)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Minimal HPC simulation template (Everything)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
+ <span class="menu-text">License</span></a>
   </div>
 </li>
       </ul>
@@ -621,19 +628,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../classics/crowded_room_problem.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">The Crowded Room problem: Constraints on correlations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">The Crowded Room problem: Constraints on correlations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../classics/cohens_d_biased.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Simulation template: Cohen’s d is a biased estimator</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Simulation template: Cohen’s d is a biased estimator</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
+ <span class="menu-text">License</span></a>
   </div>
 </li>
       </ul>
@@ -648,21 +655,21 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#what-is-a-data-generating-process" id="toc-what-is-a-data-generating-process" class="nav-link active" data-scroll-target="#what-is-a-data-generating-process"><span class="header-section-number">5.1</span> What is a data-generating process?</a></li>
-  <li><a href="#tidy-dgp-functions" id="toc-tidy-dgp-functions" class="nav-link" data-scroll-target="#tidy-dgp-functions"><span class="header-section-number">5.2</span> Tidy DGP functions</a></li>
-  <li><a href="#building-our-first-data-generation-function-two-groups-sampled-from-normal-distributions" id="toc-building-our-first-data-generation-function-two-groups-sampled-from-normal-distributions" class="nav-link" data-scroll-target="#building-our-first-data-generation-function-two-groups-sampled-from-normal-distributions"><span class="header-section-number">5.3</span> Building our first data-generation function: two groups sampled from normal distributions</a>
+  <li><a href="#what-is-a-data-generating-process" id="toc-what-is-a-data-generating-process" class="nav-link active" data-scroll-target="#what-is-a-data-generating-process"><span class="header-section-number">4.1</span> What is a data-generating process?</a></li>
+  <li><a href="#tidy-dgp-functions" id="toc-tidy-dgp-functions" class="nav-link" data-scroll-target="#tidy-dgp-functions"><span class="header-section-number">4.2</span> Tidy DGP functions</a></li>
+  <li><a href="#building-our-first-data-generation-function-two-groups-sampled-from-normal-distributions" id="toc-building-our-first-data-generation-function-two-groups-sampled-from-normal-distributions" class="nav-link" data-scroll-target="#building-our-first-data-generation-function-two-groups-sampled-from-normal-distributions"><span class="header-section-number">4.3</span> Building our first data-generation function: two groups sampled from normal distributions</a>
   <ul class="collapse">
-  <li><a href="#step-1-write-the-do-stuff" id="toc-step-1-write-the-do-stuff" class="nav-link" data-scroll-target="#step-1-write-the-do-stuff"><span class="header-section-number">5.3.1</span> Step 1: write the ‘do stuff’</a></li>
-  <li><a href="#step-2-wrap-it-into-a-dgp-function" id="toc-step-2-wrap-it-into-a-dgp-function" class="nav-link" data-scroll-target="#step-2-wrap-it-into-a-dgp-function"><span class="header-section-number">5.3.2</span> Step 2: wrap it into a DGP function</a></li>
+  <li><a href="#step-1-write-the-do-stuff" id="toc-step-1-write-the-do-stuff" class="nav-link" data-scroll-target="#step-1-write-the-do-stuff"><span class="header-section-number">4.3.1</span> Step 1: write the ‘do stuff’</a></li>
+  <li><a href="#step-2-wrap-it-into-a-dgp-function" id="toc-step-2-wrap-it-into-a-dgp-function" class="nav-link" data-scroll-target="#step-2-wrap-it-into-a-dgp-function"><span class="header-section-number">4.3.2</span> Step 2: wrap it into a DGP function</a></li>
   </ul></li>
-  <li><a href="#how-realistic-does-your-simulated-data-need-to-be" id="toc-how-realistic-does-your-simulated-data-need-to-be" class="nav-link" data-scroll-target="#how-realistic-does-your-simulated-data-need-to-be"><span class="header-section-number">5.4</span> How realistic does your simulated data need to be?</a></li>
-  <li><a href="#common-data-generating-functions" id="toc-common-data-generating-functions" class="nav-link" data-scroll-target="#common-data-generating-functions"><span class="header-section-number">5.5</span> Common data-generating functions</a>
+  <li><a href="#how-realistic-does-your-simulated-data-need-to-be" id="toc-how-realistic-does-your-simulated-data-need-to-be" class="nav-link" data-scroll-target="#how-realistic-does-your-simulated-data-need-to-be"><span class="header-section-number">4.4</span> How realistic does your simulated data need to be?</a></li>
+  <li><a href="#common-data-generating-functions" id="toc-common-data-generating-functions" class="nav-link" data-scroll-target="#common-data-generating-functions"><span class="header-section-number">4.5</span> Common data-generating functions</a>
   <ul class="collapse">
-  <li><a href="#bivariate-normal-data" id="toc-bivariate-normal-data" class="nav-link" data-scroll-target="#bivariate-normal-data"><span class="header-section-number">5.5.1</span> Bivariate normal data</a></li>
-  <li><a href="#multivariate-normal-data" id="toc-multivariate-normal-data" class="nav-link" data-scroll-target="#multivariate-normal-data"><span class="header-section-number">5.5.2</span> Multivariate normal data</a></li>
-  <li><a href="#binary-outcomes" id="toc-binary-outcomes" class="nav-link" data-scroll-target="#binary-outcomes"><span class="header-section-number">5.5.3</span> Binary outcomes</a></li>
+  <li><a href="#bivariate-normal-data" id="toc-bivariate-normal-data" class="nav-link" data-scroll-target="#bivariate-normal-data"><span class="header-section-number">4.5.1</span> Bivariate normal data</a></li>
+  <li><a href="#multivariate-normal-data" id="toc-multivariate-normal-data" class="nav-link" data-scroll-target="#multivariate-normal-data"><span class="header-section-number">4.5.2</span> Multivariate normal data</a></li>
+  <li><a href="#binary-outcomes" id="toc-binary-outcomes" class="nav-link" data-scroll-target="#binary-outcomes"><span class="header-section-number">4.5.3</span> Binary outcomes</a></li>
   </ul></li>
-  <li><a href="#a-checklist-for-dgp-functions" id="toc-a-checklist-for-dgp-functions" class="nav-link" data-scroll-target="#a-checklist-for-dgp-functions"><span class="header-section-number">5.6</span> A checklist for DGP functions</a></li>
+  <li><a href="#a-checklist-for-dgp-functions" id="toc-a-checklist-for-dgp-functions" class="nav-link" data-scroll-target="#a-checklist-for-dgp-functions"><span class="header-section-number">4.6</span> A checklist for DGP functions</a></li>
   </ul>
 </nav>
     </div>
@@ -670,9 +677,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01_required_skills.html">Part I: Learning to Simulate</a></li><li class="breadcrumb-item"><a href="../chapters/04_data_generating_process_functions.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data-generating process functions</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01_required_skills.html">Part I: Learning to Simulate</a></li><li class="breadcrumb-item"><a href="../chapters/04_data_generating_process_functions.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data-generating process functions</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data-generating process functions</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data-generating process functions</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -726,8 +733,8 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<section id="what-is-a-data-generating-process" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="what-is-a-data-generating-process"><span class="header-section-number">5.1</span> What is a data-generating process?</h2>
+<section id="what-is-a-data-generating-process" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="what-is-a-data-generating-process"><span class="header-section-number">4.1</span> What is a data-generating process?</h2>
 <p>A <strong>data-generating process (DGP)</strong> is the theoretical or mathematical mechanism that causally produces observed data. It is the “ground truth”.</p>
 <ul>
 <li>In a real-world study, the DPG is unknown and not directly knowable, but may be estimated from empirical data. For example, the heights of humans in the population appear to follow a normal distribution with a given population mean and standard deviation.</li>
@@ -798,8 +805,8 @@ window.Quarto = {
 <li>Return a simulated dataset</li>
 </ol>
 </section>
-<section id="tidy-dgp-functions" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="tidy-dgp-functions"><span class="header-section-number">5.2</span> Tidy DGP functions</h2>
+<section id="tidy-dgp-functions" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="tidy-dgp-functions"><span class="header-section-number">4.2</span> Tidy DGP functions</h2>
 <p>In the next chapter, you’ll write <strong>analysis functions</strong> that take a dataset and return a result (a <em>p</em>-value, an estimated effect, a confidence interval, etc). When we write these analysis functions, we will have certain expectations about the output of our data-generating functions (e.g., that they will conform to principles of tidy data).</p>
 <p>In order to ensure that every data-generating function returns a tidy dataset with predictable column names, it is good practice to make sure that every DGP function returns a tibble as output. Tibbles are like dataframes, but with more consistent behavior that is useful for analysis. For example, if we use <code>select()</code> and select a single column from a dataframe, this is automatically treated by R as a vector, which might break some of our analysis functions down the line (which expect tibbles). <code>select()</code>ing one column from a tibble, by contrast, still returns a tibble object.</p>
 <p>Importantly, the outputs of our DGP functions should usually return Tidy Data:</p>
@@ -809,8 +816,8 @@ window.Quarto = {
 <li>one column per variable you’ll analyse</li>
 </ul>
 </section>
-<section id="building-our-first-data-generation-function-two-groups-sampled-from-normal-distributions" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="building-our-first-data-generation-function-two-groups-sampled-from-normal-distributions"><span class="header-section-number">5.3</span> Building our first data-generation function: two groups sampled from normal distributions</h2>
+<section id="building-our-first-data-generation-function-two-groups-sampled-from-normal-distributions" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="building-our-first-data-generation-function-two-groups-sampled-from-normal-distributions"><span class="header-section-number">4.3</span> Building our first data-generation function: two groups sampled from normal distributions</h2>
 <p>A simple example that is useful to many simulations of psychological data - and the example that we’re going to use frequently in the next several chapters - is the simulation of two groups drawn from normal distributions with known means and standard deviations. In the previous example, these referred to heights for men and women, but in many of the following examples they will instead represent the intervention vs.&nbsp;control group of a randomised controlled trial (e.g., psychotherapy for depression).</p>
 <p>Let’s think about our inputs first. What types of things might vary in such a design? The obvious choice is the means in the control and intervention groups. We could also vary the standard deviation (SD) associated with the means. And we could also vary the number of participants we have in each condition. This means we have as inputs:</p>
 <ul>
@@ -821,8 +828,8 @@ window.Quarto = {
 </ul>
 <p>We will use R’s <code>rnorm()</code> function to generate the data for each group. <code>rnorm()</code> takes three arguments: <code>n</code> (the sample size), <code>mean</code> (the mean value), and <code>sd</code> (the standard deviation). <code>rnorm()</code> will then give us <code>n</code> random draws from a normal distribution with a mean of <code>mean</code> and an SD of <code>sd</code>.</p>
 <p>Let’s remember the steps to write a function that we learned in the previous chapter: write the ‘do stuff’ (as pseudocode first if needed) and extract hard-coded values as variables, then wrap it in a function.</p>
-<section id="step-1-write-the-do-stuff" class="level3" data-number="5.3.1">
-<h3 data-number="5.3.1" class="anchored" data-anchor-id="step-1-write-the-do-stuff"><span class="header-section-number">5.3.1</span> Step 1: write the ‘do stuff’</h3>
+<section id="step-1-write-the-do-stuff" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="step-1-write-the-do-stuff"><span class="header-section-number">4.3.1</span> Step 1: write the ‘do stuff’</h3>
 <p>Start by getting the data generation working with hard-coded values. Pseudocode for this could look like:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>1. Sample data from a normal distribution using `rnorm()`</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>2. Sample data for two different groups using defined N, M, SD.</span>
@@ -1118,8 +1125,8 @@ window.Quarto = {
 </div>
 <p>They match! This might seem trivial at first, but it is a) an important sanity check when writing functions, and b) is the basis of <strong>parameter recovery</strong> which we will return to later in the book.</p>
 </section>
-<section id="step-2-wrap-it-into-a-dgp-function" class="level3" data-number="5.3.2">
-<h3 data-number="5.3.2" class="anchored" data-anchor-id="step-2-wrap-it-into-a-dgp-function"><span class="header-section-number">5.3.2</span> Step 2: wrap it into a DGP function</h3>
+<section id="step-2-wrap-it-into-a-dgp-function" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="step-2-wrap-it-into-a-dgp-function"><span class="header-section-number">4.3.2</span> Step 2: wrap it into a DGP function</h3>
 <p>Now let’s turn our working code into a reusable DGP function.</p>
 <p>Move the ‘do stuff’ code we just wrote into the function skeleton.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>function_name &lt;- function(inputs){</span>
@@ -1301,8 +1308,8 @@ window.Quarto = {
 </div>
 </section>
 </section>
-<section id="how-realistic-does-your-simulated-data-need-to-be" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="how-realistic-does-your-simulated-data-need-to-be"><span class="header-section-number">5.4</span> How realistic does your simulated data need to be?</h2>
+<section id="how-realistic-does-your-simulated-data-need-to-be" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="how-realistic-does-your-simulated-data-need-to-be"><span class="header-section-number">4.4</span> How realistic does your simulated data need to be?</h2>
 <p>We can use the generate data function that we defined above to simulate depression scores on the Beck Depression Inventory (BDI-II) for an RCT on psychotherapy for depression. The BDI has a 0-3 response format and 21 items, so it has a minimum score of 0 and a maximum score of 63. What do you notice about the simulated data?</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -1340,11 +1347,11 @@ window.Quarto = {
 <p>Does this mismatch between the data’s DGP and the analysis’s assumed DPG matter? And, seperately, should our simulations aim for maximum realism in the data, or just adhere to the analysis’s assumptions?</p>
 <p>We will come back to questions like this in later chapters. For now, the point is to make you think about DGPs actually generating data, the fact that analyses assume a given DGP (this is what is meant by statistical assumptions), and the fact that these might not match (i.e., assumptions may be violated). Simulation studies can help us answer <strong>when does this matter, and how much?</strong></p>
 </section>
-<section id="common-data-generating-functions" class="level2" data-number="5.5">
-<h2 data-number="5.5" class="anchored" data-anchor-id="common-data-generating-functions"><span class="header-section-number">5.5</span> Common data-generating functions</h2>
+<section id="common-data-generating-functions" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="common-data-generating-functions"><span class="header-section-number">4.5</span> Common data-generating functions</h2>
 <p>In practice, many of the data-generating processes that we want to simulate can be modelled using some useful functions in R. You have already seen one example of this used above: namely, <code>rnorm()</code>. In this section, we’ll go through a small number of additional data-generating functions that you will likely find useful in your future simulations.</p>
-<section id="bivariate-normal-data" class="level3" data-number="5.5.1">
-<h3 data-number="5.5.1" class="anchored" data-anchor-id="bivariate-normal-data"><span class="header-section-number">5.5.1</span> Bivariate normal data</h3>
+<section id="bivariate-normal-data" class="level3" data-number="4.5.1">
+<h3 data-number="4.5.1" class="anchored" data-anchor-id="bivariate-normal-data"><span class="header-section-number">4.5.1</span> Bivariate normal data</h3>
 <p>Aka pre-post repeated-measures design data.</p>
 <p>Psychology data often include repeated measurements on the same person. For example, we might measure a person’s score on a scale before and after they receive an intervention. In principle, we could just simulate these observations using two different <code>rnorm()</code> calls, like this:</p>
 <div class="cell">
@@ -1511,8 +1518,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="multivariate-normal-data" class="level3" data-number="5.5.2">
-<h3 data-number="5.5.2" class="anchored" data-anchor-id="multivariate-normal-data"><span class="header-section-number">5.5.2</span> Multivariate normal data</h3>
+<section id="multivariate-normal-data" class="level3" data-number="4.5.2">
+<h3 data-number="4.5.2" class="anchored" data-anchor-id="multivariate-normal-data"><span class="header-section-number">4.5.2</span> Multivariate normal data</h3>
 <p>Maybe we want to simulate a larger number of correlated variables, each sampled from normal distributions. To do this, we could increase the number of variables we ask for.</p>
 <p>This time, instead of specifying a single correlation value, we specify an entire correlation matrix that represents the population correlations between the variables. Because we didn’t supply means and SDs, it will use the defaults for each (0 and 1, respectively).</p>
 <div class="cell">
@@ -1556,8 +1563,8 @@ X3 -0.5 0.5  1.0</code></pre>
 </div>
 </div>
 </section>
-<section id="binary-outcomes" class="level3" data-number="5.5.3">
-<h3 data-number="5.5.3" class="anchored" data-anchor-id="binary-outcomes"><span class="header-section-number">5.5.3</span> Binary outcomes</h3>
+<section id="binary-outcomes" class="level3" data-number="4.5.3">
+<h3 data-number="4.5.3" class="anchored" data-anchor-id="binary-outcomes"><span class="header-section-number">4.5.3</span> Binary outcomes</h3>
 <p>Binary outcomes refer to cases where there are only two possible answers, 0 or 1. Some examples include heads/tails, correct/incorrect, or survived/died. These are represented by the Bernoulli distribution.</p>
 <p>The Binomial distribution is used to model the number of these successes across one or more trials.</p>
 <p>R uses the <code>rbinom()</code> function to sample from these distributions, either to get a sequence of individual outcomes (where size = 1, i.e., from the Bernoulli distribution) or the total count of successes (where size &gt; 1, i.e., the Binomial distribution).</p>
@@ -1654,8 +1661,8 @@ X3 -0.5 0.5  1.0</code></pre>
 </div>
 </section>
 </section>
-<section id="a-checklist-for-dgp-functions" class="level2" data-number="5.6">
-<h2 data-number="5.6" class="anchored" data-anchor-id="a-checklist-for-dgp-functions"><span class="header-section-number">5.6</span> A checklist for DGP functions</h2>
+<section id="a-checklist-for-dgp-functions" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="a-checklist-for-dgp-functions"><span class="header-section-number">4.6</span> A checklist for DGP functions</h2>
 <p>When you write your own <code>generate_data()</code> functions, aim for these defaults:</p>
 <ul>
 <li>Put all “design choices” in the arguments (sample sizes, effect sizes, standard deviations, etc.).</li>
@@ -2150,12 +2157,12 @@ X3 -0.5 0.5  1.0</code></pre>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../chapters/03_writing_functions.html" class="pagination-link" aria-label="Writing functions">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Writing functions</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Writing functions</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../chapters/05_pseudo_random_number_generators.html" class="pagination-link" aria-label="Pseudo-random number generators">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Pseudo-random number generators</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Pseudo-random number generators</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">

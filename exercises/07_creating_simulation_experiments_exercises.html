@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>23&nbsp; Exercises for ‘Creating simulation experiments’ chapter ✎ Very rough draft – Understanding statistics through Monte Carlo simulations</title>
+<title>22&nbsp; Exercises for ‘Creating simulation experiments’ chapter – Understanding statistics through Monte Carlo simulations</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -110,6 +110,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <style>
+  /* more breathing room before section headings.
+     scoped to main.content so the sidebar/TOC headings are left alone.
+     this <style> block is emitted after the bootstrap theme css, so these
+     win without needing !important. */
+  main.content h2 { margin-top: 3rem; }
+  main.content h3 { margin-top: 2rem; }
+  main.content h4 { margin-top: 1.5rem; }
   .kable-table table { width: 70%; margin: 0 auto; }
   .badge {
     display: inline-flex; align-items: center; gap: 0.3em;
@@ -298,7 +305,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/01_required_skills_exercises.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/07_creating_simulation_experiments_exercises.html"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises for ‘Creating simulation experiments’ chapter <span class="badge badge-draft1">✎ Very rough draft</span></span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/01_required_skills_exercises.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/07_creating_simulation_experiments_exercises.html"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises for ‘Creating simulation experiments’ chapter</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -334,8 +341,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/00_lesson_plan.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Lesson plan</span></span></a>
+  <a href="../lesson_plan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson plan</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -350,61 +357,61 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/01_required_skills.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Required skills</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Required skills</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/02_foundation_concepts.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Foundation concepts</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Foundation concepts</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/03_writing_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Writing functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Writing functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/04_data_generating_process_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data-generating process functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data-generating process functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/05_pseudo_random_number_generators.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Pseudo-random number generators</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Pseudo-random number generators</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/06_analysis_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Analysis functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Analysis functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/07_creating_simulation_experiments.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Creating simulation experiments</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Creating simulation experiments</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/08_mapping.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Mapping over functions <span class="badge badge-draft2">✎ Rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Mapping over functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/09_summarizing_results.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summarizing results <span class="badge badge-draft1">✎ TODO</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Summarizing results <span class="badge badge-draft1">✎ TODO</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/10_planning_and_reporting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Planning and reporting <span class="badge badge-draft1">✎ TODO</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Planning and reporting <span class="badge badge-draft1">✎ TODO</span></span></span></a>
   </div>
 </li>
       </ul>
@@ -421,43 +428,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/11_everything_is_regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Everything is regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Everything is regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/12_estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/13_hypothesis_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/14_violating_assumptions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/15_testing_assumptions_and_conditional_tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of non-parameteric tests</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of non-parameteric tests</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/16_p_hacking.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/17_causality_and_selection_effects.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Weird causality and selection effects</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Weird causality and selection effects</span></span></a>
   </div>
 </li>
       </ul>
@@ -474,67 +481,67 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/01_required_skills_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises for ‘Required skills’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Exercises for ‘Required skills’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/03_writing_functions_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises for ‘Writing functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises for ‘Writing functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/04_data_generating_process_functions_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises for ‘Data Generating Process functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises for ‘Data Generating Process functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/06_analysis_functions_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises for ‘Analysis functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises for ‘Analysis functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/07_creating_simulation_experiments_exercises.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises for ‘Creating simulation experiments’ chapter <span class="badge badge-draft1">✎ Very rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises for ‘Creating simulation experiments’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/08_mapping_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Exercises for ‘Mapping over functions’ chapter <span class="badge badge-draft2">✎ Rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises for ‘Mapping over functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/11_everything_is_regression_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Exercises for ‘Everything is regression’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Exercises for ‘Everything is regression’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/12_estimation_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Exercises for ‘Estimation’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Exercises for ‘Estimation’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/13_hypothesis_testing_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Exercises for ‘Hypothesis Testing’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Exercises for ‘Hypothesis Testing’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/16_p_hacking_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Exercises for ‘p-hacking’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Exercises for ‘p-hacking’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/end_of_course_assignment.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">End of course assignment</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">End of course assignment</span></span></a>
   </div>
 </li>
       </ul>
@@ -551,31 +558,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/ADEMP_preregistration_template.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">ADEMP simulation preregistration template</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">ADEMP simulation preregistration template</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/simulation_template_hypothesis_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Simulation template: hypothesis testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Simulation template: hypothesis testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/simulation_template_estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Simulation template: estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Simulation template: estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/simulation_template_hpc.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Minimal HPC simulation template (Everything)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Minimal HPC simulation template (Everything)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
+ <span class="menu-text">License</span></a>
   </div>
 </li>
       </ul>
@@ -592,19 +599,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../classics/crowded_room_problem.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">The Crowded Room problem: Constraints on correlations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">The Crowded Room problem: Constraints on correlations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../classics/cohens_d_biased.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Simulation template: Cohen’s d is a biased estimator</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Simulation template: Cohen’s d is a biased estimator</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
+ <span class="menu-text">License</span></a>
   </div>
 </li>
       </ul>
@@ -619,20 +626,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#to-do" id="toc-to-do" class="nav-link active" data-scroll-target="#to-do"><span class="header-section-number">23.1</span> TO-DO:</a>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link active" data-scroll-target="#exercises"><span class="header-section-number">22.1</span> Exercises</a>
   <ul class="collapse">
-  <li><a href="#make-explicit-not-to-write-functions" id="toc-make-explicit-not-to-write-functions" class="nav-link" data-scroll-target="#make-explicit-not-to-write-functions"><span class="header-section-number">23.1.1</span> Make explicit not to write functions</a></li>
-  <li><a href="#how-to-make-an-r-chunk-add-the-chunks-into-the-exercises" id="toc-how-to-make-an-r-chunk-add-the-chunks-into-the-exercises" class="nav-link" data-scroll-target="#how-to-make-an-r-chunk-add-the-chunks-into-the-exercises"><span class="header-section-number">23.1.2</span> How to make an R chunk; add the chunks into the exercises</a></li>
-  <li><a href="#make-exercise-3-wording-clearer" id="toc-make-exercise-3-wording-clearer" class="nav-link" data-scroll-target="#make-exercise-3-wording-clearer"><span class="header-section-number">23.1.3</span> Make exercise 3 wording clearer</a></li>
-  <li><a href="#make-variables-named" id="toc-make-variables-named" class="nav-link" data-scroll-target="#make-variables-named"><span class="header-section-number">23.1.4</span> Make variables named</a></li>
-  </ul></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">23.2</span> Exercises</a>
-  <ul class="collapse">
-  <li><a href="#exercise-1-basic-parameter-grid" id="toc-exercise-1-basic-parameter-grid" class="nav-link" data-scroll-target="#exercise-1-basic-parameter-grid"><span class="header-section-number">23.2.1</span> Exercise 1: Basic parameter grid</a></li>
-  <li><a href="#exercise-2-filtering-implausible-combinations" id="toc-exercise-2-filtering-implausible-combinations" class="nav-link" data-scroll-target="#exercise-2-filtering-implausible-combinations"><span class="header-section-number">23.2.2</span> Exercise 2: Filtering implausible combinations</a></li>
-  <li><a href="#exercise-3-dependent-parameters-with-mutate" id="toc-exercise-3-dependent-parameters-with-mutate" class="nav-link" data-scroll-target="#exercise-3-dependent-parameters-with-mutate"><span class="header-section-number">23.2.3</span> Exercise 3: Dependent parameters with <code>mutate()</code></a></li>
-  <li><a href="#exercise-4-choosing-the-right-design" id="toc-exercise-4-choosing-the-right-design" class="nav-link" data-scroll-target="#exercise-4-choosing-the-right-design"><span class="header-section-number">23.2.4</span> Exercise 4: Choosing the right design</a></li>
-  <li><a href="#exercise-5-build-your-own-simulation-design" id="toc-exercise-5-build-your-own-simulation-design" class="nav-link" data-scroll-target="#exercise-5-build-your-own-simulation-design"><span class="header-section-number">23.2.5</span> Exercise 5: Build your own simulation design</a></li>
+  <li><a href="#exercise-1-basic-parameter-grid" id="toc-exercise-1-basic-parameter-grid" class="nav-link" data-scroll-target="#exercise-1-basic-parameter-grid"><span class="header-section-number">22.1.1</span> Exercise 1: Basic parameter grid</a></li>
+  <li><a href="#exercise-2-filtering-implausible-combinations" id="toc-exercise-2-filtering-implausible-combinations" class="nav-link" data-scroll-target="#exercise-2-filtering-implausible-combinations"><span class="header-section-number">22.1.2</span> Exercise 2: Filtering implausible combinations</a></li>
+  <li><a href="#exercise-3-dependent-parameters-with-mutate" id="toc-exercise-3-dependent-parameters-with-mutate" class="nav-link" data-scroll-target="#exercise-3-dependent-parameters-with-mutate"><span class="header-section-number">22.1.3</span> Exercise 3: Dependent parameters with <code>mutate()</code></a></li>
+  <li><a href="#exercise-4-choosing-the-right-design" id="toc-exercise-4-choosing-the-right-design" class="nav-link" data-scroll-target="#exercise-4-choosing-the-right-design"><span class="header-section-number">22.1.4</span> Exercise 4: Choosing the right design</a></li>
+  <li><a href="#exercise-5-build-your-own-simulation-design" id="toc-exercise-5-build-your-own-simulation-design" class="nav-link" data-scroll-target="#exercise-5-build-your-own-simulation-design"><span class="header-section-number">22.1.5</span> Exercise 5: Build your own simulation design</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -641,9 +641,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/01_required_skills_exercises.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/07_creating_simulation_experiments_exercises.html"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises for ‘Creating simulation experiments’ chapter <span class="badge badge-draft1">✎ Very rough draft</span></span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/01_required_skills_exercises.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/07_creating_simulation_experiments_exercises.html"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises for ‘Creating simulation experiments’ chapter</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises for ‘Creating simulation experiments’ chapter <span class="badge badge-draft1">✎ Very rough draft</span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises for ‘Creating simulation experiments’ chapter</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -660,30 +660,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="to-do" class="level2" data-number="23.1">
-<h2 data-number="23.1" class="anchored" data-anchor-id="to-do"><span class="header-section-number">23.1</span> TO-DO:</h2>
-<section id="make-explicit-not-to-write-functions" class="level3" data-number="23.1.1">
-<h3 data-number="23.1.1" class="anchored" data-anchor-id="make-explicit-not-to-write-functions"><span class="header-section-number">23.1.1</span> Make explicit not to write functions</h3>
-</section>
-<section id="how-to-make-an-r-chunk-add-the-chunks-into-the-exercises" class="level3" data-number="23.1.2">
-<h3 data-number="23.1.2" class="anchored" data-anchor-id="how-to-make-an-r-chunk-add-the-chunks-into-the-exercises"><span class="header-section-number">23.1.2</span> How to make an R chunk; add the chunks into the exercises</h3>
-</section>
-<section id="make-exercise-3-wording-clearer" class="level3" data-number="23.1.3">
-<h3 data-number="23.1.3" class="anchored" data-anchor-id="make-exercise-3-wording-clearer"><span class="header-section-number">23.1.3</span> Make exercise 3 wording clearer</h3>
-</section>
-<section id="make-variables-named" class="level3" data-number="23.1.4">
-<h3 data-number="23.1.4" class="anchored" data-anchor-id="make-variables-named"><span class="header-section-number">23.1.4</span> Make variables named</h3>
-</section>
-</section>
-<section id="exercises" class="level2" data-number="23.2">
-<h2 data-number="23.2" class="anchored" data-anchor-id="exercises"><span class="header-section-number">23.2</span> Exercises</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dependencies</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<section id="exercise-1-basic-parameter-grid" class="level3" data-number="23.2.1">
-<h3 data-number="23.2.1" class="anchored" data-anchor-id="exercise-1-basic-parameter-grid"><span class="header-section-number">23.2.1</span> Exercise 1: Basic parameter grid</h3>
+<!-- ## TO-DO:  -->
+<!-- ### Make explicit not to write functions  -->
+<!-- ### How to make an R chunk; add the chunks into the exercises -->
+<!-- ### Make exercise 3 wording clearer  -->
+<!-- ### Make variables named  -->
+<section id="exercises" class="level2" data-number="22.1">
+<h2 data-number="22.1" class="anchored" data-anchor-id="exercises"><span class="header-section-number">22.1</span> Exercises</h2>
+<section id="exercise-1-basic-parameter-grid" class="level3" data-number="22.1.1">
+<h3 data-number="22.1.1" class="anchored" data-anchor-id="exercise-1-basic-parameter-grid"><span class="header-section-number">22.1.1</span> Exercise 1: Basic parameter grid</h3>
 <p>Use <code>expand_grid()</code> to create a parameter grid for a simulation where:</p>
 <ul>
 <li><p><code>n_per_condition</code> is 20, 50, or 100</p></li>
@@ -693,15 +678,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>How many rows does the resulting grid have? Verify using <code>nrow()</code> and <code>distinct()</code>.</p>
 </section>
-<section id="exercise-2-filtering-implausible-combinations" class="level3" data-number="23.2.2">
-<h3 data-number="23.2.2" class="anchored" data-anchor-id="exercise-2-filtering-implausible-combinations"><span class="header-section-number">23.2.2</span> Exercise 2: Filtering implausible combinations</h3>
+<section id="exercise-2-filtering-implausible-combinations" class="level3" data-number="22.1.2">
+<h3 data-number="22.1.2" class="anchored" data-anchor-id="exercise-2-filtering-implausible-combinations"><span class="header-section-number">22.1.2</span> Exercise 2: Filtering implausible combinations</h3>
 <p>Starting from the grid below, use <code>filter()</code> to remove any rows where <code>n_per_condition</code> is less than 50 <strong>and</strong> <code>mean_intervention</code> is less than 0.3. How many rows remain?</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">expand_grid</span>(</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_per_condition =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">200</span>),</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_intervention =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.3</span>, <span class="fl">0.5</span>),</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">expand_grid</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_per_condition =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">200</span>),</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_intervention =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.3</span>, <span class="fl">0.5</span>),</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -837,8 +822,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="exercise-3-dependent-parameters-with-mutate" class="level3" data-number="23.2.3">
-<h3 data-number="23.2.3" class="anchored" data-anchor-id="exercise-3-dependent-parameters-with-mutate"><span class="header-section-number">23.2.3</span> Exercise 3: Dependent parameters with <code>mutate()</code></h3>
+<section id="exercise-3-dependent-parameters-with-mutate" class="level3" data-number="22.1.3">
+<h3 data-number="22.1.3" class="anchored" data-anchor-id="exercise-3-dependent-parameters-with-mutate"><span class="header-section-number">22.1.3</span> Exercise 3: Dependent parameters with <code>mutate()</code></h3>
 <p>You are simulating a reading comprehension study. Your parameters are:</p>
 <ul>
 <li><p><code>n_passages</code>: the number of passages participants read (5, 10, or 20)</p></li>
@@ -846,20 +831,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>The total time allowed (<code>time_limit_minutes</code>) depends on the other two parameters: participants get 2 minutes per easy passage and 4 minutes per hard passage. Use <code>expand_grid()</code> and <code>mutate()</code> to create the parameter grid with <code>time_limit_minutes</code> derived from the other columns.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>example_data <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_passages =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">20</span>),</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">passage_difficulty =</span> <span class="fu">c</span>(<span class="st">"easy"</span>, <span class="st">"hard"</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">time_limit_minutes =</span> </span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>           <span class="fu">case_when</span>(</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>             passage_difficulty <span class="sc">==</span> <span class="st">"easy"</span> <span class="sc">~</span> n_passages <span class="sc">*</span> <span class="dv">2</span>,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>             passage_difficulty <span class="sc">==</span> <span class="st">"hard"</span> <span class="sc">~</span> n_passages <span class="sc">*</span> <span class="dv">4</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>             )</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>         )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>example_data <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_passages =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">20</span>),</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">passage_difficulty =</span> <span class="fu">c</span>(<span class="st">"easy"</span>, <span class="st">"hard"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">time_limit_minutes =</span> </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>           <span class="fu">case_when</span>(</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>             passage_difficulty <span class="sc">==</span> <span class="st">"easy"</span> <span class="sc">~</span> n_passages <span class="sc">*</span> <span class="dv">2</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>             passage_difficulty <span class="sc">==</span> <span class="st">"hard"</span> <span class="sc">~</span> n_passages <span class="sc">*</span> <span class="dv">4</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>             )</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>         )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="exercise-4-choosing-the-right-design" class="level3" data-number="23.2.4">
-<h3 data-number="23.2.4" class="anchored" data-anchor-id="exercise-4-choosing-the-right-design"><span class="header-section-number">23.2.4</span> Exercise 4: Choosing the right design</h3>
+<section id="exercise-4-choosing-the-right-design" class="level3" data-number="22.1.4">
+<h3 data-number="22.1.4" class="anchored" data-anchor-id="exercise-4-choosing-the-right-design"><span class="header-section-number">22.1.4</span> Exercise 4: Choosing the right design</h3>
 <p>For each scenario below, determine whether you would use (a) a fully-crossed design, (b) a non-fully-crossed design with <code>filter()</code>, or (c) a design with dependencies using <code>mutate()</code>.</p>
 <ol type="1">
 <li><p>You vary sample size (50, 100, 200) and effect size (0.2, 0.5, 0.8), and all combinations are of interest and kept.</p></li>
@@ -869,8 +854,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>You are simulating ecological data on bird species counts across habitats. You vary habitat type (forest, wetland, urban) and survey area size (1 km², 5 km², 25 km²), but want to exclude large survey areas for urban habitats because contiguous urban green spaces larger than 5 km² are unrealistic in your study region.</p></li>
 </ol>
 </section>
-<section id="exercise-5-build-your-own-simulation-design" class="level3" data-number="23.2.5">
-<h3 data-number="23.2.5" class="anchored" data-anchor-id="exercise-5-build-your-own-simulation-design"><span class="header-section-number">23.2.5</span> Exercise 5: Build your own simulation design</h3>
+<section id="exercise-5-build-your-own-simulation-design" class="level3" data-number="22.1.5">
+<h3 data-number="22.1.5" class="anchored" data-anchor-id="exercise-5-build-your-own-simulation-design"><span class="header-section-number">22.1.5</span> Exercise 5: Build your own simulation design</h3>
 <p>Think of a research question from an area of research you find interesting. Define at least three parameters you would want to vary, create a parameter grid using <code>expand_grid()</code>, and include at least one dependency or filter. Use <code>nrow()</code> and <code>distinct()</code> to sanity-check your grid. Write a brief comment (2–3 sentences) explaining why you chose each parameter value and why you included the dependency or filter.</p>
 
 
@@ -1346,106 +1331,107 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../exercises/06_analysis_functions_exercises.html" class="pagination-link" aria-label="Exercises for 'Analysis functions' chapter <span class=&quot;badge badge-draft3&quot;>✎ Polishing</span>">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises for ‘Analysis functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span>
+      <a href="../exercises/06_analysis_functions_exercises.html" class="pagination-link" aria-label="Exercises for 'Analysis functions' chapter">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises for ‘Analysis functions’ chapter</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../exercises/08_mapping_exercises.html" class="pagination-link" aria-label="Exercises for 'Mapping over functions' chapter <span class=&quot;badge badge-draft2&quot;>✎ Rough draft</span>">
-        <span class="nav-page-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Exercises for ‘Mapping over functions’ chapter <span class="badge badge-draft2">✎ Rough draft</span></span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../exercises/08_mapping_exercises.html" class="pagination-link" aria-label="Exercises for 'Mapping over functions' chapter">
+        <span class="nav-page-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises for ‘Mapping over functions’ chapter</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercises for 'Creating simulation experiments' chapter &lt;span class="badge badge-draft1"&gt;✎ Very rough draft&lt;/span&gt;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## TO-DO: </span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">### Make explicit not to write functions </span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">### How to make an R chunk; add the chunks into the exercises</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">### Make exercise 3 wording clearer </span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">### Make variables named </span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co"># if it is available, run the setup script that tells quarto to round all df/tibble outputs to three decimal places</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">file.exists</span>(<span class="st">"../_setup.R"</span>)){<span class="fu">source</span>(<span class="st">"../_setup.R"</span>)}</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="co"># dependencies</span></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exercise 1: Basic parameter grid</span></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>Use <span class="in">`expand_grid()`</span> to create a parameter grid for a simulation where:</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`n_per_condition`</span> is 20, 50, or 100</span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`mean_intervention`</span> is 0.2 or 0.8</span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`sd`</span> is 1</span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`correlation_between_conditions`</span> is 0.3 or 0.5.</span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>How many rows does the resulting grid have? Verify using <span class="in">`nrow()`</span> and <span class="in">`distinct()`</span>.</span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exercise 2: Filtering implausible combinations</span></span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>Starting from the grid below, use <span class="in">`filter()`</span> to remove any rows where <span class="in">`n_per_condition`</span> is less than 50 **and** <span class="in">`mean_intervention`</span> is less than 0.3. How many rows remain?</span>
-<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a><span class="fu">expand_grid</span>(</span>
-<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_per_condition =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">200</span>),</span>
-<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_intervention =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.3</span>, <span class="fl">0.5</span>),</span>
-<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>)</span>
-<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exercise 3: Dependent parameters with `mutate()`</span></span>
-<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>You are simulating a reading comprehension study. Your parameters are:</span>
-<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`n_passages`</span>: the number of passages participants read (5, 10, or 20)</span>
-<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`passage_difficulty`</span>: "easy" or "hard"</span>
-<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>The total time allowed (<span class="in">`time_limit_minutes`</span>) depends on the other two parameters: participants get 2 minutes per easy passage and 4 minutes per hard passage. Use <span class="in">`expand_grid()`</span> and <span class="in">`mutate()`</span> to create the parameter grid with <span class="in">`time_limit_minutes`</span> derived from the other columns.</span>
-<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>example_data <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
-<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_passages =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">20</span>),</span>
-<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>  <span class="at">passage_difficulty =</span> <span class="fu">c</span>(<span class="st">"easy"</span>, <span class="st">"hard"</span>)</span>
-<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">time_limit_minutes =</span> </span>
-<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>           <span class="fu">case_when</span>(</span>
-<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>             passage_difficulty <span class="sc">==</span> <span class="st">"easy"</span> <span class="sc">~</span> n_passages <span class="sc">*</span> <span class="dv">2</span>,</span>
-<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>             passage_difficulty <span class="sc">==</span> <span class="st">"hard"</span> <span class="sc">~</span> n_passages <span class="sc">*</span> <span class="dv">4</span></span>
-<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>             )</span>
-<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>         )</span>
-<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exercise 4: Choosing the right design</span></span>
-<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a>For each scenario below, determine whether you would use (a) a fully-crossed design, (b) a non-fully-crossed design with <span class="in">`filter()`</span>, or (c) a design with dependencies using <span class="in">`mutate()`</span>.</span>
-<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>You vary sample size (50, 100, 200) and effect size (0.2, 0.5, 0.8), and all combinations are of interest and kept. </span>
-<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>You vary the number of predictors (2, 5, 10) and the number of observations (20, 50, 100, 500), but you want to exclude cases where the number of observations is smaller than 10 times the number of predictors.</span>
-<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>You vary the number of items on a test (10, 20, 40) and want the total test time to always equal 2 minutes per item.</span>
-<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>You are simulating a clinical trial and vary the dropout rate (5%, 15%, 30%) and treatment effect size (0.3, 0.5, 0.7). All combinations are realistic because patients drop out for many reasons unrelated to efficacy.</span>
-<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>You are simulating ecological data on bird species counts across habitats. You vary habitat type (forest, wetland, urban) and survey area size (1 km², 5 km², 25 km²), but want to exclude large survey areas for urban habitats because contiguous urban green spaces larger than 5 km² are unrealistic in your study region.</span>
-<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exercise 5: Build your own simulation design</span></span>
-<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a>Think of a research question from an area of research you find interesting. Define at least three parameters you would want to vary, create a parameter grid using <span class="in">`expand_grid()`</span>, and include at least one dependency or filter. Use <span class="in">`nrow()`</span> and <span class="in">`distinct()`</span> to sanity-check your grid. Write a brief comment (2–3 sentences) explaining why you chose each parameter value and why you included the dependency or filter.</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercises for 'Creating simulation experiments' chapter </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- ## TO-DO:  --&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- </span><span class="al">###</span><span class="co"> Make explicit not to write functions  --&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- </span><span class="al">###</span><span class="co"> How to make an R chunk; add the chunks into the exercises --&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- </span><span class="al">###</span><span class="co"> Make exercise 3 wording clearer  --&gt;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- </span><span class="al">###</span><span class="co"> Make variables named  --&gt;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># if it is available, run the setup script that tells quarto to round all df/tibble outputs to three decimal places</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">file.exists</span>(<span class="st">"../_setup.R"</span>)){<span class="fu">source</span>(<span class="st">"../_setup.R"</span>)}</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co"># dependencies</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exercise 1: Basic parameter grid</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>Use <span class="in">`expand_grid()`</span> to create a parameter grid for a simulation where:</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`n_per_condition`</span> is 20, 50, or 100</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`mean_intervention`</span> is 0.2 or 0.8</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`sd`</span> is 1</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`correlation_between_conditions`</span> is 0.3 or 0.5.</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>How many rows does the resulting grid have? Verify using <span class="in">`nrow()`</span> and <span class="in">`distinct()`</span>.</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exercise 2: Filtering implausible combinations</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>Starting from the grid below, use <span class="in">`filter()`</span> to remove any rows where <span class="in">`n_per_condition`</span> is less than 50 **and** <span class="in">`mean_intervention`</span> is less than 0.3. How many rows remain?</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a><span class="fu">expand_grid</span>(</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_per_condition =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">200</span>),</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_intervention =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.3</span>, <span class="fl">0.5</span>),</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>)</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exercise 3: Dependent parameters with `mutate()`</span></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>You are simulating a reading comprehension study. Your parameters are:</span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`n_passages`</span>: the number of passages participants read (5, 10, or 20)</span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`passage_difficulty`</span>: "easy" or "hard"</span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>The total time allowed (<span class="in">`time_limit_minutes`</span>) depends on the other two parameters: participants get 2 minutes per easy passage and 4 minutes per hard passage. Use <span class="in">`expand_grid()`</span> and <span class="in">`mutate()`</span> to create the parameter grid with <span class="in">`time_limit_minutes`</span> derived from the other columns.</span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>example_data <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_passages =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">20</span>),</span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>  <span class="at">passage_difficulty =</span> <span class="fu">c</span>(<span class="st">"easy"</span>, <span class="st">"hard"</span>)</span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">time_limit_minutes =</span> </span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a>           <span class="fu">case_when</span>(</span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>             passage_difficulty <span class="sc">==</span> <span class="st">"easy"</span> <span class="sc">~</span> n_passages <span class="sc">*</span> <span class="dv">2</span>,</span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a>             passage_difficulty <span class="sc">==</span> <span class="st">"hard"</span> <span class="sc">~</span> n_passages <span class="sc">*</span> <span class="dv">4</span></span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>             )</span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>         )</span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exercise 4: Choosing the right design</span></span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a>For each scenario below, determine whether you would use (a) a fully-crossed design, (b) a non-fully-crossed design with <span class="in">`filter()`</span>, or (c) a design with dependencies using <span class="in">`mutate()`</span>.</span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>You vary sample size (50, 100, 200) and effect size (0.2, 0.5, 0.8), and all combinations are of interest and kept. </span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>You vary the number of predictors (2, 5, 10) and the number of observations (20, 50, 100, 500), but you want to exclude cases where the number of observations is smaller than 10 times the number of predictors.</span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>You vary the number of items on a test (10, 20, 40) and want the total test time to always equal 2 minutes per item.</span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>You are simulating a clinical trial and vary the dropout rate (5%, 15%, 30%) and treatment effect size (0.3, 0.5, 0.7). All combinations are realistic because patients drop out for many reasons unrelated to efficacy.</span>
+<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>You are simulating ecological data on bird species counts across habitats. You vary habitat type (forest, wetland, urban) and survey area size (1 km², 5 km², 25 km²), but want to exclude large survey areas for urban habitats because contiguous urban green spaces larger than 5 km² are unrealistic in your study region.</span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exercise 5: Build your own simulation design</span></span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a>Think of a research question from an area of research you find interesting. Define at least three parameters you would want to vary, create a parameter grid using <span class="in">`expand_grid()`</span>, and include at least one dependency or filter. Use <span class="in">`nrow()`</span> and <span class="in">`distinct()`</span> to sanity-check your grid. Write a brief comment (2–3 sentences) explaining why you chose each parameter value and why you included the dependency or filter.</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>17&nbsp; p-hacking via different forms of selecting reporting – Understanding statistics through Monte Carlo simulations</title>
+<title>16&nbsp; p-hacking via different forms of selecting reporting – Understanding statistics through Monte Carlo simulations</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -110,6 +110,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <style>
+  /* more breathing room before section headings.
+     scoped to main.content so the sidebar/TOC headings are left alone.
+     this <style> block is emitted after the bootstrap theme css, so these
+     win without needing !important. */
+  main.content h2 { margin-top: 3rem; }
+  main.content h3 { margin-top: 2rem; }
+  main.content h4 { margin-top: 1.5rem; }
   .kable-table table { width: 70%; margin: 0 auto; }
   .badge {
     display: inline-flex; align-items: center; gap: 0.3em;
@@ -327,7 +334,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/11_everything_is_regression.html">Part II: Learning from Simulations</a></li><li class="breadcrumb-item"><a href="../chapters/16_p_hacking.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/11_everything_is_regression.html">Part II: Learning from Simulations</a></li><li class="breadcrumb-item"><a href="../chapters/16_p_hacking.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -363,8 +370,8 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/00_lesson_plan.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Lesson plan</span></span></a>
+  <a href="../lesson_plan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson plan</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -379,61 +386,61 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/01_required_skills.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Required skills</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Required skills</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/02_foundation_concepts.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Foundation concepts</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Foundation concepts</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/03_writing_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Writing functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Writing functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/04_data_generating_process_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data-generating process functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data-generating process functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/05_pseudo_random_number_generators.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Pseudo-random number generators</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Pseudo-random number generators</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/06_analysis_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Analysis functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Analysis functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/07_creating_simulation_experiments.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Creating simulation experiments</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Creating simulation experiments</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/08_mapping.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Mapping over functions <span class="badge badge-draft2">✎ Rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Mapping over functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/09_summarizing_results.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summarizing results <span class="badge badge-draft1">✎ TODO</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Summarizing results <span class="badge badge-draft1">✎ TODO</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/10_planning_and_reporting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Planning and reporting <span class="badge badge-draft1">✎ TODO</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Planning and reporting <span class="badge badge-draft1">✎ TODO</span></span></span></a>
   </div>
 </li>
       </ul>
@@ -450,43 +457,43 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/11_everything_is_regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Everything is regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Everything is regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/12_estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/13_hypothesis_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/14_violating_assumptions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/15_testing_assumptions_and_conditional_tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of non-parameteric tests</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of non-parameteric tests</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/16_p_hacking.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/17_causality_and_selection_effects.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Weird causality and selection effects</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Weird causality and selection effects</span></span></a>
   </div>
 </li>
       </ul>
@@ -503,67 +510,67 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/01_required_skills_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises for ‘Required skills’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Exercises for ‘Required skills’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/03_writing_functions_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises for ‘Writing functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises for ‘Writing functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/04_data_generating_process_functions_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises for ‘Data Generating Process functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises for ‘Data Generating Process functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/06_analysis_functions_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises for ‘Analysis functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises for ‘Analysis functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/07_creating_simulation_experiments_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises for ‘Creating simulation experiments’ chapter <span class="badge badge-draft1">✎ Very rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises for ‘Creating simulation experiments’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/08_mapping_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Exercises for ‘Mapping over functions’ chapter <span class="badge badge-draft2">✎ Rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises for ‘Mapping over functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/11_everything_is_regression_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Exercises for ‘Everything is regression’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Exercises for ‘Everything is regression’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/12_estimation_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Exercises for ‘Estimation’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Exercises for ‘Estimation’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/13_hypothesis_testing_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Exercises for ‘Hypothesis Testing’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Exercises for ‘Hypothesis Testing’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/16_p_hacking_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Exercises for ‘p-hacking’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Exercises for ‘p-hacking’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/end_of_course_assignment.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">End of course assignment</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">End of course assignment</span></span></a>
   </div>
 </li>
       </ul>
@@ -580,31 +587,31 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/ADEMP_preregistration_template.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">ADEMP simulation preregistration template</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">ADEMP simulation preregistration template</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/simulation_template_hypothesis_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Simulation template: hypothesis testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Simulation template: hypothesis testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/simulation_template_estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Simulation template: estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Simulation template: estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/simulation_template_hpc.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Minimal HPC simulation template (Everything)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Minimal HPC simulation template (Everything)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
+ <span class="menu-text">License</span></a>
   </div>
 </li>
       </ul>
@@ -621,19 +628,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../classics/crowded_room_problem.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">The Crowded Room problem: Constraints on correlations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">The Crowded Room problem: Constraints on correlations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../classics/cohens_d_biased.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Simulation template: Cohen’s d is a biased estimator</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Simulation template: Cohen’s d is a biased estimator</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
+ <span class="menu-text">License</span></a>
   </div>
 </li>
       </ul>
@@ -648,24 +655,24 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">17.1</span> Overview</a></li>
-  <li><a href="#selective-reporting-of-studies" id="toc-selective-reporting-of-studies" class="nav-link" data-scroll-target="#selective-reporting-of-studies"><span class="header-section-number">17.2</span> Selective reporting of studies</a>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">16.1</span> Overview</a></li>
+  <li><a href="#selective-reporting-of-studies" id="toc-selective-reporting-of-studies" class="nav-link" data-scroll-target="#selective-reporting-of-studies"><span class="header-section-number">16.2</span> Selective reporting of studies</a>
   <ul class="collapse">
-  <li><a href="#run-simulation" id="toc-run-simulation" class="nav-link" data-scroll-target="#run-simulation"><span class="header-section-number">17.2.1</span> Run simulation</a></li>
-  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="header-section-number">17.2.2</span> Results</a></li>
-  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions"><span class="header-section-number">17.2.3</span> Conclusions</a></li>
+  <li><a href="#run-simulation" id="toc-run-simulation" class="nav-link" data-scroll-target="#run-simulation"><span class="header-section-number">16.2.1</span> Run simulation</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="header-section-number">16.2.2</span> Results</a></li>
+  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions"><span class="header-section-number">16.2.3</span> Conclusions</a></li>
   </ul></li>
-  <li><a href="#familywise-error-in-uncorrelated-tests" id="toc-familywise-error-in-uncorrelated-tests" class="nav-link" data-scroll-target="#familywise-error-in-uncorrelated-tests"><span class="header-section-number">17.3</span> Familywise error in uncorrelated tests</a></li>
-  <li><a href="#selective-reporting-of-correlated-outcomes" id="toc-selective-reporting-of-correlated-outcomes" class="nav-link" data-scroll-target="#selective-reporting-of-correlated-outcomes"><span class="header-section-number">17.4</span> Selective reporting of correlated outcomes</a>
+  <li><a href="#familywise-error-in-uncorrelated-tests" id="toc-familywise-error-in-uncorrelated-tests" class="nav-link" data-scroll-target="#familywise-error-in-uncorrelated-tests"><span class="header-section-number">16.3</span> Familywise error in uncorrelated tests</a></li>
+  <li><a href="#selective-reporting-of-correlated-outcomes" id="toc-selective-reporting-of-correlated-outcomes" class="nav-link" data-scroll-target="#selective-reporting-of-correlated-outcomes"><span class="header-section-number">16.4</span> Selective reporting of correlated outcomes</a>
   <ul class="collapse">
-  <li><a href="#generate-correlated-data" id="toc-generate-correlated-data" class="nav-link" data-scroll-target="#generate-correlated-data"><span class="header-section-number">17.4.1</span> Generate correlated data</a></li>
-  <li><a href="#generate-data" id="toc-generate-data" class="nav-link" data-scroll-target="#generate-data"><span class="header-section-number">17.4.2</span> Generate data</a></li>
-  <li><a href="#run-simulation-1" id="toc-run-simulation-1" class="nav-link" data-scroll-target="#run-simulation-1"><span class="header-section-number">17.4.3</span> Run simulation</a></li>
-  <li><a href="#results-1" id="toc-results-1" class="nav-link" data-scroll-target="#results-1"><span class="header-section-number">17.4.4</span> Results</a></li>
-  <li><a href="#conclusions-1" id="toc-conclusions-1" class="nav-link" data-scroll-target="#conclusions-1"><span class="header-section-number">17.4.5</span> Conclusions</a></li>
+  <li><a href="#generate-correlated-data" id="toc-generate-correlated-data" class="nav-link" data-scroll-target="#generate-correlated-data"><span class="header-section-number">16.4.1</span> Generate correlated data</a></li>
+  <li><a href="#generate-data" id="toc-generate-data" class="nav-link" data-scroll-target="#generate-data"><span class="header-section-number">16.4.2</span> Generate data</a></li>
+  <li><a href="#run-simulation-1" id="toc-run-simulation-1" class="nav-link" data-scroll-target="#run-simulation-1"><span class="header-section-number">16.4.3</span> Run simulation</a></li>
+  <li><a href="#results-1" id="toc-results-1" class="nav-link" data-scroll-target="#results-1"><span class="header-section-number">16.4.4</span> Results</a></li>
+  <li><a href="#conclusions-1" id="toc-conclusions-1" class="nav-link" data-scroll-target="#conclusions-1"><span class="header-section-number">16.4.5</span> Conclusions</a></li>
   </ul></li>
-  <li><a href="#check-your-learning" id="toc-check-your-learning" class="nav-link" data-scroll-target="#check-your-learning"><span class="header-section-number">17.5</span> Check your learning</a></li>
-  <li><a href="#readings" id="toc-readings" class="nav-link" data-scroll-target="#readings"><span class="header-section-number">17.6</span> Readings</a></li>
+  <li><a href="#check-your-learning" id="toc-check-your-learning" class="nav-link" data-scroll-target="#check-your-learning"><span class="header-section-number">16.5</span> Check your learning</a></li>
+  <li><a href="#readings" id="toc-readings" class="nav-link" data-scroll-target="#readings"><span class="header-section-number">16.6</span> Readings</a></li>
   </ul>
 </nav>
     </div>
@@ -673,9 +680,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/11_everything_is_regression.html">Part II: Learning from Simulations</a></li><li class="breadcrumb-item"><a href="../chapters/16_p_hacking.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/11_everything_is_regression.html">Part II: Learning from Simulations</a></li><li class="breadcrumb-item"><a href="../chapters/16_p_hacking.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -692,19 +699,19 @@ window.Quarto = {
 </header>
 
 
-<section id="overview" class="level2" data-number="17.1">
-<h2 data-number="17.1" class="anchored" data-anchor-id="overview"><span class="header-section-number">17.1</span> Overview</h2>
+<section id="overview" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="overview"><span class="header-section-number">16.1</span> Overview</h2>
 <p><em>p</em>-hacking is increasing the false-positive rate through analytic choices. These choices are often a) flexible, in that many different options might be tried until significance is found (Gelman called this the “Garden of Forking Paths”), and b) undisclosed. However, it need not be either in a given instance: perhaps the very first analytic strategy tried produces the significant result (but if it hadn’t, other strategies would have been tried), or perhaps the author fully discloses the analytic choices but does not make clear to the reader how this undermines the severity of the test (i.e., it takes a very close reading to understand that the results present weak evidence, or the verbal conclusions oversell this).</p>
 <p>p-hacking can occur <em>because of the uniform distribution of p-values under the null hypothesis</em>. Because all values are equally likely, you just have to keep rolling the dice to eventually find <em>p</em> &lt; .05.</p>
 <p>This lesson illustrates a few different examples of one broad form of p-hacking called selective reporting.</p>
 </section>
-<section id="selective-reporting-of-studies" class="level2" data-number="17.2">
-<h2 data-number="17.2" class="anchored" data-anchor-id="selective-reporting-of-studies"><span class="header-section-number">17.2</span> Selective reporting of studies</h2>
+<section id="selective-reporting-of-studies" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="selective-reporting-of-studies"><span class="header-section-number">16.2</span> Selective reporting of studies</h2>
 <p>If I run two experiments, and only report the one that “works”, I will increase the false positive rate across studies. Perhaps it is because one really is better designed etc than the other. Or perhaps its just a false positive.</p>
 <p>What would you guess the false positive rate is for two studies?</p>
 <p>Let’s simulate it.</p>
-<section id="run-simulation" class="level3" data-number="17.2.1">
-<h3 data-number="17.2.1" class="anchored" data-anchor-id="run-simulation"><span class="header-section-number">17.2.1</span> Run simulation</h3>
+<section id="run-simulation" class="level3" data-number="16.2.1">
+<h3 data-number="16.2.1" class="anchored" data-anchor-id="run-simulation"><span class="header-section-number">16.2.1</span> Run simulation</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>generate_data <span class="ot">&lt;-</span> <span class="cf">function</span>(n_per_condition,</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                          mean_control,</span>
@@ -842,8 +849,8 @@ window.Quarto = {
 <span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Source =</span> <span class="fu">str_remove</span>(Source, <span class="st">"prop_sig_"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="results" class="level3" data-number="17.2.2">
-<h3 data-number="17.2.2" class="anchored" data-anchor-id="results"><span class="header-section-number">17.2.2</span> Results</h3>
+<section id="results" class="level3" data-number="16.2.2">
+<h3 data-number="16.2.2" class="anchored" data-anchor-id="results"><span class="header-section-number">16.2.2</span> Results</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>simulation_summary <span class="sc">|&gt;</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.numeric, round_half_up, <span class="at">digits =</span> <span class="dv">2</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -873,14 +880,14 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="conclusions" class="level3" data-number="17.2.3">
-<h3 data-number="17.2.3" class="anchored" data-anchor-id="conclusions"><span class="header-section-number">17.2.3</span> Conclusions</h3>
+<section id="conclusions" class="level3" data-number="16.2.3">
+<h3 data-number="16.2.3" class="anchored" data-anchor-id="conclusions"><span class="header-section-number">16.2.3</span> Conclusions</h3>
 <p>The false positive rate for two studies is ~10%, because each study has a 5% false positive rate.</p>
 <p>See the exercises for this chapter to extend this simulation to four studies.</p>
 </section>
 </section>
-<section id="familywise-error-in-uncorrelated-tests" class="level2" data-number="17.3">
-<h2 data-number="17.3" class="anchored" data-anchor-id="familywise-error-in-uncorrelated-tests"><span class="header-section-number">17.3</span> Familywise error in uncorrelated tests</h2>
+<section id="familywise-error-in-uncorrelated-tests" class="level2" data-number="16.3">
+<h2 data-number="16.3" class="anchored" data-anchor-id="familywise-error-in-uncorrelated-tests"><span class="header-section-number">16.3</span> Familywise error in uncorrelated tests</h2>
 <p>Note that these probabilities are merely additive. This might not be intuitive.</p>
 <p>While the false positive rate for any individual test is 5%, the probability of finding at least one significant results in exactly <span class="math inline">\(k\)</span> number of tests follows the equation:</p>
 <p><span class="math display">\[
@@ -1001,12 +1008,12 @@ FPR = 1-(1-\alpha)^k,
 <p>But much do these five correlated outcome measures affect the false positive rate, specifically?</p>
 <p>We can solve this with math, but more complex things require either much more complicated math or … simulation.</p>
 </section>
-<section id="selective-reporting-of-correlated-outcomes" class="level2" data-number="17.4">
-<h2 data-number="17.4" class="anchored" data-anchor-id="selective-reporting-of-correlated-outcomes"><span class="header-section-number">17.4</span> Selective reporting of correlated outcomes</h2>
+<section id="selective-reporting-of-correlated-outcomes" class="level2" data-number="16.4">
+<h2 data-number="16.4" class="anchored" data-anchor-id="selective-reporting-of-correlated-outcomes"><span class="header-section-number">16.4</span> Selective reporting of correlated outcomes</h2>
 <p>Aka “outcome switching”, which is both common and problematic in clinical trials.</p>
 <p>There are of course situations where the tests are not independent, and this makes it more complicated to understand the FPR. For example, imagine I am interested in the impact of CBT on depression, but I include multiple measures of depression and report the one that ‘worked’.</p>
-<section id="generate-correlated-data" class="level3" data-number="17.4.1">
-<h3 data-number="17.4.1" class="anchored" data-anchor-id="generate-correlated-data"><span class="header-section-number">17.4.1</span> Generate correlated data</h3>
+<section id="generate-correlated-data" class="level3" data-number="16.4.1">
+<h3 data-number="16.4.1" class="anchored" data-anchor-id="generate-correlated-data"><span class="header-section-number">16.4.1</span> Generate correlated data</h3>
 <p>We haven’t simulated correlated data before so lets do that first.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
@@ -1036,8 +1043,8 @@ var2 -0.7083632  1.0000000</code></pre>
 </div>
 </div>
 </section>
-<section id="generate-data" class="level3" data-number="17.4.2">
-<h3 data-number="17.4.2" class="anchored" data-anchor-id="generate-data"><span class="header-section-number">17.4.2</span> Generate data</h3>
+<section id="generate-data" class="level3" data-number="16.4.2">
+<h3 data-number="16.4.2" class="anchored" data-anchor-id="generate-data"><span class="header-section-number">16.4.2</span> Generate data</h3>
 <p>Correlated outcomes, known groups differences.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>generate_data <span class="ot">&lt;-</span> <span class="cf">function</span>(n_per_condition,</span>
@@ -1118,8 +1125,8 @@ var2 -0.7083632  1.0000000</code></pre>
 </div>
 </div>
 </section>
-<section id="run-simulation-1" class="level3" data-number="17.4.3">
-<h3 data-number="17.4.3" class="anchored" data-anchor-id="run-simulation-1"><span class="header-section-number">17.4.3</span> Run simulation</h3>
+<section id="run-simulation-1" class="level3" data-number="16.4.3">
+<h3 data-number="16.4.3" class="anchored" data-anchor-id="run-simulation-1"><span class="header-section-number">16.4.3</span> Run simulation</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># define data analysis function ----</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>analyze <span class="ot">&lt;-</span> <span class="cf">function</span>(data, outcome) {</span>
@@ -1240,8 +1247,8 @@ var2 -0.7083632  1.0000000</code></pre>
 <span id="cb19-117"><a href="#cb19-117" aria-hidden="true" tabindex="-1"></a>            <span class="fu">select</span>(<span class="at">prop_sig_at_least_one =</span> rej_rate))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="results-1" class="level3" data-number="17.4.4">
-<h3 data-number="17.4.4" class="anchored" data-anchor-id="results-1"><span class="header-section-number">17.4.4</span> Results</h3>
+<section id="results-1" class="level3" data-number="16.4.4">
+<h3 data-number="16.4.4" class="anchored" data-anchor-id="results-1"><span class="header-section-number">16.4.4</span> Results</h3>
 <p>Empirical false positive rates as a function of the true correlation between outcomes. <code>prop_sig_at_least_one</code> is the empirical detection rate — the proportion of iterations in which <em>at least one</em> of the three outcomes reached <em>p</em> &lt; .05, i.e.&nbsp;what a researcher who switches outcomes would report as “significant”.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>simulation_summary <span class="sc">|&gt;</span></span>
@@ -1446,14 +1453,14 @@ var2 -0.7083632  1.0000000</code></pre>
 </div>
 </div>
 </section>
-<section id="conclusions-1" class="level3" data-number="17.4.5">
-<h3 data-number="17.4.5" class="anchored" data-anchor-id="conclusions-1"><span class="header-section-number">17.4.5</span> Conclusions</h3>
+<section id="conclusions-1" class="level3" data-number="16.4.5">
+<h3 data-number="16.4.5" class="anchored" data-anchor-id="conclusions-1"><span class="header-section-number">16.4.5</span> Conclusions</h3>
 <p>How does the false positive rate change when the outcome measures are correlated?</p>
 <p>What perverse incentive does this set up for researchers?</p>
 </section>
 </section>
-<section id="check-your-learning" class="level2" data-number="17.5">
-<h2 data-number="17.5" class="anchored" data-anchor-id="check-your-learning"><span class="header-section-number">17.5</span> Check your learning</h2>
+<section id="check-your-learning" class="level2" data-number="16.5">
+<h2 data-number="16.5" class="anchored" data-anchor-id="check-your-learning"><span class="header-section-number">16.5</span> Check your learning</h2>
 <p>If authors reported the results of all outcome variables (and not just the ones that ‘worked’):</p>
 <ul>
 <li>Would this problem be improved?</li>
@@ -1461,8 +1468,8 @@ var2 -0.7083632  1.0000000</code></pre>
 </ul>
 <p>See the exercises for this chapter for further practice.</p>
 </section>
-<section id="readings" class="level2" data-number="17.6">
-<h2 data-number="17.6" class="anchored" data-anchor-id="readings"><span class="header-section-number">17.6</span> Readings</h2>
+<section id="readings" class="level2" data-number="16.6">
+<h2 data-number="16.6" class="anchored" data-anchor-id="readings"><span class="header-section-number">16.6</span> Readings</h2>
 <ul>
 <li>Stefan, A. M. and Schönbrodt F. D. (2023) Big little lies: a compendium and simulation of p-hacking strategies. Royal Society Open Science. 10220346 http://doi.org/10.1098/rsos.220346</li>
 </ul>
@@ -1940,12 +1947,12 @@ var2 -0.7083632  1.0000000</code></pre>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../chapters/15_testing_assumptions_and_conditional_tests.html" class="pagination-link" aria-label="The statistical power of assumptions tests and the conditional use of non-parameteric tests">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of non-parameteric tests</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of non-parameteric tests</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../chapters/17_causality_and_selection_effects.html" class="pagination-link" aria-label="Weird causality and selection effects">
-        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Weird causality and selection effects</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Weird causality and selection effects</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">

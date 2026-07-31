@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3&nbsp; Foundation concepts – Understanding statistics through Monte Carlo simulations</title>
+<title>2&nbsp; Foundation concepts – Understanding statistics through Monte Carlo simulations</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -110,6 +110,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <style>
+  /* more breathing room before section headings.
+     scoped to main.content so the sidebar/TOC headings are left alone.
+     this <style> block is emitted after the bootstrap theme css, so these
+     win without needing !important. */
+  main.content h2 { margin-top: 3rem; }
+  main.content h3 { margin-top: 2rem; }
+  main.content h4 { margin-top: 1.5rem; }
   .kable-table table { width: 70%; margin: 0 auto; }
   .badge {
     display: inline-flex; align-items: center; gap: 0.3em;
@@ -327,7 +334,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01_required_skills.html">Part I: Learning to Simulate</a></li><li class="breadcrumb-item"><a href="../chapters/02_foundation_concepts.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Foundation concepts</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01_required_skills.html">Part I: Learning to Simulate</a></li><li class="breadcrumb-item"><a href="../chapters/02_foundation_concepts.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Foundation concepts</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -363,8 +370,8 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/00_lesson_plan.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Lesson plan</span></span></a>
+  <a href="../lesson_plan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson plan</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -379,61 +386,61 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/01_required_skills.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Required skills</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Required skills</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/02_foundation_concepts.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Foundation concepts</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Foundation concepts</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/03_writing_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Writing functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Writing functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/04_data_generating_process_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data-generating process functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data-generating process functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/05_pseudo_random_number_generators.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Pseudo-random number generators</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Pseudo-random number generators</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/06_analysis_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Analysis functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Analysis functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/07_creating_simulation_experiments.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Creating simulation experiments</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Creating simulation experiments</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/08_mapping.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Mapping over functions <span class="badge badge-draft2">✎ Rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Mapping over functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/09_summarizing_results.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summarizing results <span class="badge badge-draft1">✎ TODO</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Summarizing results <span class="badge badge-draft1">✎ TODO</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/10_planning_and_reporting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Planning and reporting <span class="badge badge-draft1">✎ TODO</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Planning and reporting <span class="badge badge-draft1">✎ TODO</span></span></span></a>
   </div>
 </li>
       </ul>
@@ -450,43 +457,43 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/11_everything_is_regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Everything is regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Everything is regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/12_estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/13_hypothesis_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/14_violating_assumptions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/15_testing_assumptions_and_conditional_tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of non-parameteric tests</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of non-parameteric tests</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/16_p_hacking.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/17_causality_and_selection_effects.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Weird causality and selection effects</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Weird causality and selection effects</span></span></a>
   </div>
 </li>
       </ul>
@@ -503,67 +510,67 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/01_required_skills_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises for ‘Required skills’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Exercises for ‘Required skills’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/03_writing_functions_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises for ‘Writing functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises for ‘Writing functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/04_data_generating_process_functions_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises for ‘Data Generating Process functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises for ‘Data Generating Process functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/06_analysis_functions_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises for ‘Analysis functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises for ‘Analysis functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/07_creating_simulation_experiments_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises for ‘Creating simulation experiments’ chapter <span class="badge badge-draft1">✎ Very rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises for ‘Creating simulation experiments’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/08_mapping_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Exercises for ‘Mapping over functions’ chapter <span class="badge badge-draft2">✎ Rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises for ‘Mapping over functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/11_everything_is_regression_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Exercises for ‘Everything is regression’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Exercises for ‘Everything is regression’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/12_estimation_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Exercises for ‘Estimation’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Exercises for ‘Estimation’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/13_hypothesis_testing_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Exercises for ‘Hypothesis Testing’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Exercises for ‘Hypothesis Testing’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/16_p_hacking_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Exercises for ‘p-hacking’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Exercises for ‘p-hacking’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/end_of_course_assignment.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">End of course assignment</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">End of course assignment</span></span></a>
   </div>
 </li>
       </ul>
@@ -580,31 +587,31 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/ADEMP_preregistration_template.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">ADEMP simulation preregistration template</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">ADEMP simulation preregistration template</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/simulation_template_hypothesis_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Simulation template: hypothesis testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Simulation template: hypothesis testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/simulation_template_estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Simulation template: estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Simulation template: estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/simulation_template_hpc.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Minimal HPC simulation template (Everything)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Minimal HPC simulation template (Everything)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
+ <span class="menu-text">License</span></a>
   </div>
 </li>
       </ul>
@@ -621,19 +628,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../classics/crowded_room_problem.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">The Crowded Room problem: Constraints on correlations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">The Crowded Room problem: Constraints on correlations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../classics/cohens_d_biased.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Simulation template: Cohen’s d is a biased estimator</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Simulation template: Cohen’s d is a biased estimator</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
+ <span class="menu-text">License</span></a>
   </div>
 </li>
       </ul>
@@ -648,25 +655,25 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#why-do-we-use-simulation" id="toc-why-do-we-use-simulation" class="nav-link active" data-scroll-target="#why-do-we-use-simulation"><span class="header-section-number">3.1</span> Why do we use simulation?</a></li>
-  <li><a href="#how-are-simulations-different-from-studies" id="toc-how-are-simulations-different-from-studies" class="nav-link" data-scroll-target="#how-are-simulations-different-from-studies"><span class="header-section-number">3.2</span> How are simulations different from studies?</a>
+  <li><a href="#why-do-we-use-simulation" id="toc-why-do-we-use-simulation" class="nav-link active" data-scroll-target="#why-do-we-use-simulation"><span class="header-section-number">2.1</span> Why do we use simulation?</a></li>
+  <li><a href="#how-are-simulations-different-from-studies" id="toc-how-are-simulations-different-from-studies" class="nav-link" data-scroll-target="#how-are-simulations-different-from-studies"><span class="header-section-number">2.2</span> How are simulations different from studies?</a>
   <ul class="collapse">
-  <li><a href="#a-study-learns-from-the-world" id="toc-a-study-learns-from-the-world" class="nav-link" data-scroll-target="#a-study-learns-from-the-world"><span class="header-section-number">3.2.1</span> A study learns from the world</a></li>
-  <li><a href="#a-simulation-learns-from-your-assumptions" id="toc-a-simulation-learns-from-your-assumptions" class="nav-link" data-scroll-target="#a-simulation-learns-from-your-assumptions"><span class="header-section-number">3.2.2</span> A simulation learns from your assumptions</a></li>
-  <li><a href="#are-simulations-just-making-things-up" id="toc-are-simulations-just-making-things-up" class="nav-link" data-scroll-target="#are-simulations-just-making-things-up"><span class="header-section-number">3.2.3</span> Are simulations just making things up?</a></li>
-  <li><a href="#simulations-dont-replace-studies" id="toc-simulations-dont-replace-studies" class="nav-link" data-scroll-target="#simulations-dont-replace-studies"><span class="header-section-number">3.2.4</span> Simulations don’t replace studies</a></li>
+  <li><a href="#a-study-learns-from-the-world" id="toc-a-study-learns-from-the-world" class="nav-link" data-scroll-target="#a-study-learns-from-the-world"><span class="header-section-number">2.2.1</span> A study learns from the world</a></li>
+  <li><a href="#a-simulation-learns-from-your-assumptions" id="toc-a-simulation-learns-from-your-assumptions" class="nav-link" data-scroll-target="#a-simulation-learns-from-your-assumptions"><span class="header-section-number">2.2.2</span> A simulation learns from your assumptions</a></li>
+  <li><a href="#are-simulations-just-making-things-up" id="toc-are-simulations-just-making-things-up" class="nav-link" data-scroll-target="#are-simulations-just-making-things-up"><span class="header-section-number">2.2.3</span> Are simulations just making things up?</a></li>
+  <li><a href="#simulations-dont-replace-studies" id="toc-simulations-dont-replace-studies" class="nav-link" data-scroll-target="#simulations-dont-replace-studies"><span class="header-section-number">2.2.4</span> Simulations don’t replace studies</a></li>
   </ul></li>
-  <li><a href="#key-components-of-a-monte-carlo-simulation-study" id="toc-key-components-of-a-monte-carlo-simulation-study" class="nav-link" data-scroll-target="#key-components-of-a-monte-carlo-simulation-study"><span class="header-section-number">3.3</span> Key components of a Monte Carlo simulation study</a>
+  <li><a href="#key-components-of-a-monte-carlo-simulation-study" id="toc-key-components-of-a-monte-carlo-simulation-study" class="nav-link" data-scroll-target="#key-components-of-a-monte-carlo-simulation-study"><span class="header-section-number">2.3</span> Key components of a Monte Carlo simulation study</a>
   <ul class="collapse">
-  <li><a href="#construct-an-experiment" id="toc-construct-an-experiment" class="nav-link" data-scroll-target="#construct-an-experiment"><span class="header-section-number">3.3.1</span> Construct an experiment</a></li>
-  <li><a href="#generate-data" id="toc-generate-data" class="nav-link" data-scroll-target="#generate-data"><span class="header-section-number">3.3.2</span> Generate data</a></li>
-  <li><a href="#analyse-data" id="toc-analyse-data" class="nav-link" data-scroll-target="#analyse-data"><span class="header-section-number">3.3.3</span> Analyse data</a></li>
-  <li><a href="#repeat-this-many-times-and-summarize-results" id="toc-repeat-this-many-times-and-summarize-results" class="nav-link" data-scroll-target="#repeat-this-many-times-and-summarize-results"><span class="header-section-number">3.3.4</span> Repeat this many times and summarize results</a></li>
+  <li><a href="#construct-an-experiment" id="toc-construct-an-experiment" class="nav-link" data-scroll-target="#construct-an-experiment"><span class="header-section-number">2.3.1</span> Construct an experiment</a></li>
+  <li><a href="#generate-data" id="toc-generate-data" class="nav-link" data-scroll-target="#generate-data"><span class="header-section-number">2.3.2</span> Generate data</a></li>
+  <li><a href="#analyse-data" id="toc-analyse-data" class="nav-link" data-scroll-target="#analyse-data"><span class="header-section-number">2.3.3</span> Analyse data</a></li>
+  <li><a href="#repeat-this-many-times-and-summarize-results" id="toc-repeat-this-many-times-and-summarize-results" class="nav-link" data-scroll-target="#repeat-this-many-times-and-summarize-results"><span class="header-section-number">2.3.4</span> Repeat this many times and summarize results</a></li>
   </ul></li>
-  <li><a href="#compare-with-distribution-of-p-values-when-population-means-are-not-equal" id="toc-compare-with-distribution-of-p-values-when-population-means-are-not-equal" class="nav-link" data-scroll-target="#compare-with-distribution-of-p-values-when-population-means-are-not-equal"><span class="header-section-number">3.4</span> Compare with distribution of <em>p</em>-values when population means are not equal</a></li>
-  <li><a href="#what-is-the-distribution-of-p-values-under-the-null-hypothesis-newer-plotting" id="toc-what-is-the-distribution-of-p-values-under-the-null-hypothesis-newer-plotting" class="nav-link" data-scroll-target="#what-is-the-distribution-of-p-values-under-the-null-hypothesis-newer-plotting"><span class="header-section-number">3.5</span> What is the distribution of p values under the null hypothesis? [newer plotting]</a></li>
-  <li><a href="#how-likely-are-barely-significant-p-values" id="toc-how-likely-are-barely-significant-p-values" class="nav-link" data-scroll-target="#how-likely-are-barely-significant-p-values"><span class="header-section-number">3.6</span> How likely are barely significant <em>p</em>-values?</a></li>
-  <li><a href="#check-your-learning" id="toc-check-your-learning" class="nav-link" data-scroll-target="#check-your-learning"><span class="header-section-number">3.7</span> Check your learning</a></li>
+  <li><a href="#compare-with-distribution-of-p-values-when-population-means-are-not-equal" id="toc-compare-with-distribution-of-p-values-when-population-means-are-not-equal" class="nav-link" data-scroll-target="#compare-with-distribution-of-p-values-when-population-means-are-not-equal"><span class="header-section-number">2.4</span> Compare with distribution of <em>p</em>-values when population means are not equal</a></li>
+  <li><a href="#what-is-the-distribution-of-p-values-under-the-null-hypothesis-newer-plotting" id="toc-what-is-the-distribution-of-p-values-under-the-null-hypothesis-newer-plotting" class="nav-link" data-scroll-target="#what-is-the-distribution-of-p-values-under-the-null-hypothesis-newer-plotting"><span class="header-section-number">2.5</span> What is the distribution of p values under the null hypothesis? [newer plotting]</a></li>
+  <li><a href="#how-likely-are-barely-significant-p-values" id="toc-how-likely-are-barely-significant-p-values" class="nav-link" data-scroll-target="#how-likely-are-barely-significant-p-values"><span class="header-section-number">2.6</span> How likely are barely significant <em>p</em>-values?</a></li>
+  <li><a href="#check-your-learning" id="toc-check-your-learning" class="nav-link" data-scroll-target="#check-your-learning"><span class="header-section-number">2.7</span> Check your learning</a></li>
   </ul>
 </nav>
     </div>
@@ -674,9 +681,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01_required_skills.html">Part I: Learning to Simulate</a></li><li class="breadcrumb-item"><a href="../chapters/02_foundation_concepts.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Foundation concepts</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01_required_skills.html">Part I: Learning to Simulate</a></li><li class="breadcrumb-item"><a href="../chapters/02_foundation_concepts.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Foundation concepts</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Foundation concepts</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Foundation concepts</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -697,8 +704,8 @@ window.Quarto = {
 <!-- TODO: integrate some repetitive content below -->
 <!-- TODO: integrate information from slides, or the slides themselves -->
 <!-- TODO: remove old and new content redundancy -->
-<section id="why-do-we-use-simulation" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="why-do-we-use-simulation"><span class="header-section-number">3.1</span> Why do we use simulation?</h2>
+<section id="why-do-we-use-simulation" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="why-do-we-use-simulation"><span class="header-section-number">2.1</span> Why do we use simulation?</h2>
 <p>Imagine you’re throwing yourself a birthday party, and need to buy food and drinks for everyone who is coming. First of all: happy birthday! Second of all: you probably need to figure out <em>how much</em> food and drink to buy in order to make sure everybody has enough to eat and enough to drink. At the same time, you’re not made of money, so you probably don’t want to buy too much, either.</p>
 <p>In this scenario, you probably will consider some hypothetical possibilities to help you estimate how much food and drink you’ll need. You might think: well, if 20 people come, and they eat an average of half a pizza each, plus 4 bottles of soda each, then we’ll probably need 20 * .5 = 10 pizzas, and 20 * 4 = 80 bottles. Easy!</p>
 <p>But wait - your best friend is coming, and she always eats at least one and a half full pizzas by herself! Plus maybe some people will have already eaten before they arrive. Some people are also going to another party after yours finishes, so they might not stay that long, so maybe they won’t drink as much as you expect. And maybe fewer than 20 people will show up! Or more! How could we plan for this when there is so much uncertainty?</p>
@@ -796,39 +803,39 @@ window.Quarto = {
 </div>
 <p>To make sure that 95 out of 100 parties would be covered, we would need 12 pizzas and 93 bottles of beer!</p>
 </section>
-<section id="how-are-simulations-different-from-studies" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="how-are-simulations-different-from-studies"><span class="header-section-number">3.2</span> How are simulations different from studies?</h2>
+<section id="how-are-simulations-different-from-studies" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="how-are-simulations-different-from-studies"><span class="header-section-number">2.2</span> How are simulations different from studies?</h2>
 <p>In the party example above, we didn’t actually throw 100 birthday parties. We pretended to, using a few assumptions about what parties tend to look like (how many people show up, how much they eat and drink). That’s the key difference: - In a study, you collect real data from the world. - In a simulation, you generate fake-but-plausible data from a model of the world.</p>
 <p>It might sound a bit strange to generate fake data to learn real things about the world. But this is exactly what makes simulation useful: it lets us explore “what would happen if…?” questions without having to pay for 100 parties, recruit 10,000 participants, or wait six months for data collection.</p>
-<section id="a-study-learns-from-the-world" class="level3" data-number="3.2.1">
-<h3 data-number="3.2.1" class="anchored" data-anchor-id="a-study-learns-from-the-world"><span class="header-section-number">3.2.1</span> A study learns from the world</h3>
+<section id="a-study-learns-from-the-world" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="a-study-learns-from-the-world"><span class="header-section-number">2.2.1</span> A study learns from the world</h3>
 <p>In an empirical study, the world is the <em>data-generating process</em>. You don’t decide what the distribution of pizza consumption is — you discover it by measuring. Your sample contains surprises, messiness, measurement error, attrition, weird participants, and all the other things that make research both interesting and painful.</p>
 <p>So the logic of a study is: 1. Collect data from the world. 2. Summarise and analyse that data. 3. Infer something about the process that produced it (and, hopefully, about the wider population).</p>
 <p>Even when we use statistical models in studies, the model is our tool for learning from data we didn’t control.</p>
 </section>
-<section id="a-simulation-learns-from-your-assumptions" class="level3" data-number="3.2.2">
-<h3 data-number="3.2.2" class="anchored" data-anchor-id="a-simulation-learns-from-your-assumptions"><span class="header-section-number">3.2.2</span> A simulation learns from your assumptions</h3>
+<section id="a-simulation-learns-from-your-assumptions" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="a-simulation-learns-from-your-assumptions"><span class="header-section-number">2.2.2</span> A simulation learns from your assumptions</h3>
 <p>In a simulation, you flip that around: the model is the data-generating process. You decide, in advance, what the distributions look like (or what mechanism produces the data). Then you generate many datasets from that mechanism, and try to understand what happens under those conditions.</p>
 <p>So the logic of a simulation is: 1. Make experiments that assume things about how data are generated 2. Generate data under these assumptions 3. Analyse this dataset the same way you would analyse real data 4. Repeat this process many times 5. Summarise the results across datasets and experiment conditions</p>
 <p>This is why simulation is sometimes described as doing statistics “in a sandbox”: you control the world, and you watch what your analysis does inside it.</p>
 </section>
-<section id="are-simulations-just-making-things-up" class="level3" data-number="3.2.3">
-<h3 data-number="3.2.3" class="anchored" data-anchor-id="are-simulations-just-making-things-up"><span class="header-section-number">3.2.3</span> Are simulations just making things up?</h3>
+<section id="are-simulations-just-making-things-up" class="level3" data-number="2.2.3">
+<h3 data-number="2.2.3" class="anchored" data-anchor-id="are-simulations-just-making-things-up"><span class="header-section-number">2.2.3</span> Are simulations just making things up?</h3>
 <p>Yes! But not randomly. A simulation is only as good as the assumptions you put in. If you assume pizza consumption is normally distributed, you will generate a world where negative pizza consumption is theoretically possible. If you assume attendance varies with a standard deviation of 2, you’re asserting that wildly different attendance (say, 5 people or 60 people) is extremely unlikely.</p>
 <p>And this is the point: simulation forces you to think about what processes might generate data.</p>
 <p>A useful way to think about it is: - A study asks: “What is true in the world?” - A simulation asks: “If the world worked like this, what would happen?”</p>
 <p>We use simulation because many questions we care about are hard to answer directly with studies. For example: - If I run this analysis on data like mine, how often will I get a false positive? - How much sample size do I need for reasonable power in my design (not in a textbook idealisation)? - If I use method A vs method B, which one is more biased under realistic conditions? - If participants drop out in a certain way, how badly does it distort my results? - What is the distribution of a p-value under the null hypothesis?</p>
 <p>You can’t usually run a real study thousands of times under controlled conditions to find out. But you can simulate it.</p>
 </section>
-<section id="simulations-dont-replace-studies" class="level3" data-number="3.2.4">
-<h3 data-number="3.2.4" class="anchored" data-anchor-id="simulations-dont-replace-studies"><span class="header-section-number">3.2.4</span> Simulations don’t replace studies</h3>
+<section id="simulations-dont-replace-studies" class="level3" data-number="2.2.4">
+<h3 data-number="2.2.4" class="anchored" data-anchor-id="simulations-dont-replace-studies"><span class="header-section-number">2.2.4</span> Simulations don’t replace studies</h3>
 <p>Simulation is not a substitute for collecting data. It’s a tool for understanding methods, designing studies, stress-testing assumptions, and building intuition about uncertainty.</p>
 <p>In the party example, simulation helped you make a decision given uncertainty — but the quality of that decision depended on whether your guessed means and standard deviations were sensible. If your friends are secretly world champion pizza-eaters and eat 3 pizzas each, your simulation will confidently recommend the wrong amount of pizza to buy</p>
 <p>In short: studies are messy but grounded in reality; simulations are clean but grounded in assumptions.</p>
 </section>
 </section>
-<section id="key-components-of-a-monte-carlo-simulation-study" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="key-components-of-a-monte-carlo-simulation-study"><span class="header-section-number">3.3</span> Key components of a Monte Carlo simulation study</h2>
+<section id="key-components-of-a-monte-carlo-simulation-study" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="key-components-of-a-monte-carlo-simulation-study"><span class="header-section-number">2.3</span> Key components of a Monte Carlo simulation study</h2>
 <p>Monte Carlo simulation studies are defined by the following key features:</p>
 <ol type="1">
 <li>Construct an experiment</li>
@@ -840,12 +847,12 @@ window.Quarto = {
 </ol>
 <p>Future chapters will spell out in more detail what each one involves, but for the moment it is useful to rote learn them and repeat them to yourself. They serve two purposes. First, they are the best way to think about how a simulation actually works. Second, when we are writing code in this book, we will break it down in terms of each of these steps. Equally importantly for learners, errors or complications when learning to write simulations are, in my experience, very often due to inadequate separation of the steps. E.g., when your code does some data generation in the analysis block, or vice-versa.</p>
 <p>To very briefly show you these components, we can build the code up in stages to create a very simple simulation answering “what is the distribution of <em>p</em>-values under the null hypothesis?”</p>
-<section id="construct-an-experiment" class="level3" data-number="3.3.1">
-<h3 data-number="3.3.1" class="anchored" data-anchor-id="construct-an-experiment"><span class="header-section-number">3.3.1</span> Construct an experiment</h3>
+<section id="construct-an-experiment" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="construct-an-experiment"><span class="header-section-number">2.3.1</span> Construct an experiment</h3>
 <p>We plan to construct a simulation study experiment where data are sampled from two normally distributed populations with the no difference in means; to test for this difference in means using a Student’s <em>t</em>-test’s <em>p</em>-value; to do these generate-and-analyze steps many times; and to observe the distribution of <em>p</em>-values.</p>
 </section>
-<section id="generate-data" class="level3" data-number="3.3.2">
-<h3 data-number="3.3.2" class="anchored" data-anchor-id="generate-data"><span class="header-section-number">3.3.2</span> Generate data</h3>
+<section id="generate-data" class="level3" data-number="2.3.2">
+<h3 data-number="2.3.2" class="anchored" data-anchor-id="generate-data"><span class="header-section-number">2.3.2</span> Generate data</h3>
 <p>Draw data from a normally distributed population using <code>rnorm()</code> and plot it.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">50</span>, <span class="at">m =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
@@ -879,8 +886,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="analyse-data" class="level3" data-number="3.3.3">
-<h3 data-number="3.3.3" class="anchored" data-anchor-id="analyse-data"><span class="header-section-number">3.3.3</span> Analyse data</h3>
+<section id="analyse-data" class="level3" data-number="2.3.3">
+<h3 data-number="2.3.3" class="anchored" data-anchor-id="analyse-data"><span class="header-section-number">2.3.3</span> Analyse data</h3>
 <p>Generate two normally distributed data sets and fit a <em>t</em>-test and extract the <em>p</em>-value</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">50</span>, <span class="at">m =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>), </span>
@@ -909,8 +916,8 @@ sample estimates:
 </div>
 </div>
 </section>
-<section id="repeat-this-many-times-and-summarize-results" class="level3" data-number="3.3.4">
-<h3 data-number="3.3.4" class="anchored" data-anchor-id="repeat-this-many-times-and-summarize-results"><span class="header-section-number">3.3.4</span> Repeat this many times and summarize results</h3>
+<section id="repeat-this-many-times-and-summarize-results" class="level3" data-number="2.3.4">
+<h3 data-number="2.3.4" class="anchored" data-anchor-id="repeat-this-many-times-and-summarize-results"><span class="header-section-number">2.3.4</span> Repeat this many times and summarize results</h3>
 <p>We repeat this using the <code>replicate()</code> function, and summarize across the iterations by plotting the <em>p</em>-values using <code>hist()</code>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">replicate</span>(<span class="at">n =</span> <span class="dv">100</span>, </span>
@@ -960,8 +967,8 @@ sample estimates:
 </div>
 </section>
 </section>
-<section id="compare-with-distribution-of-p-values-when-population-means-are-not-equal" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="compare-with-distribution-of-p-values-when-population-means-are-not-equal"><span class="header-section-number">3.4</span> Compare with distribution of <em>p</em>-values when population means are not equal</h2>
+<section id="compare-with-distribution-of-p-values-when-population-means-are-not-equal" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="compare-with-distribution-of-p-values-when-population-means-are-not-equal"><span class="header-section-number">2.4</span> Compare with distribution of <em>p</em>-values when population means are not equal</h2>
 <p>‘Small’, ‘medium’ and ‘large’ differences in population means.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">replicate</span>(<span class="dv">100000</span>, <span class="fu">t.test</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">50</span>, <span class="at">m =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>), <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">50</span>, <span class="at">m =</span> <span class="fl">0.2</span>, <span class="at">sd =</span> <span class="dv">1</span>), <span class="at">var.equal =</span> <span class="cn">TRUE</span>)<span class="sc">$</span>p.value))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -990,8 +997,8 @@ sample estimates:
 </div>
 </div>
 </section>
-<section id="what-is-the-distribution-of-p-values-under-the-null-hypothesis-newer-plotting" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="what-is-the-distribution-of-p-values-under-the-null-hypothesis-newer-plotting"><span class="header-section-number">3.5</span> What is the distribution of p values under the null hypothesis? [newer plotting]</h2>
+<section id="what-is-the-distribution-of-p-values-under-the-null-hypothesis-newer-plotting" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="what-is-the-distribution-of-p-values-under-the-null-hypothesis-newer-plotting"><span class="header-section-number">2.5</span> What is the distribution of p values under the null hypothesis? [newer plotting]</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>sim_h0 <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">100000</span>, <span class="fu">t.test</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">500</span>, <span class="at">m =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>), <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">500</span>, <span class="at">m =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>), <span class="at">var.equal =</span> <span class="cn">TRUE</span>)<span class="sc">$</span>p.value)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1013,8 +1020,8 @@ sample estimates:
 <p>In the long run of 100,000 studies with large sample sizes (N = 1000) and when the population effect size is zero (Cohen’s d = 0), 2.9% of Student t-test <em>p</em>-values fall between .02 and .05.</p>
 <p>This corresponds with the alpha value of the test, i.e., the <em>p</em> &lt; .05 inference rule. When the population effect is zero, we will incorrectly conclude that it is non-zero in 5% of the long run of studies.</p>
 </section>
-<section id="how-likely-are-barely-significant-p-values" class="level2" data-number="3.6">
-<h2 data-number="3.6" class="anchored" data-anchor-id="how-likely-are-barely-significant-p-values"><span class="header-section-number">3.6</span> How likely are barely significant <em>p</em>-values?</h2>
+<section id="how-likely-are-barely-significant-p-values" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="how-likely-are-barely-significant-p-values"><span class="header-section-number">2.6</span> How likely are barely significant <em>p</em>-values?</h2>
 <p>[A second simulation, to show their utility to raise as well as answer questions]</p>
 <p>Many studies in the psychology literature report <em>p</em>-values between .02 and .05 (<a href="https://doi.org/10.1080/17470218.2012.7113">Masicampo &amp; Lalande, 2012</a>; <a href="https://doi.org/10.7717/peerj.1935">Hartgerink et al., 2016</a>). We can call these ‘barely significant <em>p</em>-values’.</p>
 <p>The common threshold for statistical significance, <em>p</em> &lt; .05, treats all <em>p</em> values less than the threshold as equivalent. Regardless of whether your <em>p</em>-value is .048 or .000000000000000000001, the <em>p</em> &lt;. 05 rule says you should conclude that there are detectable differences (e.g., differences in population means from a Student’s <em>t</em>-test).</p>
@@ -1042,10 +1049,10 @@ sample estimates:
 <p>But if barely significant <em>p</em>-values are rarely (or never) observed, why do we use <em>p</em> &lt; .05 as the alpha value? Why not something lower, like .01, since it would decrease the number of false positives in the literature? This has certainly been argued for in the literature (<a href="https://doi.org/10.1038/s41562-017-0189-z">Benjamin et al., 2018</a>). And, perhaps more worryingly, if they’re so statistically rare, why do we see them so often in the literature?</p>
 <p>The answers to these questions require us to dig deeper into <em>p</em>-values and what affects their distributions using more complicated simulations (e.g., <a href="https://doi.org/10.31234/osf.io/2uynm_v1">Maassen et al., 2025</a>; <a href="https://doi.org/10.1098/rsos.220346">Stefan &amp; Schönbrodt, 2023</a>). The take away message, for the moment, is that simulations can help give us pause for thought, help us check our own understanding, clarify our thinking, or answer meaningful questions - sometimes in only a few lines of code.</p>
 </section>
-<section id="check-your-learning" class="level2" data-number="3.7">
-<h2 data-number="3.7" class="anchored" data-anchor-id="check-your-learning"><span class="header-section-number">3.7</span> Check your learning</h2>
-<section id="what-are-the-five-core-components-of-a-monte-carlo-simulation" class="level4" data-number="3.7.0.1">
-<h4 data-number="3.7.0.1" class="anchored" data-anchor-id="what-are-the-five-core-components-of-a-monte-carlo-simulation"><span class="header-section-number">3.7.0.1</span> What are the five core components of a Monte Carlo simulation?</h4>
+<section id="check-your-learning" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="check-your-learning"><span class="header-section-number">2.7</span> Check your learning</h2>
+<section id="what-are-the-five-core-components-of-a-monte-carlo-simulation" class="level4" data-number="2.7.0.1">
+<h4 data-number="2.7.0.1" class="anchored" data-anchor-id="what-are-the-five-core-components-of-a-monte-carlo-simulation"><span class="header-section-number">2.7.0.1</span> What are the five core components of a Monte Carlo simulation?</h4>
 <div class="callout callout-style-default callout-note callout-titled" title="Click to show answer">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -1543,12 +1550,12 @@ sample estimates:
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../chapters/01_required_skills.html" class="pagination-link" aria-label="Required skills">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Required skills</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Required skills</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../chapters/03_writing_functions.html" class="pagination-link" aria-label="Writing functions">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Writing functions</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Writing functions</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">

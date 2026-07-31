@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>12&nbsp; Everything is regression – Understanding statistics through Monte Carlo simulations</title>
+<title>11&nbsp; Everything is regression – Understanding statistics through Monte Carlo simulations</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -110,6 +110,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <style>
+  /* more breathing room before section headings.
+     scoped to main.content so the sidebar/TOC headings are left alone.
+     this <style> block is emitted after the bootstrap theme css, so these
+     win without needing !important. */
+  main.content h2 { margin-top: 3rem; }
+  main.content h3 { margin-top: 2rem; }
+  main.content h4 { margin-top: 1.5rem; }
   .kable-table table { width: 70%; margin: 0 auto; }
   .badge {
     display: inline-flex; align-items: center; gap: 0.3em;
@@ -327,7 +334,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/11_everything_is_regression.html">Part II: Learning from Simulations</a></li><li class="breadcrumb-item"><a href="../chapters/11_everything_is_regression.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Everything is regression</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/11_everything_is_regression.html">Part II: Learning from Simulations</a></li><li class="breadcrumb-item"><a href="../chapters/11_everything_is_regression.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Everything is regression</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -363,8 +370,8 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/00_lesson_plan.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Lesson plan</span></span></a>
+  <a href="../lesson_plan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson plan</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -379,61 +386,61 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/01_required_skills.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Required skills</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Required skills</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/02_foundation_concepts.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Foundation concepts</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Foundation concepts</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/03_writing_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Writing functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Writing functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/04_data_generating_process_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data-generating process functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data-generating process functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/05_pseudo_random_number_generators.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Pseudo-random number generators</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Pseudo-random number generators</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/06_analysis_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Analysis functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Analysis functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/07_creating_simulation_experiments.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Creating simulation experiments</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Creating simulation experiments</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/08_mapping.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Mapping over functions <span class="badge badge-draft2">✎ Rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Mapping over functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/09_summarizing_results.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summarizing results <span class="badge badge-draft1">✎ TODO</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Summarizing results <span class="badge badge-draft1">✎ TODO</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/10_planning_and_reporting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Planning and reporting <span class="badge badge-draft1">✎ TODO</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Planning and reporting <span class="badge badge-draft1">✎ TODO</span></span></span></a>
   </div>
 </li>
       </ul>
@@ -450,43 +457,43 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/11_everything_is_regression.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Everything is regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Everything is regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/12_estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/13_hypothesis_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/14_violating_assumptions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/15_testing_assumptions_and_conditional_tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of non-parameteric tests</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of non-parameteric tests</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/16_p_hacking.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/17_causality_and_selection_effects.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Weird causality and selection effects</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Weird causality and selection effects</span></span></a>
   </div>
 </li>
       </ul>
@@ -503,67 +510,67 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/01_required_skills_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises for ‘Required skills’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Exercises for ‘Required skills’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/03_writing_functions_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises for ‘Writing functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises for ‘Writing functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/04_data_generating_process_functions_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises for ‘Data Generating Process functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises for ‘Data Generating Process functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/06_analysis_functions_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises for ‘Analysis functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises for ‘Analysis functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/07_creating_simulation_experiments_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises for ‘Creating simulation experiments’ chapter <span class="badge badge-draft1">✎ Very rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises for ‘Creating simulation experiments’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/08_mapping_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Exercises for ‘Mapping over functions’ chapter <span class="badge badge-draft2">✎ Rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises for ‘Mapping over functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/11_everything_is_regression_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Exercises for ‘Everything is regression’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Exercises for ‘Everything is regression’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/12_estimation_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Exercises for ‘Estimation’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Exercises for ‘Estimation’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/13_hypothesis_testing_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Exercises for ‘Hypothesis Testing’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Exercises for ‘Hypothesis Testing’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/16_p_hacking_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Exercises for ‘p-hacking’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Exercises for ‘p-hacking’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/end_of_course_assignment.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">End of course assignment</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">End of course assignment</span></span></a>
   </div>
 </li>
       </ul>
@@ -580,31 +587,31 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/ADEMP_preregistration_template.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">ADEMP simulation preregistration template</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">ADEMP simulation preregistration template</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/simulation_template_hypothesis_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Simulation template: hypothesis testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Simulation template: hypothesis testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/simulation_template_estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Simulation template: estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Simulation template: estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/simulation_template_hpc.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Minimal HPC simulation template (Everything)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Minimal HPC simulation template (Everything)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
+ <span class="menu-text">License</span></a>
   </div>
 </li>
       </ul>
@@ -621,19 +628,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../classics/crowded_room_problem.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">The Crowded Room problem: Constraints on correlations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">The Crowded Room problem: Constraints on correlations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../classics/cohens_d_biased.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Simulation template: Cohen’s d is a biased estimator</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Simulation template: Cohen’s d is a biased estimator</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
+ <span class="menu-text">License</span></a>
   </div>
 </li>
       </ul>
@@ -648,20 +655,20 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#many-tests-are-just-regression" id="toc-many-tests-are-just-regression" class="nav-link active" data-scroll-target="#many-tests-are-just-regression"><span class="header-section-number">12.1</span> Many tests are just regression</a>
+  <li><a href="#many-tests-are-just-regression" id="toc-many-tests-are-just-regression" class="nav-link active" data-scroll-target="#many-tests-are-just-regression"><span class="header-section-number">11.1</span> Many tests are just regression</a>
   <ul class="collapse">
-  <li><a href="#correlations-are-linear-regression-models" id="toc-correlations-are-linear-regression-models" class="nav-link" data-scroll-target="#correlations-are-linear-regression-models"><span class="header-section-number">12.1.1</span> Correlations are linear regression models</a></li>
-  <li><a href="#t-test-are-linear-regression-models" id="toc-t-test-are-linear-regression-models" class="nav-link" data-scroll-target="#t-test-are-linear-regression-models"><span class="header-section-number">12.1.2</span> <em>t</em>-test are linear regression models</a></li>
-  <li><a href="#many-non-parametric-tests-are-just-linear-models-with-transformations" id="toc-many-non-parametric-tests-are-just-linear-models-with-transformations" class="nav-link" data-scroll-target="#many-non-parametric-tests-are-just-linear-models-with-transformations"><span class="header-section-number">12.1.3</span> Many non-parametric tests are just linear models with transformations</a></li>
-  <li><a href="#meta-analyses-are-linear-regression-models-and-meta-analyses-are-multi-level-models" id="toc-meta-analyses-are-linear-regression-models-and-meta-analyses-are-multi-level-models" class="nav-link" data-scroll-target="#meta-analyses-are-linear-regression-models-and-meta-analyses-are-multi-level-models"><span class="header-section-number">12.1.4</span> Meta-analyses are linear regression models, and meta-analyses are multi-level models</a></li>
-  <li><a href="#confirmatory-factor-analysis-is-approximately-a-series-of-linear-regression-models" id="toc-confirmatory-factor-analysis-is-approximately-a-series-of-linear-regression-models" class="nav-link" data-scroll-target="#confirmatory-factor-analysis-is-approximately-a-series-of-linear-regression-models"><span class="header-section-number">12.1.5</span> Confirmatory Factor Analysis is approximately a series of linear regression models</a></li>
-  <li><a href="#means-and-standard-deviations-are-linear-regression-models" id="toc-means-and-standard-deviations-are-linear-regression-models" class="nav-link" data-scroll-target="#means-and-standard-deviations-are-linear-regression-models"><span class="header-section-number">12.1.6</span> Means and Standard Deviations are linear regression models</a></li>
+  <li><a href="#correlations-are-linear-regression-models" id="toc-correlations-are-linear-regression-models" class="nav-link" data-scroll-target="#correlations-are-linear-regression-models"><span class="header-section-number">11.1.1</span> Correlations are linear regression models</a></li>
+  <li><a href="#t-test-are-linear-regression-models" id="toc-t-test-are-linear-regression-models" class="nav-link" data-scroll-target="#t-test-are-linear-regression-models"><span class="header-section-number">11.1.2</span> <em>t</em>-test are linear regression models</a></li>
+  <li><a href="#many-non-parametric-tests-are-just-linear-models-with-transformations" id="toc-many-non-parametric-tests-are-just-linear-models-with-transformations" class="nav-link" data-scroll-target="#many-non-parametric-tests-are-just-linear-models-with-transformations"><span class="header-section-number">11.1.3</span> Many non-parametric tests are just linear models with transformations</a></li>
+  <li><a href="#meta-analyses-are-linear-regression-models-and-meta-analyses-are-multi-level-models" id="toc-meta-analyses-are-linear-regression-models-and-meta-analyses-are-multi-level-models" class="nav-link" data-scroll-target="#meta-analyses-are-linear-regression-models-and-meta-analyses-are-multi-level-models"><span class="header-section-number">11.1.4</span> Meta-analyses are linear regression models, and meta-analyses are multi-level models</a></li>
+  <li><a href="#confirmatory-factor-analysis-is-approximately-a-series-of-linear-regression-models" id="toc-confirmatory-factor-analysis-is-approximately-a-series-of-linear-regression-models" class="nav-link" data-scroll-target="#confirmatory-factor-analysis-is-approximately-a-series-of-linear-regression-models"><span class="header-section-number">11.1.5</span> Confirmatory Factor Analysis is approximately a series of linear regression models</a></li>
+  <li><a href="#means-and-standard-deviations-are-linear-regression-models" id="toc-means-and-standard-deviations-are-linear-regression-models" class="nav-link" data-scroll-target="#means-and-standard-deviations-are-linear-regression-models"><span class="header-section-number">11.1.6</span> Means and Standard Deviations are linear regression models</a></li>
   </ul></li>
-  <li><a href="#regression-is-just-the-slope-of-a-line" id="toc-regression-is-just-the-slope-of-a-line" class="nav-link" data-scroll-target="#regression-is-just-the-slope-of-a-line"><span class="header-section-number">12.2</span> Regression is just the slope of a line</a>
+  <li><a href="#regression-is-just-the-slope-of-a-line" id="toc-regression-is-just-the-slope-of-a-line" class="nav-link" data-scroll-target="#regression-is-just-the-slope-of-a-line"><span class="header-section-number">11.2</span> Regression is just the slope of a line</a>
   <ul class="collapse">
-  <li><a href="#linking-different-notation-types" id="toc-linking-different-notation-types" class="nav-link" data-scroll-target="#linking-different-notation-types"><span class="header-section-number">12.2.1</span> Linking different notation types</a></li>
-  <li><a href="#understanding-regression-as-prediction" id="toc-understanding-regression-as-prediction" class="nav-link" data-scroll-target="#understanding-regression-as-prediction"><span class="header-section-number">12.2.2</span> Understanding regression as prediction</a></li>
-  <li><a href="#linking-the-formula-to-null-hypothesis-significance-testing-nhstp-values" id="toc-linking-the-formula-to-null-hypothesis-significance-testing-nhstp-values" class="nav-link" data-scroll-target="#linking-the-formula-to-null-hypothesis-significance-testing-nhstp-values"><span class="header-section-number">12.2.3</span> Linking the formula to Null Hypothesis Significance Testing (NHST)/<em>p</em> values</a></li>
+  <li><a href="#linking-different-notation-types" id="toc-linking-different-notation-types" class="nav-link" data-scroll-target="#linking-different-notation-types"><span class="header-section-number">11.2.1</span> Linking different notation types</a></li>
+  <li><a href="#understanding-regression-as-prediction" id="toc-understanding-regression-as-prediction" class="nav-link" data-scroll-target="#understanding-regression-as-prediction"><span class="header-section-number">11.2.2</span> Understanding regression as prediction</a></li>
+  <li><a href="#linking-the-formula-to-null-hypothesis-significance-testing-nhstp-values" id="toc-linking-the-formula-to-null-hypothesis-significance-testing-nhstp-values" class="nav-link" data-scroll-target="#linking-the-formula-to-null-hypothesis-significance-testing-nhstp-values"><span class="header-section-number">11.2.3</span> Linking the formula to Null Hypothesis Significance Testing (NHST)/<em>p</em> values</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -670,9 +677,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/11_everything_is_regression.html">Part II: Learning from Simulations</a></li><li class="breadcrumb-item"><a href="../chapters/11_everything_is_regression.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Everything is regression</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/11_everything_is_regression.html">Part II: Learning from Simulations</a></li><li class="breadcrumb-item"><a href="../chapters/11_everything_is_regression.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Everything is regression</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Everything is regression</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Everything is regression</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -693,11 +700,11 @@ window.Quarto = {
 <p><img src="../images/the_linear_model_in_a_trench_coat.jpg" class="center img-fluid" style="width:90.0%"></p>
 <p>This chapter uses the data simulation principles and skills you learned in the chapters in Part I to demonstrate this.</p>
 <p>This chapter is heavily inspired by Jonas Lindeløv’s blog post <a href="https://lindeloev.github.io/tests-as-linear">‘Common statistical tests are linear models (or: how to teach stats)’</a>. We recommend you read his post in its entirety. We agree with Lindeløv that it might be better to frame much of our teaching of statistical inference around this insight, rather than introducing it very late in our training.</p>
-<section id="many-tests-are-just-regression" class="level2" data-number="12.1">
-<h2 data-number="12.1" class="anchored" data-anchor-id="many-tests-are-just-regression"><span class="header-section-number">12.1</span> Many tests are just regression</h2>
+<section id="many-tests-are-just-regression" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="many-tests-are-just-regression"><span class="header-section-number">11.1</span> Many tests are just regression</h2>
 <p><img src="../images/scooby_doo_meme_everthing_is_linear_regression.jpg" class="center img-fluid" style="width:90.0%"></p>
-<section id="correlations-are-linear-regression-models" class="level3" data-number="12.1.1">
-<h3 data-number="12.1.1" class="anchored" data-anchor-id="correlations-are-linear-regression-models"><span class="header-section-number">12.1.1</span> Correlations are linear regression models</h3>
+<section id="correlations-are-linear-regression-models" class="level3" data-number="11.1.1">
+<h3 data-number="11.1.1" class="anchored" data-anchor-id="correlations-are-linear-regression-models"><span class="header-section-number">11.1.1</span> Correlations are linear regression models</h3>
 <p>Correlations are just a linear regression model where the IV and DV have both been standardized by their sample Standard Deviations (i.e., score/SD).</p>
 <p>Whereas the Beta coefficient from the linear regression model is interpreted as “a one-point increase in the IV is associated with a [Beta]-points change on the DV”, the Pearson’s <em>r</em> correlation merely modifies the units from the native scale to the number of Standard Deviations. I.e., “a one-SD increase in the IV is associated with a [Beta]-SD changes (aka <em>r</em>) on the DV”.</p>
 <div class="cell">
@@ -836,8 +843,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="t-test-are-linear-regression-models" class="level3" data-number="12.1.2">
-<h3 data-number="12.1.2" class="anchored" data-anchor-id="t-test-are-linear-regression-models"><span class="header-section-number">12.1.2</span> <em>t</em>-test are linear regression models</h3>
+<section id="t-test-are-linear-regression-models" class="level3" data-number="11.1.2">
+<h3 data-number="11.1.2" class="anchored" data-anchor-id="t-test-are-linear-regression-models"><span class="header-section-number">11.1.2</span> <em>t</em>-test are linear regression models</h3>
 <p><em>t</em>-tests are just linear regression models where the IV - the group variable - has been dummy-coded, e.g., from control/intervention to 0/1.</p>
 <p>Whereas the Beta coefficient from the linear regression model is interpreted as “a one-point increase in the IV is associated with a [Beta]-points change on the DV”, the <em>t</em>-test merely modifies this by treating “0” as one condition and “1” as the other. I.e., “a one-point increase in the IV, aka the difference between conditions, is associated with a [Beta]-points change (aka <span class="math inline">\(M_{diff}\)</span>) on the DV”.</p>
 <p>Note equivalent estimates of the difference in means (<span class="math inline">\(M_{diff}\)</span> = 0.33) and <em>p</em>-values (<em>p</em> = .175).</p>
@@ -960,11 +967,11 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="many-non-parametric-tests-are-just-linear-models-with-transformations" class="level3" data-number="12.1.3">
-<h3 data-number="12.1.3" class="anchored" data-anchor-id="many-non-parametric-tests-are-just-linear-models-with-transformations"><span class="header-section-number">12.1.3</span> Many non-parametric tests are just linear models with transformations</h3>
+<section id="many-non-parametric-tests-are-just-linear-models-with-transformations" class="level3" data-number="11.1.3">
+<h3 data-number="11.1.3" class="anchored" data-anchor-id="many-non-parametric-tests-are-just-linear-models-with-transformations"><span class="header-section-number">11.1.3</span> Many non-parametric tests are just linear models with transformations</h3>
 <p>When the assumptions of parametric tests like <em>t</em>-tests and correlations fail, we are often recommended to use ‘non-parametric’ tests instead. Many of these are just linear models with rank transformations.</p>
-<section id="spearmans-rho-correlations" class="level4" data-number="12.1.3.1">
-<h4 data-number="12.1.3.1" class="anchored" data-anchor-id="spearmans-rho-correlations"><span class="header-section-number">12.1.3.1</span> Spearman’s <span class="math inline">\(\rho\)</span> correlations</h4>
+<section id="spearmans-rho-correlations" class="level4" data-number="11.1.3.1">
+<h4 data-number="11.1.3.1" class="anchored" data-anchor-id="spearmans-rho-correlations"><span class="header-section-number">11.1.3.1</span> Spearman’s <span class="math inline">\(\rho\)</span> correlations</h4>
 <p>Note equivalent estimates (<span class="math inline">\(\rho\)</span> = .34):</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fit_named <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(<span class="at">formula =</span> <span class="sc">~</span> y <span class="sc">+</span> x, </span>
@@ -1067,8 +1074,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="mann-whitney-u-test-aka-wilcoxon-rank-sum-test" class="level4" data-number="12.1.3.2">
-<h4 data-number="12.1.3.2" class="anchored" data-anchor-id="mann-whitney-u-test-aka-wilcoxon-rank-sum-test"><span class="header-section-number">12.1.3.2</span> Mann-Whitney U-test (aka Wilcoxon rank-sum test)</h4>
+<section id="mann-whitney-u-test-aka-wilcoxon-rank-sum-test" class="level4" data-number="11.1.3.2">
+<h4 data-number="11.1.3.2" class="anchored" data-anchor-id="mann-whitney-u-test-aka-wilcoxon-rank-sum-test"><span class="header-section-number">11.1.3.2</span> Mann-Whitney U-test (aka Wilcoxon rank-sum test)</h4>
 <p>Note equivalent estimates of the difference in <em>p</em>-values (<em>p</em> = .183).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fit_named <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(<span class="at">formula =</span> score <span class="sc">~</span> condition, </span>
@@ -1169,8 +1176,8 @@ window.Quarto = {
 </div>
 </section>
 </section>
-<section id="meta-analyses-are-linear-regression-models-and-meta-analyses-are-multi-level-models" class="level3" data-number="12.1.4">
-<h3 data-number="12.1.4" class="anchored" data-anchor-id="meta-analyses-are-linear-regression-models-and-meta-analyses-are-multi-level-models"><span class="header-section-number">12.1.4</span> Meta-analyses are linear regression models, and meta-analyses are multi-level models</h3>
+<section id="meta-analyses-are-linear-regression-models-and-meta-analyses-are-multi-level-models" class="level3" data-number="11.1.4">
+<h3 data-number="11.1.4" class="anchored" data-anchor-id="meta-analyses-are-linear-regression-models-and-meta-analyses-are-multi-level-models"><span class="header-section-number">11.1.4</span> Meta-analyses are linear regression models, and meta-analyses are multi-level models</h3>
 <p>Specifically, linear models that weight by the sample size (in much older studies) or the effect size’s variance (in modern meta analyses) so that larger studies with more precisely estimated effect sizes influence the meta-analysis estimate more. You can see in the forest plot below that the more precise estimates - those with narrower Confidence Intervals - have larger weights, represented by the larger squares. Psychology doesn’t use regression weightings in non-meta-analysis contexts very often, but <a href="https://doi.org/10.1525/collabra.155850">perhaps we should (Alsalti, Hussey, Elson and Arslan, 2026)</a>.</p>
 <p>The other main conceptual difference between meta-analyses and original analyses is that meta-analyses typically use the results of original studies as their data (i.e., effect size estimates), rather than the underlying original data itself. However, this is still something we can use the linear regression functions for, simply by supplying it with effect size estimates rather than participant-level data.</p>
 <p>See <a href="https://www.metafor-project.org/doku.php/tips:rma_vs_lm_lme_lmer">this helpful blog post</a> by Wolfgang Viechtbauer, the developer of the {metafor} package for meta-analysis, for more details of this underlying equivalence and the small implementation differences between R packages and methods.</p>
@@ -1254,8 +1261,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="confirmatory-factor-analysis-is-approximately-a-series-of-linear-regression-models" class="level3" data-number="12.1.5">
-<h3 data-number="12.1.5" class="anchored" data-anchor-id="confirmatory-factor-analysis-is-approximately-a-series-of-linear-regression-models"><span class="header-section-number">12.1.5</span> Confirmatory Factor Analysis is approximately a series of linear regression models</h3>
+<section id="confirmatory-factor-analysis-is-approximately-a-series-of-linear-regression-models" class="level3" data-number="11.1.5">
+<h3 data-number="11.1.5" class="anchored" data-anchor-id="confirmatory-factor-analysis-is-approximately-a-series-of-linear-regression-models"><span class="header-section-number">11.1.5</span> Confirmatory Factor Analysis is approximately a series of linear regression models</h3>
 <p>Confirmatory Factor Analysis (CFA) is often used to assess the measurement model of a scale: how strongly each item loads onto the latent factor that the scale is meant to measure. These factor loadings (<span class="math inline">\(\lambda\)</span>) are closely related to the unstandardized Beta coefficients from a series of <code>lm()</code> calls, each predicting one item from the scale’s sum score.</p>
 <p>Unlike the equivalences above, however, this one is <strong>approximate rather than exact</strong>. The reason is that each item is itself part of the sum score, so the sum score carries that item’s own measurement error. Regressing item <span class="math inline">\(i\)</span> on the sum score <span class="math inline">\(S = \sum_j x_j\)</span> gives:</p>
 <p><span class="math display">\[
@@ -1396,8 +1403,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="means-and-standard-deviations-are-linear-regression-models" class="level3" data-number="12.1.6">
-<h3 data-number="12.1.6" class="anchored" data-anchor-id="means-and-standard-deviations-are-linear-regression-models"><span class="header-section-number">12.1.6</span> Means and Standard Deviations are linear regression models</h3>
+<section id="means-and-standard-deviations-are-linear-regression-models" class="level3" data-number="11.1.6">
+<h3 data-number="11.1.6" class="anchored" data-anchor-id="means-and-standard-deviations-are-linear-regression-models"><span class="header-section-number">11.1.6</span> Means and Standard Deviations are linear regression models</h3>
 <p>If we want to take this even further, we can see that other named ‘tests’ that are just linear regression models even includes ‘the sample mean’ and ‘the sample Standard Deviation’ of an intercept-only linear regression model.</p>
 <p>An intercept-only linear regression model has no predictors, only the intercept. Eg., <code>y ~ 1</code>.</p>
 <p>The sample mean is the estimate of the intercept of an intercept-only linear regression model.</p>
@@ -1479,10 +1486,10 @@ window.Quarto = {
 </div>
 </section>
 </section>
-<section id="regression-is-just-the-slope-of-a-line" class="level2" data-number="12.2">
-<h2 data-number="12.2" class="anchored" data-anchor-id="regression-is-just-the-slope-of-a-line"><span class="header-section-number">12.2</span> Regression is just the slope of a line</h2>
-<section id="linking-different-notation-types" class="level3" data-number="12.2.1">
-<h3 data-number="12.2.1" class="anchored" data-anchor-id="linking-different-notation-types"><span class="header-section-number">12.2.1</span> Linking different notation types</h3>
+<section id="regression-is-just-the-slope-of-a-line" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="regression-is-just-the-slope-of-a-line"><span class="header-section-number">11.2</span> Regression is just the slope of a line</h2>
+<section id="linking-different-notation-types" class="level3" data-number="11.2.1">
+<h3 data-number="11.2.1" class="anchored" data-anchor-id="linking-different-notation-types"><span class="header-section-number">11.2.1</span> Linking different notation types</h3>
 <p>Equation of a line as we are taught in school:</p>
 <p><span class="math display">\[
 y = m*x + c
@@ -1601,8 +1608,8 @@ y = \beta_{\text{intercept}} \cdot 1 + \beta_{\text{slope}} \cdot x + \varepsilo
 </div>
 </div>
 </section>
-<section id="understanding-regression-as-prediction" class="level3" data-number="12.2.2">
-<h3 data-number="12.2.2" class="anchored" data-anchor-id="understanding-regression-as-prediction"><span class="header-section-number">12.2.2</span> Understanding regression as prediction</h3>
+<section id="understanding-regression-as-prediction" class="level3" data-number="11.2.2">
+<h3 data-number="11.2.2" class="anchored" data-anchor-id="understanding-regression-as-prediction"><span class="header-section-number">11.2.2</span> Understanding regression as prediction</h3>
 <p>Beta estimates often feel highly abstract. We can understand them better in the context of the original linear regression formula, as a way to make predictions about new observations.</p>
 <p>To do this, we simply use the regression formula and the estimates from the model. Insert the estimates for <span class="math inline">\(\beta_{\text{intercept}}\)</span> and <span class="math inline">\(\beta_{\text{slope}}\)</span> into the original regression equation.</p>
 <p>Then, add a new value of <span class="math inline">\(x\)</span> to represent a hypothetical new participant. Let’s imagine this participant has a depression score (<span class="math inline">\(x\)</span>) of 25 on the BDI-II, representing moderate depression.</p>
@@ -1616,8 +1623,8 @@ y &amp;= \beta_{\text{intercept}} \cdot 1 &amp;+&amp; \quad \beta_{\text{slope}}
 \]</span></p>
 <p>Predicted sleep quality is 8, where scores on the PSQI &gt; 5 indicate poor sleep and clinical populations often score in the 8 to 14 range.</p>
 </section>
-<section id="linking-the-formula-to-null-hypothesis-significance-testing-nhstp-values" class="level3" data-number="12.2.3">
-<h3 data-number="12.2.3" class="anchored" data-anchor-id="linking-the-formula-to-null-hypothesis-significance-testing-nhstp-values"><span class="header-section-number">12.2.3</span> Linking the formula to Null Hypothesis Significance Testing (NHST)/<em>p</em> values</h3>
+<section id="linking-the-formula-to-null-hypothesis-significance-testing-nhstp-values" class="level3" data-number="11.2.3">
+<h3 data-number="11.2.3" class="anchored" data-anchor-id="linking-the-formula-to-null-hypothesis-significance-testing-nhstp-values"><span class="header-section-number">11.2.3</span> Linking the formula to Null Hypothesis Significance Testing (NHST)/<em>p</em> values</h3>
 <p>The association between depression and sleep quality is tested against the null hypothesis (<span class="math inline">\(H_0\)</span>) that the association between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> - ie <span class="math inline">\(\beta_{\text{slope}}\)</span> - is zero. The alternative hypothesis (<span class="math inline">\(H_1\)</span>) is therefore that the association is non-zero. Non-zero slope allows for the inference that depression is associated with poor sleep.</p>
 <p><span class="math display">\[
 H_0\!: \beta_{\text{slope}} = 0
@@ -2114,12 +2121,12 @@ H_1\!: \beta_{\text{slope}} \neq 0
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../chapters/10_planning_and_reporting.html" class="pagination-link" aria-label="Planning and reporting <span class=&quot;badge badge-draft1&quot;>✎ TODO</span>">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Planning and reporting <span class="badge badge-draft1">✎ TODO</span></span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Planning and reporting <span class="badge badge-draft1">✎ TODO</span></span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../chapters/12_estimation.html" class="pagination-link" aria-label="Estimation">
-        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Estimation</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Estimation</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">

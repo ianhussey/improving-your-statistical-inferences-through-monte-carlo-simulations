@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>14&nbsp; Hypothesis Testing – Understanding statistics through Monte Carlo simulations</title>
+<title>13&nbsp; Hypothesis Testing – Understanding statistics through Monte Carlo simulations</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -110,6 +110,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <style>
+  /* more breathing room before section headings.
+     scoped to main.content so the sidebar/TOC headings are left alone.
+     this <style> block is emitted after the bootstrap theme css, so these
+     win without needing !important. */
+  main.content h2 { margin-top: 3rem; }
+  main.content h3 { margin-top: 2rem; }
+  main.content h4 { margin-top: 1.5rem; }
   .kable-table table { width: 70%; margin: 0 auto; }
   .badge {
     display: inline-flex; align-items: center; gap: 0.3em;
@@ -327,7 +334,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/11_everything_is_regression.html">Part II: Learning from Simulations</a></li><li class="breadcrumb-item"><a href="../chapters/13_hypothesis_testing.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/11_everything_is_regression.html">Part II: Learning from Simulations</a></li><li class="breadcrumb-item"><a href="../chapters/13_hypothesis_testing.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -363,8 +370,8 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/00_lesson_plan.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Lesson plan</span></span></a>
+  <a href="../lesson_plan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson plan</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -379,61 +386,61 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/01_required_skills.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Required skills</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Required skills</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/02_foundation_concepts.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Foundation concepts</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Foundation concepts</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/03_writing_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Writing functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Writing functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/04_data_generating_process_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data-generating process functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data-generating process functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/05_pseudo_random_number_generators.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Pseudo-random number generators</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Pseudo-random number generators</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/06_analysis_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Analysis functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Analysis functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/07_creating_simulation_experiments.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Creating simulation experiments</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Creating simulation experiments</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/08_mapping.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Mapping over functions <span class="badge badge-draft2">✎ Rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Mapping over functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/09_summarizing_results.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summarizing results <span class="badge badge-draft1">✎ TODO</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Summarizing results <span class="badge badge-draft1">✎ TODO</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/10_planning_and_reporting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Planning and reporting <span class="badge badge-draft1">✎ TODO</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Planning and reporting <span class="badge badge-draft1">✎ TODO</span></span></span></a>
   </div>
 </li>
       </ul>
@@ -450,43 +457,43 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/11_everything_is_regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Everything is regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Everything is regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/12_estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/13_hypothesis_testing.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/14_violating_assumptions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/15_testing_assumptions_and_conditional_tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of non-parameteric tests</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of non-parameteric tests</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/16_p_hacking.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/17_causality_and_selection_effects.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Weird causality and selection effects</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Weird causality and selection effects</span></span></a>
   </div>
 </li>
       </ul>
@@ -503,67 +510,67 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/01_required_skills_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises for ‘Required skills’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Exercises for ‘Required skills’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/03_writing_functions_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises for ‘Writing functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises for ‘Writing functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/04_data_generating_process_functions_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises for ‘Data Generating Process functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises for ‘Data Generating Process functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/06_analysis_functions_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises for ‘Analysis functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises for ‘Analysis functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/07_creating_simulation_experiments_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises for ‘Creating simulation experiments’ chapter <span class="badge badge-draft1">✎ Very rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises for ‘Creating simulation experiments’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/08_mapping_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Exercises for ‘Mapping over functions’ chapter <span class="badge badge-draft2">✎ Rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises for ‘Mapping over functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/11_everything_is_regression_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Exercises for ‘Everything is regression’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Exercises for ‘Everything is regression’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/12_estimation_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Exercises for ‘Estimation’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Exercises for ‘Estimation’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/13_hypothesis_testing_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Exercises for ‘Hypothesis Testing’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Exercises for ‘Hypothesis Testing’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/16_p_hacking_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Exercises for ‘p-hacking’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Exercises for ‘p-hacking’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/end_of_course_assignment.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">End of course assignment</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">End of course assignment</span></span></a>
   </div>
 </li>
       </ul>
@@ -580,31 +587,31 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/ADEMP_preregistration_template.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">ADEMP simulation preregistration template</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">ADEMP simulation preregistration template</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/simulation_template_hypothesis_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Simulation template: hypothesis testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Simulation template: hypothesis testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/simulation_template_estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Simulation template: estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Simulation template: estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/simulation_template_hpc.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Minimal HPC simulation template (Everything)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Minimal HPC simulation template (Everything)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
+ <span class="menu-text">License</span></a>
   </div>
 </li>
       </ul>
@@ -621,19 +628,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../classics/crowded_room_problem.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">The Crowded Room problem: Constraints on correlations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">The Crowded Room problem: Constraints on correlations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../classics/cohens_d_biased.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Simulation template: Cohen’s d is a biased estimator</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Simulation template: Cohen’s d is a biased estimator</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
+ <span class="menu-text">License</span></a>
   </div>
 </li>
       </ul>
@@ -648,14 +655,14 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#hypothesis-testing-using-p-values-vs.-confidence-intervals" id="toc-hypothesis-testing-using-p-values-vs.-confidence-intervals" class="nav-link active" data-scroll-target="#hypothesis-testing-using-p-values-vs.-confidence-intervals"><span class="header-section-number">14.1</span> Hypothesis testing using <em>p</em>-values vs.&nbsp;Confidence Intervals</a></li>
-  <li><a href="#estimation-vs.-hypothesis-testing" id="toc-estimation-vs.-hypothesis-testing" class="nav-link" data-scroll-target="#estimation-vs.-hypothesis-testing"><span class="header-section-number">14.2</span> Estimation vs.&nbsp;hypothesis testing</a></li>
-  <li><a href="#what-are-alpha-and-power" id="toc-what-are-alpha-and-power" class="nav-link" data-scroll-target="#what-are-alpha-and-power"><span class="header-section-number">14.3</span> What are alpha and power?</a></li>
-  <li><a href="#barely-significant-results-p-between-.02-and-.05-are-rare-in-well-powered-studies" id="toc-barely-significant-results-p-between-.02-and-.05-are-rare-in-well-powered-studies" class="nav-link" data-scroll-target="#barely-significant-results-p-between-.02-and-.05-are-rare-in-well-powered-studies"><span class="header-section-number">14.4</span> Barely-significant results (p between .02 and .05) are rare in well-powered studies</a></li>
-  <li><a href="#other-forms-of-hypothesis-testing" id="toc-other-forms-of-hypothesis-testing" class="nav-link" data-scroll-target="#other-forms-of-hypothesis-testing"><span class="header-section-number">14.5</span> Other forms of hypothesis testing</a>
+  <li><a href="#hypothesis-testing-using-p-values-vs.-confidence-intervals" id="toc-hypothesis-testing-using-p-values-vs.-confidence-intervals" class="nav-link active" data-scroll-target="#hypothesis-testing-using-p-values-vs.-confidence-intervals"><span class="header-section-number">13.1</span> Hypothesis testing using <em>p</em>-values vs.&nbsp;Confidence Intervals</a></li>
+  <li><a href="#estimation-vs.-hypothesis-testing" id="toc-estimation-vs.-hypothesis-testing" class="nav-link" data-scroll-target="#estimation-vs.-hypothesis-testing"><span class="header-section-number">13.2</span> Estimation vs.&nbsp;hypothesis testing</a></li>
+  <li><a href="#what-are-alpha-and-power" id="toc-what-are-alpha-and-power" class="nav-link" data-scroll-target="#what-are-alpha-and-power"><span class="header-section-number">13.3</span> What are alpha and power?</a></li>
+  <li><a href="#barely-significant-results-p-between-.02-and-.05-are-rare-in-well-powered-studies" id="toc-barely-significant-results-p-between-.02-and-.05-are-rare-in-well-powered-studies" class="nav-link" data-scroll-target="#barely-significant-results-p-between-.02-and-.05-are-rare-in-well-powered-studies"><span class="header-section-number">13.4</span> Barely-significant results (p between .02 and .05) are rare in well-powered studies</a></li>
+  <li><a href="#other-forms-of-hypothesis-testing" id="toc-other-forms-of-hypothesis-testing" class="nav-link" data-scroll-target="#other-forms-of-hypothesis-testing"><span class="header-section-number">13.5</span> Other forms of hypothesis testing</a>
   <ul class="collapse">
-  <li><a href="#illustrations" id="toc-illustrations" class="nav-link" data-scroll-target="#illustrations"><span class="header-section-number">14.5.1</span> Illustrations</a></li>
-  <li><a href="#check-your-learning" id="toc-check-your-learning" class="nav-link" data-scroll-target="#check-your-learning"><span class="header-section-number">14.5.2</span> Check your learning</a></li>
+  <li><a href="#illustrations" id="toc-illustrations" class="nav-link" data-scroll-target="#illustrations"><span class="header-section-number">13.5.1</span> Illustrations</a></li>
+  <li><a href="#check-your-learning" id="toc-check-your-learning" class="nav-link" data-scroll-target="#check-your-learning"><span class="header-section-number">13.5.2</span> Check your learning</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -664,9 +671,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/11_everything_is_regression.html">Part II: Learning from Simulations</a></li><li class="breadcrumb-item"><a href="../chapters/13_hypothesis_testing.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/11_everything_is_regression.html">Part II: Learning from Simulations</a></li><li class="breadcrumb-item"><a href="../chapters/13_hypothesis_testing.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -683,8 +690,8 @@ window.Quarto = {
 </header>
 
 
-<section id="hypothesis-testing-using-p-values-vs.-confidence-intervals" class="level2" data-number="14.1">
-<h2 data-number="14.1" class="anchored" data-anchor-id="hypothesis-testing-using-p-values-vs.-confidence-intervals"><span class="header-section-number">14.1</span> Hypothesis testing using <em>p</em>-values vs.&nbsp;Confidence Intervals</h2>
+<section id="hypothesis-testing-using-p-values-vs.-confidence-intervals" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="hypothesis-testing-using-p-values-vs.-confidence-intervals"><span class="header-section-number">13.1</span> Hypothesis testing using <em>p</em>-values vs.&nbsp;Confidence Intervals</h2>
 <p>Are inferences from p values and 95% CIs the same?</p>
 <p>Let’s simulate some data for a between groups RCT, fit an independent t-test, and extract p values, estimated mean differences and its confidence intervals.</p>
 <div class="cell">
@@ -857,8 +864,8 @@ window.Quarto = {
 </div>
 <p>Yes! 95% CIs and p values can express the same underlying information.</p>
 </section>
-<section id="estimation-vs.-hypothesis-testing" class="level2" data-number="14.2">
-<h2 data-number="14.2" class="anchored" data-anchor-id="estimation-vs.-hypothesis-testing"><span class="header-section-number">14.2</span> Estimation vs.&nbsp;hypothesis testing</h2>
+<section id="estimation-vs.-hypothesis-testing" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="estimation-vs.-hypothesis-testing"><span class="header-section-number">13.2</span> Estimation vs.&nbsp;hypothesis testing</h2>
 <p>Recall from the previous chapter on estimation and precision that CIs also tell us about precision of the estimate (whereas p-values do not).</p>
 <div class="cell">
 <details class="code-fold">
@@ -892,8 +899,8 @@ window.Quarto = {
 <li>Hypothesis testing: Using alpha = .05, we reject the null hypothesis that the population mean difference is 0, <em>p</em> = .006, 95% CI excludes 0.</li>
 </ul>
 </section>
-<section id="what-are-alpha-and-power" class="level2" data-number="14.3">
-<h2 data-number="14.3" class="anchored" data-anchor-id="what-are-alpha-and-power"><span class="header-section-number">14.3</span> What are alpha and power?</h2>
+<section id="what-are-alpha-and-power" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="what-are-alpha-and-power"><span class="header-section-number">13.3</span> What are alpha and power?</h2>
 <div class="cell">
 <details class="code-fold">
 <summary>Show code</summary>
@@ -1115,8 +1122,8 @@ window.Quarto = {
 </div>
 <p>Dynamic visualization of how p-values flow towards 0 as sample size and true effect size increase: <a href="https://rpsychologist.com/d3/pdist/">rpsychologist.com/d3/pdist</a>.</p>
 </section>
-<section id="barely-significant-results-p-between-.02-and-.05-are-rare-in-well-powered-studies" class="level2" data-number="14.4">
-<h2 data-number="14.4" class="anchored" data-anchor-id="barely-significant-results-p-between-.02-and-.05-are-rare-in-well-powered-studies"><span class="header-section-number">14.4</span> Barely-significant results (p between .02 and .05) are rare in well-powered studies</h2>
+<section id="barely-significant-results-p-between-.02-and-.05-are-rare-in-well-powered-studies" class="level2" data-number="13.4">
+<h2 data-number="13.4" class="anchored" data-anchor-id="barely-significant-results-p-between-.02-and-.05-are-rare-in-well-powered-studies"><span class="header-section-number">13.4</span> Barely-significant results (p between .02 and .05) are rare in well-powered studies</h2>
 <div class="cell">
 <details class="code-fold">
 <summary>Show code</summary>
@@ -1142,14 +1149,14 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="other-forms-of-hypothesis-testing" class="level2" data-number="14.5">
-<h2 data-number="14.5" class="anchored" data-anchor-id="other-forms-of-hypothesis-testing"><span class="header-section-number">14.5</span> Other forms of hypothesis testing</h2>
+<section id="other-forms-of-hypothesis-testing" class="level2" data-number="13.5">
+<h2 data-number="13.5" class="anchored" data-anchor-id="other-forms-of-hypothesis-testing"><span class="header-section-number">13.5</span> Other forms of hypothesis testing</h2>
 <p>To a problematic degree, psychology research tends to test the null hypothesis of “population effect = 0”. Note that the ‘null’ hypothesis is not inherently the ‘zero’ hypothesis: we could use any reference value. In many cases, our research question is more aligned with testing against a non-zero null hypothesis. See <a href="https://doi.org/10.1177/2515245918770963">Lakens et al.&nbsp;(2018) “Equivalence Testing for Psychological Research: A Tutorial”</a>.</p>
-<section id="illustrations" class="level3" data-number="14.5.1">
-<h3 data-number="14.5.1" class="anchored" data-anchor-id="illustrations"><span class="header-section-number">14.5.1</span> Illustrations</h3>
+<section id="illustrations" class="level3" data-number="13.5.1">
+<h3 data-number="13.5.1" class="anchored" data-anchor-id="illustrations"><span class="header-section-number">13.5.1</span> Illustrations</h3>
 <p>We will work through these examples verbally in class.</p>
-<section id="classic-nhst-two-sided" class="level4" data-number="14.5.1.1">
-<h4 data-number="14.5.1.1" class="anchored" data-anchor-id="classic-nhst-two-sided"><span class="header-section-number">14.5.1.1</span> Classic NHST (Two-Sided)</h4>
+<section id="classic-nhst-two-sided" class="level4" data-number="13.5.1.1">
+<h4 data-number="13.5.1.1" class="anchored" data-anchor-id="classic-nhst-two-sided"><span class="header-section-number">13.5.1.1</span> Classic NHST (Two-Sided)</h4>
 <div class="cell">
 <details class="code-fold">
 <summary>Show code</summary>
@@ -1196,8 +1203,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="classic-nhst-one-sided" class="level4" data-number="14.5.1.2">
-<h4 data-number="14.5.1.2" class="anchored" data-anchor-id="classic-nhst-one-sided"><span class="header-section-number">14.5.1.2</span> Classic NHST (One-Sided)</h4>
+<section id="classic-nhst-one-sided" class="level4" data-number="13.5.1.2">
+<h4 data-number="13.5.1.2" class="anchored" data-anchor-id="classic-nhst-one-sided"><span class="header-section-number">13.5.1.2</span> Classic NHST (One-Sided)</h4>
 <div class="cell">
 <details class="code-fold">
 <summary>Show code</summary>
@@ -1223,8 +1230,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="minimal-effects-test-two-sided" class="level4" data-number="14.5.1.3">
-<h4 data-number="14.5.1.3" class="anchored" data-anchor-id="minimal-effects-test-two-sided"><span class="header-section-number">14.5.1.3</span> Minimal-Effects Test (Two-Sided)</h4>
+<section id="minimal-effects-test-two-sided" class="level4" data-number="13.5.1.3">
+<h4 data-number="13.5.1.3" class="anchored" data-anchor-id="minimal-effects-test-two-sided"><span class="header-section-number">13.5.1.3</span> Minimal-Effects Test (Two-Sided)</h4>
 <div class="cell">
 <details class="code-fold">
 <summary>Show code</summary>
@@ -1255,8 +1262,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="minimal-effects-test-one-sided" class="level4" data-number="14.5.1.4">
-<h4 data-number="14.5.1.4" class="anchored" data-anchor-id="minimal-effects-test-one-sided"><span class="header-section-number">14.5.1.4</span> Minimal-Effects Test (One-Sided)</h4>
+<section id="minimal-effects-test-one-sided" class="level4" data-number="13.5.1.4">
+<h4 data-number="13.5.1.4" class="anchored" data-anchor-id="minimal-effects-test-one-sided"><span class="header-section-number">13.5.1.4</span> Minimal-Effects Test (One-Sided)</h4>
 <div class="cell">
 <details class="code-fold">
 <summary>Show code</summary>
@@ -1286,8 +1293,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="inferiority-test-necessarily-one-sided" class="level4" data-number="14.5.1.5">
-<h4 data-number="14.5.1.5" class="anchored" data-anchor-id="inferiority-test-necessarily-one-sided"><span class="header-section-number">14.5.1.5</span> Inferiority Test (necessarily One-Sided)</h4>
+<section id="inferiority-test-necessarily-one-sided" class="level4" data-number="13.5.1.5">
+<h4 data-number="13.5.1.5" class="anchored" data-anchor-id="inferiority-test-necessarily-one-sided"><span class="header-section-number">13.5.1.5</span> Inferiority Test (necessarily One-Sided)</h4>
 <div class="cell">
 <details class="code-fold">
 <summary>Show code</summary>
@@ -1317,8 +1324,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="equivalence-test-necessarily-two-sided" class="level4" data-number="14.5.1.6">
-<h4 data-number="14.5.1.6" class="anchored" data-anchor-id="equivalence-test-necessarily-two-sided"><span class="header-section-number">14.5.1.6</span> Equivalence Test (necessarily Two-Sided)</h4>
+<section id="equivalence-test-necessarily-two-sided" class="level4" data-number="13.5.1.6">
+<h4 data-number="13.5.1.6" class="anchored" data-anchor-id="equivalence-test-necessarily-two-sided"><span class="header-section-number">13.5.1.6</span> Equivalence Test (necessarily Two-Sided)</h4>
 <p>This is achieved using two one-sided independent t-tests, and is therefore referred to as a Two One-Sided Test (TOST: <a href="https://doi.org/10.1177/2515245918770963">Lakens et al.&nbsp;(2018) “Equivalence Testing for Psychological Research: A Tutorial”</a>).</p>
 <p>H1 is defined not as a single point value (e.g., 0 as in classic NHST) but a region of values (e.g., -1 to +1) within which the effect is said to be practically equivalent to zero. This region is referred to as the Smallest Effect Size of Interest (SESOI).</p>
 <div class="cell">
@@ -1354,8 +1361,8 @@ window.Quarto = {
 </div>
 </section>
 </section>
-<section id="check-your-learning" class="level3" data-number="14.5.2">
-<h3 data-number="14.5.2" class="anchored" data-anchor-id="check-your-learning"><span class="header-section-number">14.5.2</span> Check your learning</h3>
+<section id="check-your-learning" class="level3" data-number="13.5.2">
+<h3 data-number="13.5.2" class="anchored" data-anchor-id="check-your-learning"><span class="header-section-number">13.5.2</span> Check your learning</h3>
 <p>What type of hypothesis test does each plot present?</p>
 <p>What inference should you make for each study, using each type of hypothesis test?</p>
 <p>We will work through these examples verbally in class.</p>
@@ -1990,12 +1997,12 @@ window.Quarto = {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../chapters/12_estimation.html" class="pagination-link" aria-label="Estimation">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Estimation</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Estimation</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../chapters/14_violating_assumptions.html" class="pagination-link" aria-label="Assessing the impact of violating the assumption of normality">
-        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">

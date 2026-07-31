@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>4&nbsp; Writing functions – Understanding statistics through Monte Carlo simulations</title>
+<title>3&nbsp; Writing functions – Understanding statistics through Monte Carlo simulations</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -110,6 +110,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <style>
+  /* more breathing room before section headings.
+     scoped to main.content so the sidebar/TOC headings are left alone.
+     this <style> block is emitted after the bootstrap theme css, so these
+     win without needing !important. */
+  main.content h2 { margin-top: 3rem; }
+  main.content h3 { margin-top: 2rem; }
+  main.content h4 { margin-top: 1.5rem; }
   .kable-table table { width: 70%; margin: 0 auto; }
   .badge {
     display: inline-flex; align-items: center; gap: 0.3em;
@@ -327,7 +334,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01_required_skills.html">Part I: Learning to Simulate</a></li><li class="breadcrumb-item"><a href="../chapters/03_writing_functions.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Writing functions</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01_required_skills.html">Part I: Learning to Simulate</a></li><li class="breadcrumb-item"><a href="../chapters/03_writing_functions.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Writing functions</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -363,8 +370,8 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/00_lesson_plan.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Lesson plan</span></span></a>
+  <a href="../lesson_plan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson plan</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -379,61 +386,61 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/01_required_skills.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Required skills</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Required skills</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/02_foundation_concepts.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Foundation concepts</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Foundation concepts</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/03_writing_functions.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Writing functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Writing functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/04_data_generating_process_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data-generating process functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data-generating process functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/05_pseudo_random_number_generators.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Pseudo-random number generators</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Pseudo-random number generators</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/06_analysis_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Analysis functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Analysis functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/07_creating_simulation_experiments.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Creating simulation experiments</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Creating simulation experiments</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/08_mapping.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Mapping over functions <span class="badge badge-draft2">✎ Rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Mapping over functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/09_summarizing_results.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summarizing results <span class="badge badge-draft1">✎ TODO</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Summarizing results <span class="badge badge-draft1">✎ TODO</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/10_planning_and_reporting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Planning and reporting <span class="badge badge-draft1">✎ TODO</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Planning and reporting <span class="badge badge-draft1">✎ TODO</span></span></span></a>
   </div>
 </li>
       </ul>
@@ -450,43 +457,43 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/11_everything_is_regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Everything is regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Everything is regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/12_estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/13_hypothesis_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/14_violating_assumptions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/15_testing_assumptions_and_conditional_tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of non-parameteric tests</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of non-parameteric tests</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/16_p_hacking.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/17_causality_and_selection_effects.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Weird causality and selection effects</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Weird causality and selection effects</span></span></a>
   </div>
 </li>
       </ul>
@@ -503,67 +510,67 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/01_required_skills_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises for ‘Required skills’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Exercises for ‘Required skills’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/03_writing_functions_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises for ‘Writing functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises for ‘Writing functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/04_data_generating_process_functions_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises for ‘Data Generating Process functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises for ‘Data Generating Process functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/06_analysis_functions_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises for ‘Analysis functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises for ‘Analysis functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/07_creating_simulation_experiments_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises for ‘Creating simulation experiments’ chapter <span class="badge badge-draft1">✎ Very rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises for ‘Creating simulation experiments’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/08_mapping_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Exercises for ‘Mapping over functions’ chapter <span class="badge badge-draft2">✎ Rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises for ‘Mapping over functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/11_everything_is_regression_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Exercises for ‘Everything is regression’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Exercises for ‘Everything is regression’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/12_estimation_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Exercises for ‘Estimation’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Exercises for ‘Estimation’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/13_hypothesis_testing_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Exercises for ‘Hypothesis Testing’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Exercises for ‘Hypothesis Testing’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/16_p_hacking_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Exercises for ‘p-hacking’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Exercises for ‘p-hacking’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/end_of_course_assignment.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">End of course assignment</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">End of course assignment</span></span></a>
   </div>
 </li>
       </ul>
@@ -580,31 +587,31 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/ADEMP_preregistration_template.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">ADEMP simulation preregistration template</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">ADEMP simulation preregistration template</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/simulation_template_hypothesis_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Simulation template: hypothesis testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Simulation template: hypothesis testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/simulation_template_estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Simulation template: estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Simulation template: estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/simulation_template_hpc.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Minimal HPC simulation template (Everything)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Minimal HPC simulation template (Everything)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
+ <span class="menu-text">License</span></a>
   </div>
 </li>
       </ul>
@@ -621,19 +628,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../classics/crowded_room_problem.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">The Crowded Room problem: Constraints on correlations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">The Crowded Room problem: Constraints on correlations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../classics/cohens_d_biased.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Simulation template: Cohen’s d is a biased estimator</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Simulation template: Cohen’s d is a biased estimator</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
+ <span class="menu-text">License</span></a>
   </div>
 </li>
       </ul>
@@ -648,39 +655,39 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#what-is-a-function" id="toc-what-is-a-function" class="nav-link active" data-scroll-target="#what-is-a-function"><span class="header-section-number">4.1</span> What is a function?</a></li>
-  <li><a href="#basic-structure-of-a-function" id="toc-basic-structure-of-a-function" class="nav-link" data-scroll-target="#basic-structure-of-a-function"><span class="header-section-number">4.2</span> Basic structure of a function</a></li>
-  <li><a href="#writing-functions" id="toc-writing-functions" class="nav-link" data-scroll-target="#writing-functions"><span class="header-section-number">4.3</span> Writing functions</a>
+  <li><a href="#what-is-a-function" id="toc-what-is-a-function" class="nav-link active" data-scroll-target="#what-is-a-function"><span class="header-section-number">3.1</span> What is a function?</a></li>
+  <li><a href="#basic-structure-of-a-function" id="toc-basic-structure-of-a-function" class="nav-link" data-scroll-target="#basic-structure-of-a-function"><span class="header-section-number">3.2</span> Basic structure of a function</a></li>
+  <li><a href="#writing-functions" id="toc-writing-functions" class="nav-link" data-scroll-target="#writing-functions"><span class="header-section-number">3.3</span> Writing functions</a>
   <ul class="collapse">
-  <li><a href="#key-steps" id="toc-key-steps" class="nav-link" data-scroll-target="#key-steps"><span class="header-section-number">4.3.1</span> Key steps</a></li>
-  <li><a href="#why-build-functions-this-way" id="toc-why-build-functions-this-way" class="nav-link" data-scroll-target="#why-build-functions-this-way"><span class="header-section-number">4.3.2</span> Why build functions this way?</a></li>
-  <li><a href="#automatic-function-extraction" id="toc-automatic-function-extraction" class="nav-link" data-scroll-target="#automatic-function-extraction"><span class="header-section-number">4.3.3</span> Automatic function extraction</a></li>
+  <li><a href="#key-steps" id="toc-key-steps" class="nav-link" data-scroll-target="#key-steps"><span class="header-section-number">3.3.1</span> Key steps</a></li>
+  <li><a href="#why-build-functions-this-way" id="toc-why-build-functions-this-way" class="nav-link" data-scroll-target="#why-build-functions-this-way"><span class="header-section-number">3.3.2</span> Why build functions this way?</a></li>
+  <li><a href="#automatic-function-extraction" id="toc-automatic-function-extraction" class="nav-link" data-scroll-target="#automatic-function-extraction"><span class="header-section-number">3.3.3</span> Automatic function extraction</a></li>
   </ul></li>
-  <li><a href="#pseudocode" id="toc-pseudocode" class="nav-link" data-scroll-target="#pseudocode"><span class="header-section-number">4.4</span> Pseudocode</a>
+  <li><a href="#pseudocode" id="toc-pseudocode" class="nav-link" data-scroll-target="#pseudocode"><span class="header-section-number">3.4</span> Pseudocode</a>
   <ul class="collapse">
-  <li><a href="#what-does-pseudocode-look-like" id="toc-what-does-pseudocode-look-like" class="nav-link" data-scroll-target="#what-does-pseudocode-look-like"><span class="header-section-number">4.4.1</span> What does pseudocode look like?</a></li>
-  <li><a href="#more-complex-example" id="toc-more-complex-example" class="nav-link" data-scroll-target="#more-complex-example"><span class="header-section-number">4.4.2</span> More complex example</a></li>
+  <li><a href="#what-does-pseudocode-look-like" id="toc-what-does-pseudocode-look-like" class="nav-link" data-scroll-target="#what-does-pseudocode-look-like"><span class="header-section-number">3.4.1</span> What does pseudocode look like?</a></li>
+  <li><a href="#more-complex-example" id="toc-more-complex-example" class="nav-link" data-scroll-target="#more-complex-example"><span class="header-section-number">3.4.2</span> More complex example</a></li>
   </ul></li>
-  <li><a href="#argument-defaults" id="toc-argument-defaults" class="nav-link" data-scroll-target="#argument-defaults"><span class="header-section-number">4.5</span> Argument defaults</a></li>
-  <li><a href="#checking-inputs" id="toc-checking-inputs" class="nav-link" data-scroll-target="#checking-inputs"><span class="header-section-number">4.6</span> Checking inputs</a>
+  <li><a href="#argument-defaults" id="toc-argument-defaults" class="nav-link" data-scroll-target="#argument-defaults"><span class="header-section-number">3.5</span> Argument defaults</a></li>
+  <li><a href="#checking-inputs" id="toc-checking-inputs" class="nav-link" data-scroll-target="#checking-inputs"><span class="header-section-number">3.6</span> Checking inputs</a>
   <ul class="collapse">
-  <li><a href="#checkmate" id="toc-checkmate" class="nav-link" data-scroll-target="#checkmate"><span class="header-section-number">4.6.1</span> checkmate</a></li>
-  <li><a href="#base-r-match.arg" id="toc-base-r-match.arg" class="nav-link" data-scroll-target="#base-r-match.arg"><span class="header-section-number">4.6.2</span> Base-R <code>match.arg()</code></a></li>
-  <li><a href="#base-r-stop" id="toc-base-r-stop" class="nav-link" data-scroll-target="#base-r-stop"><span class="header-section-number">4.6.3</span> Base-R <code>stop()</code></a></li>
-  <li><a href="#assertthat" id="toc-assertthat" class="nav-link" data-scroll-target="#assertthat"><span class="header-section-number">4.6.4</span> assertthat</a></li>
-  <li><a href="#do-as-we-say-not-as-we-do" id="toc-do-as-we-say-not-as-we-do" class="nav-link" data-scroll-target="#do-as-we-say-not-as-we-do"><span class="header-section-number">4.6.5</span> Do as we say, not as we do</a></li>
+  <li><a href="#checkmate" id="toc-checkmate" class="nav-link" data-scroll-target="#checkmate"><span class="header-section-number">3.6.1</span> checkmate</a></li>
+  <li><a href="#base-r-match.arg" id="toc-base-r-match.arg" class="nav-link" data-scroll-target="#base-r-match.arg"><span class="header-section-number">3.6.2</span> Base-R <code>match.arg()</code></a></li>
+  <li><a href="#base-r-stop" id="toc-base-r-stop" class="nav-link" data-scroll-target="#base-r-stop"><span class="header-section-number">3.6.3</span> Base-R <code>stop()</code></a></li>
+  <li><a href="#assertthat" id="toc-assertthat" class="nav-link" data-scroll-target="#assertthat"><span class="header-section-number">3.6.4</span> assertthat</a></li>
+  <li><a href="#do-as-we-say-not-as-we-do" id="toc-do-as-we-say-not-as-we-do" class="nav-link" data-scroll-target="#do-as-we-say-not-as-we-do"><span class="header-section-number">3.6.5</span> Do as we say, not as we do</a></li>
   </ul></li>
-  <li><a href="#common-mistakes" id="toc-common-mistakes" class="nav-link" data-scroll-target="#common-mistakes"><span class="header-section-number">4.7</span> Common mistakes</a>
+  <li><a href="#common-mistakes" id="toc-common-mistakes" class="nav-link" data-scroll-target="#common-mistakes"><span class="header-section-number">3.7</span> Common mistakes</a>
   <ul class="collapse">
-  <li><a href="#failing-to-declare-your-function" id="toc-failing-to-declare-your-function" class="nav-link" data-scroll-target="#failing-to-declare-your-function"><span class="header-section-number">4.7.1</span> Failing to declare your function</a></li>
-  <li><a href="#code-that-runs-vs.-functions-correctly" id="toc-code-that-runs-vs.-functions-correctly" class="nav-link" data-scroll-target="#code-that-runs-vs.-functions-correctly"><span class="header-section-number">4.7.2</span> Code that runs vs.&nbsp;functions correctly</a></li>
+  <li><a href="#failing-to-declare-your-function" id="toc-failing-to-declare-your-function" class="nav-link" data-scroll-target="#failing-to-declare-your-function"><span class="header-section-number">3.7.1</span> Failing to declare your function</a></li>
+  <li><a href="#code-that-runs-vs.-functions-correctly" id="toc-code-that-runs-vs.-functions-correctly" class="nav-link" data-scroll-target="#code-that-runs-vs.-functions-correctly"><span class="header-section-number">3.7.2</span> Code that runs vs.&nbsp;functions correctly</a></li>
   </ul></li>
-  <li><a href="#applied-example-the-false-positive-rate-of-ai-detection-tools" id="toc-applied-example-the-false-positive-rate-of-ai-detection-tools" class="nav-link" data-scroll-target="#applied-example-the-false-positive-rate-of-ai-detection-tools"><span class="header-section-number">4.8</span> Applied example: The false positive rate of AI detection tools</a>
+  <li><a href="#applied-example-the-false-positive-rate-of-ai-detection-tools" id="toc-applied-example-the-false-positive-rate-of-ai-detection-tools" class="nav-link" data-scroll-target="#applied-example-the-false-positive-rate-of-ai-detection-tools"><span class="header-section-number">3.8</span> Applied example: The false positive rate of AI detection tools</a>
   <ul class="collapse">
-  <li><a href="#math" id="toc-math" class="nav-link" data-scroll-target="#math"><span class="header-section-number">4.8.1</span> Math</a></li>
-  <li><a href="#write-the-do-stuff" id="toc-write-the-do-stuff" class="nav-link" data-scroll-target="#write-the-do-stuff"><span class="header-section-number">4.8.2</span> Write the ‘do stuff’</a></li>
-  <li><a href="#convert-hard-coded-values-to-variables" id="toc-convert-hard-coded-values-to-variables" class="nav-link" data-scroll-target="#convert-hard-coded-values-to-variables"><span class="header-section-number">4.8.3</span> Convert hard-coded values to variables</a></li>
-  <li><a href="#wrap-it-in-a-function" id="toc-wrap-it-in-a-function" class="nav-link" data-scroll-target="#wrap-it-in-a-function"><span class="header-section-number">4.8.4</span> Wrap it in a function</a></li>
+  <li><a href="#math" id="toc-math" class="nav-link" data-scroll-target="#math"><span class="header-section-number">3.8.1</span> Math</a></li>
+  <li><a href="#write-the-do-stuff" id="toc-write-the-do-stuff" class="nav-link" data-scroll-target="#write-the-do-stuff"><span class="header-section-number">3.8.2</span> Write the ‘do stuff’</a></li>
+  <li><a href="#convert-hard-coded-values-to-variables" id="toc-convert-hard-coded-values-to-variables" class="nav-link" data-scroll-target="#convert-hard-coded-values-to-variables"><span class="header-section-number">3.8.3</span> Convert hard-coded values to variables</a></li>
+  <li><a href="#wrap-it-in-a-function" id="toc-wrap-it-in-a-function" class="nav-link" data-scroll-target="#wrap-it-in-a-function"><span class="header-section-number">3.8.4</span> Wrap it in a function</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -689,9 +696,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01_required_skills.html">Part I: Learning to Simulate</a></li><li class="breadcrumb-item"><a href="../chapters/03_writing_functions.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Writing functions</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01_required_skills.html">Part I: Learning to Simulate</a></li><li class="breadcrumb-item"><a href="../chapters/03_writing_functions.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Writing functions</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Writing functions</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Writing functions</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -709,8 +716,8 @@ window.Quarto = {
 
 
 <p>Two of the key steps in a simulation study (generate data and analyze data) require us to know how to write functions. This chapter explains what functions are and how to write them.</p>
-<section id="what-is-a-function" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="what-is-a-function"><span class="header-section-number">4.1</span> What is a function?</h2>
+<section id="what-is-a-function" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="what-is-a-function"><span class="header-section-number">3.1</span> What is a function?</h2>
 <p>A function is a piece of code that receives input(s), does something with it, and returns output(s).</p>
 <p>To take two very simple example, the <code>sum()</code> function calculates the sum of the number inputs passed to it:</p>
 <div class="cell">
@@ -766,8 +773,8 @@ window.Quarto = {
 </div>
 <p>Being able to do this becomes very important when a) you need to do something many thousands of times, often with small variations b) the thing you are doing becomes more complicated. You will encounter both when writing simulation studies.</p>
 </section>
-<section id="basic-structure-of-a-function" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="basic-structure-of-a-function"><span class="header-section-number">4.2</span> Basic structure of a function</h2>
+<section id="basic-structure-of-a-function" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="basic-structure-of-a-function"><span class="header-section-number">3.2</span> Basic structure of a function</h2>
 <p>Functions have three components.</p>
 <ol type="1">
 <li>Inputs</li>
@@ -792,14 +799,14 @@ window.Quarto = {
 </div>
 <p>* Anonymous functions (i.e., functions that we don’t name) do exist, but we don’t need to know about them right now. ** Coders have arguments about whether ‘explicit’ <code>return()</code>s should be used or not. It is possible not to use <code>return()</code> and still have a function give an output (e.g., by just running the name of the to-be-returned object without it being wrapped in <code>return()</code>). However, when learning about functions and their conceptual components, it is a very useful to be explicit about what the output is. We therefore recommend it in this context.</p>
 </section>
-<section id="writing-functions" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="writing-functions"><span class="header-section-number">4.3</span> Writing functions</h2>
+<section id="writing-functions" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="writing-functions"><span class="header-section-number">3.3</span> Writing functions</h2>
 <p>The worst way to write a function is the way you read the code for it. Instead, write it from the inside out, starting with the ‘do stuff’ and using hard coded values.</p>
 <p>Let’s write the <code>absolute_sum()</code> function from scratch, in the way we recommend.</p>
-<section id="key-steps" class="level3" data-number="4.3.1">
-<h3 data-number="4.3.1" class="anchored" data-anchor-id="key-steps"><span class="header-section-number">4.3.1</span> Key steps</h3>
-<section id="step-1-write-the-do-stuff" class="level4" data-number="4.3.1.1">
-<h4 data-number="4.3.1.1" class="anchored" data-anchor-id="step-1-write-the-do-stuff"><span class="header-section-number">4.3.1.1</span> Step 1: Write the ‘do stuff’</h4>
+<section id="key-steps" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="key-steps"><span class="header-section-number">3.3.1</span> Key steps</h3>
+<section id="step-1-write-the-do-stuff" class="level4" data-number="3.3.1.1">
+<h4 data-number="3.3.1.1" class="anchored" data-anchor-id="step-1-write-the-do-stuff"><span class="header-section-number">3.3.1.1</span> Step 1: Write the ‘do stuff’</h4>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get just the sum() working</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">3</span>) </span>
@@ -821,8 +828,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="step-2-convert-hard-coded-values-to-variables" class="level4" data-number="4.3.1.2">
-<h4 data-number="4.3.1.2" class="anchored" data-anchor-id="step-2-convert-hard-coded-values-to-variables"><span class="header-section-number">4.3.1.2</span> Step 2: Convert hard-coded values to variables</h4>
+<section id="step-2-convert-hard-coded-values-to-variables" class="level4" data-number="3.3.1.2">
+<h4 data-number="3.3.1.2" class="anchored" data-anchor-id="step-2-convert-hard-coded-values-to-variables"><span class="header-section-number">3.3.1.2</span> Step 2: Convert hard-coded values to variables</h4>
 <p>Declare variables with hard-coded values, and substitute the hard-coded values in the code for these variables.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># declare variables</span></span>
@@ -839,8 +846,8 @@ window.Quarto = {
 </div>
 <p>These variables will become the function’s arguments.</p>
 </section>
-<section id="step-3-wrap-it-in-a-function" class="level4" data-number="4.3.1.3">
-<h4 data-number="4.3.1.3" class="anchored" data-anchor-id="step-3-wrap-it-in-a-function"><span class="header-section-number">4.3.1.3</span> Step 3: Wrap it in a function</h4>
+<section id="step-3-wrap-it-in-a-function" class="level4" data-number="3.3.1.3">
+<h4 data-number="3.3.1.3" class="anchored" data-anchor-id="step-3-wrap-it-in-a-function"><span class="header-section-number">3.3.1.3</span> Step 3: Wrap it in a function</h4>
 <p>Decide on a descriptive name for the function. Declare the function using its name, the <code>&lt;-</code> assignment operator, and the <code>function()</code> function. Add curly brackets, <code>{ }</code>, for where the ‘do stuff’ code will go.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># NB code will not run</span></span>
@@ -899,14 +906,14 @@ window.Quarto = {
 </div>
 </section>
 </section>
-<section id="why-build-functions-this-way" class="level3" data-number="4.3.2">
-<h3 data-number="4.3.2" class="anchored" data-anchor-id="why-build-functions-this-way"><span class="header-section-number">4.3.2</span> Why build functions this way?</h3>
+<section id="why-build-functions-this-way" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="why-build-functions-this-way"><span class="header-section-number">3.3.2</span> Why build functions this way?</h3>
 <p>Because of variable scoping. Variable scoping means that we are usually unable to see the value of variables defined inside a function from outside that function unless they are returned by the function.</p>
 <p>This is probably not what you’re used to in R, which mostly uses ‘global’ variables. For example, you are used to being able to define <code>my_text &lt;- "hello"</code> and then being able to see or use the <code>my_text</code> variable elsewhere in your R script. This is not actually the norm in coding; the scope of variables is often more limited, such as being able to access variables created within a function only inside that function.</p>
 <p>Put simply: because you can’t see everything that’s happening inside functions, you can’t debug and fix them. Instead, write the code as you normally do, and convert working code into a function.</p>
 </section>
-<section id="automatic-function-extraction" class="level3" data-number="4.3.3">
-<h3 data-number="4.3.3" class="anchored" data-anchor-id="automatic-function-extraction"><span class="header-section-number">4.3.3</span> Automatic function extraction</h3>
+<section id="automatic-function-extraction" class="level3" data-number="3.3.3">
+<h3 data-number="3.3.3" class="anchored" data-anchor-id="automatic-function-extraction"><span class="header-section-number">3.3.3</span> Automatic function extraction</h3>
 <p>Once you have code that uses variables, you can actually have RStudio do the ‘wrap it’ step for you.</p>
 <p>In your local copy of this .qmd, highlight the code in the chunk below, click ‘Code’&gt;‘Extract Function’, name it ‘absolute_sum’, and click ‘ok’. You can see gifs of this <a href="https://www.appsilon.com/post/r-studio-shortcuts-and-tips-part-2">here</a>.</p>
 <div class="cell">
@@ -919,8 +926,8 @@ window.Quarto = {
 <p>Beware: This method isn’t perfect, as it doesn’t add <code>return()</code> around <code>result</code> or ensure that you have written code to create outputs. But it can save you time.</p>
 </section>
 </section>
-<section id="pseudocode" class="level2" data-number="4.4">
-<h2 data-number="4.4" class="anchored" data-anchor-id="pseudocode"><span class="header-section-number">4.4</span> Pseudocode</h2>
+<section id="pseudocode" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="pseudocode"><span class="header-section-number">3.4</span> Pseudocode</h2>
 <p>Before you write the ‘do stuff’ code inside a function - or indeed any complex code - it’s often helpful to write ‘pseudocode’ first.</p>
 <p>Pseudocode is a plain-language or code-like description of what your function should do, which breaks the problem down into smaller steps or operations. It is not valid R code, and it is not meant to run. Instead, it’s a thinking and planning tool: you use it to clarify the logic of your function before you worry about syntax or bugs.</p>
 <p>Pseudocode has a number of advantages:</p>
@@ -930,8 +937,8 @@ window.Quarto = {
 <li>It makes debugging easier. If your function fails, you can compare your code to your pseudocode step-by-step and find where they diverge.</li>
 <li>It helps you communicate with other people in the future who might not understand your code, including your future self. Readers might not understand your code immediately, but they can usually understand pseudocode.</li>
 </ul>
-<section id="what-does-pseudocode-look-like" class="level3" data-number="4.4.1">
-<h3 data-number="4.4.1" class="anchored" data-anchor-id="what-does-pseudocode-look-like"><span class="header-section-number">4.4.1</span> What does pseudocode look like?</h3>
+<section id="what-does-pseudocode-look-like" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="what-does-pseudocode-look-like"><span class="header-section-number">3.4.1</span> What does pseudocode look like?</h3>
 <p>There isn’t one “correct” format of pseudocode. The main goal is always plain-language readability. A common style is: - Start with what the function receives (inputs) - List the steps inside the function (do stuff) - End with what it returns (output)</p>
 <p>Here is pseudocode for our <code>absolute_sum()</code> function. Note that there is no particular standard for pseudocode, it is just something between text and code that runs.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>absolute_sum function</span>
@@ -972,8 +979,8 @@ window.Quarto = {
 </div>
 <p>At this point, the ‘do stuff’ is working, and your pseudocode is now code. You have enough to go to the ‘wrap it in a function’ step.</p>
 </section>
-<section id="more-complex-example" class="level3" data-number="4.4.2">
-<h3 data-number="4.4.2" class="anchored" data-anchor-id="more-complex-example"><span class="header-section-number">4.4.2</span> More complex example</h3>
+<section id="more-complex-example" class="level3" data-number="3.4.2">
+<h3 data-number="3.4.2" class="anchored" data-anchor-id="more-complex-example"><span class="header-section-number">3.4.2</span> More complex example</h3>
 <p>The real value of pseudocode shows up when functions are more complex.</p>
 <p>For example, here is pseudocode for a very common simulation function that we will explore in the next chapter: generate one dataset for a Randomized Controlled Trial with two conditions, treatment and control, where the data in each condition comes from a normally distributed population.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>function: generate_data </span>
@@ -988,8 +995,8 @@ window.Quarto = {
 <p>Notice something important: this is basically just a checklist. When you convert it to R code, you can translate each step one at a time and test as you go. You may need to reorder or change the steps, but it gives you a plan. If you get lost in your code, you can go back to check the plan.</p>
 </section>
 </section>
-<section id="argument-defaults" class="level2" data-number="4.5">
-<h2 data-number="4.5" class="anchored" data-anchor-id="argument-defaults"><span class="header-section-number">4.5</span> Argument defaults</h2>
+<section id="argument-defaults" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="argument-defaults"><span class="header-section-number">3.5</span> Argument defaults</h2>
 <p>Functions often have many arguments, not all of which you want to specify every time. Often, there are reasonable defaults.</p>
 <p>For example, imagine we needed a function to both a) calculate the mean of two numbers and b) round this mean. We might define a new function as:</p>
 <div class="cell">
@@ -1048,8 +1055,8 @@ window.Quarto = {
 <span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="checking-inputs" class="level2" data-number="4.6">
-<h2 data-number="4.6" class="anchored" data-anchor-id="checking-inputs"><span class="header-section-number">4.6</span> Checking inputs</h2>
+<section id="checking-inputs" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="checking-inputs"><span class="header-section-number">3.6</span> Checking inputs</h2>
 <p>Functions written for R packages usually have many checks built into them. Users are likely to use - and misuse - functions in a variety of ways and often need informative feedback messages to help them fix code when it’s wrong.</p>
 <p>For example, if you run the code <code>sum("hello", 3)</code>, R will return the error message “Error in sum(”hello”, 3) : invalid ‘type’ (character) of argument” because you cannot add numbers and character variables. R might have it’s flaws but it’s not lawless, we <a href="https://github.com/denysdovhan/wtfjs">leave that to javascript</a>.</p>
 <p>Functions written for simulation studies tend to be more ‘brittle’ or ‘fragile’: they work under a more limited range of conditions, don’t handle errors or exceptions as well, and tend to break without returning clear error messages. In part, this is because the people writing stimulation studies know the code is for a specific purpose and don’t need it to be very general. But, in part, it is also because the people writing simulations are less likely to have the same software engineering skillset as R package developers, who are more likely to write functions that follow the principles of “fail early, fail loudly”.</p>
@@ -1077,8 +1084,8 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<section id="checkmate" class="level3" data-number="4.6.1">
-<h3 data-number="4.6.1" class="anchored" data-anchor-id="checkmate"><span class="header-section-number">4.6.1</span> checkmate</h3>
+<section id="checkmate" class="level3" data-number="3.6.1">
+<h3 data-number="3.6.1" class="anchored" data-anchor-id="checkmate"><span class="header-section-number">3.6.1</span> checkmate</h3>
 <p>Whether or not this specific example represents an error, the situation can be avoided by using adding input checks and error messages to our functions. This makes them ‘harder’, ie less brittle. It will also help you build your R skills towards being able to write R packages yourself.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># in the local version of this .qmd file, you can run this code to see the error messages</span></span>
@@ -1107,8 +1114,8 @@ window.Quarto = {
 <p>The {checkmate} library has many other functions for checking other types of inputs.</p>
 <p>Note that there are many other ways of checking inputs, including R’s build in methods and other R packages. These include:</p>
 </section>
-<section id="base-r-match.arg" class="level3" data-number="4.6.2">
-<h3 data-number="4.6.2" class="anchored" data-anchor-id="base-r-match.arg"><span class="header-section-number">4.6.2</span> Base-R <code>match.arg()</code></h3>
+<section id="base-r-match.arg" class="level3" data-number="3.6.2">
+<h3 data-number="3.6.2" class="anchored" data-anchor-id="base-r-match.arg"><span class="header-section-number">3.6.2</span> Base-R <code>match.arg()</code></h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># in the local version of this .qmd file, you can run this code to see the error messages</span></span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1140,8 +1147,8 @@ window.Quarto = {
 <span id="cb49-28"><a href="#cb49-28" aria-hidden="true" tabindex="-1"></a><span class="fu">calculate_stat</span>(my_data, <span class="st">"mode"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="base-r-stop" class="level3" data-number="4.6.3">
-<h3 data-number="4.6.3" class="anchored" data-anchor-id="base-r-stop"><span class="header-section-number">4.6.3</span> Base-R <code>stop()</code></h3>
+<section id="base-r-stop" class="level3" data-number="3.6.3">
+<h3 data-number="3.6.3" class="anchored" data-anchor-id="base-r-stop"><span class="header-section-number">3.6.3</span> Base-R <code>stop()</code></h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># in the local version of this .qmd file, you can run this code to see the error messages</span></span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1163,8 +1170,8 @@ window.Quarto = {
 </div>
 <p>See also <code>stopifnot()</code>.</p>
 </section>
-<section id="assertthat" class="level3" data-number="4.6.4">
-<h3 data-number="4.6.4" class="anchored" data-anchor-id="assertthat"><span class="header-section-number">4.6.4</span> assertthat</h3>
+<section id="assertthat" class="level3" data-number="3.6.4">
+<h3 data-number="3.6.4" class="anchored" data-anchor-id="assertthat"><span class="header-section-number">3.6.4</span> assertthat</h3>
 <p>Another R library that is often used for checking inputs is {assertthat}, which focuses on readable error messages.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># in the local version of this .qmd file, you can run this code to see the error messages</span></span>
@@ -1195,19 +1202,19 @@ window.Quarto = {
 <span id="cb51-26"><a href="#cb51-26" aria-hidden="true" tabindex="-1"></a><span class="fu">rounded_mean</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="at">n_digits =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="do-as-we-say-not-as-we-do" class="level3" data-number="4.6.5">
-<h3 data-number="4.6.5" class="anchored" data-anchor-id="do-as-we-say-not-as-we-do"><span class="header-section-number">4.6.5</span> Do as we say, not as we do</h3>
+<section id="do-as-we-say-not-as-we-do" class="level3" data-number="3.6.5">
+<h3 data-number="3.6.5" class="anchored" data-anchor-id="do-as-we-say-not-as-we-do"><span class="header-section-number">3.6.5</span> Do as we say, not as we do</h3>
 <p>SPOILER: Throughout this book, to make the code as simple as possible, we almost universally ignore our own advice here and do not include input checks in the functions we write.</p>
 </section>
 </section>
-<section id="common-mistakes" class="level2" data-number="4.7">
-<h2 data-number="4.7" class="anchored" data-anchor-id="common-mistakes"><span class="header-section-number">4.7</span> Common mistakes</h2>
-<section id="failing-to-declare-your-function" class="level3" data-number="4.7.1">
-<h3 data-number="4.7.1" class="anchored" data-anchor-id="failing-to-declare-your-function"><span class="header-section-number">4.7.1</span> Failing to declare your function</h3>
+<section id="common-mistakes" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="common-mistakes"><span class="header-section-number">3.7</span> Common mistakes</h2>
+<section id="failing-to-declare-your-function" class="level3" data-number="3.7.1">
+<h3 data-number="3.7.1" class="anchored" data-anchor-id="failing-to-declare-your-function"><span class="header-section-number">3.7.1</span> Failing to declare your function</h3>
 <p>The function must be present in your environment to be usable. After you write your function, you must run the code that declares it before you can use it. If you can’t see your function in your environment tab under ‘Functions’, you need to run the code that contains the <code>function()</code> call and assigns it a name.</p>
 </section>
-<section id="code-that-runs-vs.-functions-correctly" class="level3" data-number="4.7.2">
-<h3 data-number="4.7.2" class="anchored" data-anchor-id="code-that-runs-vs.-functions-correctly"><span class="header-section-number">4.7.2</span> Code that runs vs.&nbsp;functions correctly</h3>
+<section id="code-that-runs-vs.-functions-correctly" class="level3" data-number="3.7.2">
+<h3 data-number="3.7.2" class="anchored" data-anchor-id="code-that-runs-vs.-functions-correctly"><span class="header-section-number">3.7.2</span> Code that runs vs.&nbsp;functions correctly</h3>
 <p>You must cautiously check that your function actually <em>works</em> as you expect, not just that the code runs. Give it lots of different input values that should and should not work, and check you get the correct outputs. We have often made the following mistake when writing functions, and you likely will too.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>absolute_sum <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b){</span>
@@ -1240,13 +1247,13 @@ window.Quarto = {
 </div>
 </section>
 </section>
-<section id="applied-example-the-false-positive-rate-of-ai-detection-tools" class="level2" data-number="4.8">
-<h2 data-number="4.8" class="anchored" data-anchor-id="applied-example-the-false-positive-rate-of-ai-detection-tools"><span class="header-section-number">4.8</span> Applied example: The false positive rate of AI detection tools</h2>
+<section id="applied-example-the-false-positive-rate-of-ai-detection-tools" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="applied-example-the-false-positive-rate-of-ai-detection-tools"><span class="header-section-number">3.8</span> Applied example: The false positive rate of AI detection tools</h2>
 <p>Imagine a test has has a false positive rate of 5%, like the standard alpha value for a p-value.</p>
 <p>If you apply this test many times to independent cases without applying familywise error corrections, what is the resulting false positive rate?</p>
 <p>Let’s put this in meaningful terms: Many professors and universities now run essays and assignments through AI detection tools. But students submit many essays and assignments throughout their degree. What is the probability that, assuming you never violate the AI policy, one of your assignments is falsely flagged as using AI in a way that wasn’t allowed?</p>
-<section id="math" class="level3" data-number="4.8.1">
-<h3 data-number="4.8.1" class="anchored" data-anchor-id="math"><span class="header-section-number">4.8.1</span> Math</h3>
+<section id="math" class="level3" data-number="3.8.1">
+<h3 data-number="3.8.1" class="anchored" data-anchor-id="math"><span class="header-section-number">3.8.1</span> Math</h3>
 <p>The familywise error rate (<span class="math inline">\(\alpha_{\text{total}}\)</span>) for independent tests is the probability of observing at least one false positive (<span class="math inline">\(P(V \geq 1)\)</span>), which can be reexpressed as the probability of not observing true positives (<span class="math inline">\(1 - P(V = 0)\)</span>). This is the product of the individual probabilities of false positives (<span class="math inline">\(1 - \prod_{i=1}^{n} (1 - \alpha_i)\)</span>), which simplifies to:</p>
 <p><span class="math display">\[
 \begin{align}
@@ -1258,8 +1265,8 @@ window.Quarto = {
 \]</span></p>
 <p>Horrible, disgusting math which most of you want to avoid. But the code to do it is quite simple.</p>
 </section>
-<section id="write-the-do-stuff" class="level3" data-number="4.8.2">
-<h3 data-number="4.8.2" class="anchored" data-anchor-id="write-the-do-stuff"><span class="header-section-number">4.8.2</span> Write the ‘do stuff’</h3>
+<section id="write-the-do-stuff" class="level3" data-number="3.8.2">
+<h3 data-number="3.8.2" class="anchored" data-anchor-id="write-the-do-stuff"><span class="header-section-number">3.8.2</span> Write the ‘do stuff’</h3>
 <p>This code implements the math assuming each individual test’s false positive rate is 5% and that 10 total tests are run. It calculates the aggregate false positive rate, i.e., the probability that at least one test will show a false positive, assuming the null hypothesis is true.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span>)<span class="sc">^</span><span class="dv">10</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1284,8 +1291,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="convert-hard-coded-values-to-variables" class="level3" data-number="4.8.3">
-<h3 data-number="4.8.3" class="anchored" data-anchor-id="convert-hard-coded-values-to-variables"><span class="header-section-number">4.8.3</span> Convert hard-coded values to variables</h3>
+<section id="convert-hard-coded-values-to-variables" class="level3" data-number="3.8.3">
+<h3 data-number="3.8.3" class="anchored" data-anchor-id="convert-hard-coded-values-to-variables"><span class="header-section-number">3.8.3</span> Convert hard-coded values to variables</h3>
 <p>What about other values of alpha and n? We could make them variables at the top of the chunk that are easier to change.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># variables</span></span>
@@ -1299,8 +1306,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="wrap-it-in-a-function" class="level3" data-number="4.8.4">
-<h3 data-number="4.8.4" class="anchored" data-anchor-id="wrap-it-in-a-function"><span class="header-section-number">4.8.4</span> Wrap it in a function</h3>
+<section id="wrap-it-in-a-function" class="level3" data-number="3.8.4">
+<h3 data-number="3.8.4" class="anchored" data-anchor-id="wrap-it-in-a-function"><span class="header-section-number">3.8.4</span> Wrap it in a function</h3>
 <p>Defining our own custom function involves putting the variables as arguments inside the <code>function()</code> call, and putting the code inside its <code>{ }</code>.</p>
 <p>We can then call the function using its name.</p>
 <div class="cell">
@@ -1838,12 +1845,12 @@ window.Quarto = {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../chapters/02_foundation_concepts.html" class="pagination-link" aria-label="Foundation concepts">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Foundation concepts</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Foundation concepts</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../chapters/04_data_generating_process_functions.html" class="pagination-link" aria-label="Data-generating process functions">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data-generating process functions</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data-generating process functions</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>29&nbsp; End of course assignment – Understanding statistics through Monte Carlo simulations</title>
+<title>28&nbsp; End of course assignment – Understanding statistics through Monte Carlo simulations</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -110,6 +110,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <style>
+  /* more breathing room before section headings.
+     scoped to main.content so the sidebar/TOC headings are left alone.
+     this <style> block is emitted after the bootstrap theme css, so these
+     win without needing !important. */
+  main.content h2 { margin-top: 3rem; }
+  main.content h3 { margin-top: 2rem; }
+  main.content h4 { margin-top: 1.5rem; }
   .kable-table table { width: 70%; margin: 0 auto; }
   .badge {
     display: inline-flex; align-items: center; gap: 0.3em;
@@ -298,7 +305,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/01_required_skills_exercises.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/end_of_course_assignment.html"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">End of course assignment</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/01_required_skills_exercises.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/end_of_course_assignment.html"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">End of course assignment</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -334,8 +341,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/00_lesson_plan.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Lesson plan</span></span></a>
+  <a href="../lesson_plan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson plan</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -350,61 +357,61 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/01_required_skills.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Required skills</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Required skills</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/02_foundation_concepts.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Foundation concepts</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Foundation concepts</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/03_writing_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Writing functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Writing functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/04_data_generating_process_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data-generating process functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data-generating process functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/05_pseudo_random_number_generators.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Pseudo-random number generators</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Pseudo-random number generators</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/06_analysis_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Analysis functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Analysis functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/07_creating_simulation_experiments.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Creating simulation experiments</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Creating simulation experiments</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/08_mapping.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Mapping over functions <span class="badge badge-draft2">✎ Rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Mapping over functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/09_summarizing_results.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summarizing results <span class="badge badge-draft1">✎ TODO</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Summarizing results <span class="badge badge-draft1">✎ TODO</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/10_planning_and_reporting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Planning and reporting <span class="badge badge-draft1">✎ TODO</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Planning and reporting <span class="badge badge-draft1">✎ TODO</span></span></span></a>
   </div>
 </li>
       </ul>
@@ -421,43 +428,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/11_everything_is_regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Everything is regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Everything is regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/12_estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/13_hypothesis_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/14_violating_assumptions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Assessing the impact of violating the assumption of normality</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/15_testing_assumptions_and_conditional_tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of non-parameteric tests</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The statistical power of assumptions tests and the conditional use of non-parameteric tests</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/16_p_hacking.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">p-hacking via different forms of selecting reporting</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/17_causality_and_selection_effects.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Weird causality and selection effects</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Weird causality and selection effects</span></span></a>
   </div>
 </li>
       </ul>
@@ -474,67 +481,67 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/01_required_skills_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises for ‘Required skills’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Exercises for ‘Required skills’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/03_writing_functions_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises for ‘Writing functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises for ‘Writing functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/04_data_generating_process_functions_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises for ‘Data Generating Process functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises for ‘Data Generating Process functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/06_analysis_functions_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises for ‘Analysis functions’ chapter <span class="badge badge-draft3">✎ Polishing</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises for ‘Analysis functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/07_creating_simulation_experiments_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises for ‘Creating simulation experiments’ chapter <span class="badge badge-draft1">✎ Very rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises for ‘Creating simulation experiments’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/08_mapping_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Exercises for ‘Mapping over functions’ chapter <span class="badge badge-draft2">✎ Rough draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises for ‘Mapping over functions’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/11_everything_is_regression_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Exercises for ‘Everything is regression’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Exercises for ‘Everything is regression’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/12_estimation_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Exercises for ‘Estimation’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Exercises for ‘Estimation’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/13_hypothesis_testing_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Exercises for ‘Hypothesis Testing’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Exercises for ‘Hypothesis Testing’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/16_p_hacking_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Exercises for ‘p-hacking’ chapter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Exercises for ‘p-hacking’ chapter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/end_of_course_assignment.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">End of course assignment</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">End of course assignment</span></span></a>
   </div>
 </li>
       </ul>
@@ -551,31 +558,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/ADEMP_preregistration_template.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">ADEMP simulation preregistration template</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">ADEMP simulation preregistration template</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/simulation_template_hypothesis_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Simulation template: hypothesis testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Simulation template: hypothesis testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/simulation_template_estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Simulation template: estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Simulation template: estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../templates/simulation_template_hpc.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Minimal HPC simulation template (Everything)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Minimal HPC simulation template (Everything)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
+ <span class="menu-text">License</span></a>
   </div>
 </li>
       </ul>
@@ -592,19 +599,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../classics/crowded_room_problem.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">The Crowded Room problem: Constraints on correlations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">The Crowded Room problem: Constraints on correlations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../classics/cohens_d_biased.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Simulation template: Cohen’s d is a biased estimator</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Simulation template: Cohen’s d is a biased estimator</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
+ <span class="menu-text">License</span></a>
   </div>
 </li>
       </ul>
@@ -619,23 +626,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#requirements" id="toc-requirements" class="nav-link active" data-scroll-target="#requirements"><span class="header-section-number">29.1</span> Requirements</a>
+  <li><a href="#requirements" id="toc-requirements" class="nav-link active" data-scroll-target="#requirements"><span class="header-section-number">28.1</span> Requirements</a>
   <ul class="collapse">
-  <li><a href="#assignment-submission-format" id="toc-assignment-submission-format" class="nav-link" data-scroll-target="#assignment-submission-format"><span class="header-section-number">29.1.1</span> Assignment submission format</a></li>
+  <li><a href="#assignment-submission-format" id="toc-assignment-submission-format" class="nav-link" data-scroll-target="#assignment-submission-format"><span class="header-section-number">28.1.1</span> Assignment submission format</a></li>
   </ul></li>
-  <li><a href="#your-code-should-be-open" id="toc-your-code-should-be-open" class="nav-link" data-scroll-target="#your-code-should-be-open"><span class="header-section-number">29.2</span> Your code should be <em>open</em></a>
+  <li><a href="#your-code-should-be-open" id="toc-your-code-should-be-open" class="nav-link" data-scroll-target="#your-code-should-be-open"><span class="header-section-number">28.2</span> Your code should be <em>open</em></a>
   <ul class="collapse">
-  <li><a href="#your-code-should-be-reproducible" id="toc-your-code-should-be-reproducible" class="nav-link" data-scroll-target="#your-code-should-be-reproducible"><span class="header-section-number">29.2.1</span> Your code should be <em>reproducible</em></a></li>
-  <li><a href="#your-code-should-be-cleanly-written-and-intelligible-to-others" id="toc-your-code-should-be-cleanly-written-and-intelligible-to-others" class="nav-link" data-scroll-target="#your-code-should-be-cleanly-written-and-intelligible-to-others"><span class="header-section-number">29.2.2</span> Your code should be <em>cleanly written and intelligible to others</em></a></li>
-  <li><a href="#assignment-components" id="toc-assignment-components" class="nav-link" data-scroll-target="#assignment-components"><span class="header-section-number">29.2.3</span> Assignment components</a></li>
-  <li><a href="#use-of-ai-tools" id="toc-use-of-ai-tools" class="nav-link" data-scroll-target="#use-of-ai-tools"><span class="header-section-number">29.2.4</span> Use of AI tools</a></li>
-  <li><a href="#use-of-human-assistance" id="toc-use-of-human-assistance" class="nav-link" data-scroll-target="#use-of-human-assistance"><span class="header-section-number">29.2.5</span> Use of human assistance</a></li>
-  <li><a href="#expectation-of-meaningful-engagement" id="toc-expectation-of-meaningful-engagement" class="nav-link" data-scroll-target="#expectation-of-meaningful-engagement"><span class="header-section-number">29.2.6</span> Expectation of meaningful engagement</a></li>
+  <li><a href="#your-code-should-be-reproducible" id="toc-your-code-should-be-reproducible" class="nav-link" data-scroll-target="#your-code-should-be-reproducible"><span class="header-section-number">28.2.1</span> Your code should be <em>reproducible</em></a></li>
+  <li><a href="#your-code-should-be-cleanly-written-and-intelligible-to-others" id="toc-your-code-should-be-cleanly-written-and-intelligible-to-others" class="nav-link" data-scroll-target="#your-code-should-be-cleanly-written-and-intelligible-to-others"><span class="header-section-number">28.2.2</span> Your code should be <em>cleanly written and intelligible to others</em></a></li>
+  <li><a href="#assignment-components" id="toc-assignment-components" class="nav-link" data-scroll-target="#assignment-components"><span class="header-section-number">28.2.3</span> Assignment components</a></li>
+  <li><a href="#use-of-ai-tools" id="toc-use-of-ai-tools" class="nav-link" data-scroll-target="#use-of-ai-tools"><span class="header-section-number">28.2.4</span> Use of AI tools</a></li>
+  <li><a href="#use-of-human-assistance" id="toc-use-of-human-assistance" class="nav-link" data-scroll-target="#use-of-human-assistance"><span class="header-section-number">28.2.5</span> Use of human assistance</a></li>
+  <li><a href="#expectation-of-meaningful-engagement" id="toc-expectation-of-meaningful-engagement" class="nav-link" data-scroll-target="#expectation-of-meaningful-engagement"><span class="header-section-number">28.2.6</span> Expectation of meaningful engagement</a></li>
   </ul></li>
-  <li><a href="#research-question" id="toc-research-question" class="nav-link" data-scroll-target="#research-question"><span class="header-section-number">29.3</span> Research question</a>
+  <li><a href="#research-question" id="toc-research-question" class="nav-link" data-scroll-target="#research-question"><span class="header-section-number">28.3</span> Research question</a>
   <ul class="collapse">
-  <li><a href="#ideas-for-topics" id="toc-ideas-for-topics" class="nav-link" data-scroll-target="#ideas-for-topics"><span class="header-section-number">29.3.1</span> Ideas for topics</a></li>
-  <li><a href="#various-published-simulation-studies-and-statistical-principles-that-could-be-simulated" id="toc-various-published-simulation-studies-and-statistical-principles-that-could-be-simulated" class="nav-link" data-scroll-target="#various-published-simulation-studies-and-statistical-principles-that-could-be-simulated"><span class="header-section-number">29.3.2</span> Various published simulation studies and statistical principles that could be simulated</a></li>
+  <li><a href="#ideas-for-topics" id="toc-ideas-for-topics" class="nav-link" data-scroll-target="#ideas-for-topics"><span class="header-section-number">28.3.1</span> Ideas for topics</a></li>
+  <li><a href="#various-published-simulation-studies-and-statistical-principles-that-could-be-simulated" id="toc-various-published-simulation-studies-and-statistical-principles-that-could-be-simulated" class="nav-link" data-scroll-target="#various-published-simulation-studies-and-statistical-principles-that-could-be-simulated"><span class="header-section-number">28.3.2</span> Various published simulation studies and statistical principles that could be simulated</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -644,9 +651,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/01_required_skills_exercises.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/end_of_course_assignment.html"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">End of course assignment</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/01_required_skills_exercises.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/end_of_course_assignment.html"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">End of course assignment</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">End of course assignment</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">End of course assignment</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -663,29 +670,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="requirements" class="level2" data-number="29.1">
-<h2 data-number="29.1" class="anchored" data-anchor-id="requirements"><span class="header-section-number">29.1</span> Requirements</h2>
+<section id="requirements" class="level2" data-number="28.1">
+<h2 data-number="28.1" class="anchored" data-anchor-id="requirements"><span class="header-section-number">28.1</span> Requirements</h2>
 <p>This course is evaluated via an at-home assignment. For the assignment, you will write and report your own simulation to answer a research question of your choice.</p>
 <p>Assignments should adhere to the principles of conducting and communicating a high quality simulation study laid out in Siepe et al.&nbsp;(2024) “Simulation Studies for Methodological Research in Psychology: A Standardized Template for Planning, Preregistration, and Reporting”, although preregistration itself is not a requirement. See the appendices on templates for simulations for examples.</p>
-<section id="assignment-submission-format" class="level3" data-number="29.1.1">
-<h3 data-number="29.1.1" class="anchored" data-anchor-id="assignment-submission-format"><span class="header-section-number">29.1.1</span> Assignment submission format</h3>
+<section id="assignment-submission-format" class="level3" data-number="28.1.1">
+<h3 data-number="28.1.1" class="anchored" data-anchor-id="assignment-submission-format"><span class="header-section-number">28.1.1</span> Assignment submission format</h3>
 <p>You must submit your assignment as a <em>single .qmd</em> file (not the .html files it generates) file via Ilias. The absence of such a license will be assumed to represent an omission on your behalf, and it will be added for you. If you wish specifically not to attach an open source license to your code, you must justify why - bearing in mind that you have learned about simulations in this course from an open source textbook and its associated open source code.</p>
 <p>In class, we agreed that the deadline for the 2026 class is August 10th at 23:59. This gives me time to mark it and have your grades returned before the start of the next semester. Those of you who need grades returned earlier must contact me ASAP and specify that date you need your grade entered by, and submit no less than 10 days before this.</p>
 </section>
 </section>
-<section id="your-code-should-be-open" class="level2" data-number="29.2">
-<h2 data-number="29.2" class="anchored" data-anchor-id="your-code-should-be-open"><span class="header-section-number">29.2</span> Your code should be <em>open</em></h2>
+<section id="your-code-should-be-open" class="level2" data-number="28.2">
+<h2 data-number="28.2" class="anchored" data-anchor-id="your-code-should-be-open"><span class="header-section-number">28.2</span> Your code should be <em>open</em></h2>
 <p>You should specify in your assignment that it is released under a CC-0 1.0 licence (public domain, anyone can reuse without attribution) or CC-BY 4.0 licence (others are free to reuse with attribution), so that it can be distributed to future students in this and similar courses. Simply include a heading at the bottom stating “License: CC-0 1.0” or “Licence: CC-BY 4.0).</p>
-<section id="your-code-should-be-reproducible" class="level3" data-number="29.2.1">
-<h3 data-number="29.2.1" class="anchored" data-anchor-id="your-code-should-be-reproducible"><span class="header-section-number">29.2.1</span> Your code should be <em>reproducible</em></h3>
+<section id="your-code-should-be-reproducible" class="level3" data-number="28.2.1">
+<h3 data-number="28.2.1" class="anchored" data-anchor-id="your-code-should-be-reproducible"><span class="header-section-number">28.2.1</span> Your code should be <em>reproducible</em></h3>
 <p>We are doing reproducible science here. The first thing I will do is open your file and click render, and it should produce a .html file for me to view your report. If it throws an error for me, its not reproducible, and you’ll lose marks. Submitting non-reproducible results is the easiest way to lose marks. Test your .qmd file on a friend’s computer to avoid this.</p>
 </section>
-<section id="your-code-should-be-cleanly-written-and-intelligible-to-others" class="level3" data-number="29.2.2">
-<h3 data-number="29.2.2" class="anchored" data-anchor-id="your-code-should-be-cleanly-written-and-intelligible-to-others"><span class="header-section-number">29.2.2</span> Your code should be <em>cleanly written and intelligible to others</em></h3>
+<section id="your-code-should-be-cleanly-written-and-intelligible-to-others" class="level3" data-number="28.2.2">
+<h3 data-number="28.2.2" class="anchored" data-anchor-id="your-code-should-be-cleanly-written-and-intelligible-to-others"><span class="header-section-number">28.2.2</span> Your code should be <em>cleanly written and intelligible to others</em></h3>
 <p>The easier it is for me to read and understand your code - including your comments - the better a grade you will receive. - I recommend you follow the <a href="https://style.tidyverse.org/index.html">tidyverse Style Guide</a>, but the main thing is to be consistent. - Think about how you use white-space and indenting in particular. Remember that you can auto-indent your code by selecting all the code in a given file (ctrl-A / cmd-A) and the auto indenting it with ctrl-I / cmd-I.</p>
 </section>
-<section id="assignment-components" class="level3" data-number="29.2.3">
-<h3 data-number="29.2.3" class="anchored" data-anchor-id="assignment-components"><span class="header-section-number">29.2.3</span> Assignment components</h3>
+<section id="assignment-components" class="level3" data-number="28.2.3">
+<h3 data-number="28.2.3" class="anchored" data-anchor-id="assignment-components"><span class="header-section-number">28.2.3</span> Assignment components</h3>
 <p>The workflow of your simulation code should match that employed in class, unless specific features of your simulation require a modified workflow for structural reasons:</p>
 <ul>
 <li>ADEMP specification.</li>
@@ -705,25 +712,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>A written summary of the results and conclusions, and their generalisability and limitations</li>
 </ul>
 </section>
-<section id="use-of-ai-tools" class="level3" data-number="29.2.4">
-<h3 data-number="29.2.4" class="anchored" data-anchor-id="use-of-ai-tools"><span class="header-section-number">29.2.4</span> Use of AI tools</h3>
+<section id="use-of-ai-tools" class="level3" data-number="28.2.4">
+<h3 data-number="28.2.4" class="anchored" data-anchor-id="use-of-ai-tools"><span class="header-section-number">28.2.4</span> Use of AI tools</h3>
 <p>You may use AI tools for this assignment, e.g., Claude or others. You may use this for both drafting code or bug fixing code, and for drafting and editing your written descriptions. You may also reuse or remix any code provided to you in this seminar’s lessons and assignments without attribution. However, you are ultimately responsible for your final assignment, whether it runs, contains errors, omissions, or inaccuracies, and whether the written sections and the code are aligned. You are also responsible for potentially undermining your own learning and comprehension. As a reminder, at the start of the course I reserved the right to ask you to explain your code to me as part of the course assignment, where your answers can influence your grade. This may cause delays to your grade being awarded.</p>
 </section>
-<section id="use-of-human-assistance" class="level3" data-number="29.2.5">
-<h3 data-number="29.2.5" class="anchored" data-anchor-id="use-of-human-assistance"><span class="header-section-number">29.2.5</span> Use of human assistance</h3>
+<section id="use-of-human-assistance" class="level3" data-number="28.2.5">
+<h3 data-number="28.2.5" class="anchored" data-anchor-id="use-of-human-assistance"><span class="header-section-number">28.2.5</span> Use of human assistance</h3>
 <p>Science is highly collaborative. You may also use humans for input and feedback on your report: you can solicit feedback from classmates, friends, and me (e.g., in class or on Slack to a more limited extent). Your are ultimately responsible for your report, and your final assignment, and your assignment must be your work. But part of learning to code and to do scientific collaboration is to learn how to pool resources and expertise. This is particularly the case for the selection of your research question and the scope of your simulations, where input from others (especially me) is useful.</p>
 </section>
-<section id="expectation-of-meaningful-engagement" class="level3" data-number="29.2.6">
-<h3 data-number="29.2.6" class="anchored" data-anchor-id="expectation-of-meaningful-engagement"><span class="header-section-number">29.2.6</span> Expectation of meaningful engagement</h3>
+<section id="expectation-of-meaningful-engagement" class="level3" data-number="28.2.6">
+<h3 data-number="28.2.6" class="anchored" data-anchor-id="expectation-of-meaningful-engagement"><span class="header-section-number">28.2.6</span> Expectation of meaningful engagement</h3>
 <p>The above have an important implication: because you have lots of opportunity for input from both AI and other humans, I expect that if you are stuck you will make use of these plentiful resources. Part of the assignment here is to engage in problem solving in order to produce the required result. Incomplete assignments or ones containing incomplete, severely broken, or spaghetti code may lose substantial marks. Equally, apparently AI generated code or text may require that you are asked to explain your code or generate other examples in an in-person examination.</p>
 </section>
 </section>
-<section id="research-question" class="level2" data-number="29.3">
-<h2 data-number="29.3" class="anchored" data-anchor-id="research-question"><span class="header-section-number">29.3</span> Research question</h2>
+<section id="research-question" class="level2" data-number="28.3">
+<h2 data-number="28.3" class="anchored" data-anchor-id="research-question"><span class="header-section-number">28.3</span> Research question</h2>
 <p>The research question you answer in your simulation must substantively go beyond the ones we constructed in class. To get a good grade, your simulation does not have to be publication worthy, but it should choose a meaningful question and answer it. You can and should ask for feedback from me and others regarding the choice of research question (including in public in the slack channel so that others can learn). As with all forms of simulations, you should start smaller and less ambitious and build it up.</p>
 <p>There is no trick question here. If completing the assignment feels impossibly difficult, come and talk to me and we’ll find a way to make it more manageable. Equally, I am looking for meaningful engagement from you here. To satisfy the ECTS requirements of this course, this assignment should take you 10s of hours even if you’re a good coder.</p>
-<section id="ideas-for-topics" class="level3" data-number="29.3.1">
-<h3 data-number="29.3.1" class="anchored" data-anchor-id="ideas-for-topics"><span class="header-section-number">29.3.1</span> Ideas for topics</h3>
+<section id="ideas-for-topics" class="level3" data-number="28.3.1">
+<h3 data-number="28.3.1" class="anchored" data-anchor-id="ideas-for-topics"><span class="header-section-number">28.3.1</span> Ideas for topics</h3>
 <ul>
 <li>Performance of a statistical method you use in your masters thesis</li>
 <li>Violation of assumption of other types of tests and data generating models</li>
@@ -753,8 +760,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Replicate (part of) another published simulation (see below).</li>
 </ul>
 </section>
-<section id="various-published-simulation-studies-and-statistical-principles-that-could-be-simulated" class="level3" data-number="29.3.2">
-<h3 data-number="29.3.2" class="anchored" data-anchor-id="various-published-simulation-studies-and-statistical-principles-that-could-be-simulated"><span class="header-section-number">29.3.2</span> Various published simulation studies and statistical principles that could be simulated</h3>
+<section id="various-published-simulation-studies-and-statistical-principles-that-could-be-simulated" class="level3" data-number="28.3.2">
+<h3 data-number="28.3.2" class="anchored" data-anchor-id="various-published-simulation-studies-and-statistical-principles-that-could-be-simulated"><span class="header-section-number">28.3.2</span> Various published simulation studies and statistical principles that could be simulated</h3>
 <p>Altman, D. G., &amp; Bland, J. M. (1995). Statistics notes: Absence of evidence is not evidence of absence. BMJ, 311(7003), 485. https://doi.org/10.1136/bmj.311.7003.485</p>
 <p>Baguley, T. (2009). Standardized or simple effect size: What should be reported? British Journal of Psychology, 100(Pt 3), 603–617. https://doi.org/10.1348/000712608X377117</p>
 <p>Bakker, M., &amp; Wicherts, J. M. (2014). Outlier Removal and the Relation with Reporting Errors and Quality of Psychological Research. PLOS ONE, 9(7), e103360. https://doi.org/10.1371/journal.pone.0103360</p>
@@ -1273,12 +1280,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../exercises/16_p_hacking_exercises.html" class="pagination-link" aria-label="Exercises for 'p-hacking' chapter">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Exercises for ‘p-hacking’ chapter</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Exercises for ‘p-hacking’ chapter</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../templates/ADEMP_preregistration_template.html" class="pagination-link" aria-label="ADEMP simulation preregistration template">
-        <span class="nav-page-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">ADEMP simulation preregistration template</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">ADEMP simulation preregistration template</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
