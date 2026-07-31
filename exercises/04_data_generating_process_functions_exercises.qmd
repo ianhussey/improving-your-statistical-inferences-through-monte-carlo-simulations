@@ -1,4 +1,4 @@
-# Exercises for 'Data Generating Process functions' chapter <span class="badge badge-draft3">✎ Polishing</span>
+# Exercises for 'Data Generating Process functions' chapter 
 
 ```{r}
 #| include: false

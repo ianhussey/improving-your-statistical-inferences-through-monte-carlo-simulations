@@ -1,10 +1,10 @@
-# Exercises for 'Creating simulation experiments' chapter <span class="badge badge-draft1">✎ Very rough draft</span>
+# Exercises for 'Creating simulation experiments' chapter 
 
-## TO-DO: 
-### Make explicit not to write functions 
-### How to make an R chunk; add the chunks into the exercises
-### Make exercise 3 wording clearer 
-### Make variables named 
+<!-- ## TO-DO:  -->
+<!-- ### Make explicit not to write functions  -->
+<!-- ### How to make an R chunk; add the chunks into the exercises -->
+<!-- ### Make exercise 3 wording clearer  -->
+<!-- ### Make variables named  -->
 
 ```{r}
 #| include: false
@@ -15,6 +15,7 @@ if(file.exists("../_setup.R")){source("../_setup.R")}
 ## Exercises
 
 ```{r}
+#| include: false
 # dependencies
 library(dplyr)
 library(tidyr)

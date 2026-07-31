@@ -10,7 +10,7 @@ execute:
   cache: true
 ---
 
-# Mapping over functions <span class="badge badge-draft2">✎ Rough draft</span>
+# Mapping over functions 
 
 ```{r}
 #| include: false

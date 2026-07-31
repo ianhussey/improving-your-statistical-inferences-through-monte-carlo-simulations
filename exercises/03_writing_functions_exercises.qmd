@@ -1,4 +1,4 @@
-# Exercises for 'Writing functions' chapter <span class="badge badge-draft3">✎ Polishing</span>
+# Exercises for 'Writing functions' chapter 
 
 ```{r}
 #| include: false

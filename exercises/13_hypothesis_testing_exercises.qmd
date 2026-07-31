@@ -7,6 +7,7 @@ if(file.exists("../_setup.R")){source("../_setup.R")}
 ```
 
 ```{r}
+#| include: false
 # dependencies
 library(tidyr)
 library(dplyr)

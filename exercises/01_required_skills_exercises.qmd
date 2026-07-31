@@ -1,4 +1,4 @@
-# Exercises for 'Required skills' chapter <span class="badge badge-draft3">✎ Polishing</span>
+# Exercises for 'Required skills' chapter 
 
 ```{r}
 #| include: false

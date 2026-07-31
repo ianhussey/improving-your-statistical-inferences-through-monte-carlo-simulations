@@ -1,4 +1,4 @@
-# Exercises for 'Mapping over functions' chapter <span class="badge badge-draft2">✎ Rough draft</span>
+# Exercises for 'Mapping over functions' chapter 
 
 ```{r}
 #| include: false
