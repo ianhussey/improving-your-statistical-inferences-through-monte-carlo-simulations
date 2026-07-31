@@ -1,3 +1,15 @@
+---
+# cache this chapter's results at the file level. the chunks below deliberately use
+# simple, un-cached map()/pmap() calls to teach the mapping workflow, so caching is
+# switched on here rather than complicating the example code. knitr stores each
+# chunk's results in 08_mapping_cache/ and re-uses them until that chunk's code
+# changes. note that the future_pmap() simulation near the end of the chapter also
+# caches its results to results/simulation_mapping.rds; to force that one to re-run
+# you need to delete both that .rds and the chunk's entry in 08_mapping_cache/.
+execute:
+  cache: true
+---
+
 # Mapping over functions <span class="badge badge-draft2">✎ Rough draft</span>
 
 ```{r}
