@@ -9,7 +9,7 @@ if(file.exists("../_setup.R")){source("../_setup.R")}
 <!-- TODO: write a few lines on why we're writing wrapper functions; in the boook talk about wrapping functions eg rnorm_multi(). -->
 
 
-These exercises accompany the [Data Generating Process functions chapter](../chapters/4_data_generating_process_functions.qmd).
+These exercises accompany the [Data Generating Process functions chapter](../chapters/04_data_generating_process_functions.qmd).
 
 You can complete these exercises in your local version of the .qmd file. Either download a copy of the whole book from github (see introduction), or download this .qmd using the download button on the top right of the page.
 

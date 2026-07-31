@@ -440,5 +440,5 @@ In the next chapter, we will learn how to *run* simulations across these paramet
 
 ::: {.callout-tip title = "Practice writing analysis functions"}
 Ready to practice? 
-Download and complete the [exercises for this chapter](../exercises/7_creating_simulation_experiments_exercises.qmd).
+Download and complete the [exercises for this chapter](../exercises/07_creating_simulation_experiments_exercises.qmd).
 :::

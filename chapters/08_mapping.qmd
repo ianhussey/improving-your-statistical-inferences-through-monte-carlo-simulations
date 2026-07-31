@@ -697,5 +697,5 @@ As a take-home message, remember: `pmap()` will be our go-to function for the re
 
 ::: {.callout-tip title = "Practice writing analysis functions"}
 Ready to practice? 
-Download and complete the [exercises for this chapter](../exercises/8_mapping_exercises.qmd).
+Download and complete the [exercises for this chapter](../exercises/08_mapping_exercises.qmd).
 :::

@@ -6,7 +6,7 @@
 if(file.exists("../_setup.R")){source("../_setup.R")}
 ```
 
-These exercises accompany the [analysis functions chapter](../chapters/6_analysis_functions.qmd).
+These exercises accompany the [analysis functions chapter](../chapters/06_analysis_functions.qmd).
 
 You can complete these exercises in your local version of the .qmd file. Either download a copy of the whole book from github (see introduction), or download this .qmd using the download button on the top right of the page.
 

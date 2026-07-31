@@ -240,7 +240,7 @@ We often want our analysis function to take arguments other than just the data t
 - How would you do this?
 - How would you specify defaults?
 
-Look back to the [chapter on Writing Functions](../exercises/3_writing_functions.qmd) to refresh your memory. 
+Look back to the [chapter on Writing Functions](03_writing_functions.qmd) to refresh your memory. 
 
 ### Interpolating column names via the curly-curly operator (`{{ }}`) 
 
@@ -322,6 +322,6 @@ analyse_data(data = dat_depression_rct,
 
 ::: {.callout-tip title = "Practice writing analysis functions"}
 Ready to practice? 
-Download and complete the [exercises for this chapter](../exercises/6_analysis_functions_exercises.qmd).
+Download and complete the [exercises for this chapter](../exercises/06_analysis_functions_exercises.qmd).
 :::
 

@@ -24,5 +24,5 @@ Tidy Data is a set of technical ideas about how data should be structured define
 
 ::: {.callout-tip title = "Test your skills"}
 Ready to test your data wrangling skills? 
-Download and complete the [exercises for this chapter](../exercises/1_required_skills_exercises.qmd).
+Download and complete the [exercises for this chapter](../exercises/01_required_skills_exercises.qmd).
 :::

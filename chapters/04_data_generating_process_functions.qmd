@@ -695,7 +695,7 @@ Note that:
 - The correlation matrix must be symmetrical; its top and bottom triangle must be mirror images of one another
 - The diagonal values must be 1
 
-Not every set of correlations is mathematically possible. If `rnorm_multi()` tells you the correlation matrix is "not positive definite", it usually means your correlations are too extreme or inconsistent with each other. A simple fix is to reduce the magnitude of some of the correlations (move them closer to 0), especially any negative ones. See the appendix on the [Crowded Room problem](../appendices/crowded_room_problem.qmd) in correlations.
+Not every set of correlations is mathematically possible. If `rnorm_multi()` tells you the correlation matrix is "not positive definite", it usually means your correlations are too extreme or inconsistent with each other. A simple fix is to reduce the magnitude of some of the correlations (move them closer to 0), especially any negative ones. See the appendix on the [Crowded Room problem](../classics/crowded_room_problem.qmd) in correlations.
 :::
 
 We can check parameter recovery again:
@@ -788,5 +788,5 @@ When you write your own `generate_data()` functions, aim for these defaults:
 
 ::: {.callout-tip title = "Practice writing DGP functions"}
 Ready to practice? 
-Download and complete the [exercises for this chapter](../exercises/4_data_generating_process_functions_exercises.qmd).
+Download and complete the [exercises for this chapter](../exercises/04_data_generating_process_functions_exercises.qmd).
 :::

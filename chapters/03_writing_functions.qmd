@@ -667,5 +667,5 @@ This gets even worse when we consider that there are many students, each of whic
 
 ::: {.callout-tip title = "Practice writing functions"}
 Ready to practice? 
-Download and complete the [exercises for this chapter](../exercises/3_writing_functions_exercises.qmd).
+Download and complete the [exercises for this chapter](../exercises/03_writing_functions_exercises.qmd).
 :::
