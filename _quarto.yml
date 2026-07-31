@@ -17,7 +17,7 @@ book:
   date: today
   chapters:
     - index.qmd
-    - chapters/00_lesson_plan.qmd
+    - lesson_plan.qmd
 
     - part: "Part I: Learning to Simulate"
       chapters: 

@@ -1,0 +1,143 @@
+# Lesson plan {.unnumbered}
+
+If delivered as a semester-long course, we suggest the following lesson plan.
+
+### Week 1
+
+In class
+
+- Slides in [keynote](https://github.com/ianhussey/improving-your-statistical-inferences-through-monte-carlo-simulations/raw/main/slides/week1/simulation_week_1.key), [powerpoint](https://github.com/ianhussey/improving-your-statistical-inferences-through-monte-carlo-simulations/raw/main/slides/week1/simulation_week_1.pptx), or [pdf](https://github.com/ianhussey/improving-your-statistical-inferences-through-monte-carlo-simulations/raw/main/slides/week1/simulation_week_1.pdf)
+
+After class
+
+- [Chapter 1: Required skills](chapters/01_required_skills.qmd) and its [exercises](exercises/01_required_skills_exercises.qmd)
+- [Chapter 2: Foundation concepts](chapters/02_foundation_concepts.qmd)
+
+### Week 2
+
+In class
+
+- [Chapter 3: Writing functions](chapters/03_writing_functions.qmd)
+
+After class
+
+- [Chapter 3's exercises](exercises/03_writing_functions_exercises.qmd)
+
+### Week 3
+
+In class
+
+- [Slides: Is this normally distributed?](https://github.com/ianhussey/improving-your-statistical-inferences-through-monte-carlo-simulations/blob/main/slides/week3/is_this_normally_distributed.html)
+- [Chapter 4: Data Generating Process functions](chapters/04_data_generating_process_functions.qmd)
+
+After class
+
+- [Chapter 4's exercises](exercises/04_data_generating_process_functions_exercises.qmd)
+- [Chapter 5: Pseudo-random number generators](chapters/05_pseudo_random_number_generators.qmd)
+
+### Week 4
+
+In class
+
+- [Chapter 6: Analysis functions](chapters/06_analysis_functions.qmd)
+- [Chapter 11: Everything is regression](chapters/11_everything_is_regression.qmd)
+
+After class
+
+- [Chapter 6's exercises](exercises/06_analysis_functions_exercises.qmd)
+
+### Week 5
+
+In class
+
+- [Chapter 7: Creating simulation experiments](chapters/07_creating_simulation_experiments.qmd)
+
+After class
+
+- [Chapter 7's exercises](exercises/07_creating_simulation_experiments_exercises.qmd)
+
+### Week 6
+
+In class
+
+- [Chapter 8: Mapping functions](chapters/08_mapping.qmd)
+
+After class
+
+- [Chapter 8's exercises](exercises/08_mapping_exercises.qmd)
+
+### Week 7
+
+In class
+
+- More discussion of [Chapter 8: Mapping functions](chapters/08_mapping.qmd) specifically `map()` and `unnest()`
+- [Chapter 12: Estimation](chapters/12_estimation.qmd)
+
+After class
+
+- [Chapter 12's exercises](exercises/12_estimation_exercises.qmd)
+
+### Week 8
+
+In class
+
+- [Chapter 13: Hypothesis Testing](chapters/13_hypothesis_testing.qmd).
+
+After class
+
+- Read Lakens et al. (2018) Equivalence Testing for Psychological Research: A Tutorial. *Advances in Methods and Practices in Psychological Science*. doi: [10.1177/2515245918770963](https://doi.org/10.1177/2515245918770963).
+- [Chapter 13's exercises](exercises/13_hypothesis_testing_exercises.qmd)
+
+### Week 9
+
+In class
+
+- [Chapter 14: Violating assumptions](chapters/14_violating_assumptions.qmd).
+
+After class
+
+- [TODO exercises needed]
+
+### Week 10
+
+In class
+
+- [Chapter 15: Testing assumptions and conditional tests](chapters/15_testing_assumptions_and_conditional_tests.qmd).
+
+After class
+
+- [TODO exercises in chapter - need to be moved to separate exercises appendix]
+
+### Week 11
+
+In class
+
+- [Chapter 16: *p*-hacking](chapters/16_p_hacking.qmd).
+
+After class
+
+- [TODO exercises are in chapter - need to be moved to separate exercises appendix]
+
+### Week 12
+
+In class
+
+- [Chapter 16: Causality and selection effects](chapters/17_causality_and_selection_effects.qmd).
+
+After class
+
+- [TODO exercises needed]
+
+### Week 13
+
+In class
+
+- Discuss project ideas
+- Read Siepe et al. (2024) Simulation studies for methodological research in psychology: A standardized template for planning, preregistration, and reporting. *Psychological Methods*. doi: [10.1037/met0000695](https://doi.org/10.1037/met0000695).
+
+### Week 14
+
+In class
+
+- Discuss project ideas
+

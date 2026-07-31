@@ -1,9 +1,15 @@
-# License and citation
+# License {.unnumbered}
 
-&copy; Ian Hussey (2025)
+&copy; Ian Hussey (2025-2026)
 
 Text and figures are licensed under a [Creative Commons Attribution 4.0 (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) license.
 
 Code is licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
 You are free to copy, share, adapt, and reuse the contents of this book — text, figures, and code — for any purpose, including commercial use, provided you cite it.
+
+## Suggested citation
+
+If you use this book, please cite it as:
+
+> Hussey, I. & Cummins, J. (2026). *Understanding Statistics through Monte Carlo simulations*. [simulations.tidyver.se](https://simulations.tidyver.se) doi: [10.5281/zenodo.19420477](https://doi.org/10.5281/zenodo.19420477)
