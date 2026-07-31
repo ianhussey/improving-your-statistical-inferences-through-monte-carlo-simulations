@@ -3,9 +3,15 @@
 *.RData
 *.Ruserdata
 *.DS_Store
+*.rds
 
 /.quarto/
 old/*
 _book/*
+
+# quarto per-document support files (figures, libs) and knitr chunk caches.
+# the trailing slash restricts these to directories.
+*_files/
+*_cache/
 
 **/*.quarto_ipynb
