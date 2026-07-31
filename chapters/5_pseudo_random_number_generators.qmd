@@ -1,10 +1,12 @@
-# Pseudo-random number generators <span class="badge badge-draft1">✎ Very rough draft</span>
+# Pseudo-random number generators
 
 ```{r}
 #| include: false
 # if it is available, run the setup script that tells quarto to round all df/tibble outputs to three decimal places
 if(file.exists("../_setup.R")){source("../_setup.R")}
 ```
+
+<!-- TODO: Discuss the apparent contradiction of predictable unpredictability. -->
 
 Randomness is impossible to achieve. All "random" number generators are actually pseudo-random number generators (PRNGs). Computer scientists and mathematicians spend lots of time trying to increase the randomness of our random number generators, because any degree of predictability adds bias to any models built on them. Pseudo-random numbers are at the core of simulation studies, as they allow us to (pseudo) randomly sample simulated data from known population distributions.
 
@@ -127,8 +129,3 @@ good_generate()
 good_generate()
 ```
 :::
-
-## TODO
-
-- Discuss the apparent contradiction of **predictable unpredictability**. 
-

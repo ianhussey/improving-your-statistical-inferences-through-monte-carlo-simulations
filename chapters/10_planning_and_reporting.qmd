@@ -1,4 +1,4 @@
-# Planning and reporting <span class="badge badge-draft1">✎ Very rough draft</span>
+# Planning and reporting <span class="badge badge-draft1">✎ TODO</span>
 
 ```{r}
 #| include: false
@@ -6,6 +6,4 @@
 if(file.exists("../_setup.R")){source("../_setup.R")}
 ```
 
-TODO
-
-see ADEMP_preregistration_template.qmd
+<!-- TODO: see ADEMP_preregistration_template.qmd -->

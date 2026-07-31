@@ -1,4 +1,7 @@
-# Creating simulation experiments <span class="badge badge-draft2">✎ Rough draft</span>
+# Creating simulation experiments
+
+<!-- TODO: clarify that between conditions experimentation are easily implemented in the expand grid, but that within-iteration experimentation requires eg creating one dataset and calling analyze() with different inputs, or altering your analysis function to analyze it both ways at once. provide examples of both.  -->
+<!-- TODO: add examples of some variables not being crossed, e.g., n_intervention being c(10, 20, 30) in the expand grid, and then n_control = n_intervention in a later mutate. -->
 
 ```{r}
 #| include: false

@@ -1,4 +1,4 @@
-# Hypothesis Testing <span class="badge badge-draft2">✎ Rough draft</span>
+# Hypothesis Testing 
 
 ```{r}
 #| include: false
@@ -7,11 +7,14 @@ if(file.exists("../_setup.R")){source("../_setup.R")}
 ```
 
 ```{r}
+#| include: false
 # dependencies
 library(tidyr)
 library(dplyr)
-library(furrr) 
+library(readr)
+library(furrr)
 library(parameters)
+library(simhelpers)
 library(stringr)
 library(forcats)
 library(ggplot2)
@@ -22,7 +25,9 @@ library(janitor)
 library(effectsize)
 
 # set up parallelization
-plan(multisession)
+# use availableCores() to define the number of cores, in case the simulation is being
+# run on a HPC that might have more physical cores than are available to the session
+plan(multisession, workers = parallelly::availableCores())
 ```
 
 ## Hypothesis testing using *p*-values vs. Confidence Intervals 
@@ -95,33 +100,61 @@ experiment_parameters <- expand_grid(
 ) |>
   mutate(pop_mean_diff = mean_intervention - mean_control)
 
-# set seed
-set.seed(42)
-
 # run simulation
-simulation <- experiment_parameters |>
-  mutate(generated_data = future_pmap(.l = list(n_per_condition = n_per_condition, 
-                                                mean_control = mean_control,
-                                                mean_intervention = mean_intervention,
-                                                sd = sd),
-                                      .f = generate_data,
-                                      .progress = TRUE,
-                                      .options = furrr_options(seed = TRUE))) |>
-  mutate(results = future_pmap(.l = list(data = generated_data),
-                               .f = analyse,
-                               .progress = TRUE,
-                               .options = furrr_options(seed = TRUE))) |>
-  unnest(results)
+# results are cached to disk: the simulation is only run the first time, and read back
+# in on subsequent renders. delete the .rds file if you change the simulation code.
+dir.create("results", showWarnings = FALSE)
+
+if(file.exists("results/simulation_hypothesis_testing.rds")){
+
+  simulation <- read_rds("results/simulation_hypothesis_testing.rds")
+
+} else {
+
+  # set seed
+  set.seed(42)
+
+  simulation <- experiment_parameters |>
+    # shuffle the rows of the grid to load balance the computationally expensive
+    # iterations evenly across the workers
+    slice_sample(prop = 1) |>
+    mutate(generated_data = future_pmap(.l = list(n_per_condition = n_per_condition,
+                                                  mean_control = mean_control,
+                                                  mean_intervention = mean_intervention,
+                                                  sd = sd),
+                                        .f = generate_data,
+                                        .progress = TRUE,
+                                        .options = furrr_options(seed = TRUE))) |>
+    mutate(results = future_pmap(.l = list(data = generated_data),
+                                 .f = analyse,
+                                 .progress = TRUE,
+                                 .options = furrr_options(seed = TRUE))) |>
+    unnest(results) |>
+    # undo the shuffle so the rows are back in the order of the experiment grid
+    arrange(n_per_condition, pop_mean_diff, iteration) |>
+    # the generated data sets are not needed after they have been analyzed, and
+    # keeping them would make the saved file enormous
+    select(-generated_data)
+
+  write_rds(x = simulation, file = "results/simulation_hypothesis_testing.rds", compress = "gz")
+
+}
 
 # calculate summary
 results_summary <- simulation |>
   group_by(pop_mean_diff,
            n_per_condition) |>
-  summarize(mean_difference_in_means = mean(mean_diff),
-            mean_ci_low = mean(ci_low),
-            mean_ci_high = mean(ci_high),
-            proportion_significant_p = mean(significant_p),
-            .groups = "drop")
+  reframe(mean_difference_in_means = mean(mean_diff),
+          mean_ci_low = mean(ci_low),
+          mean_ci_high = mean(ci_high),
+          # rather than calculating the proportion of significant results by hand, use
+          # {simhelpers}'s dedicated function for the empirical rejection rate.
+          # calc_rejection() also returns the number of iterations and the Monte Carlo
+          # Standard Error of the rate; select() keeps and renames just the rate itself
+          calc_rejection(data     = pick(everything()),
+                         p_values = p,
+                         alpha    = 0.05) |>
+            select(proportion_significant_p = rej_rate))
 ```
 
 

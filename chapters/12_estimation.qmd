@@ -1,4 +1,4 @@
-# Estimation <span class="badge badge-draft2">✎ Rough draft</span>
+# Estimation
 
 ```{r}
 #| include: false
@@ -6,11 +6,22 @@
 if(file.exists("../_setup.R")){source("../_setup.R")}
 ```
 
+<!-- TODO: Add precision vs bias (accuracy) plots and explanations, with german terms -->
+<!-- TODO: Add link to definition of CI like https://www.the100.ci/2024/12/05/why-you-are-not-allowed-to-say-that-your-95-confidence-interval-contains-the-true-parameter-with-a-probability-of-95/ -->
+<!-- TODO: Check understanding of pmap and unnest and nested data. -->
+<!-- TODO: Add explainer on nested data -->
+<!-- TODO: Explain unnest() by relating it to psych data: one row per participant, one nested data frame of trial level data per row. -->
+<!-- TODO: Maybe find German terms for bias and accuracy (if they help) -->
+<!-- TODO: add examples of map headaches with argument ordering problems, and why we used named lists -->
+<!-- TODO: add example of sth like a p value (only) simulation that uses map_dfr() vs pmap() and the relative pros/cons; the former produces simpler results (avoids unnest) but requires you to know the map functions, the latter allows you to use the same code workflow for everything (pmap with named list). -->
+
 ```{r}
+#| include: false
 # dependencies
 library(tidyr)
 library(dplyr)
-library(furrr) 
+library(readr)
+library(furrr)
 library(parameters)
 library(stringr)
 library(forcats)
@@ -25,7 +36,9 @@ library(knitr)
 library(kableExtra)
 
 # set up parallelization
-plan(multisession)
+# use availableCores() to define the number of cores, in case the simulation is being
+# run on a HPC that might have more physical cores than are available to the session
+plan(multisession, workers = parallelly::availableCores())
 ```
 
 ## Simulation
@@ -96,22 +109,44 @@ experiment_parameters <- expand_grid(
   iteration = 1:1000
 ) 
 
-# set seed
-set.seed(43)
-
 # run simulation
-simulation <- experiment_parameters |>
-  mutate(generated_data = future_pmap(.l = list(n_per_condition = n_per_condition, 
-                                                mean_control = mean_control,
-                                                mean_intervention = mean_intervention,
-                                                sd = sd),
-                                      .f = generate_data,
-                                      .progress = TRUE,
-                                      .options = furrr_options(seed = TRUE))) |>
-  mutate(results = future_pmap(.l = list(data = generated_data),
-                               .f = analyse,
-                               .progress = TRUE,
-                               .options = furrr_options(seed = TRUE)))
+# results are cached to disk: the simulation is only run the first time, and read back
+# in on subsequent renders. delete the .rds file if you change the simulation code.
+dir.create("results", showWarnings = FALSE)
+
+if(file.exists("results/simulation_estimation.rds")){
+
+  simulation <- read_rds("results/simulation_estimation.rds")
+
+} else {
+
+  # set seed
+  set.seed(43)
+
+  simulation <- experiment_parameters |>
+    # shuffle the rows of the grid to load balance the computationally expensive
+    # iterations evenly across the workers
+    slice_sample(prop = 1) |>
+    mutate(generated_data = future_pmap(.l = list(n_per_condition = n_per_condition,
+                                                  mean_control = mean_control,
+                                                  mean_intervention = mean_intervention,
+                                                  sd = sd),
+                                        .f = generate_data,
+                                        .progress = TRUE,
+                                        .options = furrr_options(seed = TRUE))) |>
+    mutate(results = future_pmap(.l = list(data = generated_data),
+                                 .f = analyse,
+                                 .progress = TRUE,
+                                 .options = furrr_options(seed = TRUE))) |>
+    # undo the shuffle so the rows are back in the order of the experiment grid
+    arrange(n_per_condition, iteration) |>
+    # the generated data sets are not needed after they have been analyzed, and
+    # keeping them would make the saved file enormous
+    select(-generated_data)
+
+  write_rds(x = simulation, file = "results/simulation_estimation.rds", compress = "gz")
+
+}
 ```
 
 ## Iteration-level results
@@ -263,16 +298,5 @@ ggplot(results_summary, aes(n_per_condition*2, mean_confidence_interval_width)) 
   scale_color_viridis_d(begin = 0.3, end = 0.7) +
   ggtitle("Population Mean difference = 1")
 ```
-  
-## TODO
-
-- Add precision vs bias (accuracy) plots and explanations, with german terms
-- Add link to definition of CI like https://www.the100.ci/2024/12/05/why-you-are-not-allowed-to-say-that-your-95-confidence-interval-contains-the-true-parameter-with-a-probability-of-95/
-- Check understanding of pmap and unnest and nested data.
-- Add explainer on nested data
-- Explain unnest() by relating it to psych data: one row per participant, one nested data frame of trial level data per row.
-- Maybe find German terms for bias and accuracy (if they help)
-- add examples of map headaches with argument ordering problems, and why we used named lists
-- add example of sth like a p value (only) simulation that uses map_dfr() vs pmap() and the relative pros/cons; the former produces simpler results (avoids unnest) but requires you to know the map functions, the latter allows you to use the same code workflow for everything (pmap with named list).
 
 

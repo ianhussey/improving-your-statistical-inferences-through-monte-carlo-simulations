@@ -1,10 +1,21 @@
-# Data-generating process functions <span class="badge badge-draft3">✎ Polishing</span>
+# Data-generating process functions
 
 ```{r}
 #| include: false
 # if it is available, run the setup script that tells quarto to round all df/tibble outputs to three decimal places
 if(file.exists("../_setup.R")){source("../_setup.R")}
 ```
+
+<!-- TODO: improve tidy section -->
+<!-- TODO: add the "is this data normal?" exercise to this lesson or as a recap; remind people about the difference between sample and population, and that simulated data gives you access to the ground truth. -->
+<!-- TODO: standardize use of set.seed above -->
+<!-- TODO: add note on Concept of DGP: If you sample the entire population, you still need inferential stats to understand the DGP. Eg if you study astronauts, and there are only 12 of them, and you recruit all of them, you don't automatically know the DGP, which is an abstraction, involves error, etc -->
+<!-- TODO: Other distributions to add? -->
+<!-- TODO: - Skew normal data -->
+<!-- TODO: - Uniform data -->
+<!-- TODO: - Likert data? (?other than truffle) -->
+<!-- TODO: - mixed cor and factor data -->
+<!-- TODO: - Item level data? (lavaan) -->
 
 In the last chapter, you learned how to write functions. In this chapter, you’ll use that skill to write a specific type of function: **a data-generating process (DGP) function**. This is needed for one of the 5 key components of a Monte Carlo simulation study.
 
@@ -779,17 +790,3 @@ When you write your own `generate_data()` functions, aim for these defaults:
 Ready to practice? 
 Download and complete the [exercises for this chapter](../exercises/4_data_generating_process_functions_exercises.qmd).
 :::
-
-## TODO
-
-- improve tidy section
-- add the "is this data normal?" exercise to this lesson or as a recap; remind people about the difference between sample and population, and that simulated data gives you access to the ground truth.
-- standardize use of set.seed above
-- add note on Concept of DGP: If you sample the entire population, you still need inferential stats to understand the DGP. Eg if you study astronauts, and there are only 12 of them, and you recruit all of them, you don't automatically know the DGP, which is an abstraction, involves error, etc
-- Other distributions to add?
-  - Skew normal data
-  - Uniform data
-  - Likert data? (?other than truffle)
-  - mixed cor and factor data
-  - Item level data? (lavaan)
-

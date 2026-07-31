@@ -1,0 +1,37 @@
+
+
+## End of course feedback
+
+### Students want more
+
+What is an SD? Shiny app used in credibility course helped them visualise it. When I move the heteroscedacity exercise into the lecture, start with a demo of SD.  
+ANOVA
+Meta-analysis is a multilevel model is a linear model
+EFA
+CFA
+
+
+
+### Students want less/better
+
+Distinction between required and additional exercises each week
+Later weeks felt like they lost track of their goal, lost track of the code. Clearer exercises? 
+When i do how to sim/how to learn from sim in parallel, people want it sequential. but when i do it sequential, they want it parallel. i dont think either is perfect, each have their challenges.
+
+
+## Notes to self on structure
+
+- [Chapter 8: Summarizing results](8_summarizing_results.qmd).
+- [Chapter 10: Summarizing results](10_simulation_template.qmd).
+chapters/9_planning_and_reporting - come back to this after substantive chapter 1 - week 7?, Siepe paper, assessing performance (MC SE), etc. Diagnostics on already run simulations, go in and check specific iterations, run manually etc.
+
+where to add some additional material on parallelisation and optimisation, eg dropping the nested datasets and using a helper function to use pmap() more directly and efficiently?
+
+## Note to self: badges:
+
+- badge 1 <span class="badge badge-draft1">✎ Very rough draft</span>
+- badge 2 <span class="badge badge-draft2">✎ Rough draft</span>
+- badge 3 <span class="badge badge-draft3">✎ Polishing</span>
+- badge 4 <span class="badge badge-complete">✓ Complete</span>
+
+

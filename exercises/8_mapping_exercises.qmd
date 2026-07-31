@@ -191,7 +191,7 @@ Use the following specification:
 
 ### Use `future_pmap()` and `future_map()`
 
-Rewrite your pipeline using `future_pmap()` and `future_map()`. Use `plan(multisession)` and `furrr_options(seed = TRUE)` to keep results reproducible.
+Rewrite your pipeline using `future_pmap()` and `future_map()`. Use `plan(multisession, workers = parallelly::availableCores())` and `furrr_options(seed = TRUE)` to keep results reproducible. Also add `slice_sample(prop = 1)` to the experiment grid before mapping over it, so that the computationally expensive iterations are load balanced evenly across the workers.
 
 ```{r}
 

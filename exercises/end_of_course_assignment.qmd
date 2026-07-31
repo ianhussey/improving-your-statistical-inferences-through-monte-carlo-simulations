@@ -1,0 +1,182 @@
+# End of course assignment
+
+## Requirements
+
+This course is evaluated via an at-home assignment. For the assignment, you will write and report your own simulation to answer a research question of your choice. 
+
+Assignments should adhere to the principles of conducting and communicating a high quality simulation study laid out in Siepe et al. (2024) "Simulation Studies for Methodological Research in Psychology: A Standardized Template for Planning, Preregistration, and Reporting", although preregistration itself is not a requirement. See the appendices on templates for simulations for examples. 
+
+### Assignment submission format
+
+You must submit your assignment as a *single .qmd* file (not the .html files it generates) file via Ilias. The absence of such a license will be assumed to represent an omission on your behalf, and it will be added for you. If you wish specifically not to attach an open source license to your code, you must justify why - bearing in mind that you have learned about simulations in this course from an open source textbook and its associated open source code.
+
+In class, we agreed that the deadline for the 2026 class is August 10th at 23:59. This gives me time to mark it and have your grades returned before the start of the next semester. Those of you who need grades returned earlier must contact me ASAP and specify that date you need your grade entered by, and submit no less than 10 days before this. 
+
+## Your code should be *open*
+
+You should specify in your assignment that it is released under a CC-0 1.0 licence (public domain, anyone can reuse without attribution) or CC-BY 4.0 licence (others are free to reuse with attribution), so that it can be distributed to future students in this and similar courses. Simply include a heading at the bottom stating "License: CC-0 1.0" or "Licence: CC-BY 4.0).
+
+### Your code should be *reproducible*
+
+We are doing reproducible science here. The first thing I will do is open your file and click render, and it should produce a .html file for me to view your report. If it throws an error for me, its not reproducible, and you'll lose marks. Submitting non-reproducible results is the easiest way to lose marks. Test your .qmd file on a friend's computer to avoid this. 
+
+### Your code should be *cleanly written and intelligible to others*
+
+The easier it is for me to read and understand your code - including your comments - the better a grade you will receive. 
+- I recommend you follow the [tidyverse Style Guide](https://style.tidyverse.org/index.html), but the main thing is to be consistent. 
+- Think about how you use white-space and indenting in particular. Remember that you can auto-indent your code by selecting all the code in a given file (ctrl-A / cmd-A) and the auto indenting it with ctrl-I / cmd-I.
+
+### Assignment components
+
+The workflow of your simulation code should match that employed in class, unless specific features of your simulation require a modified workflow for structural reasons: 
+
+- ADEMP specification.
+- A function for data generation.
+- A function for analysis.
+- An expand_grid (or comparable) call specifying the simulation conditions.
+- `pmap()` calls inside `mutate()` calls to map the simulation conditions onto the data generation/analysis functions.
+- A suitable number of iterations to produce stable estimates and MCSEs. See Siepe et al. (2024).
+- A quantitative summary of the results over the iterations using a suitable metric. 
+
+Your report must contain:
+
+- A written description of the research question
+- A written description of the conditions that you simulate in order to answer this
+- The simulation code itself (see above)
+- The results of the simulation in table and/or plot format
+- A written summary of the results and conclusions, and their generalisability and limitations
+
+### Use of AI tools
+
+You may use AI tools for this assignment, e.g., Claude or others. You may use this for both drafting code or bug fixing code, and for drafting and editing your written descriptions. You may also reuse or remix any code provided to you in this seminar's lessons and assignments without attribution. However, you are ultimately responsible for your final assignment, whether it runs, contains errors, omissions, or inaccuracies, and whether the written sections and the code are aligned. You are also responsible for potentially undermining your own learning and comprehension. As a reminder, at the start of the course I reserved the right to ask you to explain your code to me as part of the course assignment, where your answers can influence your grade. This may cause delays to your grade being awarded.
+
+### Use of human assistance
+
+Science is highly collaborative. You may also use humans for input and feedback on your report: you can solicit feedback from classmates, friends, and me (e.g., in class or on Slack to a more limited extent). Your are ultimately responsible for your report, and your final assignment, and your assignment must be your work. But part of learning to code and to do scientific collaboration is to learn how to pool resources and expertise. This is particularly the case for the selection of your research question and the scope of your simulations, where input from others (especially me) is useful.
+
+### Expectation of meaningful engagement
+
+The above have an important implication: because you have lots of opportunity for input from both AI and other humans, I expect that if you are stuck you will make use of these plentiful resources. Part of the assignment here is to engage in problem solving in order to produce the required result. Incomplete assignments or ones containing incomplete, severely broken, or spaghetti code may lose substantial marks. Equally, apparently AI generated code or text may require that you are asked to explain your code or generate other examples in an in-person examination. 
+
+## Research question
+
+The research question you answer in your simulation must substantively go beyond the ones we constructed in class. To get a good grade, your simulation does not have to be publication worthy, but it should choose a meaningful question and answer it. You can and should ask for feedback from me and others regarding the choice of research question (including in public in the slack channel so that others can learn). As with all forms of simulations, you should start smaller and less ambitious and build it up. 
+
+There is no trick question here. If completing the assignment feels impossibly difficult, come and talk to me and we'll find a way to make it more manageable. Equally, I am looking for meaningful engagement from you here. To satisfy the ECTS requirements of this course, this assignment should take you 10s of hours even if you're a good coder. 
+
+### Ideas for topics
+
+- Performance of a statistical method you use in your masters thesis
+- Violation of assumption of other types of tests and data generating models
+- Power analyses for more complex models (e.g., moderation, mediation, meta-analysis, multilevel models)
+- Performance of different regression estimators (e.g., OLS, Maximum Likelihood etc.) under violation(s) of assumptions, data missingness, etc.
+- Impact of publication bias on meta-analysis. Degree to which publication bias can be detected or corrected for under various assumptions.
+- Difficulty of estimating and interpreting interaction effects (e.g., Julia Rohrer’s recent published articles on this)
+- Examine common rule of thumb. E.g., some researchers argue we should choose which covariates to include in a regression based on what is significant in a bivariate regression’s p value or effect size. This gets into causal modelling and might be more complex (see Julia Rohrer's work).
+- Selection effects
+  - Matthew effect
+  - Regression to the mean
+  - Trade-offs between efficacy and attrition / Efficacy paradox / Average Treatment Effect vs Average Treatment on the Treated effect (see https://bsky.app/profile/quentinandre.bsky.social/post/3lk4nqotlss2k)
+- Things related to cross sectional data, SEM, CFA (e.g., missingness, model fit, modification indices)
+- Impact of p-hacking, data tampering and fraud (go beyond Stefan and Schönbrodt in some way)
+- Cohen's d etc is calculated from rounded reported means and SDs. How much does this distort the Cohen's d values compared to the real unrounded values? What implications for meta-analyses?
+- Measurement hacking / schmeasurement
+  - Some variation on Kopalle and Lehman (1996)
+  - Bi-factor models provide spurious fit over others 
+- Show how measure reliability attenuates correlations between measures and therefore impacts power analyses.
+- Replicate "Why most of psychology is statistically unfalsifiable"
+- ICC correlations claim to control for changes in mean - do they really? 
+- Rich Lukas recently show the CLPM always generates positive results. Replicate or extend this.
+- Replicate (part of) another published simulation (see below).
+
+### Various published simulation studies and statistical principles that could be simulated
+
+Altman, D. G., & Bland, J. M. (1995). Statistics notes: Absence of evidence is not evidence of absence. BMJ, 311(7003), 485. https://doi.org/10.1136/bmj.311.7003.485
+
+Baguley, T. (2009). Standardized or simple effect size: What should be reported? British Journal of Psychology, 100(Pt 3), 603–617. https://doi.org/10.1348/000712608X377117
+
+Bakker, M., & Wicherts, J. M. (2014). Outlier Removal and the Relation with Reporting Errors and Quality of Psychological Research. PLOS ONE, 9(7), e103360. https://doi.org/10.1371/journal.pone.0103360
+
+Barnett, A. G., van der Pols, J. C., & Dobson, A. J. (2005). Regression to the mean: What it is and how to deal with it. International Journal of Epidemiology, 34(1), 215–220. https://doi.org/10.1093/ije/dyh299
+
+Beecher, H. K. (1955). THE POWERFUL PLACEBO. Journal of the American Medical Association, 159(17), 1602–1606. https://doi.org/10.1001/jama.1955.02960340022006
+
+Blanca, M. J., Alarcón, R., Arnau, J., Bono, R., & Bendayan, R. (2017). Non-normal data: Is ANOVA still a valid option? Psicothema, 29(4), 552–557. https://doi.org/10.7334/psicothema2016.383
+
+Bland, J. M., & Altman, D. G. (2011). Comparisons against baseline within randomised groups are often used and can be highly misleading. Trials, 12, 264. https://doi.org/10.1186/1745-6215-12-264
+
+Borenstein, M., Hedges, L. V., Higgins, J. P. T., & Rothstein, H. R. (2010). A basic introduction to fixed-effect and random-effects models for meta-analysis. Research Synthesis Methods, 1(2), 97–111. https://doi.org/10.1002/jrsm.12
+
+Castillo, A., Miller, J. D., Vize, C., Baranger, D. A. A., & Lynam, D. R. (2026). When Do Interaction/Moderation Effects Stabilize in Linear Regression? Advances in Methods and Practices in Psychological Science, 9(1), 25152459251407860. https://doi.org/10.1177/25152459251407860
+
+Chen, G., Cai, Z., & Taylor, P. A. (2024). Through the lens of causal inference: Decisions and pitfalls of covariate selection. Aperture Neuro, 4, 10.52294/001c.124817. https://doi.org/10.52294/001c.124817
+
+Cramer, A. O. J., van Ravenzwaaij, D., Matzke, D., Steingroever, H., Wetzels, R., Grasman, R. P. P. P., Waldorp, L. J., & Wagenmakers, E.-J. (2016). Hidden multiplicity in exploratory multiway ANOVA: Prevalence and remedies. Psychonomic Bulletin & Review, 23, 640–647. https://doi.org/10.3758/s13423-015-0913-5
+
+Cuijpers, P., & Cristea, I. A. (2015). What if a placebo effect explained all the activity of depression treatments? World Psychiatry, 14(3), 310–311. https://doi.org/10.1002/wps.20249
+
+Cuijpers, P., Weitz, E., Cristea, I. A., & Twisk, J. (2017). Pre-post effect sizes should be avoided in meta-analyses. Epidemiology and Psychiatric Sciences. https://doi.org/10.1017/S2045796016000809
+
+D’agostino, R. B., Chase ,Warren, & and Belanger, A. (1988). The Appropriateness of Some Common Procedures for Testing the Equality of Two Independent Binomial Populations. The American Statistician, 42(3), 198–202. https://doi.org/10.1080/00031305.1988.10475563
+
+Dahly, D. L., & Morris, T. P. (2022). Study Design 101: Estimation of Treatment Effects in RCTs Should Be Based on Between-Arm Contrasts, Not Observed Outcome Changes Within Treatment Arms. Official Journal of the American College of Gastroenterology | ACG, 10.14309/ajg.0000000000003034. https://doi.org/10.14309/ajg.0000000000003034
+
+Delacre, M., Lakens, D., & Leys, C. (2017). Why Psychologists Should by Default Use Welch’s t-test Instead of Student’s t-test (No. 1). 30(1), Article 1. https://doi.org/10.5334/irsp.82
+
+Egbewale, B. E., Lewis, M., & Sim, J. (2014). Bias, precision and statistical power of analysis of covariance in the analysis of randomized trials with baseline imbalance: A simulation study. BMC Medical Research Methodology, 14, 49. https://doi.org/10.1186/1471-2288-14-49
+
+Enders, C. K. (2001). The impact of nonnormality on full information maximum-likelihood estimation for structural equation models with missing data. Psychological Methods, 6(4), 352–370.
+
+Erceg-Hurn, D. M., & Mirosevich, V. M. (2008). Modern robust statistical methods: An easy way to maximize the accuracy and power of your research. The American Psychologist, 63(7), 591–601. https://doi.org/10.1037/0003-066X.63.7.591
+
+Goeman, J. J., & Solari, A. (2011). Multiple Testing for Exploratory Research. Statistical Science, 26(4), 584–597. https://doi.org/10.1214/11-STS356
+
+Hernández-Díaz, S., Wilcox, A. J., Schisterman, E. F., & Hernán, M. A. (2008). From causal diagrams to birth weight-specific curves of infant mortality. European Journal of Epidemiology, 23(3), 163–166. https://doi.org/10.1007/s10654-007-9220-4
+
+Hilgard, E. C. C., Felix D. Schönbrodt,Will M. Gervais,Joseph. (2019). Correcting for Bias in Psychology: A Comparison of Meta-Analytic Methods - Evan C. Carter, Felix D. Schönbrodt, Will M. Gervais, Joseph Hilgard, 2019. Sage Journals. https://journals.sagepub.com/doi/full/10.1177/2515245919847196
+
+Hunter, J. E., Schmidt, F. L., & Le, H. (2006). Implications of direct and indirect range restriction for meta-analysis methods and findings. Journal of Applied Psychology, 91(3), 594–612. https://doi.org/10.1037/0021-9010.91.3.594
+
+Kowialiewski, B. (2024). The power of effect size stabilization. Behavior Research Methods, 57(1), 7. https://doi.org/10.3758/s13428-024-02549-3
+
+Kozak, M., & Piepho, H.-P. (2018). What’s normal anyway? Residual plots are more telling than significance tests when checking ANOVA assumptions. Journal of Agronomy and Crop Science, 204(1), 86–98. https://doi.org/10.1111/jac.12220
+
+Lin, L., & Aloe, A. M. (2021). Evaluation of various estimators for standardized mean difference in meta-analysis. Statistics in Medicine, 40(2), 403–426. https://doi.org/10.1002/sim.8781
+
+Loken, E., & Gelman, A. (2017). Measurement error and the replication crisis. Science, 355(6325), 584–585. https://doi.org/10.1126/science.aal3618
+
+Maassen, E., van Assen, M. A. L. M., Nuijten, M. B., & Wicherts, J. M. (2025a). The Impact of Publication Bias and Single and Combined p-Hacking Practices on Effect Size and Heterogeneity Estimates in Meta-Analysis (2uynm_v1). PsyArXiv. https://doi.org/10.31234/osf.io/2uynm_v1
+
+Maassen, E., van Assen, M., Nuijten, M., & Wicherts, J. (2025b). The Impact of Publication Bias and Single and Combined p-Hacking Practices on Effect Size and Heterogeneity Estimates in Meta-Analysis. OSF. https://doi.org/10.31234/osf.io/2uynm_v1
+
+Matthews, J. N., & Altman, D. G. (1996). Statistics notes. Interaction 2: Compare effect sizes not P values. BMJ, 313(7060), 808. https://doi.org/10.1136/bmj.313.7060.808
+
+Miller, J. (2023). Outlier exclusion procedures for reaction time analysis: The cures are generally worse than the disease. Journal of Experimental Psychology. General, 152(11), 3189–3217. https://doi.org/10.1037/xge0001450
+
+Morris, S. B., & DeShon, R. P. (2002). Combining effect size estimates in meta-analysis with repeated measures and independent-groups designs. Psychological Methods, 7(1), 105–125. https://doi.org/10.1037/1082-989x.7.1.105
+
+Nissen, S. B., Magidson, T., Gross, K., & Bergstrom, C. T. (2016). Publication bias and the canonization of false facts. eLife, 5. https://doi.org/10.7554/eLife.21451
+
+Oberauer, K., & Lewandowsky, S. (2019). Addressing the theory crisis in psychology. Psychonomic Bulletin & Review, 26(5), 1596–1618. https://doi.org/10.3758/s13423-019-01645-2
+
+Rochon, J., Gondan, M., & Kieser, M. (2012). To test or not to test: Preliminary assessment of normality when comparing two independent samples. BMC Medical Research Methodology, 12(1), 81. https://doi.org/10.1186/1471-2288-12-81
+
+Rodgers, M. A., & Pustejovsky, J. E. (n.d.). Evaluating Meta-Analytic Methods to Detect Selective Reporting in the Presence of Dependent Effect Sizes.
+
+Romano, Y. W., Patricia Rodríguez de Gil,Yi-Hsin Chen,Jeffrey D. Kromrey,Eun Sook Kim,Thanh Pham,Diep Nguyen,Jeanine L. (2016). Comparing the Performance of Approaches for Testing the Homogeneity of Variance Assumption in One-Factor ANOVA Models—Yan Wang, Patricia Rodríguez de Gil, Yi-Hsin Chen, Jeffrey D. Kromrey, Eun Sook Kim, Thanh Pham, Diep Nguyen, Jeanine L. Romano, 2017. Educational and Psychological Measurement. https://journals.sagepub.com/doi/10.1177/0013164416645162
+
+Schäfer, T., & Schwarz, M. A. (2019). The Meaningfulness of Effect Sizes in Psychological Research: Differences Between Sub-Disciplines and the Impact of Potential Biases. Frontiers in Psychology, 10, 813. https://doi.org/10.3389/fpsyg.2019.00813
+
+Schönbrodt, F. D., & Perugini, M. (2013). At what sample size do correlations stabilize? Journal of Research in Personality, 47(5), 609–612. https://doi.org/10.1016/j.jrp.2013.05.009
+
+Stefan, A. M., & Schönbrodt, F. D. (2023). Big little lies: A compendium and simulation of p-hacking strategies. Royal Society Open Science, 10(2), 220346. https://doi.org/10.1098/rsos.220346
+
+Vickers, A. J., & Altman, D. G. (2001). Analysing controlled trials with baseline and follow up measurements. BMJ, 323(7321), 1123–1124. https://doi.org/10.1136/bmj.323.7321.1123
+
+Westfall, J., & Yarkoni, T. (2016). Statistically Controlling for Confounding Constructs Is Harder than You Think. PLOS ONE, 11(3), e0152719. https://doi.org/10.1371/journal.pone.0152719
+
+Zimmerman, D. W., & Williams, R. H. (1986). Note on the reliability of experimental measures and the power of significance tests. Psychological Bulletin, 100(1), 123–124. https://doi.org/10.1037/0033-2909.100.1.123
+
+
+
+

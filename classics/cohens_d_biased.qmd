@@ -1,0 +1,504 @@
+---
+title: "Simulation template: Cohen's d is a biased estimator"
+#author: "Authors names go here"
+date: today
+format:
+  html:
+    embed-resources: true # ignored when rendering book
+    toc: true
+    toc_float: true
+    code-fold: false
+    code-overflow: wrap
+    code-tools: true
+    warning: false
+    df-print: kable
+    theme:
+      light: cosmo
+      dark: darkly
+    highlight-style:
+      light: breeze
+      dark: dracula
+    include-in-header:
+      text: |
+        <style>
+          .kable-table table { width: 70%; margin: 0 auto; }
+          .quarto-color-scheme-toggle::after { content: " Dark mode"; font-family: sans-serif; font-size: 0.85em; }
+        </style>
+---
+
+This modifies the lego simulation to examine the bias in Cohen's d in small sample sizes, and the correction of this bias via Hedge's g (the J correction).
+
+This simulation serves the second purpose of demonstrating that the experiments implemented in Monte Carlo simulations often contain *within* factors, not just between. I.e., in this case, the analysis of each iteration's dataset two different ways (with and without Hedge's correction), rather than comparing different datasets analyzed different ways.
+
+As such, some factors in the experiment are *not* in the expand_grid, but are instead a feature of the analysis function or the piped workflow in the running of the simulation (e.g., calling two variations of the analysis to create different results columns).
+
+```{r, include=FALSE}
+# settings: hidden from rendered file
+# disable messages and warnings in rendered files
+knitr::opts_chunk$set(message = FALSE,
+                      warning = FALSE)
+
+# disable scientific numbers in output
+options(scipen=999)
+```
+
+# Methods
+
+## Setup
+
+```{r}
+# dependencies
+library(tidyr)
+library(dplyr)
+library(readr)
+library(furrr)
+library(effsize)
+library(simhelpers)
+library(ggplot2)
+library(scales)
+library(knitr)
+library(kableExtra)
+
+# set up parallelisation for {furrr}
+# `furrr_options(seed = TRUE)` (used below in future_pmap calls) advances an L'Ecuyer-CMRG stream rather than re-seeding per worker, giving the parallel-safe reproducibility recommended in Siepe et al. (2024, p. 8).
+# use availableCores to define the number of cores in case sim is being run on a HPC that might have more physical cores than are available to the session
+plan(multisession, workers = parallelly::availableCores())
+```
+
+## Functions 
+
+### Data generating process
+
+```{r}
+generate_data <- function(mean_control,
+                          mean_intervention,
+                          sd_control,
+                          sd_intervention,
+                          n_control,
+                          n_intervention) {
+  
+  data_control <- 
+    tibble(condition = "control",
+           score = rnorm(n = n_control, mean = mean_control, sd = sd_control))
+  
+  data_intervention <- 
+    tibble(condition = "intervention",
+           score = rnorm(n = n_intervention, mean = mean_intervention, sd = sd_intervention))
+  
+  # combine
+  data <- bind_rows(data_control,
+                    data_intervention) |>
+    # ensure control is the reference condition
+    mutate(condition = factor(condition, levels = c("intervention", "control")))
+  
+  return(data)
+}
+```
+
+### Analysis
+
+```{r}
+analyze <- function(data, alpha = 0.05) {
+  res_t_test <- t.test(formula = score ~ condition,
+                       data = data,
+                       var.equal = TRUE,
+                       alternative = "two.sided",
+                       conf.level = 1-alpha)
+
+  # both estimators are calculated from the *same* data set, so any difference
+  # between them is due to Hedges' small sample correction rather than to sampling
+  # variation. this is much more efficient than treating the correction as another
+  # factor in the experiment grid, which would compare estimates calculated from
+  # different data sets and therefore bury the correction under Monte Carlo noise.
+  res_cohens_d <- effsize::cohen.d(formula = score ~ condition,
+                                   data = data,
+                                   pooled = TRUE,
+                                   hedges.correction = FALSE,
+                                   conf.level = 1-alpha)
+
+  res_hedges_g <- effsize::cohen.d(formula = score ~ condition,
+                                   data = data,
+                                   pooled = TRUE,
+                                   hedges.correction = TRUE,
+                                   conf.level = 1-alpha)
+
+  p <- res_t_test$p.value
+
+  tibble(
+    mean_diff          = unname(res_t_test$estimate[1] - res_t_test$estimate[2]),
+    mean_diff_ci_lower = res_t_test$conf.int[1],
+    mean_diff_ci_upper = res_t_test$conf.int[2],
+    cohens_d           = res_cohens_d$estimate,
+    cohens_d_ci_lower  = res_cohens_d$conf.int[["lower"]],
+    cohens_d_ci_upper  = res_cohens_d$conf.int[["upper"]],
+    hedges_g           = res_hedges_g$estimate,
+    hedges_g_ci_lower  = res_hedges_g$conf.int[["lower"]],
+    hedges_g_ci_upper  = res_hedges_g$conf.int[["upper"]],
+    p                  = p
+    # note: no `significant` column. it would be a copy of `p < alpha` stored for every
+    # iteration, and can always be recalculated from `p` when it is needed
+  )
+}
+```
+
+### Helper function
+
+By not saving the data to a data column in the data frame, we can speed up the simulation a lot and produce a smaller data frame. This can matter when they get more complicated.
+
+```{r}
+run_one_iteration <- function(mean_control,
+                              mean_intervention,
+                              sd_control,
+                              sd_intervention,
+                              n_control,
+                              n_intervention,
+                              alpha = 0.05) {
+
+  data <- generate_data(mean_control      = mean_control,
+                        mean_intervention = mean_intervention,
+                        sd_control        = sd_control,
+                        sd_intervention   = sd_intervention,
+                        n_control         = n_control,
+                        n_intervention    = n_intervention)
+
+  results <- analyze(data, alpha = alpha)
+
+  return(results)
+}
+```
+
+## Define experiment
+
+```{r}
+experiment_parameters_grid <- 
+  expand_grid(
+    mean_control = 0,
+    mean_intervention = c(0, 0.2, 0.5, 0.8), # when both sd=1, diff between m-ctrl and m-intr = SMD
+    sd_control = 1,
+    n_control = round(seq(from = 5, to = 50, by = 5), 0), # round because seq can accrue floating point errors
+    alpha = 0.05,
+    # note that the Hedges' correction is *not* a factor in the grid: both estimators
+    # are calculated from every simulated data set inside analyze() instead
+    iteration = 1:10000L
+  ) |>
+  
+  # make ns per condition equal without crossing these factors in the grid
+  mutate(n_intervention = n_control,
+         sd_intervention = sd_control,
+         n_total = n_control + n_intervention) |>
+  
+  # define population values
+  mutate(
+    population_mean_diff = mean_intervention - mean_control,
+    population_sd_pooled = sqrt(
+      ((n_intervention - 1) * sd_intervention^2 +
+         (n_control - 1) * sd_control^2) /
+        (n_intervention + n_control - 2)
+    ),
+    population_smd = population_mean_diff / population_sd_pooled
+  )
+```
+
+## Run simulation
+
+Data are generated and analyzed inside `run_one_iteration()`, so only the results are returned and nothing but the results is stored.
+
+```{r}
+dir.create("results", showWarnings = FALSE)
+
+if (file.exists("results/simulation_cohens_d_biased.rds")) {
+  simulation <- read_rds("results/simulation_cohens_d_biased.rds")
+} else {
+  set.seed(42)
+
+  simulation <- experiment_parameters_grid |>
+    # shuffle the rows of the grid to load balance the computationally expensive iterations evenly across workers
+    slice_sample(prop = 1) |>
+    
+    # generate + analyse in one step via the helper
+    mutate(results = future_pmap(
+      .l = list(mean_control      = mean_control,
+                mean_intervention = mean_intervention,
+                sd_control        = sd_control,
+                sd_intervention   = sd_intervention,
+                n_control         = n_control,
+                n_intervention    = n_intervention,
+                alpha             = alpha),
+      .f = run_one_iteration,
+      .progress = TRUE,
+      .options  = furrr_options(seed = TRUE)
+    )) |>
+    unnest(results)
+
+  write_rds(x = simulation, file = "results/simulation_cohens_d_biased.rds", compress = "gz")
+}
+```
+
+# Results
+
+Each condition is summarized over its iterations. Because every iteration produced all three estimates, the summary has one set of metrics per estimator, distinguished by a column prefix: `mean_diff_`, `cohens_d_`, and `hedges_g_`.
+
+```{r}
+simulation_summary <- simulation |>
+  group_by(
+    # group by all factors in the expand_grid other than iterations!
+    mean_control,
+    mean_intervention,
+    sd_control,
+    sd_intervention,
+    n_control,
+    n_intervention,
+    alpha,
+    # variables created from the above parameters, to keep them in the output:
+    n_total,
+    population_mean_diff,
+    population_sd_pooled,
+    population_smd
+  ) |>
+  reframe(
+    # performance and uncertainty metrics for inference (hypothesis tests with binary decisions)
+    calc_rejection(data       = pick(everything()),
+                   p_values   = p,
+                   alpha      = 0.05),
+    # performance and uncertainty metrics for estimation (continuous estimates):
+    # bias (systematic error) and the empirical standard error (precision) of the point
+    # estimate. calc_absolute() always returns columns named bias/stddev, so each call is
+    # prefixed to say which estimator it refers to and to avoid name collisions.
+    # note the different targets: the mean difference is estimated in raw units, the two
+    # standardized effect sizes in standard deviation units
+    calc_absolute(data        = pick(everything()),
+                  estimates   = mean_diff,
+                  true_param  = population_mean_diff,
+                  criteria    = c("bias", "stddev")) |>
+      rename_with(\(x) paste0("mean_diff_", x)),
+    calc_absolute(data        = pick(everything()),
+                  estimates   = cohens_d,
+                  true_param  = population_smd,
+                  criteria    = c("bias", "stddev")) |>
+      rename_with(\(x) paste0("cohens_d_", x)),
+    calc_absolute(data        = pick(everything()),
+                  estimates   = hedges_g,
+                  true_param  = population_smd,
+                  criteria    = c("bias", "stddev")) |>
+      rename_with(\(x) paste0("hedges_g_", x)),
+    # calibration (coverage) and precision (width) of the interval estimates
+    calc_coverage(data        = pick(everything()),
+                  lower_bound = mean_diff_ci_lower,
+                  upper_bound = mean_diff_ci_upper,
+                  true_param  = population_mean_diff,
+                  criteria    = c("coverage", "width")) |>
+      rename_with(\(x) paste0("mean_diff_", x)),
+    calc_coverage(data        = pick(everything()),
+                  lower_bound = cohens_d_ci_lower,
+                  upper_bound = cohens_d_ci_upper,
+                  true_param  = population_smd,
+                  criteria    = c("coverage", "width")) |>
+      rename_with(\(x) paste0("cohens_d_", x)),
+    calc_coverage(data        = pick(everything()),
+                  lower_bound = hedges_g_ci_lower,
+                  upper_bound = hedges_g_ci_upper,
+                  true_param  = population_smd,
+                  criteria    = c("coverage", "width")) |>
+      rename_with(\(x) paste0("hedges_g_", x)),
+    # 95% prediction intervals: the 2.5th and 97.5th percentiles of the estimates
+    # across iterations, i.e. the range of results a single new study would be
+    # expected to produce 95% of the time. simhelpers has no function for this, so
+    # it is computed directly. note that this is a very different quantity to the
+    # 95% CI widths above: the CI width is a property of one study's interval,
+    # whereas this is the spread of the point estimates themselves. If the CIs are
+    # well calibrated, the mean CI width should be similar to the width of the
+    # prediction interval.
+    tibble(
+      mean_diff_estimate = mean(mean_diff),
+      mean_diff_pi_lower = unname(quantile(mean_diff, probs = 0.025)),
+      mean_diff_pi_upper = unname(quantile(mean_diff, probs = 0.975)),
+      mean_diff_pi_width = mean_diff_pi_upper - mean_diff_pi_lower,
+      cohens_d_estimate  = mean(cohens_d),
+      cohens_d_pi_lower  = unname(quantile(cohens_d, probs = 0.025)),
+      cohens_d_pi_upper  = unname(quantile(cohens_d, probs = 0.975)),
+      cohens_d_pi_width  = cohens_d_pi_upper - cohens_d_pi_lower,
+      hedges_g_estimate  = mean(hedges_g),
+      hedges_g_pi_lower  = unname(quantile(hedges_g, probs = 0.025)),
+      hedges_g_pi_upper  = unname(quantile(hedges_g, probs = 0.975)),
+      hedges_g_pi_width  = hedges_g_pi_upper - hedges_g_pi_lower
+    )
+  ) |>
+  rename(empirical_detection_rate = rej_rate,
+         empirical_detection_rate_mcse = rej_rate_mcse,
+         # calc_absolute() calls its SD of the estimates "stddev"; it is the
+         # empirical standard error of the estimator across iterations
+         mean_diff_empirical_se = mean_diff_stddev,
+         mean_diff_empirical_se_mcse = mean_diff_stddev_mcse,
+         cohens_d_empirical_se = cohens_d_stddev,
+         cohens_d_empirical_se_mcse = cohens_d_stddev_mcse,
+         hedges_g_empirical_se = hedges_g_stddev,
+         hedges_g_empirical_se_mcse = hedges_g_stddev_mcse)
+```
+
+The summary above is wide: one row per condition, with one set of columns per estimator. Tables and plots that compare the estimators are easier to write from a long version, with one row per condition *per estimator*. `names_to = c("estimator", ".value")` splits each column name at the prefix, so `cohens_d_bias` and `hedges_g_bias` both become a `bias` column, distinguished by the new `estimator` column.
+
+```{r}
+simulation_summary_long <- simulation_summary |>
+  pivot_longer(cols = matches("^(mean_diff|cohens_d|hedges_g)_"),
+               names_to = c("estimator", ".value"),
+               names_pattern = "^(mean_diff|cohens_d|hedges_g)_(.*)$") |>
+  # factor() relabels and orders the estimators in one step
+  mutate(estimator = factor(estimator,
+                            levels = c("mean_diff", "cohens_d", "hedges_g"),
+                            labels = c("Mean difference", "Cohen's d", "Hedges' g")))
+```
+
+### Table
+
+```{r}
+# two ways of writing a table cell: a point estimate with its MCSE in parentheses,
+# or an interval in square brackets
+mcse_cell     <- function(estimate, mcse) paste0(estimate, " (", mcse, ")")
+interval_cell <- function(lower, upper)   paste0("[", lower, ", ", upper, "]")
+
+# helper to avoid repeating the same wide-table code for each performance metric.
+# `cell` is an expression built from the long summary's columns, e.g. mcse_cell(bias, bias_mcse).
+# it is called on `simulation_summary_long` filtered to the estimator(s) of interest, and
+# each row of the table is a combination of sample size and estimator.
+wide_table <- function(data, cell, caption, header = "Population mean difference",
+                       note = "Values in parentheses are ±1 Monte Carlo Standard Error.") {
+  data |>
+    arrange(n_control, estimator) |>
+    mutate(`n per condition` = as.character(n_control),
+           population_mean_diff = as.character(population_mean_diff)) |>
+    mutate(across(where(is.numeric), \(x) scales::number(x, accuracy = 0.001))) |>
+    mutate(cell_string = {{ cell }}) |>
+    select(`n per condition`,
+           estimator,
+           population_mean_diff,
+           cell_string) |>
+    pivot_wider(names_from = population_mean_diff,
+                values_from = cell_string) |>
+    kable(caption = caption) |>
+    kable_styling(full_width = FALSE) |>
+    # setNames() because the header label is a variable: the first two columns are
+    # the row labels (sample size and estimator), the next four the effect sizes
+    add_header_above(setNames(c(2, 4), c(" ", header))) |>
+    footnote(general = note,
+             general_title = "Note.",
+             footnote_as_chunk = TRUE)
+}
+
+# better wider tables
+# bias: systematic error in the estimate of the population mean difference.
+# the mean difference is in raw units and is not affected by Hedges' correction, so it
+# serves as a reference point: an estimator that is unbiased at every sample size
+wide_table(filter(simulation_summary_long, estimator == "Mean difference"),
+           mcse_cell(bias, bias_mcse),
+           caption = "Bias (±1 MCSE) of the estimated mean difference by sample size and population mean difference")
+
+# bias: systematic error in the estimate of the population standardized mean difference.
+# this is the comparison the simulation was built for: Cohen's d overestimates the
+# population standardized mean difference, especially at small samples, whereas
+# Hedges' g corrects for this
+wide_table(filter(simulation_summary_long, estimator %in% c("Cohen's d", "Hedges' g")),
+           mcse_cell(bias, bias_mcse),
+           caption = "Bias (±1 MCSE) of the estimated standardized mean difference by sample size, estimator, and population standardized mean difference",
+           header = "Population standardized mean difference")
+```
+
+### Plot
+
+```{r}
+# helper to avoid repeating the same plotting code for each performance metric.
+# it is called on `simulation_summary_long`, so the estimator is a column and can be
+# mapped to color: each population effect size gets its own facet, which keeps a single
+# panel from having to carry both the effect sizes and the estimators at once.
+# `lower` and `upper` are expressions built from the long summary's columns: ±1 MCSE for
+# the performance metrics (matching the values in parentheses in the tables above),
+# or the bounds of the prediction interval for the plots of the estimates themselves.
+metric_plot <- function(data,
+                        estimate,
+                        lower,
+                        upper,
+                        y_name,
+                        facet_var      = population_smd,
+                        facet_name     = "Population SMD",
+                        reference_line = NULL,
+                        y_limits       = NULL,
+                        y_breaks       = breaks_pretty(n = 8)) {
+
+  # pasted into a single column so the facet strips are self describing
+  data <- data |>
+    mutate(facet_label = paste0(facet_name, " = ", {{ facet_var }}))
+
+  p <- ggplot(data,
+              aes(x = n_control,
+                  y = {{ estimate }},
+                  linetype = estimator,
+                  color = estimator)) +
+    scale_color_viridis_d(begin = 0.2, end = 0.8)
+
+  # e.g. the nominal alpha for detection rates under the null, or zero for bias
+  if (!is.null(reference_line)) {
+    p <- p + geom_hline(yintercept = reference_line, linetype = "dashed")
+  }
+
+  p +
+    geom_linerange(aes(ymin = {{ lower }},
+                       ymax = {{ upper }}),
+                   color = "black") +
+    geom_line() +
+    geom_point() +
+    facet_wrap(~ facet_label) +
+    scale_x_continuous(name = "N per condition",
+                       breaks = breaks_pretty(n = 5)) +
+    scale_y_continuous(name = y_name,
+                       limits = y_limits,
+                       breaks = y_breaks) +
+    theme_linedraw() +
+    theme(panel.grid.minor = element_blank(),
+          legend.position = "bottom") +
+    guides(linetype = guide_legend(title = "Estimator"),
+           color = guide_legend(title = "Estimator"))
+}
+
+# bias: systematic error in the estimate of the population mean difference.
+# note that the y axis is not fixed to a wide range here: the bias being demonstrated
+# is a few hundredths of a standard deviation, so a c(-1, 1) axis would hide it entirely
+metric_plot(filter(simulation_summary_long, estimator == "Mean difference"),
+            estimate       = bias,
+            lower          = bias - bias_mcse,
+            upper          = bias + bias_mcse,
+            y_name         = "Bias in estimation\nof population mean difference",
+            facet_var      = population_mean_diff,
+            facet_name     = "Population mean difference",
+            reference_line = 0) +
+  coord_cartesian(ylim = c(-0.1, 0.1))
+
+# bias: systematic error in the estimate of the population standardized mean difference.
+# Cohen's d sits above zero at small sample sizes and converges on it as N grows,
+# whereas Hedges' g is on zero throughout
+metric_plot(filter(simulation_summary_long, estimator %in% c("Cohen's d", "Hedges' g")),
+            estimate       = bias,
+            lower          = bias - bias_mcse,
+            upper          = bias + bias_mcse,
+            y_name         = "Bias in estimation\nof population standardized mean difference",
+            reference_line = 0)
+```
+
+# References
+
+Hedges, L. V. (1981). Distribution Theory for Glass’s Estimator of Effect size and Related Estimators. *Journal of Educational Statistics*, 6(2), 107-128. doi: [10.3102/10769986006002107](https://doi.org/10.3102/10769986006002107)
+
+Hussey, I. & Cummins, J. (2026). *Understanding Statistics through Monte Carlo simulations*. [simulations.tidyver.se](https://simulations.tidyver.se) doi: [10.5281/zenodo.19420665](https://doi.org/10.5281/zenodo.19420665)
+
+Miratrix and Pustejovsky (2026). *Designing Monte Carlo Simulations in R*. [jepusto.github.io/Designing-Simulations-in-R](https://jepusto.github.io/Designing-Simulations-in-R/)
+
+Morris, T. P., White, I. R., & Crowther, M. J. (2019). Using simulation studies to evaluate statistical methods. *Statistics in Medicine*, 38(11), 2074–2102. https://doi.org/10.1002/sim.8086
+
+Siepe, B. S., Bartoš, F., Morris, T. P., Boulesteix, A.-L., Heck, D. W., & Pawel, S. (2024). Simulation studies for methodological research in psychology: A standardized template for planning, preregistration, and reporting. *Psychological Methods*. https://doi.org/10.1037/met0000695
+
+Strobl, C. et al. (2024). *Simulationsstudien in R: Design und praktische Durchführung*. doi: [doi.org/10.1007/978-3-662-70561-2](https://doi.org/10.1007/978-3-662-70561-2) [English translation should be available in late 2026]
+
+# Session info
+
+```{r}
+sessionInfo()
+```
+

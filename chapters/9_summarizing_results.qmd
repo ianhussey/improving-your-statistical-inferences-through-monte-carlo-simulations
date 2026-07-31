@@ -1,4 +1,4 @@
-# Summarizing results <span class="badge badge-draft1">✎ Very rough draft</span>
+# Summarizing results <span class="badge badge-draft1">✎ TODO</span>
 
 ```{r}
 #| include: false
@@ -6,11 +6,8 @@
 if(file.exists("../_setup.R")){source("../_setup.R")}
 ```
 
-## TODO
-
-- group_by() factors that were manipulated
-- meaningful summary methods; often mean estimates but not always
-- stability of estimates; MC SE
-- remember: only round results as you're about to print a table. why?
-- preparatory reading: siepe on estimands
-
+<!-- TODO: group_by() factors that were manipulated -->
+<!-- TODO: meaningful summary methods; often mean estimates but not always -->
+<!-- TODO: stability of estimates; MC SE -->
+<!-- TODO: remember: only round results as you're about to print a table. why? -->
+<!-- TODO: preparatory reading: siepe on estimands -->

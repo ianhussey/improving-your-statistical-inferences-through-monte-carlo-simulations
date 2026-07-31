@@ -1,4 +1,4 @@
-# Everything is regression <span class="badge badge-draft2">✎ Rough draft</span>
+# Everything is regression
 
 ```{r}
 #| include: false
@@ -145,7 +145,7 @@ fit_lm <- lm(rank(score) ~ 1 + condition_numeric,
 model_parameters(fit_lm)
 ```
 
-### Meta-analyses are linear regression models
+### Meta-analyses are linear regression models, and meta-analyses are multi-level models
 
 Specifically, linear models that weight by the sample size (in much older studies) or the effect size's variance (in modern meta analyses) so that larger studies with more precisely estimated effect sizes influence the meta-analysis estimate more. You can see in the forest plot below that the more precise estimates - those with narrower Confidence Intervals - have larger weights, represented by the larger squares. Psychology doesn't use regression weightings in non-meta-analysis contexts very often, but [perhaps we should (Alsalti, Hussey, Elson and Arslan, 2026)](https://doi.org/10.1525/collabra.155850).
 
@@ -188,6 +188,106 @@ fit_lm <- lm(pearsons_r ~ 1,
              data = data_meta)
 
 model_parameters(fit_lm)
+```
+
+### Confirmatory Factor Analysis is approximately a series of linear regression models
+
+Confirmatory Factor Analysis (CFA) is often used to assess the measurement model of a scale: how strongly each item loads onto the latent factor that the scale is meant to measure. These factor loadings ($\lambda$) are closely related to the unstandardized Beta coefficients from a series of `lm()` calls, each predicting one item from the scale's sum score.
+
+Unlike the equivalences above, however, this one is **approximate rather than exact**. The reason is that each item is itself part of the sum score, so the sum score carries that item's own measurement error. Regressing item $i$ on the sum score $S = \sum_j x_j$ gives:
+
+$$
+\beta_i = \frac{\operatorname{Cov}(x_i, S)}{\operatorname{Var}(S)} = \frac{\lambda_i \left(\sum_j \lambda_j\right) \psi \;+\; \theta_i}{\operatorname{Var}(S)}
+$$
+
+where $\psi$ is the factor variance and $\theta_i$ is item $i$'s residual (error) variance. That $\theta_i$ in the numerator is the item's own error leaking in from the sum score. Because it is *added* rather than multiplied, $\beta_i$ is not exactly proportional to $\lambda_i$, so no amount of rescaling can remove it. This is a structural difference, not sampling error: it does not shrink as the sample size grows. In practice it is small, and both methods recover the population loadings well.
+
+```{r}
+library(lavaan)
+
+# the true item factor loadings (lambda) are 1, .8, 1.2, 0.9, and 1.1
+population_model <- '
+  # factor loadings
+  F =~ 1.0*x1 + 0.8*x2 + 1.2*x3 + 0.9*x4 + 1.1*x5
+  # factor variance
+  F ~~ 1.5*F
+  # item residual (error) variances
+  x1 ~~ 0.5*x1
+  x2 ~~ 0.4*x2
+  x3 ~~ 0.6*x3
+  x4 ~~ 0.5*x4
+  x5 ~~ 0.5*x5
+'
+
+population_loadings <- c(1.0, 0.8, 1.2, 0.9, 1.1)
+items <- c("x1", "x2", "x3", "x4", "x5")
+
+set.seed(42)
+data_scale <- simulateData(population_model, sample.nobs = 1000)
+```
+
+Note the similar estimates of the factor loadings.
+
+```{r}
+fit_named <- cfa('F =~ x1 + x2 + x3 + x4 + x5', data = data_scale)
+
+cfa_loadings <- parameterEstimates(fit_named) |>
+  # the "=~" rows are the factor loadings
+  filter(op == "=~") |>
+  pull(est)
+
+cfa_loadings
+```
+
+```{r}
+# the sum score across the scale's items
+data_scale$sum_score <- rowSums(data_scale[, items])
+
+# fit one model per item, predicting that item from the sum score, and extract its Beta.
+# the same few lines are simply repeated for each item, so that each model is explicit
+lm_betas <- c(
+  lm(x1 ~ sum_score, data = data_scale) |>
+    parameters() |>
+    filter(Parameter == "sum_score") |>
+    pull(Coefficient),
+  lm(x2 ~ sum_score, data = data_scale) |>
+    parameters() |>
+    filter(Parameter == "sum_score") |>
+    pull(Coefficient),
+  lm(x3 ~ sum_score, data = data_scale) |>
+    parameters() |>
+    filter(Parameter == "sum_score") |>
+    pull(Coefficient),
+  lm(x4 ~ sum_score, data = data_scale) |>
+    parameters() |>
+    filter(Parameter == "sum_score") |>
+    pull(Coefficient),
+  lm(x5 ~ sum_score, data = data_scale) |>
+    parameters() |>
+    filter(Parameter == "sum_score") |>
+    pull(Coefficient)
+)
+
+# CFA fixes the first loading to 1 to set the scale of the latent factor,
+# so rescale the Betas by the first one to put them on the same footing
+lm_loadings <- lm_betas / lm_betas[1]
+
+lm_loadings
+```
+
+Both sets of estimates recover the population loadings closely:
+
+```{r}
+tibble(item               = items,
+       population_loading = population_loadings,
+       cfa_loading        = cfa_loadings,
+       lm_loading         = lm_loadings)
+```
+
+But, as explained above, the two are not *exactly* equal, unlike the other equivalences in this chapter:
+
+```{r}
+max(abs(cfa_loadings - lm_loadings))
 ```
 
 ### Means and Standard Deviations are linear regression models

@@ -11,11 +11,17 @@ if(file.exists("../_setup.R")){source("../_setup.R")}
 ```{r}
 
 library(tidyverse)
+library(furrr)
 library(scales)
 library(sn)
 library(janitor)
 library(effsize)
 library(faux)
+
+# set up parallelization
+# use availableCores() to define the number of cores, in case the simulation is being
+# run on a HPC that might have more physical cores than are available to the session
+plan(multisession, workers = parallelly::availableCores())
 
 ```
 
@@ -461,19 +467,48 @@ experiment_parameters_grid <- expand_grid(
 
 
 # run simulation ----
-simulation <- 
-  # using the experiment parameters
-  experiment_parameters_grid |>
-  
-  # generate data using the data generating function and the parameters relevant to data generation
-  mutate(generated_data = pmap(list(n,
-                                    mean,
-                                    sd),
-                               generate_data)) |>
-  
-  # apply the analysis function to the generated data using the parameters relevant to analysis
-  mutate(analysis_results = pmap(list(generated_data),
-                                 analyse_data))
+# results are cached to disk: the simulation is only run the first time, and read back
+# in on subsequent renders. delete the .rds file if you change the simulation code.
+dir.create("results", showWarnings = FALSE)
+
+if(file.exists("results/simulation_range_restriction.rds")){
+
+  simulation <- read_rds("results/simulation_range_restriction.rds")
+
+} else {
+
+  simulation <-
+    # using the experiment parameters
+    experiment_parameters_grid |>
+
+    # shuffle the rows of the grid to load balance the computationally expensive
+    # iterations evenly across the workers
+    slice_sample(prop = 1) |>
+
+    # generate data using the data generating function and the parameters relevant to data generation
+    mutate(generated_data = future_pmap(.l = list(n, mean, sd),
+                                        .f = generate_data,
+                                        .progress = TRUE,
+                                        .options = furrr_options(seed = TRUE))) |>
+
+    # apply the analysis function to the generated data using the parameters relevant to analysis
+    mutate(analysis_results = future_pmap(.l = list(generated_data),
+                                          .f = analyse_data,
+                                          .progress = TRUE,
+                                          .options = furrr_options(seed = TRUE))) |>
+
+    # undo the shuffle so the rows are back in the order of the experiment grid
+    arrange(n, iteration) |>
+
+    # the generated data sets are not needed after they have been analyzed, and keeping
+    # them would make the saved file enormous
+    select(-generated_data)
+
+  write_rds(x = simulation,
+            file = "results/simulation_range_restriction.rds",
+            compress = "gz")
+
+}
   
 
 # summarise simulation results over the iterations ----

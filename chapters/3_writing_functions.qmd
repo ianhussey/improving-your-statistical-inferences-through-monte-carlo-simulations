@@ -1,4 +1,4 @@
-# Writing functions <span class="badge badge-draft3">✎ Polishing</span>
+# Writing functions
 
 ```{r}
 #| include: false

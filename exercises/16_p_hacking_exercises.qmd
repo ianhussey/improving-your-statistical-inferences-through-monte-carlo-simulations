@@ -1,0 +1,374 @@
+# Exercises for 'p-hacking' chapter
+
+```{r}
+#| include: false
+# if it is available, run the setup script that tells quarto to round all df/tibble outputs to three decimal places
+if(file.exists("../_setup.R")){source("../_setup.R")}
+```
+
+```{r}
+# dependencies
+library(tidyr)
+library(dplyr)
+library(readr)
+library(forcats)
+library(stringr)
+library(ggplot2)
+library(scales)
+library(patchwork)
+library(tibble)
+library(purrr)
+library(furrr)
+library(simhelpers)
+library(faux)
+library(janitor)
+
+# set up parallelization
+# use availableCores() to define the number of cores, in case the simulation is being
+# run on a HPC that might have more physical cores than are available to the session
+plan(multisession, workers = parallelly::availableCores())
+```
+
+## Basis simulation
+
+Same as in the chapter: selective reporting across two studies.
+
+```{r}
+
+generate_data <- function(n_per_condition,
+                          mean_control,
+                          mean_intervention,
+                          sd) {
+
+  data_control <-
+    tibble(condition = "control",
+           score = rnorm(n = n_per_condition, mean = mean_control, sd = sd))
+
+  data_intervention <-
+    tibble(condition = "intervention",
+           score = rnorm(n = n_per_condition, mean = mean_intervention, sd = sd))
+
+  data_combined <- bind_rows(data_control,
+                             data_intervention)
+
+  return(data_combined)
+}
+
+
+# define data analysis function ----
+analyze <- function(data) {
+
+  students_ttest <- t.test(formula = score ~ condition,
+                           data = data,
+                           var.equal = TRUE,
+                           alternative = "two.sided")
+
+  res <- tibble(p = students_ttest$p.value)
+
+  return(res)
+}
+
+
+# define experiment parameters ----
+experiment_parameters <- expand_grid(
+  n_per_condition = 100,
+  mean_control = 0,
+  mean_intervention = 0,
+  sd = 1,
+  iteration = 1:1000
+)
+
+
+# run simulation ----
+# results are cached to disk: the simulation is only run the first time, and read back
+# in on subsequent renders. delete the .rds file if you change the simulation code.
+dir.create("results", showWarnings = FALSE)
+
+if(file.exists("results/simulation_p_hacking_exercises_two_studies.rds")){
+
+  simulation <- read_rds("results/simulation_p_hacking_exercises_two_studies.rds")
+
+} else {
+
+  set.seed(42)
+
+  simulation <-
+    # using the experiment parameters
+    experiment_parameters |>
+
+    # shuffle the rows of the grid to load balance the computationally expensive
+    # iterations evenly across the workers
+    slice_sample(prop = 1) |>
+
+    # generate data using the data generating function and the parameters relevant to data generation
+    mutate(generated_data_study1 = future_pmap(.l = list(n_per_condition,
+                                                         mean_control,
+                                                         mean_intervention,
+                                                         sd),
+                                               .f = generate_data,
+                                               .progress = TRUE,
+                                               .options = furrr_options(seed = TRUE))) |>
+    mutate(generated_data_study2 = future_pmap(.l = list(n_per_condition,
+                                                         mean_control,
+                                                         mean_intervention,
+                                                         sd),
+                                               .f = generate_data,
+                                               .progress = TRUE,
+                                               .options = furrr_options(seed = TRUE))) |>
+
+    # apply the analysis function to the generated data using the parameters relevant to analysis
+    mutate(results_study1 = future_pmap(.l = list(data = generated_data_study1),
+                                        .f = analyze,
+                                        .progress = TRUE,
+                                        .options = furrr_options(seed = TRUE))) |>
+    mutate(results_study2 = future_pmap(.l = list(data = generated_data_study2),
+                                        .f = analyze,
+                                        .progress = TRUE,
+                                        .options = furrr_options(seed = TRUE))) |>
+
+    # undo the shuffle so the rows are back in the order of the experiment grid
+    arrange(iteration) |>
+
+    # the generated data sets are not needed after they have been analyzed, and keeping
+    # them would make the saved file enormous
+    select(-generated_data_study1, -generated_data_study2)
+
+  write_rds(x = simulation,
+            file = "results/simulation_p_hacking_exercises_two_studies.rds",
+            compress = "gz")
+
+}
+
+
+# summarise simulation results over the iterations ----
+simulation_summary <- simulation |>
+  # unnest and rename
+  unnest(results_study1) |>
+  rename(p_study1 = p) |>
+  unnest(results_study2) |>
+  rename(p_study2 = p) |>
+  # simulate flexible reporting
+  mutate(p_hacked = ifelse(p_study1 < .05, p_study1, p_study2)) |>
+  # summarize. rather than calculating the proportion of significant results by hand,
+  # use {simhelpers}'s dedicated function for the empirical rejection rate.
+  # calc_rejection() also returns the number of iterations and the Monte Carlo Standard
+  # Error of the rate; select() keeps and renames just the rate itself
+  reframe(calc_rejection(data     = pick(everything()),
+                         p_values = p_study1,
+                         alpha    = 0.05) |>
+            select(prop_sig_study1 = rej_rate),
+          calc_rejection(data     = pick(everything()),
+                         p_values = p_study2,
+                         alpha    = 0.05) |>
+            select(prop_sig_study2 = rej_rate),
+          calc_rejection(data     = pick(everything()),
+                         p_values = p_hacked,
+                         alpha    = 0.05) |>
+            select(prop_sig_hacked = rej_rate)) |>
+  pivot_longer(cols = everything(),
+               names_to = "Source",
+               values_to = "proportion_significant") |>
+  mutate(Source = str_remove(Source, "prop_sig_"))
+
+```
+
+### Results
+
+```{r}
+
+simulation_summary |>
+  mutate_if(is.numeric, round_half_up, digits = 2)
+
+```
+
+The false positive rate for two studies is \~10%, because each study has a 5% false positive rate.
+
+## Exercises
+
+For each of the exercises below, create a copy of the simulation above. Modify it appropriately to answer the exercise.
+
+### Extend the simulation to four studies
+
+Extend the simulation so that four studies are run. What do you expect the false positive rate to be? What do you find?
+
+```{r}
+
+
+
+```
+
+### Solution
+
+```{r}
+
+generate_data <- function(n_per_condition,
+                          mean_control,
+                          mean_intervention,
+                          sd) {
+
+  data_control <-
+    tibble(condition = "control",
+           score = rnorm(n = n_per_condition, mean = mean_control, sd = sd))
+
+  data_intervention <-
+    tibble(condition = "intervention",
+           score = rnorm(n = n_per_condition, mean = mean_intervention, sd = sd))
+
+  data_combined <- bind_rows(data_control,
+                             data_intervention)
+
+  return(data_combined)
+}
+
+
+# define data analysis function ----
+analyze <- function(data) {
+
+  students_ttest <- t.test(formula = score ~ condition,
+                           data = data,
+                           var.equal = TRUE,
+                           alternative = "two.sided")
+
+  res <- tibble(p = students_ttest$p.value)
+
+  return(res)
+}
+
+
+# define experiment parameters ----
+experiment_parameters <- expand_grid(
+  n_per_condition = 100,
+  mean_control = 0,
+  mean_intervention = 0,
+  sd = 1,
+  iteration = 1:1000
+)
+
+
+# run simulation ----
+# results are cached to disk: the simulation is only run the first time, and read back
+# in on subsequent renders. delete the .rds file if you change the simulation code.
+dir.create("results", showWarnings = FALSE)
+
+if(file.exists("results/simulation_p_hacking_exercises_four_studies.rds")){
+
+  simulation <- read_rds("results/simulation_p_hacking_exercises_four_studies.rds")
+
+} else {
+
+  set.seed(42)
+
+  simulation <-
+    # using the experiment parameters
+    experiment_parameters |>
+
+    # shuffle the rows of the grid to load balance the computationally expensive
+    # iterations evenly across the workers
+    slice_sample(prop = 1) |>
+
+    # generate data using the data generating function and the parameters relevant to data generation
+    mutate(generated_data_study1 = future_pmap(.l = list(n_per_condition = n_per_condition,
+                                                         mean_control = mean_control,
+                                                         mean_intervention = mean_intervention,
+                                                         sd = sd),
+                                               .f = generate_data,
+                                               .progress = TRUE,
+                                               .options = furrr_options(seed = TRUE))) |>
+    mutate(generated_data_study2 = future_pmap(.l = list(n_per_condition = n_per_condition,
+                                                         mean_control = mean_control,
+                                                         mean_intervention = mean_intervention,
+                                                         sd = sd),
+                                               .f = generate_data,
+                                               .progress = TRUE,
+                                               .options = furrr_options(seed = TRUE))) |>
+    mutate(generated_data_study3 = future_pmap(.l = list(n_per_condition = n_per_condition,
+                                                         mean_control = mean_control,
+                                                         mean_intervention = mean_intervention,
+                                                         sd = sd),
+                                               .f = generate_data,
+                                               .progress = TRUE,
+                                               .options = furrr_options(seed = TRUE))) |>
+    mutate(generated_data_study4 = future_pmap(.l = list(n_per_condition = n_per_condition,
+                                                         mean_control = mean_control,
+                                                         mean_intervention = mean_intervention,
+                                                         sd = sd),
+                                               .f = generate_data,
+                                               .progress = TRUE,
+                                               .options = furrr_options(seed = TRUE))) |>
+
+    # apply the analysis function to the generated data using the parameters relevant to analysis
+    mutate(results_study1 = future_pmap(.l = list(data = generated_data_study1),
+                                        analyze,
+                                        .progress = TRUE,
+                                        .options = furrr_options(seed = TRUE))) |>
+    mutate(results_study2 = future_pmap(.l = list(data = generated_data_study2),
+                                        analyze,
+                                        .progress = TRUE,
+                                        .options = furrr_options(seed = TRUE))) |>
+    mutate(results_study3 = future_pmap(.l = list(data = generated_data_study3),
+                                        analyze,
+                                        .progress = TRUE,
+                                        .options = furrr_options(seed = TRUE))) |>
+    mutate(results_study4 = future_pmap(.l = list(data = generated_data_study4),
+                                        analyze,
+                                        .progress = TRUE,
+                                        .options = furrr_options(seed = TRUE))) |>
+
+    # undo the shuffle so the rows are back in the order of the experiment grid
+    arrange(iteration) |>
+
+    # the generated data sets are not needed after they have been analyzed, and keeping
+    # them would make the saved file enormous
+    select(-starts_with("generated_data_study"))
+
+  write_rds(x = simulation,
+            file = "results/simulation_p_hacking_exercises_four_studies.rds",
+            compress = "gz")
+
+}
+
+
+# summarise simulation results over the iterations ----
+simulation_summary <- simulation |>
+  # unnest and rename
+  unnest(results_study1) |>
+  rename(p_study1 = p) |>
+  unnest(results_study2) |>
+  rename(p_study2 = p) |>
+  unnest(results_study3) |>
+  rename(p_study3 = p) |>
+  unnest(results_study4) |>
+  rename(p_study4 = p) |>
+  # simulate flexible reporting
+  mutate(p_hacked = case_when(p_study1 < .05 ~ p_study1,
+                              p_study2 < .05 ~ p_study2,
+                              p_study3 < .05 ~ p_study3,
+                              TRUE ~ p_study4)) |>
+  # summarize using {simhelpers}'s dedicated function for the empirical rejection rate
+  reframe(calc_rejection(data = pick(everything()), p_values = p_study1, alpha = 0.05) |>
+            select(prop_sig_study1 = rej_rate),
+          calc_rejection(data = pick(everything()), p_values = p_study2, alpha = 0.05) |>
+            select(prop_sig_study2 = rej_rate),
+          calc_rejection(data = pick(everything()), p_values = p_study3, alpha = 0.05) |>
+            select(prop_sig_study3 = rej_rate),
+          calc_rejection(data = pick(everything()), p_values = p_study4, alpha = 0.05) |>
+            select(prop_sig_study4 = rej_rate),
+          calc_rejection(data = pick(everything()), p_values = p_hacked, alpha = 0.05) |>
+            select(prop_sig_hacked = rej_rate)) |>
+  pivot_longer(cols = everything(),
+               names_to = "Source",
+               values_to = "proportion_significant") |>
+  mutate(Source = str_remove(Source, "prop_sig_"))
+
+simulation_summary |>
+  mutate_if(is.numeric, round_half_up, digits = 2)
+
+```
+
+## In-class exercises
+
+Without writing any code, design and describe the necessary components of simulations that quantify the the effect of the following p-hacking strategies on the false positive rate (i.e., empirical detection rate when true difference in means is 0)
+
+- Flexibility in whether the DV is log transformed or not.
+- Flexibility in whether to exclude DV outliers or not (e.g., >±1SD from mean).
+- Flexibility calculating a median split for the DV or not.

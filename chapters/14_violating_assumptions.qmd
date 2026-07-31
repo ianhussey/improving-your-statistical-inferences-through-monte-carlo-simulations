@@ -1,4 +1,4 @@
-# Assessing the impact of violating the assumption of normality <span class="badge badge-draft2">✎ Rough draft</span>
+# Assessing the impact of violating the assumption of normality 
 
 ```{r}
 #| include: false
@@ -6,16 +6,19 @@
 if(file.exists("../_setup.R")){source("../_setup.R")}
 ```
 
-## Dependencies
+<!-- TODO: Modify each of the above expand grids to use skewnormal_from_m_sd_skew() before it rather than calculating manually after it. -->
+<!-- TODO: The other simulation of heteroscedasticity should come first, its easier to implement. -->
 
 ```{r}
-
+#| include: false
 library(tidyr)
 library(dplyr)
-library(purrr) 
+library(readr)
+library(purrr)
 library(furrr)
 library(forcats)
 library(parameters)
+library(simhelpers)
 library(ggplot2)
 library(scales)
 library(sn)
@@ -23,7 +26,9 @@ library(janitor)
 library(effsize)
 
 # set up parallelization
-plan(multisession)
+# use availableCores() to define the number of cores, in case the simulation is being
+# run on a HPC that might have more physical cores than are available to the session
+plan(multisession, workers = parallelly::availableCores())
 ```
 
 ## Skew-normal distributions
@@ -290,14 +295,28 @@ experiment_parameters <- expand_grid(
 
 ```{r}
 
-# set the seed ----
-set.seed(44)
-
 # run simulation ----
-simulation <- 
+# results are cached to disk: the simulation is only run the first time, and read back
+# in on subsequent renders. delete the .rds file if you change the simulation code.
+dir.create("results", showWarnings = FALSE)
+
+if(file.exists("results/simulation_violating_assumptions_1.rds")){
+
+  simulation <- read_rds("results/simulation_violating_assumptions_1.rds")
+
+} else {
+
+  # set the seed ----
+  set.seed(44)
+
+  simulation <-
   # using the experiment parameters
   experiment_parameters |>
-  
+
+  # shuffle the rows of the grid to load balance the computationally expensive
+  # iterations evenly across the workers
+  slice_sample(prop = 1) |>
+
   # generate data using the data generating function and the parameters relevant to data generation
   mutate(generated_data = future_pmap(.l = list(n_control = n_control,
                                                 n_intervention = n_intervention,
@@ -315,7 +334,20 @@ simulation <-
   mutate(results = future_pmap(.l = list(data = generated_data),
                                .f = analyze,
                                .progress = TRUE,
-                               .options = furrr_options(seed = TRUE)))
+                               .options = furrr_options(seed = TRUE))) |>
+
+  # undo the shuffle so the rows are back in the order of the experiment grid
+  arrange(skew_control, iteration) |>
+
+  # the generated data sets are not needed after they have been analyzed, and keeping
+  # them would make the saved file enormous
+  select(-generated_data)
+
+  write_rds(x = simulation,
+            file = "results/simulation_violating_assumptions_1.rds",
+            compress = "gz")
+
+}
 
 ```
 
@@ -331,7 +363,14 @@ Summarize the proportion of significant *p*-values, i.e., the false positive rat
 simulation_summary <- simulation |>
   unnest(results) |>
   group_by(distribution) |>
-  summarize(proportion_significant = mean(significant)) 
+  # rather than calculating the proportion of significant results by hand, use
+  # {simhelpers}'s dedicated function for the empirical rejection rate.
+  # calc_rejection() also returns the number of iterations and the Monte Carlo Standard
+  # Error of the rate; select() keeps and renames just the rate itself
+  reframe(calc_rejection(data     = pick(everything()),
+                         p_values = p,
+                         alpha    = 0.05) |>
+            select(proportion_significant = rej_rate))
 
 # print table
 # note: only ever do rounding at the point of printing results!
@@ -424,14 +463,28 @@ Exactly the same as last time, only parameters differ.
 
 ```{r}
 
-# set the seed ----
-set.seed(42)
-
 # run simulation ----
-simulation <- 
+# results are cached to disk: the simulation is only run the first time, and read back
+# in on subsequent renders. delete the .rds file if you change the simulation code.
+dir.create("results", showWarnings = FALSE)
+
+if(file.exists("results/simulation_violating_assumptions_2.rds")){
+
+  simulation <- read_rds("results/simulation_violating_assumptions_2.rds")
+
+} else {
+
+  # set the seed ----
+  set.seed(42)
+
+  simulation <-
   # using the experiment parameters
   experiment_parameters |>
-  
+
+  # shuffle the rows of the grid to load balance the computationally expensive
+  # iterations evenly across the workers
+  slice_sample(prop = 1) |>
+
   # generate data using the data generating function and the parameters relevant to data generation
   mutate(generated_data = future_pmap(.l = list(n_control = n_control,
                                                 n_intervention = n_intervention,
@@ -449,7 +502,20 @@ simulation <-
   mutate(results = future_pmap(.l = list(data = generated_data),
                                .f = analyze,
                                .progress = TRUE,
-                               .options = furrr_options(seed = TRUE)))
+                               .options = furrr_options(seed = TRUE))) |>
+
+  # undo the shuffle so the rows are back in the order of the experiment grid
+  arrange(mu_intervention, skew_control, iteration) |>
+
+  # the generated data sets are not needed after they have been analyzed, and keeping
+  # them would make the saved file enormous
+  select(-generated_data)
+
+  write_rds(x = simulation,
+            file = "results/simulation_violating_assumptions_2.rds",
+            compress = "gz")
+
+}
 
 ```
 
@@ -467,11 +533,14 @@ How do we need to modify the summarization compared to last time? Modify the bel
 simulation_summary <- simulation |>
   unnest(results) |>
   group_by(distribution) |>
-  summarize(proportion_significant = mean(significant)) 
+  reframe(calc_rejection(data     = pick(everything()),
+                         p_values = p,
+                         alpha    = 0.05) |>
+            select(proportion_significant = rej_rate))
 
 # note: only ever do rounding at the point of printing results!
 simulation_summary |>
-  mutate_if(is.numeric, janitor::round_half_up, digits = 2) 
+  mutate_if(is.numeric, janitor::round_half_up, digits = 2)
 
 ```
 
@@ -485,8 +554,11 @@ simulation_summary |>
 simulation_summary <- simulation |>
   unnest(results) |>
   # group_by ALL the manipulated factors
-  group_by(distribution, population_unstandardized_effect_size) |> 
-  summarize(proportion_significant = mean(significant)) 
+  group_by(distribution, population_unstandardized_effect_size) |>
+  reframe(calc_rejection(data     = pick(everything()),
+                         p_values = p,
+                         alpha    = 0.05) |>
+            select(proportion_significant = rej_rate))
 
 # note: only ever do rounding at the point of printing results!
 simulation_summary |>
@@ -512,12 +584,15 @@ We can summarize the results of the previous simulation differently, by adding C
 simulation_summary <- simulation |>
   unnest(results) |>
   # group by ALL the manipulated factors
-  group_by(distribution, 
+  group_by(distribution,
            population_unstandardized_effect_size,
            population_standardized_effect_size) |>
-  summarize(proportion_significant = mean(significant),
-            average_mean_difference = mean(mean_diff),
-            cohens_d = mean(cohens_d)) |>
+  reframe(average_mean_difference = mean(mean_diff),
+          cohens_d = mean(cohens_d),
+          calc_rejection(data     = pick(everything()),
+                         p_values = p,
+                         alpha    = 0.05) |>
+            select(proportion_significant = rej_rate)) |>
   select(distribution,
          population_unstandardized_effect_size,
          average_mean_difference,
@@ -578,10 +653,5 @@ Note that this isn't a trivial exercise, it would take you some time to answer. 
 
 
 ```
-
-## TODO
-
-- Modify each of the above expand grids to use skewnormal_from_m_sd_skew() before it rather than calculating manually after it. 
-- The other simulation of heteroscedasticity should come first, its easier to implement.
 
 

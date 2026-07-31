@@ -12,7 +12,10 @@ if(file.exists("../_setup.R")){source("../_setup.R")}
 
 library(tidyr)
 library(dplyr)
-library(purrr) 
+library(readr)
+library(purrr)
+library(furrr)
+library(simhelpers)
 library(stringr)
 library(forcats)
 library(ggplot2)
@@ -21,6 +24,11 @@ library(patchwork)
 library(janitor)
 library(effsize)
 library(metafor)
+
+# set up parallelization
+# use availableCores() to define the number of cores, in case the simulation is being
+# run on a HPC that might have more physical cores than are available to the session
+plan(multisession, workers = parallelly::availableCores())
 
 format_p_apa <- function(p, threshold = 0.001) {
   ifelse(
@@ -117,22 +125,47 @@ experiment_parameters <- expand_grid(
 ) 
 
 # run simulation
-simulation <- experiment_parameters |>
-  mutate(generated_data_study_1 = pmap(list(n_per_condition = study_1_n_per_condition, 
-                                            population_cohens_d = study_1_population_cohens_d),
-                                       generate_data)) |>
-  mutate(generated_data_study_2 = pmap(list(n_per_condition = study_2_n_per_condition, 
-                                            population_cohens_d = study_2_population_cohens_d),
-                                       generate_data)) |>
-  mutate(results_study1 = pmap(list(data = generated_data_study_1),
-                                analyze,
-                                study = "study 1")) |>
-  mutate(results_study2 = pmap(list(data = generated_data_study_2),
-                                analyze,
-                                study = "study 2")) |>
-  mutate(results_meta = pmap(list(results_study_1 = results_study1,
-                                  results_study_2 = results_study2),
-                             meta_analyze)) |>
+# results are cached to disk: the simulation is only run the first time, and read back
+# in on subsequent renders. delete the .rds file if you change the simulation code.
+dir.create("results", showWarnings = FALSE)
+
+if(file.exists("results/simulation_sig_vs_nonsig_1.rds")){
+
+  simulation <- read_rds("results/simulation_sig_vs_nonsig_1.rds")
+
+} else {
+
+  simulation <- experiment_parameters |>
+  # shuffle the rows of the grid to load balance the computationally expensive
+  # iterations evenly across the workers
+  slice_sample(prop = 1) |>
+  mutate(generated_data_study_1 = future_pmap(.l = list(n_per_condition = study_1_n_per_condition,
+                                                        population_cohens_d = study_1_population_cohens_d),
+                                              .f = generate_data,
+                                              .progress = TRUE,
+                                              .options = furrr_options(seed = TRUE))) |>
+  mutate(generated_data_study_2 = future_pmap(.l = list(n_per_condition = study_2_n_per_condition,
+                                                        population_cohens_d = study_2_population_cohens_d),
+                                              .f = generate_data,
+                                              .progress = TRUE,
+                                              .options = furrr_options(seed = TRUE))) |>
+  mutate(results_study1 = future_pmap(.l = list(data = generated_data_study_1),
+                                      .f = analyze,
+                                      study = "study 1",
+                                      .progress = TRUE,
+                                      .options = furrr_options(seed = TRUE))) |>
+  mutate(results_study2 = future_pmap(.l = list(data = generated_data_study_2),
+                                      .f = analyze,
+                                      study = "study 2",
+                                      .progress = TRUE,
+                                      .options = furrr_options(seed = TRUE))) |>
+  mutate(results_meta = future_pmap(.l = list(results_study_1 = results_study1,
+                                              results_study_2 = results_study2),
+                                    .f = meta_analyze,
+                                    .progress = TRUE,
+                                    .options = furrr_options(seed = TRUE))) |>
+  # undo the shuffle so the rows are back in the order of the experiment grid
+  arrange(iteration) |>
   # wrangle results
   unnest(results_study1, names_sep = "_") |>
   unnest(results_study2, names_sep = "_") |>
@@ -166,17 +199,27 @@ simulation <- experiment_parameters |>
     values_from = value
   )
 
+  write_rds(x = simulation, file = "results/simulation_sig_vs_nonsig_1.rds", compress = "gz")
+
+}
+
 simulation_summary <- simulation |>
   group_by(study_1_n_per_condition,
            study_1_population_cohens_d,
            study_2_n_per_condition,
            study_2_population_cohens_d,
            source) |>
-  summarize(proportion_significant = mean(p < .05),
-            mean_cohens_d = mean(cohens_d),
-            mean_cohens_d_ci_lower = mean(cohens_d_ci_lower),
-            mean_cohens_d_ci_upper = mean(cohens_d_ci_upper),
-            .groups = "drop") |>
+  # rather than calculating the proportion of significant results by hand, use
+  # {simhelpers}'s dedicated function for the empirical rejection rate.
+  # calc_rejection() also returns the number of iterations and the Monte Carlo Standard
+  # Error of the rate; select() keeps and renames just the rate itself
+  reframe(calc_rejection(data     = pick(everything()),
+                         p_values = p,
+                         alpha    = 0.05) |>
+            select(proportion_significant = rej_rate),
+          mean_cohens_d = mean(cohens_d),
+          mean_cohens_d_ci_lower = mean(cohens_d_ci_lower),
+          mean_cohens_d_ci_upper = mean(cohens_d_ci_upper)) |>
   mutate(source = str_replace(source, "meta", "difference")) |>
   mutate(source = fct_relevel(source, "study1", "study2", "difference"))
 
@@ -224,22 +267,47 @@ experiment_parameters <- expand_grid(
 ) 
 
 # run simulation
-simulation <- experiment_parameters |>
-  mutate(generated_data_study_1 = pmap(list(n_per_condition = study_1_n_per_condition, 
-                                            population_cohens_d = study_1_population_cohens_d),
-                                       generate_data)) |>
-  mutate(generated_data_study_2 = pmap(list(n_per_condition = study_2_n_per_condition, 
-                                            population_cohens_d = study_2_population_cohens_d),
-                                       generate_data)) |>
-  mutate(results_study1 = pmap(list(data = generated_data_study_1),
-                                analyze,
-                                study = "study 1")) |>
-  mutate(results_study2 = pmap(list(data = generated_data_study_2),
-                                analyze,
-                                study = "study 2")) |>
-  mutate(results_meta = pmap(list(results_study_1 = results_study1,
-                                  results_study_2 = results_study2),
-                             meta_analyze)) |>
+# results are cached to disk: the simulation is only run the first time, and read back
+# in on subsequent renders. delete the .rds file if you change the simulation code.
+dir.create("results", showWarnings = FALSE)
+
+if(file.exists("results/simulation_sig_vs_nonsig_2.rds")){
+
+  simulation <- read_rds("results/simulation_sig_vs_nonsig_2.rds")
+
+} else {
+
+  simulation <- experiment_parameters |>
+  # shuffle the rows of the grid to load balance the computationally expensive
+  # iterations evenly across the workers
+  slice_sample(prop = 1) |>
+  mutate(generated_data_study_1 = future_pmap(.l = list(n_per_condition = study_1_n_per_condition,
+                                                        population_cohens_d = study_1_population_cohens_d),
+                                              .f = generate_data,
+                                              .progress = TRUE,
+                                              .options = furrr_options(seed = TRUE))) |>
+  mutate(generated_data_study_2 = future_pmap(.l = list(n_per_condition = study_2_n_per_condition,
+                                                        population_cohens_d = study_2_population_cohens_d),
+                                              .f = generate_data,
+                                              .progress = TRUE,
+                                              .options = furrr_options(seed = TRUE))) |>
+  mutate(results_study1 = future_pmap(.l = list(data = generated_data_study_1),
+                                      .f = analyze,
+                                      study = "study 1",
+                                      .progress = TRUE,
+                                      .options = furrr_options(seed = TRUE))) |>
+  mutate(results_study2 = future_pmap(.l = list(data = generated_data_study_2),
+                                      .f = analyze,
+                                      study = "study 2",
+                                      .progress = TRUE,
+                                      .options = furrr_options(seed = TRUE))) |>
+  mutate(results_meta = future_pmap(.l = list(results_study_1 = results_study1,
+                                              results_study_2 = results_study2),
+                                    .f = meta_analyze,
+                                    .progress = TRUE,
+                                    .options = furrr_options(seed = TRUE))) |>
+  # undo the shuffle so the rows are back in the order of the experiment grid
+  arrange(iteration) |>
   # wrangle results
   unnest(results_study1, names_sep = "_") |>
   unnest(results_study2, names_sep = "_") |>
@@ -273,17 +341,27 @@ simulation <- experiment_parameters |>
     values_from = value
   )
 
+  write_rds(x = simulation, file = "results/simulation_sig_vs_nonsig_2.rds", compress = "gz")
+
+}
+
 simulation_summary <- simulation |>
   group_by(study_1_n_per_condition,
            study_1_population_cohens_d,
            study_2_n_per_condition,
            study_2_population_cohens_d,
            source) |>
-  summarize(proportion_significant = mean(p < .05),
-            mean_cohens_d = mean(cohens_d),
-            mean_cohens_d_ci_lower = mean(cohens_d_ci_lower),
-            mean_cohens_d_ci_upper = mean(cohens_d_ci_upper),
-            .groups = "drop") |>
+  # rather than calculating the proportion of significant results by hand, use
+  # {simhelpers}'s dedicated function for the empirical rejection rate.
+  # calc_rejection() also returns the number of iterations and the Monte Carlo Standard
+  # Error of the rate; select() keeps and renames just the rate itself
+  reframe(calc_rejection(data     = pick(everything()),
+                         p_values = p,
+                         alpha    = 0.05) |>
+            select(proportion_significant = rej_rate),
+          mean_cohens_d = mean(cohens_d),
+          mean_cohens_d_ci_lower = mean(cohens_d_ci_lower),
+          mean_cohens_d_ci_upper = mean(cohens_d_ci_upper)) |>
   mutate(source = str_replace(source, "meta", "difference")) |>
   mutate(source = fct_relevel(source, "study1", "study2", "difference"))
 
@@ -335,22 +413,47 @@ experiment_parameters <- expand_grid(
 ) 
 
 # run simulation
-simulation <- experiment_parameters |>
-  mutate(generated_data_study_1 = pmap(list(n_per_condition = study_1_n_per_condition, 
-                                            population_cohens_d = study_1_population_cohens_d),
-                                       generate_data)) |>
-  mutate(generated_data_study_2 = pmap(list(n_per_condition = study_2_n_per_condition, 
-                                            population_cohens_d = study_2_population_cohens_d),
-                                       generate_data)) |>
-  mutate(results_study1 = pmap(list(data = generated_data_study_1),
-                                analyze,
-                                study = "study 1")) |>
-  mutate(results_study2 = pmap(list(data = generated_data_study_2),
-                                analyze,
-                                study = "study 2")) |>
-  mutate(results_meta = pmap(list(results_study_1 = results_study1,
-                                  results_study_2 = results_study2),
-                             meta_analyze)) |>
+# results are cached to disk: the simulation is only run the first time, and read back
+# in on subsequent renders. delete the .rds file if you change the simulation code.
+dir.create("results", showWarnings = FALSE)
+
+if(file.exists("results/simulation_sig_vs_nonsig_3.rds")){
+
+  simulation <- read_rds("results/simulation_sig_vs_nonsig_3.rds")
+
+} else {
+
+  simulation <- experiment_parameters |>
+  # shuffle the rows of the grid to load balance the computationally expensive
+  # iterations evenly across the workers
+  slice_sample(prop = 1) |>
+  mutate(generated_data_study_1 = future_pmap(.l = list(n_per_condition = study_1_n_per_condition,
+                                                        population_cohens_d = study_1_population_cohens_d),
+                                              .f = generate_data,
+                                              .progress = TRUE,
+                                              .options = furrr_options(seed = TRUE))) |>
+  mutate(generated_data_study_2 = future_pmap(.l = list(n_per_condition = study_2_n_per_condition,
+                                                        population_cohens_d = study_2_population_cohens_d),
+                                              .f = generate_data,
+                                              .progress = TRUE,
+                                              .options = furrr_options(seed = TRUE))) |>
+  mutate(results_study1 = future_pmap(.l = list(data = generated_data_study_1),
+                                      .f = analyze,
+                                      study = "study 1",
+                                      .progress = TRUE,
+                                      .options = furrr_options(seed = TRUE))) |>
+  mutate(results_study2 = future_pmap(.l = list(data = generated_data_study_2),
+                                      .f = analyze,
+                                      study = "study 2",
+                                      .progress = TRUE,
+                                      .options = furrr_options(seed = TRUE))) |>
+  mutate(results_meta = future_pmap(.l = list(results_study_1 = results_study1,
+                                              results_study_2 = results_study2),
+                                    .f = meta_analyze,
+                                    .progress = TRUE,
+                                    .options = furrr_options(seed = TRUE))) |>
+  # undo the shuffle so the rows are back in the order of the experiment grid
+  arrange(iteration) |>
   # wrangle results
   unnest(results_study1, names_sep = "_") |>
   unnest(results_study2, names_sep = "_") |>
@@ -384,17 +487,27 @@ simulation <- experiment_parameters |>
     values_from = value
   )
 
+  write_rds(x = simulation, file = "results/simulation_sig_vs_nonsig_3.rds", compress = "gz")
+
+}
+
 simulation_summary <- simulation |>
   group_by(study_1_n_per_condition,
            study_1_population_cohens_d,
            study_2_n_per_condition,
            study_2_population_cohens_d,
            source) |>
-  summarize(proportion_significant = mean(p < .05),
-            mean_cohens_d = mean(cohens_d),
-            mean_cohens_d_ci_lower = mean(cohens_d_ci_lower),
-            mean_cohens_d_ci_upper = mean(cohens_d_ci_upper),
-            .groups = "drop") |>
+  # rather than calculating the proportion of significant results by hand, use
+  # {simhelpers}'s dedicated function for the empirical rejection rate.
+  # calc_rejection() also returns the number of iterations and the Monte Carlo Standard
+  # Error of the rate; select() keeps and renames just the rate itself
+  reframe(calc_rejection(data     = pick(everything()),
+                         p_values = p,
+                         alpha    = 0.05) |>
+            select(proportion_significant = rej_rate),
+          mean_cohens_d = mean(cohens_d),
+          mean_cohens_d_ci_lower = mean(cohens_d_ci_lower),
+          mean_cohens_d_ci_upper = mean(cohens_d_ci_upper)) |>
   mutate(source = str_replace(source, "meta", "difference")) |>
   mutate(source = fct_relevel(source, "study1", "study2", "difference"))
 

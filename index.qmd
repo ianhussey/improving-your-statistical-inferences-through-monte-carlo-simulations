@@ -2,10 +2,13 @@
 
 This [Open Source](license.qmd) eBook provides materials for the semester-long Master's seminar course "Improving your statistical inferences through Monte Carlo simulations" that Ian teaches at the University of Bern's Institute of Psychology.
 
-This book is split into two parts:
+This book is split into parts:
 
 1. **Learning to simulate**. Chapters 2-10 teach you the conceptual structure of Monte Carlo simulation studies, and how to implement them in a modular R/tidyverse workflow that prioritizes understandability and code reusability over execution speed. 
 2. **Learning from simulations**. The remaining chapters use simulations to better understand and use statistical methods, and to understand and guide the behavior of researchers using those methods.
+3. **Exercises**. Practice exercises for each of the chapters in parts I and II. 
+4. **Templates**. Templates for different types of simulations, written to a good standard of compliance to ADEMP reporting guidelines. The simulations in individual chapters are often toy simulations, not implemented or reported to a publishable standard. Templates should be closer to such a standard.
+5. **Classic simulations**. Well-established statistical principles, often from seminal publications, re-implemented in the simulation workflow we use throughout this book. This section is currently small, but is intended to grow over time. 
 
 ## How to use this book
 

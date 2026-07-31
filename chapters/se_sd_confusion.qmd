@@ -10,6 +10,7 @@ if(file.exists("../_setup.R")){source("../_setup.R")}
 # dependencies
 library(tidyr)
 library(dplyr)
+library(readr)
 library(furrr)
 library(forcats)
 library(ggplot2)
@@ -17,7 +18,9 @@ library(scales)
 library(patchwork)
 
 # set up parallelization
-plan(multisession)
+# use availableCores() to define the number of cores, in case the simulation is being
+# run on a HPC that might have more physical cores than are available to the session
+plan(multisession, workers = parallelly::availableCores())
 ```
 
 ## The problem
@@ -140,22 +143,44 @@ experiment_parameters_1 <- expand_grid(
   mutate(mean_control = 0,
          mean_intervention = true_effect * sd) # so that true Cohen's d = true_effect
 
-# set seed
-set.seed(42)
-
 # run simulation
-simulation_1 <- experiment_parameters_1 |>
-  mutate(generated_data = future_pmap(.l = list(n_per_condition = n_per_condition,
-                                                mean_control = mean_control,
-                                                mean_intervention = mean_intervention,
-                                                sd = sd),
-                                      .f = generate_data,
-                                      .progress = TRUE,
-                                      .options = furrr_options(seed = TRUE))) |>
-  mutate(results = future_pmap(.l = list(data = generated_data),
-                               .f = analyse,
-                               .progress = TRUE,
-                               .options = furrr_options(seed = TRUE)))
+# results are cached to disk: the simulation is only run the first time, and read back
+# in on subsequent renders. delete the .rds file if you change the simulation code.
+dir.create("results", showWarnings = FALSE)
+
+if(file.exists("results/simulation_se_sd_1.rds")){
+
+  simulation_1 <- read_rds("results/simulation_se_sd_1.rds")
+
+} else {
+
+  # set seed
+  set.seed(42)
+
+  simulation_1 <- experiment_parameters_1 |>
+    # shuffle the rows of the grid to load balance the computationally expensive
+    # iterations evenly across the workers
+    slice_sample(prop = 1) |>
+    mutate(generated_data = future_pmap(.l = list(n_per_condition = n_per_condition,
+                                                  mean_control = mean_control,
+                                                  mean_intervention = mean_intervention,
+                                                  sd = sd),
+                                        .f = generate_data,
+                                        .progress = TRUE,
+                                        .options = furrr_options(seed = TRUE))) |>
+    mutate(results = future_pmap(.l = list(data = generated_data),
+                                 .f = analyse,
+                                 .progress = TRUE,
+                                 .options = furrr_options(seed = TRUE))) |>
+    # undo the shuffle so the rows are back in the order of the experiment grid
+    arrange(n_per_condition, true_effect, iteration) |>
+    # the generated data sets are not needed after they have been analyzed, and keeping
+    # them would make the saved file enormous
+    select(-generated_data)
+
+  write_rds(x = simulation_1, file = "results/simulation_se_sd_1.rds", compress = "gz")
+
+}
 
 ```
 
@@ -284,22 +309,44 @@ experiment_parameters_2 <- expand_grid(
   mutate(mean_control = 0,
          mean_intervention = true_effect * sd) # so that true Cohen's d = true_effect
 
-# set seed
-set.seed(43)
-
 # run simulation
-simulation_2 <- experiment_parameters_2 |>
-  mutate(generated_data = future_pmap(.l = list(n_per_condition = n_per_condition,
-                                                mean_control = mean_control,
-                                                mean_intervention = mean_intervention,
-                                                sd = sd),
-                                      .f = generate_data,
-                                      .progress = TRUE,
-                                      .options = furrr_options(seed = TRUE))) |>
-  mutate(results = future_pmap(.l = list(data = generated_data),
-                               .f = analyse,
-                               .progress = TRUE,
-                               .options = furrr_options(seed = TRUE)))
+# results are cached to disk: the simulation is only run the first time, and read back
+# in on subsequent renders. delete the .rds file if you change the simulation code.
+dir.create("results", showWarnings = FALSE)
+
+if(file.exists("results/simulation_se_sd_2.rds")){
+
+  simulation_2 <- read_rds("results/simulation_se_sd_2.rds")
+
+} else {
+
+  # set seed
+  set.seed(43)
+
+  simulation_2 <- experiment_parameters_2 |>
+    # shuffle the rows of the grid to load balance the computationally expensive
+    # iterations evenly across the workers
+    slice_sample(prop = 1) |>
+    mutate(generated_data = future_pmap(.l = list(n_per_condition = n_per_condition,
+                                                  mean_control = mean_control,
+                                                  mean_intervention = mean_intervention,
+                                                  sd = sd),
+                                        .f = generate_data,
+                                        .progress = TRUE,
+                                        .options = furrr_options(seed = TRUE))) |>
+    mutate(results = future_pmap(.l = list(data = generated_data),
+                                 .f = analyse,
+                                 .progress = TRUE,
+                                 .options = furrr_options(seed = TRUE))) |>
+    # undo the shuffle so the rows are back in the order of the experiment grid
+    arrange(n_per_condition, true_effect, iteration) |>
+    # the generated data sets are not needed after they have been analyzed, and keeping
+    # them would make the saved file enormous
+    select(-generated_data)
+
+  write_rds(x = simulation_2, file = "results/simulation_se_sd_2.rds", compress = "gz")
+
+}
 
 ```
 
@@ -319,7 +366,7 @@ simulation_results_2 <- simulation_2 |>
                                             "Incorrect (using SE as SD)")),
          true_effect_label = paste("True Cohen's d =", true_effect))
 
-simulation_results |>
+simulation_results_2 |>
   ggplot(aes(n_per_condition * 2, cohens_d, color = method)) +
   geom_jitter(alpha = 0.05, size = 0.5) +
   geom_hline(aes(yintercept = true_effect), linetype = "dashed", color = "purple") +
@@ -518,21 +565,44 @@ experiment_parameters_3 <- expand_grid(
     sd = 1
   )
 
-set.seed(44)
-
 # run simulation
-simulation_3 <- experiment_parameters_3 |>
-  mutate(generated_data = future_pmap(.l = list(n_per_condition = n_per_condition,
-                                                mean_control = mean_control,
-                                                mean_intervention = mean_intervention,
-                                                sd = sd),
-                                      .f = generate_data,
-                                      .progress = TRUE,
-                                      .options = furrr_options(seed = TRUE))) |>
-  mutate(results = future_pmap(.l = list(data = generated_data),
-                               .f = analyse,
-                               .progress = TRUE,
-                               .options = furrr_options(seed = TRUE)))
+# results are cached to disk: the simulation is only run the first time, and read back
+# in on subsequent renders. delete the .rds file if you change the simulation code.
+dir.create("results", showWarnings = FALSE)
+
+if(file.exists("results/simulation_se_sd_3.rds")){
+
+  simulation_3 <- read_rds("results/simulation_se_sd_3.rds")
+
+} else {
+
+  # set seed
+  set.seed(44)
+
+  simulation_3 <- experiment_parameters_3 |>
+    # shuffle the rows of the grid to load balance the computationally expensive
+    # iterations evenly across the workers
+    slice_sample(prop = 1) |>
+    mutate(generated_data = future_pmap(.l = list(n_per_condition = n_per_condition,
+                                                  mean_control = mean_control,
+                                                  mean_intervention = mean_intervention,
+                                                  sd = sd),
+                                        .f = generate_data,
+                                        .progress = TRUE,
+                                        .options = furrr_options(seed = TRUE))) |>
+    mutate(results = future_pmap(.l = list(data = generated_data),
+                                 .f = analyse,
+                                 .progress = TRUE,
+                                 .options = furrr_options(seed = TRUE))) |>
+    # undo the shuffle so the rows are back in the order of the experiment grid
+    arrange(n_per_condition, mu, tau, iteration) |>
+    # the generated data sets are not needed after they have been analyzed, and keeping
+    # them would make the saved file enormous
+    select(-generated_data)
+
+  write_rds(x = simulation_3, file = "results/simulation_se_sd_3.rds", compress = "gz")
+
+}
 
 ```
 

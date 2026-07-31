@@ -1,0 +1,1403 @@
+# SEM and fit metrics
+
+<!-- TODO: this is more of a real simulation than an illustration of what fit metrics are etc; think about where to move it to. -->
+
+<!-- Specify the simulation that will be run here. -->
+
+This introduction is structured following the ADEMP framework (Aims, Data-generating process, Estimands, Methods, Performance) as described by Morris, White, and Crowther (2019) and operationalised for psychology by Siepe et al. (2024). The aim of working through the framework explicitly is to make the design decisions behind the simulation visible and auditable, so that a reader can judge whether the conclusions are supported by the conditions actually examined.
+
+## Project description
+
+<!-- Provide a brief description of the project, including any empirical examples. -->
+
+Structural equation modelling (SEM) lets researchers pit competing theories of the same data against one another as latent-variable models, and then use *fit indices* (CFI, TLI, RMSEA, SRMR) and *information criteria* (AIC, BIC) to decide which model the data support. A tacit assumption behind this practice is that these indices are *fair judges*: that the better-fitting model is the one closer to the truth. This simulation demonstrates that, for one very common comparison in psychology, this assumption fails.
+
+The comparison is between a **correlated-factors model** and a **bifactor model**. In a correlated-factors model, a construct is represented by several correlated latent factors (e.g. three correlated dimensions of psychopathology). In a bifactor model, every indicator loads on a general factor *plus* a narrower specific factor, with all factors mutually orthogonal (e.g. a general "*p* factor" saturating all symptoms, over and above specific dimensions). The two models embody very different theoretical claims about whether a single overarching dimension exists.
+
+The problem is that the bifactor model is far more flexible: it has more free parameters and can bend to accommodate patterns that are really just sampling noise. As a result, it tends to fit *any* data at least as well as a correlated-factors model — a property sometimes called its **fitting propensity** (Bonifay & Cai, 2017; Bader & Moshagen, 2025). Greene et al. (2019) showed that when data are generated from a *correctly specified correlated-factors model*, most fit indices nevertheless favour the bifactor model, potentially leading researchers to "discover" general factors that were never in the data-generating process.
+
+This is not merely a technical curiosity: it recurs whenever researchers use a well-fitting bifactor model to argue for a general factor of some construct. Zavlis and Fried (2024), in a commentary on a PNAS paper claiming impulsivity is a stable psychological trait (Huang et al., 2024), make exactly this argument — that because bifactor models tend to outperform competitors even when those competitors are the true data-generating model, a well-fitting bifactor model of impulsivity is on its own no evidence that a general impulsivity trait exists. They cite Greene et al. (2019) as the simulation establishing the point that this chapter reconstructs. The same critique has been levelled at general factors of psychopathology, personality, cognitive ability, and other "alphabet" constructs (Watts, Greene, Bonifay, & Fried, 2023).
+
+This chapter reproduces the phenomenon in **four steps**.
+
+- **Simulation 1 (the clean case).** We generate data from a correlated three-factor model — so the correlated-factors model is, by construction, the *true* model — fit both a correlated-factors model and a bifactor model to every simulated dataset, and count how often each fit index prefers the (wrong) bifactor model. The setting is deliberately stripped down: nine continuous, normally distributed indicators, a clean simple structure, and default maximum-likelihood estimation, with *no* misspecification. This isolates the mechanism, and — as we will see — shows that in the cleanest case the bias is confined to the one index that carries no complexity penalty (SRMR), while other indices are tie-prone or even favour the true model. This is a more honest and more informative result than "the bifactor model always wins".
+- **Simulation 2 (the realistic case).** We then add the three ingredients that make real psychopathology data harder, and that Greene et al. (2019) used: **ordinal indicators** (estimated with the categorical WLSMV estimator), an **unequal factor structure** with unequal loadings and correlations, and genuine **model misspecification** (an unmodelled cross-loading of varying strength). With these in place the bifactor model has real misfit to absorb, and the parsimony-based information criteria that rescued the true model in Simulation 1 are no longer even defined — so the bias becomes broad and severe.
+- **Simulation 2b (the published regime).** Real studies and real data involve *several* misspecifications at once. Stacking the three misspecification types of Greene et al. (2019, Figure 4) — a cross-loading and both within- and between-factor correlated residuals — at increasing severity reproduces the published result that under realistic misspecification *most* fit indices come to favour the bifactor model.
+- **Simulation 3 (does cross-validation fix it?).** A natural response — argued, for example, by Ruben Arslan — is that the whole problem is *in-sample* overfitting, and that evaluating models on held-out data (cross-validation, out-of-sample prediction) would expose the bifactor model's excess flexibility and restore the true model. Simulation 3 tests this directly, scoring several metrics both in sample and out of sample across the correct-to-severe gradient. The answer is nuanced: out-of-sample scoring genuinely helps — it reins in every approximate index, and largely fixes the degrees-of-freedom-adjusted ones — but it does *not* rescue the metrics that carry no complexity penalty (raw residual and raw predictive likelihood), because under realistic misspecification the bifactor model predicts the held-out covariance genuinely better. The active ingredient turns out to be penalising complexity, not the in-sample-versus-out-of-sample distinction.
+
+Reading them together is the point: the same comparison can look almost innocuous, badly biased, or partly-rescued depending on how realistic the data are, how misspecified the fitted model is, and how the models are scored — which is exactly why a single-dataset fit comparison is such a weak basis for a general-factor claim.
+
+## Prior related work
+
+<!-- Did any contributors already conduct related simulation studies on this specific question, including any preliminary simulations? -->
+
+This simulation is a simplified teaching reconstruction of published work; it makes no novel methodological claim. The directly relevant studies are:
+
+- **Greene et al. (2019)**, *Are fit indices used to test psychopathology structure biased? A simulation study* (published in the *Journal of Abnormal Psychology*; the article and its supplementary materials are in `chapters/18_sem_and_fit_metrics/greene et al. - 2019/`). They generated data from a three-factor correlated model (based on Lahey et al., 2012) with and without various misspecifications, fitted correlated-factors and bifactor models, and found that SRMR/WRMR consistently favoured the bifactor model, that CFI/TLI/RMSEA mostly tied or favoured the bifactor model, and that only the information criteria (AIC, and especially BIC/SABIC) reliably favoured the true correlated-factors model.
+- **Bader & Moshagen (2025)**, *Fitting Propensity in SEM* (article, code, and supplements in `chapters/18_sem_and_fit_metrics/bader & moshagen - 2025/`). Their Study 2 fits one-factor, three-factor, and bifactor models to large numbers of *random* correlation matrices and shows the bifactor model's superior average fit reflects its capacity to fit arbitrary data, not its correspondence to any true structure. Their `code/simulation_study2_9p.R` uses exactly the nine-indicator, three-specific-factor, orthogonal bifactor structure adopted here.
+- Earlier demonstrations of the same effect in the cognitive-abilities and general SEM literatures: Murray & Johnson (2013), Bonifay & Cai (2017), Morgan et al. (2015), Preacher (2006), and Reise (2012).
+
+No preliminary simulations were conducted by the contributors of this book on this specific question prior to this chapter.
+
+## Aims
+
+<!-- What is the aim of the simulation study? Be specific about the statistical task (estimation, hypothesis testing, model selection, prediction, design). -->
+
+The statistical task is **model selection**: for each simulated dataset the analyst compares two competing latent-variable models and, on the basis of a fit index, decides which to prefer. Because we generate the data ourselves, we know the correct decision — the correlated-factors model is the true data-generating model, so a well-behaved index should prefer it.
+
+The aims are:
+
+1. To estimate, for each fit index (CFI, TLI, RMSEA, SRMR) and information criterion (AIC, BIC), the **proportion of replications in which the index favours the bifactor model** over the true correlated-factors model. Under an unbiased index this proportion should be close to zero (or at least symmetric around chance once ties are accounted for); a proportion well above chance is evidence of bias *in favour of the more complex model*.
+2. To characterise how this bias depends on the **sample size** and on the **inter-factor correlation** of the data-generating model, and in particular to check the claim that parsimony-penalising criteria (BIC) recover the true model only at large sample sizes.
+
+## Data-Generating Process
+
+### DGP specification approach
+
+<!-- How will the parameters for the DGP be specified? (parametric based on real data / parametric / resampled) If based on real data, describe the dataset and model used. -->
+
+The DGP is **fully parametric** and is specified directly as a correlated three-factor confirmatory factor model, in the spirit of (but simpler than) the NESARC-derived model used by Greene et al. (2019). Nine continuous indicators $x_1, \ldots, x_9$ load on three latent factors in a clean simple structure — three indicators per factor, no cross-loadings, no correlated residuals:
+
+$$
+\begin{aligned}
+f_1 &\;=\; \lambda(x_1 + x_2 + x_3) + \varepsilon \\
+f_2 &\;=\; \lambda(x_4 + x_5 + x_6) + \varepsilon \\
+f_3 &\;=\; \lambda(x_7 + x_8 + x_9) + \varepsilon
+\end{aligned}
+$$
+
+The latent factors have unit variance and are mutually correlated with a common correlation $r$: $\operatorname{cor}(f_1,f_2) = \operatorname{cor}(f_1,f_3) = \operatorname{cor}(f_2,f_3) = r$. All standardised loadings equal $\lambda$, so each indicator has residual variance $1 - \lambda^2$ and unit total variance. Data are drawn from the implied multivariate normal distribution using `lavaan::simulateData()`.
+
+Two properties of this DGP matter for the demonstration. First, it contains **no general factor** and **no bifactor structure** — the only thing linking the three factors is their pairwise correlation. Second, it is a model that the fitted correlated-factors model can represent *exactly*: there is no misspecification for the true model to be penalised for. Any tendency of a fit index to prefer the bifactor model therefore cannot be explained by the correlated-factors model being wrong; it can only reflect the bifactor model's extra flexibility interacting with finite-sample noise.
+
+### DGP factors
+
+<!-- What will be the different factors of the DGP — i.e., parameters/settings varied across simulation conditions? -->
+
+Two factors are varied across simulation conditions:
+
+1. **`n`** — the sample size (number of observations per simulated dataset).
+2. **`factor_cor`** — the common inter-factor correlation $r$ among the three latent factors. As $r$ grows, the three factors share more variance and the data increasingly *look like* they contain a general dimension, even though none is present; this is the regime in which a bifactor model becomes most tempting.
+
+The common loading $\lambda$ is held fixed (see below).
+
+### Factor values and settings
+
+<!-- Provide specific factor values and any settings held constant across conditions. Include justification for chosen values where relevant. -->
+
+**Factor values:**
+
+- `n` ∈ {200, 500, 1000, 2000}. This spans typical single-study SEM sample sizes up to the large samples at which Greene et al. (2019) and Morgan et al. (2015) reported that information criteria begin to recover the true model.
+- `factor_cor` ∈ {0.3, 0.5, 0.7}, i.e. moderate, large, and very large inter-factor correlations. Correlations in this range are typical of transdiagnostic psychopathology factors (Eaton, South, & Krueger, 2010).
+
+**Settings held constant across all conditions:**
+
+- `loading` = 0.7 for every indicator (a strong, realistic standardised loading), so residual variance is $1 - 0.7^2 = 0.51$ and indicator variances are 1.
+- Nine indicators in a balanced 3-3-3 simple structure with no cross-loadings and no correlated residuals.
+- Continuous, multivariate-normal indicators estimated with default maximum likelihood.
+
+### Factor combination and number of conditions
+
+<!-- If there is more than one factor: how will factor levels be combined? (fully factorial / partially factorial / one-at-a-time / scattershot) How many conditions does this create? -->
+
+Of the four factor-combination strategies enumerated by Siepe et al. (2024, Figure 1), we use a **fully factorial** crossing of the two factors, so that the main effects of sample size and factor correlation, and their interaction, can be disentangled. With 4 sample sizes × 3 factor correlations this yields **12 unique conditions**, each replicated `n_sim = 500` times.
+
+## Estimands and Targets
+
+<!-- What are the estimands and/or targets of the simulation study? Distinguish primary and secondary targets if applicable. -->
+
+The task is model selection rather than the estimation of a numeric parameter, so the "estimand" is a **decision** rather than a quantity. In every condition the correct decision is fixed and known: *prefer the correlated-factors model*, because it is the model from which the data were generated.
+
+The **targets** (in the sense of Siepe et al., 2024, footnote 1) are therefore the per-index selection decisions, and the associated **performance measure** is the rate at which each index makes the *incorrect* decision of preferring the bifactor model. Secondarily, we treat the mean value of each fit index under each fitted model as a descriptive target, to show the direction and magnitude of the discrepancies that drive the selection decisions.
+
+## Methods and extracted quantities
+
+<!-- How many and which methods will be included? What quantities will be extracted from each? Include code or pseudocode where helpful. Justify method and parameter choices; note where package defaults are used. -->
+
+Two models are fitted to every simulated dataset with `lavaan::sem()` and default maximum-likelihood estimation:
+
+1. **Correlated-factors model** (the true model): three factors, three indicators each, factors freely correlated. Fitted with `std.lv = TRUE` so factor variances are fixed to 1 and loadings are freely estimated.
+
+    ```
+    f1 =~ x1 + x2 + x3
+    f2 =~ x4 + x5 + x6
+    f3 =~ x7 + x8 + x9
+    ```
+
+2. **Bifactor model** (the competitor): a general factor loading on all nine indicators, plus three specific factors, with all factors mutually orthogonal. Fitted with `std.lv = TRUE, orthogonal = TRUE`. This is the standard orthogonal bifactor parameterisation (Greene et al., 2019, Figure 2; Bader & Moshagen, 2025, Study 2).
+
+    ```
+    g  =~ x1 + x2 + x3 + x4 + x5 + x6 + x7 + x8 + x9
+    s1 =~ x1 + x2 + x3
+    s2 =~ x4 + x5 + x6
+    s3 =~ x7 + x8 + x9
+    ```
+
+The correlated-factors model estimates 21 free parameters (9 loadings, 3 factor correlations, 9 residual variances) leaving $9\cdot10/2 - 21 = 24$ degrees of freedom; the bifactor model estimates 27 (18 loadings, 9 residual variances) leaving 18 degrees of freedom. The bifactor model is thus strictly more flexible — six extra parameters, six fewer degrees of freedom — despite the extra flexibility being unnecessary for these data.
+
+From each fitted model we extract, via `lavaan::fitMeasures()`: `npar`, `df`, `chisq`, `cfi`, `tli`, `rmsea`, `srmr`, `aic`, `bic`. We also record whether the model converged (`lavaan::lavInspect(fit, "converged")`) and whether the solution is admissible (`lavaan::lavInspect(fit, "post.check")`, which flags Heywood cases such as negative residual variances).
+
+## Performance and Uncertainty
+
+### Performance measures
+
+<!-- Which performance measures will be used? Provide formulas and justification. If multiple parameters are aggregated, specify how. -->
+
+For each replication $k$ and each index we form a **head-to-head decision** by comparing the index's value under the two fitted models. For indices where higher is better (CFI, TLI) the bifactor model is favoured when its value exceeds the correlated-factors value by more than a tolerance $\tau$; for indices where lower is better (RMSEA, SRMR, AIC, BIC) it is favoured when its value is lower by more than $\tau$. Differences within $\pm\tau$ are recorded as ties. The primary performance measure is the **proportion of replications favouring the bifactor model**:
+
+$$
+\widehat{p}_{\text{bifactor}} \;=\; \frac{1}{n_{\text{sim}}}\sum_{k=1}^{n_{\text{sim}}} \mathbb{1}\{\text{index favours bifactor in replication } k\}
+$$
+
+with the complementary proportions $\widehat{p}_{\text{correlated}}$ and $\widehat{p}_{\text{tie}}$ reported alongside. An *unbiased* index would give $\widehat{p}_{\text{bifactor}} \approx 0$ here (the true model should win); values well above zero — and especially above 0.5 — indicate bias toward the more complex model.
+
+As a descriptive secondary measure we report, per fitted model and condition, the **mean of each fit index** across replications, which shows the size of the discrepancies underlying the decisions.
+
+### Monte Carlo uncertainty
+
+<!-- How will Monte Carlo Standard Errors (MCSEs) be calculated and reported? -->
+
+The primary measure is a proportion, so its Monte Carlo standard error is the usual binomial expression (Siepe et al., 2024, Table 3; Morris et al., 2019, Table A1):
+
+$$
+\widehat{\text{MCSE}}(\widehat{p}_{\text{bifactor}}) \;=\; \sqrt{\frac{\widehat{p}_{\text{bifactor}}\,(1 - \widehat{p}_{\text{bifactor}})}{n_{\text{sim}}}}
+$$
+
+For the descriptive mean fit indices, the MCSE is $s / \sqrt{n_{\text{sim}}}$, where $s$ is the across-replication standard deviation of the index. MCSEs are reported next to estimates in tables and as error bars in plots.
+
+### Number of simulation repetitions
+
+<!-- How many repetitions per condition? Justify the number (sample size calculation, computational constraints, rule of thumb, etc.). -->
+
+We use **`n_sim` = 500 replications per condition**. The worst-case MCSE for a proportion occurs at $\widehat{p} = 0.5$ and equals $\sqrt{0.25/500} \approx 0.022$; near the extremes (e.g. $\widehat{p} = 0.9$) it falls to $\approx 0.013$. This is adequate for a teaching demonstration whose conclusions turn on large, qualitative differences between indices (some near 0, some near 1). A publishable study targeting an MCSE of 0.01 at $\widehat{p} = 0.5$ would need $n_{\text{sim}} \geq 2{,}500$; because each replication fits two SEMs, we keep `n_sim` modest so the chapter re-renders in a reasonable time, and flag this as a limitation.
+
+### Non-convergence and missing values
+
+<!-- How will missing values due to non-convergence or other failures be handled? -->
+
+Unlike a closed-form *t*-test, SEMs are fitted iteratively and can fail to converge or return inadmissible (Heywood) solutions — the bifactor model, being more heavily parameterised with only three indicators per specific factor, is the more vulnerable of the two, especially at the smallest sample size (Flora & Curran, 2004; Greene et al., 2019). We record convergence and admissibility for every fitted model, report the rates per model and condition, and restrict all head-to-head analyses to replications in which **both** models converged to an admissible solution (case-wise deletion of the paired comparison). The convergence/admissibility rates are themselves reported so that any selective loss of replications is transparent.
+
+### Interpretation of performance measures *(optional)*
+
+<!-- What constitutes acceptable/unacceptable performance? Are any regression models or effect sizes planned for analysing simulation results? -->
+
+We will read the results as evidence of fit-index bias if, in conditions where the correlated-factors model is true and correctly specified:
+
+- **Approximate fit indices** (CFI, TLI, RMSEA, SRMR) favour the bifactor model in a substantial share of replications — i.e. $\widehat{p}_{\text{bifactor}}$ is well above zero, and for SRMR in particular approaches 1 — reflecting that these indices reward the bifactor model's extra flexibility without an offsetting complexity penalty.
+- **Information criteria** (AIC, and especially BIC) instead favour the true correlated-factors model in most replications ($\widehat{p}_{\text{bifactor}}$ near zero), with BIC's recovery of the true model improving as sample size grows.
+
+No inferential models are fitted to the simulation output; results are summarised descriptively in tables and plots.
+
+# Simulation 1 · Methods
+
+## Dependencies
+
+```{r}
+library(tidyr)
+library(dplyr)
+library(readr)
+library(tibble)
+library(purrr)
+library(furrr)
+library(lavaan)
+library(ggplot2)
+library(scales)
+library(knitr)
+library(kableExtra)
+
+# set up parallelisation for {furrr}
+# `furrr_options(seed = TRUE)` (used below in future_pmap calls) advances an
+# L'Ecuyer-CMRG stream rather than re-seeding per worker, giving the
+# parallel-safe reproducibility recommended in Siepe et al. (2024, p. 8).
+# use availableCores() to define the number of cores, in case the simulation is being
+# run on a HPC that might have more physical cores than are available to the session
+plan(multisession, workers = parallelly::availableCores())
+```
+
+## Functions
+
+### Data generating process
+
+The correlated three-factor model is written out from the sample size, common loading, and common inter-factor correlation, then passed to `lavaan::simulateData()`, which draws multivariate-normal data from the implied covariance matrix.
+
+```{r}
+generate_data <- function(n, factor_cor, loading = 0.7) {
+
+  population_model <- paste0(
+    "f1 =~ ", loading, "*x1 + ", loading, "*x2 + ", loading, "*x3\n",
+    "f2 =~ ", loading, "*x4 + ", loading, "*x5 + ", loading, "*x6\n",
+    "f3 =~ ", loading, "*x7 + ", loading, "*x8 + ", loading, "*x9\n",
+    # common correlation among the three latent factors (unit factor variances)
+    "f1 ~~ ", factor_cor, "*f2\n",
+    "f1 ~~ ", factor_cor, "*f3\n",
+    "f2 ~~ ", factor_cor, "*f3\n"
+  )
+
+  data <- lavaan::simulateData(model = population_model, sample.nobs = n)
+
+  return(data)
+}
+```
+
+### Analysis
+
+The two competing model syntaxes are fixed. A small helper fits one model, checks convergence and admissibility, and returns the fit measures (or a row of `NA`s if the fit fails); `analyse()` runs both and stacks the results, one row per model.
+
+```{r}
+# the true model: three correlated factors
+model_correlated <- '
+f1 =~ x1 + x2 + x3
+f2 =~ x4 + x5 + x6
+f3 =~ x7 + x8 + x9
+'
+
+# the competitor: general factor + three orthogonal specific factors
+model_bifactor <- '
+g  =~ x1 + x2 + x3 + x4 + x5 + x6 + x7 + x8 + x9
+s1 =~ x1 + x2 + x3
+s2 =~ x4 + x5 + x6
+s3 =~ x7 + x8 + x9
+'
+
+fit_indices <- c("npar", "df", "chisq", "cfi", "tli", "rmsea", "srmr", "aic", "bic")
+
+fit_one_model <- function(model_syntax, data, orthogonal = FALSE) {
+
+  # only genuine errors abort the fit; non-convergence and inadmissible
+  # (Heywood) solutions are detected below via lavInspect() flags instead
+  fit <- tryCatch(
+    suppressWarnings(
+      lavaan::sem(model      = model_syntax,
+                  data       = data,
+                  std.lv     = TRUE,
+                  orthogonal = orthogonal,
+                  warn       = FALSE)
+    ),
+    error = function(e) NULL
+  )
+
+  na_row <- as_tibble_row(setNames(rep(NA_real_, length(fit_indices)), fit_indices))
+
+  # failed fit or non-convergence
+  if (is.null(fit) || !lavaan::lavInspect(fit, "converged")) {
+    return(bind_cols(tibble(converged = FALSE, proper = NA), na_row))
+  }
+
+  # admissibility (FALSE for Heywood cases, e.g. negative residual variances)
+  proper   <- isTRUE(suppressWarnings(lavaan::lavInspect(fit, "post.check")))
+  # fitMeasures() returns a classed "lavaan.vector"; coerce to plain numeric
+  measures <- setNames(as.numeric(lavaan::fitMeasures(fit, fit_indices)), fit_indices)
+
+  bind_cols(tibble(converged = TRUE, proper = proper),
+            as_tibble_row(measures))
+}
+
+analyse <- function(data) {
+  bind_rows(
+    mutate(fit_one_model(model_correlated, data, orthogonal = FALSE),
+           model = "correlated"),
+    mutate(fit_one_model(model_bifactor,  data, orthogonal = TRUE),
+           model = "bifactor")
+  ) |>
+    relocate(model)
+}
+```
+
+## Define experiment
+
+```{r}
+experiment_parameters_grid <- expand_grid(
+  n          = c(200, 500, 1000, 2000),
+  factor_cor = c(0.3, 0.5, 0.7),
+  loading    = 0.7,
+  iteration  = 1:500L
+) |>
+  # define unique conditions
+  mutate(condition = paste0("N = ", n, ", r = ", factor_cor))
+```
+
+## Run simulation
+
+```{r}
+# results are cached to disk: the simulation is only run the first time, and read back
+# in on subsequent renders. delete the .rds file if you change the simulation code.
+dir.create("results", showWarnings = FALSE)
+
+if(file.exists("results/simulation_sem_1.rds")){
+
+  simulation <- read_rds("results/simulation_sem_1.rds")
+
+} else {
+
+  set.seed(42)
+
+  simulation <- experiment_parameters_grid |>
+    # shuffle the rows of the grid to load balance the computationally expensive
+    # iterations evenly across the workers
+    slice_sample(prop = 1) |>
+    # generate data
+    mutate(data = future_pmap(.l = list(n = n,
+                                        factor_cor = factor_cor,
+                                        loading = loading),
+                              .f = generate_data,
+                              .progress = TRUE,
+                              .options = furrr_options(seed = TRUE))) |>
+    # fit both models and extract fit indices
+    mutate(results = future_pmap(.l = list(data = data),
+                                 .f = analyse,
+                                 .progress = TRUE,
+                                 .options = furrr_options(seed = TRUE))) |>
+    # undo the shuffle so the rows are back in the order of the experiment grid
+    arrange(n, factor_cor, iteration) |>
+    # the generated data sets are not needed after they have been analyzed, and keeping
+    # them would make the saved file enormous
+    select(-data)
+
+  write_rds(x = simulation, file = "results/simulation_sem_1.rds", compress = "gz")
+
+}
+```
+
+# Simulation 1 · Results
+
+<!-- For each condition, summarize across iterations the performance and uncertainty of the method(s) -->
+
+```{r}
+# one row per fitted model per replication
+simulation_long <- simulation |>
+  unnest(results)
+```
+
+## Convergence and admissibility
+
+Before comparing fit, we check how often each model produced a usable (converged and admissible) solution. As expected, the more heavily parameterised bifactor model fails more often, especially at the smallest sample size.
+
+```{r}
+simulation_long |>
+  group_by(model, n) |>
+  summarize(fits            = n(),
+            converged_rate  = mean(converged),
+            admissible_rate = mean(proper, na.rm = TRUE),
+            .groups = "drop") |>
+  mutate(across(where(is.numeric), \(x) janitor::round_half_up(x, 3))) |>
+  pivot_wider(names_from = model,
+              values_from = c(converged_rate, admissible_rate),
+              id_cols = n) |>
+  kable(caption = "Convergence and admissibility rates by model and sample size") |>
+  kable_styling(full_width = FALSE)
+```
+
+All head-to-head comparisons below are restricted to replications in which **both** models converged to an admissible solution.
+
+```{r}
+# keep only replications where both models are usable
+valid <- simulation_long |>
+  group_by(n, factor_cor, condition, iteration) |>
+  filter(all(converged) & all(proper %in% TRUE)) |>
+  ungroup()
+```
+
+## Mean fit indices by model
+
+The mean of each index under each fitted model shows the *direction* of the discrepancy. Note that the correlated-factors model is the true model, so an unbiased index should look at least as good for it as for the bifactor model. Results are shown for the middle factor-correlation condition ($r = 0.5$); the pattern is the same for the other values.
+
+```{r}
+valid |>
+  filter(factor_cor == 0.5) |>
+  group_by(n, model) |>
+  summarize(across(c(cfi, tli, rmsea, srmr, aic, bic), mean),
+            .groups = "drop") |>
+  mutate(across(c(cfi, tli, rmsea, srmr), \(x) scales::number(x, accuracy = 0.001)),
+         across(c(aic, bic),               \(x) scales::number(x, accuracy = 1))) |>
+  arrange(n, model) |>
+  kable(caption = "Mean fit indices by model and sample size (r = 0.5). Correlated-factors is the true model.") |>
+  kable_styling(full_width = FALSE)
+```
+
+## Head-to-head selection: how often does each index favour the (wrong) bifactor model?
+
+For each replication we compare the two models on each index and record which model it favours (with a small tolerance so near-identical values count as ties). We then summarise the proportion of replications favouring each model per condition.
+
+```{r}
+# decide which model an index favours in a single replication
+choose_better <- function(bifactor, correlated, higher_better, tol) {
+  diff <- bifactor - correlated
+  dplyr::case_when(
+     higher_better & diff >  tol ~ "bifactor",
+     higher_better & diff < -tol ~ "correlated",
+    !higher_better & diff < -tol ~ "bifactor",
+    !higher_better & diff >  tol ~ "correlated",
+    TRUE                         ~ "tie"
+  )
+}
+
+# widen so both models' indices sit in one row per replication
+wide <- valid |>
+  select(n, factor_cor, condition, iteration, model,
+         cfi, tli, rmsea, srmr, aic, bic) |>
+  pivot_wider(names_from  = model,
+              values_from = c(cfi, tli, rmsea, srmr, aic, bic))
+
+# per-replication decision for each index
+decisions <- wide |>
+  transmute(
+    n, factor_cor, condition, iteration,
+    CFI   = choose_better(cfi_bifactor,   cfi_correlated,   higher_better = TRUE,  tol = 0.001),
+    TLI   = choose_better(tli_bifactor,   tli_correlated,   higher_better = TRUE,  tol = 0.001),
+    RMSEA = choose_better(rmsea_bifactor, rmsea_correlated, higher_better = FALSE, tol = 0.001),
+    SRMR  = choose_better(srmr_bifactor,  srmr_correlated,  higher_better = FALSE, tol = 0.001),
+    AIC   = choose_better(aic_bifactor,   aic_correlated,   higher_better = FALSE, tol = 2),
+    BIC   = choose_better(bic_bifactor,   bic_correlated,   higher_better = FALSE, tol = 2)
+  ) |>
+  pivot_longer(c(CFI, TLI, RMSEA, SRMR, AIC, BIC),
+               names_to = "index", values_to = "favours")
+
+# proportion of replications favouring each model, per condition and index
+prop_favour <- decisions |>
+  group_by(n, factor_cor, index) |>
+  summarize(
+    K            = n(),
+    p_bifactor   = mean(favours == "bifactor"),
+    p_correlated = mean(favours == "correlated"),
+    p_tie        = mean(favours == "tie"),
+    .groups      = "drop"
+  ) |>
+  mutate(mcse_bifactor = sqrt(p_bifactor * (1 - p_bifactor) / K))
+```
+
+### Table
+
+The key quantity is `p_bifactor`: the proportion of replications in which the index prefers the bifactor model even though the correlated-factors model is true. Shown for $r = 0.5$.
+
+```{r}
+prop_favour |>
+  filter(factor_cor == 0.5) |>
+  mutate(index = factor(index, levels = c("SRMR", "RMSEA", "CFI", "TLI", "AIC", "BIC"))) |>
+  arrange(index, n) |>
+  mutate(across(c(p_bifactor, p_correlated, p_tie, mcse_bifactor),
+                \(x) scales::number(x, accuracy = 0.001))) |>
+  select(index, n,
+         `favours bifactor` = p_bifactor,
+         `favours correlated (true)` = p_correlated,
+         tie = p_tie,
+         `MCSE (bifactor)` = mcse_bifactor) |>
+  kable(caption = "Proportion of replications in which each index favours the bifactor vs the true correlated-factors model (r = 0.5)") |>
+  kable_styling(full_width = FALSE)
+```
+
+### Plot: bias toward the bifactor model
+
+The dashed line at 0 marks how an unbiased index *should* behave (never prefer the false bifactor model); the dotted line at 0.5 marks chance. Points above these lines indicate bias in favour of the more complex, incorrect model.
+
+```{r}
+#| fig-width: 9
+#| fig-height: 4.5
+
+prop_favour |>
+  mutate(index = factor(index, levels = c("SRMR", "RMSEA", "CFI", "TLI", "AIC", "BIC"))) |>
+  ggplot(aes(x = n, y = p_bifactor, color = index)) +
+  geom_hline(yintercept = 0,   linetype = "dashed") +
+  geom_hline(yintercept = 0.5, linetype = "dotted") +
+  geom_linerange(aes(ymin = p_bifactor - mcse_bifactor,
+                     ymax = p_bifactor + mcse_bifactor),
+                 color = "black") +
+  geom_line() +
+  geom_point() +
+  facet_wrap(~ paste0("factor correlation r = ", factor_cor)) +
+  scale_x_continuous(name = "Sample size (N)",
+                     breaks = c(200, 500, 1000, 2000)) +
+  scale_y_continuous(name = "Proportion of samples\nfavouring the (false) bifactor model",
+                     limits = c(0, 1),
+                     breaks = breaks_pretty(n = 6)) +
+  theme_linedraw() +
+  theme(panel.grid.minor = element_blank()) +
+  guides(color = guide_legend(title = "Fit index"))
+```
+
+### Plot: mean index difference (bifactor − correlated)
+
+An alternative view of the same phenomenon: the average difference between the two models on each index. For CFI/TLI a positive difference favours the bifactor model; for RMSEA/SRMR a negative difference favours it. AIC/BIC are on a different scale and are shown separately.
+
+```{r}
+#| fig-width: 9
+#| fig-height: 4.5
+
+approx_diff <- wide |>
+  mutate(CFI   = cfi_bifactor   - cfi_correlated,
+         TLI   = tli_bifactor   - tli_correlated,
+         RMSEA = rmsea_bifactor - rmsea_correlated,
+         SRMR  = srmr_bifactor  - srmr_correlated) |>
+  group_by(n, factor_cor) |>
+  summarize(across(c(CFI, TLI, RMSEA, SRMR), mean), .groups = "drop") |>
+  pivot_longer(c(CFI, TLI, RMSEA, SRMR),
+               names_to = "index", values_to = "mean_diff")
+
+approx_diff |>
+  ggplot(aes(x = n, y = mean_diff, color = index)) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  geom_line() +
+  geom_point() +
+  facet_wrap(~ paste0("factor correlation r = ", factor_cor)) +
+  scale_x_continuous(name = "Sample size (N)",
+                     breaks = c(200, 500, 1000, 2000)) +
+  scale_y_continuous(name = "Mean index difference\n(bifactor - correlated)") +
+  theme_linedraw() +
+  theme(panel.grid.minor = element_blank()) +
+  guides(color = guide_legend(title = "Fit index"))
+```
+
+# Simulation 1 · Discussion
+
+<!-- Discuss and interpret results of the simulation here: what was the performance of the method(s) across the conditions? What can we conclude with regard to the aims? -->
+
+## Performance of the indices across conditions
+
+The data were generated from a correlated three-factor model with no misspecification, so a fit index that behaved as an unbiased judge would essentially never prefer the bifactor model. What we observe is more nuanced than a blanket bifactor bias — and the nuance is itself the lesson.
+
+**SRMR is clearly and strongly biased.** SRMR is a pure badness-of-fit residual measure with *no* penalty for model complexity, so the more flexible bifactor model — six extra free parameters with which to soak up sampling noise — almost always produces a smaller residual. SRMR favours the false bifactor model in the large majority of replications, at every sample size and every factor correlation. This reproduces the single most consistent finding of Greene et al. (2019): that SRMR (and its categorical cousin WRMR) reliably favoured the bifactor model.
+
+**RMSEA, CFI, and TLI do *not* show the bias here — and often lean the right way.** These indices reward parsimony through their degrees-of-freedom terms, and the correlated-factors model has more degrees of freedom (24 vs 18). Crucially, our clean DGP has almost no population misfit for *either* model: with equal loadings and equal factor correlations, the correlated-factors model can be re-expressed as a near-equivalent proportional bifactor, so the bifactor model has essentially no genuine flexibility advantage to exploit. As a result these df-rewarding indices produce mostly ties, and when they break a tie they tend to favour the more parsimonious *true* model — most visibly RMSEA. This is a genuine divergence from Greene et al., whose RMSEA/CFI/TLI leaned toward the bifactor model when they broke ties. The difference is instructive rather than contradictory: their data-generating process used skewed or dichotomous indicators, an unequal structure, and — in most conditions — active misspecification, all of which give the bifactor model real misfit to absorb. We removed those ingredients on purpose. Simulation 2 puts them back.
+
+**Information criteria recover the truth.** AIC and especially BIC add an explicit penalty for the number of free parameters, and this lets them favour the true, more parsimonious correlated-factors model. BIC, whose penalty grows with $\log(N)$, is essentially always correct here and its margin over the bifactor model widens as the sample size grows — the pattern reported by Greene et al. (2019) and Morgan et al. (2015).
+
+**Higher factor correlations** make the data superficially resemble something with a general dimension, but in this clean case do not overturn the picture: SRMR stays biased, the df-rewarding indices stay tie-prone, and the information criteria stay correct.
+
+## Conclusions with regard to the aims
+
+Both aims are met, though the answer is index-specific rather than a blanket verdict. The rate of preferring the false bifactor model is high and robust for the residual-based SRMR, low or reversed for the df-rewarding RMSEA/CFI/TLI, and essentially zero for the information criteria (with BIC improving as *N* grows). In the cleanest possible case, then, the bias is confined to the fit index that carries no complexity penalty.
+
+This is deliberately a weaker result than "the bifactor model always wins", and it sets up the question Simulation 2 answers: what happens when the data are made realistic — ordinal indicators, an unequal structure, and genuine misspecification — so that the bifactor model has real flexibility to exploit, and the parsimony-based information criteria are no longer even available to act as a backstop?
+
+# Simulation 2: misspecification, unequal structure, and ordinal data
+
+Simulation 1 was deliberately a best case for the correlated-factors model, and it showed that only SRMR is clearly biased there. Simulation 2 adds the three features that make real psychopathology data harder — and that Greene et al. (2019) used — to see whether the bias becomes broad. The ADEMP logic is unchanged; only the data-generating process, the estimator, and the extracted indices differ, so we describe only what changes.
+
+## Design (what changes from Simulation 1)
+
+**Data-generating process.** The true model is again a correlated three-factor model, but now with an **unequal structure** taken from Greene et al. (2019, Figure 4): eleven indicators split 3-3-5 across the three factors, **unequal loadings** (ranging from 0.60 to 0.88), and **unequal factor correlations** (0.82, 0.59, 0.60). Onto this we add a single **misspecification**: indicator `y4` also loads on factor `f1` (a cross-loading), with strength varied across conditions. Neither fitted model includes this cross-loading, so it is genuine unmodelled complexity that the more flexible bifactor model is better placed to absorb.
+
+**Ordinal indicators.** The simulated continuous responses are thresholded into four ordered categories, with thresholds placed in the upper tail so the categories are positively skewed — the pattern typical of symptom-count and diagnostic data. The models are therefore fitted with the **categorical WLSMV estimator** (`ordered = ...` in `lavaan`), and fit is read from the robust/scaled indices (`cfi.scaled`, `tli.scaled`, `rmsea.scaled`) together with `srmr` and the categorical residual index `wrmr`. Note that **AIC and BIC are undefined** for the DWLS/WLSMV fitting function — so the information criteria that recovered the true model in Simulation 1 are simply unavailable here, leaving only the approximate fit indices.
+
+**DGP factors.** Sample size `n` ∈ {500, 1000}, and cross-loading strength `cross_loading` ∈ {0, 0.3, 0.5} (0 = no misspecification, i.e. an ordinal analogue of Simulation 1; 0.3 and 0.5 = moderate and strong misspecification, following Cohen's benchmarks as used by Greene et al.). Fully factorial: 6 conditions, `n_sim` = 300 replications each. WLSMV is considerably slower than ML, so we use fewer replications than in Simulation 1; the reported MCSEs make the resulting Monte Carlo error explicit.
+
+## Simulation 2 · Methods
+
+### Data generating process
+
+```{r}
+# thresholds cut each standardised latent response into 4 ordered categories;
+# placing them in the upper tail yields the positive skew typical of symptom data
+# (most respondents fall in the lowest category)
+ordinal_thresholds <- qnorm(c(0.55, 0.80, 0.93))
+
+generate_data_ordinal <- function(n, cross_loading, thresholds = ordinal_thresholds) {
+
+  population_model <- paste0(
+    # unequal loadings and an unequal 3-3-5 structure (after Greene et al., 2019, Fig. 4)
+    "f1 =~ 0.85*y1 + 0.86*y2 + 0.85*y3\n",
+    "f2 =~ 0.81*y4 + 0.60*y5 + 0.74*y6\n",
+    "f3 =~ 0.67*y7 + 0.66*y8 + 0.79*y9 + 0.88*y10 + 0.87*y11\n",
+    # unequal factor correlations
+    "f1 ~~ 0.82*f2\nf1 ~~ 0.59*f3\nf2 ~~ 0.60*f3\n",
+    # MISSPECIFICATION: y4 also loads on f1, but neither fitted model includes this
+    "f1 =~ ", cross_loading, "*y4\n"
+  )
+
+  # simulate continuous responses, then threshold into ordered categories
+  continuous <- lavaan::simulateData(model = population_model, sample.nobs = n)
+  ordinal <- as.data.frame(lapply(continuous, \(z) findInterval(z, thresholds)))
+  ordinal[] <- lapply(ordinal, ordered)
+  names(ordinal) <- names(continuous)
+
+  return(ordinal)
+}
+```
+
+### Analysis
+
+The two competing models have the same form as before, adjusted to eleven indicators in a 3-3-5 structure. The helper mirrors `fit_one_model()` from Simulation 1, but passes `ordered = names(data)` to invoke WLSMV and extracts the robust/scaled indices.
+
+```{r}
+model_correlated_2 <- '
+f1 =~ y1 + y2 + y3
+f2 =~ y4 + y5 + y6
+f3 =~ y7 + y8 + y9 + y10 + y11
+'
+
+model_bifactor_2 <- '
+g  =~ y1 + y2 + y3 + y4 + y5 + y6 + y7 + y8 + y9 + y10 + y11
+s1 =~ y1 + y2 + y3
+s2 =~ y4 + y5 + y6
+s3 =~ y7 + y8 + y9 + y10 + y11
+'
+
+# robust (scaled) indices for categorical WLSMV estimation; there is deliberately
+# no AIC/BIC here — information criteria are undefined for the DWLS fit function
+fit_indices_2 <- c("npar", "df", "cfi.scaled", "tli.scaled", "rmsea.scaled", "srmr", "wrmr")
+
+fit_one_model_ordinal <- function(model_syntax, data, orthogonal = FALSE) {
+
+  fit <- tryCatch(
+    suppressWarnings(
+      lavaan::sem(model      = model_syntax,
+                  data       = data,
+                  std.lv     = TRUE,
+                  orthogonal = orthogonal,
+                  ordered    = names(data),
+                  warn       = FALSE)
+    ),
+    error = function(e) NULL
+  )
+
+  na_row <- as_tibble_row(setNames(rep(NA_real_, length(fit_indices_2)), fit_indices_2))
+
+  if (is.null(fit) || !lavaan::lavInspect(fit, "converged")) {
+    return(bind_cols(tibble(converged = FALSE, proper = NA), na_row))
+  }
+
+  proper   <- isTRUE(suppressWarnings(lavaan::lavInspect(fit, "post.check")))
+  measures <- setNames(as.numeric(lavaan::fitMeasures(fit, fit_indices_2)), fit_indices_2)
+
+  bind_cols(tibble(converged = TRUE, proper = proper), as_tibble_row(measures))
+}
+
+analyse_ordinal <- function(data) {
+  bind_rows(
+    mutate(fit_one_model_ordinal(model_correlated_2, data, orthogonal = FALSE), model = "correlated"),
+    mutate(fit_one_model_ordinal(model_bifactor_2,  data, orthogonal = TRUE),  model = "bifactor")
+  ) |>
+    relocate(model)
+}
+```
+
+### Define and run experiment
+
+```{r}
+experiment_parameters_grid_2 <- expand_grid(
+  n             = c(500, 1000),
+  cross_loading = c(0, 0.3, 0.5),
+  iteration     = 1:300L
+) |>
+  mutate(condition = paste0("N = ", n, ", cross-loading = ", cross_loading))
+```
+
+```{r}
+# results are cached to disk: the simulation is only run the first time, and read back
+# in on subsequent renders. delete the .rds file if you change the simulation code.
+dir.create("results", showWarnings = FALSE)
+
+if(file.exists("results/simulation_sem_2.rds")){
+
+  simulation_2 <- read_rds("results/simulation_sem_2.rds")
+
+} else {
+
+  set.seed(43)
+
+  simulation_2 <- experiment_parameters_grid_2 |>
+    # shuffle the rows of the grid to load balance the computationally expensive
+    # iterations evenly across the workers
+    slice_sample(prop = 1) |>
+    mutate(data = future_pmap(.l = list(n = n, cross_loading = cross_loading),
+                              .f = generate_data_ordinal,
+                              .progress = TRUE,
+                              .options = furrr_options(seed = TRUE))) |>
+    mutate(results = future_pmap(.l = list(data = data),
+                                 .f = analyse_ordinal,
+                                 .progress = TRUE,
+                                 .options = furrr_options(seed = TRUE))) |>
+    # undo the shuffle so the rows are back in the order of the experiment grid
+    arrange(n, cross_loading, iteration) |>
+    # the generated data sets are not needed after they have been analyzed, and keeping
+    # them would make the saved file enormous
+    select(-data)
+
+  write_rds(x = simulation_2, file = "results/simulation_sem_2.rds", compress = "gz")
+
+}
+```
+
+## Simulation 2 · Results
+
+```{r}
+simulation_2_long <- simulation_2 |>
+  unnest(results)
+```
+
+### Convergence and admissibility
+
+The bifactor model is markedly more likely to fail — and, more insidiously, to converge to an *inadmissible* (Heywood) solution that an unwary analyst might report anyway. Both problems worsen as the misspecification grows.
+
+```{r}
+simulation_2_long |>
+  group_by(model, cross_loading) |>
+  summarize(fits            = n(),
+            converged_rate  = mean(converged),
+            admissible_rate = mean(proper, na.rm = TRUE),
+            .groups = "drop") |>
+  mutate(across(c(converged_rate, admissible_rate), \(x) janitor::round_half_up(x, 3))) |>
+  pivot_wider(names_from = model,
+              values_from = c(converged_rate, admissible_rate),
+              id_cols = cross_loading) |>
+  kable(caption = "Simulation 2: convergence and admissibility rates by model and misspecification strength") |>
+  kable_styling(full_width = FALSE)
+```
+
+```{r}
+# restrict head-to-head comparisons to replications where both models are usable
+valid_2 <- simulation_2_long |>
+  group_by(n, cross_loading, condition, iteration) |>
+  filter(all(converged) & all(proper %in% TRUE)) |>
+  ungroup()
+```
+
+### Head-to-head selection
+
+We reuse the `choose_better()` helper from Simulation 1. Because AIC/BIC are undefined under WLSMV, the competition is now between approximate fit indices only — including the categorical residual index WRMR.
+
+```{r}
+wide_2 <- valid_2 |>
+  # rename scaled indices to dot-free names before widening
+  transmute(n, cross_loading, condition, iteration, model,
+            cfi   = cfi.scaled,
+            tli   = tli.scaled,
+            rmsea = rmsea.scaled,
+            srmr, wrmr) |>
+  pivot_wider(names_from  = model,
+              values_from = c(cfi, tli, rmsea, srmr, wrmr))
+
+decisions_2 <- wide_2 |>
+  transmute(
+    n, cross_loading, condition, iteration,
+    WRMR  = choose_better(wrmr_bifactor,  wrmr_correlated,  higher_better = FALSE, tol = 0.001),
+    SRMR  = choose_better(srmr_bifactor,  srmr_correlated,  higher_better = FALSE, tol = 0.001),
+    RMSEA = choose_better(rmsea_bifactor, rmsea_correlated, higher_better = FALSE, tol = 0.001),
+    CFI   = choose_better(cfi_bifactor,   cfi_correlated,   higher_better = TRUE,  tol = 0.001),
+    TLI   = choose_better(tli_bifactor,   tli_correlated,   higher_better = TRUE,  tol = 0.001)
+  ) |>
+  pivot_longer(c(WRMR, SRMR, RMSEA, CFI, TLI),
+               names_to = "index", values_to = "favours")
+
+prop_favour_2 <- decisions_2 |>
+  group_by(n, cross_loading, index) |>
+  summarize(
+    K            = n(),
+    p_bifactor   = mean(favours == "bifactor"),
+    p_correlated = mean(favours == "correlated"),
+    p_tie        = mean(favours == "tie"),
+    .groups      = "drop"
+  ) |>
+  mutate(mcse_bifactor = sqrt(p_bifactor * (1 - p_bifactor) / K))
+```
+
+#### Table
+
+```{r}
+prop_favour_2 |>
+  filter(n == 1000) |>
+  mutate(index = factor(index, levels = c("WRMR", "SRMR", "RMSEA", "CFI", "TLI"))) |>
+  arrange(index, cross_loading) |>
+  mutate(across(c(p_bifactor, p_correlated, p_tie, mcse_bifactor),
+                \(x) scales::number(x, accuracy = 0.001))) |>
+  select(index,
+         `cross-loading` = cross_loading,
+         `favours bifactor` = p_bifactor,
+         `favours correlated (true)` = p_correlated,
+         tie = p_tie,
+         `MCSE (bifactor)` = mcse_bifactor) |>
+  kable(caption = "Simulation 2: proportion of replications favouring the bifactor vs the true correlated-factors model, N = 1000 (WLSMV; AIC/BIC undefined)") |>
+  kable_styling(full_width = FALSE)
+```
+
+#### Plot
+
+Unlike Simulation 1, here the *x*-axis is the strength of the (unmodelled) misspecification. The dashed line at 0 is unbiased behaviour; the dotted line at 0.5 is chance.
+
+```{r}
+#| fig-width: 9
+#| fig-height: 4.5
+
+prop_favour_2 |>
+  mutate(index = factor(index, levels = c("WRMR", "SRMR", "RMSEA", "CFI", "TLI"))) |>
+  ggplot(aes(x = cross_loading, y = p_bifactor, color = index)) +
+  geom_hline(yintercept = 0,   linetype = "dashed") +
+  geom_hline(yintercept = 0.5, linetype = "dotted") +
+  geom_linerange(aes(ymin = p_bifactor - mcse_bifactor,
+                     ymax = p_bifactor + mcse_bifactor),
+                 color = "black") +
+  geom_line() +
+  geom_point() +
+  facet_wrap(~ paste0("N = ", n)) +
+  scale_x_continuous(name = "Strength of unmodelled cross-loading (misspecification)",
+                     breaks = c(0, 0.3, 0.5)) +
+  scale_y_continuous(name = "Proportion of samples\nfavouring the (false) bifactor model",
+                     limits = c(0, 1),
+                     breaks = breaks_pretty(n = 6)) +
+  theme_linedraw() +
+  theme(panel.grid.minor = element_blank()) +
+  guides(color = guide_legend(title = "Fit index"))
+```
+
+## Simulation 2 · Discussion
+
+Making the data realistic sharpens the picture in three ways.
+
+**The residual indices are now unambiguously and severely biased.** WRMR — the residual index specific to categorical estimation — favours the false bifactor model in essentially *every* replication, at every sample size and every level of misspecification. SRMR behaves almost identically once any misspecification is present. Neither index penalises complexity, so the bifactor model's extra flexibility translates directly into a smaller residual. This is exactly Greene et al.'s (2019) headline result, and it is the most robust finding across both of our simulations: **a residual-based fit index will almost always prefer the bifactor model, whether or not a general factor exists.**
+
+**The df-rewarding indices are pulled toward the bifactor model by misspecification, but remain noisier.** RMSEA, CFI, and TLI still produce many ties, and their parsimony reward still partially protects the true model — but as the cross-loading strengthens, more of their broken ties go to the bifactor model, and at the smaller sample size the drift is larger. They no longer reliably favour the true model as they did in Simulation 1. The direction of travel is what matters: adding realism moves these indices from "leans correct" toward "leans wrong".
+
+**The safety net is gone.** In Simulation 1, BIC cleanly recovered the true model. Here, with categorical indicators and WLSMV estimation, AIC and BIC are not even defined — so the analyst is left with precisely the approximate fit indices that are biased. Since categorical, skewed symptom indicators are the norm in exactly the psychopathology and personality applications where bifactor models are most popular, this is not a corner case; it is the typical case. Compounding the problem, the bifactor model converges to inadmissible solutions far more often than the correlated model, and increasingly so under misspecification — improper solutions that are easy to overlook and that should themselves be treated as a warning sign rather than a fitted model.
+
+# Simulation 2b: stacking misspecifications toward the published regime
+
+Simulation 2 varied a single misspecification (one cross-loading) and found that, at $N \le 1000$, the degrees-of-freedom-rewarding indices (RMSEA, CFI, TLI) were still largely tie-prone rather than decisively favouring the bifactor model. The published studies produced a starker picture — with Greene et al. (2019) reporting that under realistic misspecification *most* indices came to favour the bifactor model. The difference is that real data, and those studies, involve **several misspecifications at once**. Simulation 2b reproduces that regime by stacking the three misspecification types of Greene et al. (2019, Figure 4) — a cross-loading, a *between*-factor correlated residual, and a *within*-factor correlated residual — at increasing joint severity.
+
+## Design (what changes from Simulation 2)
+
+Everything is as in Simulation 2 (ordinal indicators, unequal 3-3-5 structure, WLSMV) except the data-generating process, which now includes all three misspecifications simultaneously:
+
+- **(a) cross-loading**: `y4` also loads on `f1`;
+- **(b) between-factor correlated residual**: `y3 ~~ y4` (indicators on different factors);
+- **(c) within-factor correlated residual**: `y7 ~~ y8` (indicators on the same factor).
+
+A single ordered factor, `severity`, sets all three together: **none** (all zero; the Simulation 2 baseline), **moderate** (cross-loading 0.30, residual covariances 0.15), and **severe** (cross-loading 0.50, residual covariances 0.25). Between-factor correlated residuals are especially relevant because a general factor *induces* positive residual covariance among indicators across factors — so this misspecification is exactly the kind of structure a bifactor model is built to absorb. Sample size is held at `n` = 1000 (Simulation 2 already showed the sample-size dependence), and `n_sim` = 300.
+
+## Simulation 2b · Methods
+
+```{r}
+# misspecification severity: cross-loading, between-factor residual, within-factor residual
+# (the three misspecification types of Greene et al., 2019, Figure 4)
+misspecification_levels <- tibble(
+  severity      = c("none", "moderate", "severe"),
+  cross_loading = c(0,      0.30,       0.50),
+  resid_between = c(0,      0.15,       0.25),
+  resid_within  = c(0,      0.15,       0.25)
+) |>
+  mutate(severity = factor(severity, levels = c("none", "moderate", "severe")))
+
+# build the true (data-generating) population model with stacked misspecifications
+build_population_misspecified <- function(cross_loading, resid_between, resid_within) {
+  paste0(
+    "f1 =~ 0.85*y1 + 0.86*y2 + 0.85*y3\n",
+    "f2 =~ 0.81*y4 + 0.60*y5 + 0.74*y6\n",
+    "f3 =~ 0.67*y7 + 0.66*y8 + 0.79*y9 + 0.88*y10 + 0.87*y11\n",
+    "f1 ~~ 0.82*f2\nf1 ~~ 0.59*f3\nf2 ~~ 0.60*f3\n",
+    if (cross_loading > 0) paste0("f1 =~ ", cross_loading, "*y4\n") else "",  # (a) cross-loading
+    if (resid_between > 0) paste0("y3 ~~ ", resid_between, "*y4\n") else "",   # (b) between-factor residual
+    if (resid_within  > 0) paste0("y7 ~~ ", resid_within,  "*y8\n") else ""    # (c) within-factor residual
+  )
+}
+
+generate_data_ordinal_severe <- function(n, cross_loading, resid_between, resid_within,
+                                          thresholds = ordinal_thresholds) {
+  pop <- build_population_misspecified(cross_loading, resid_between, resid_within)
+  continuous <- lavaan::simulateData(model = pop, sample.nobs = n)
+  ordinal <- as.data.frame(lapply(continuous, \(z) findInterval(z, thresholds)))
+  ordinal[] <- lapply(ordinal, ordered)
+  names(ordinal) <- names(continuous)
+  ordinal
+}
+```
+
+The fitted models and the analysis are exactly those of Simulation 2 (`model_correlated_2`, `model_bifactor_2`, `analyse_ordinal`); only the data-generating process differs.
+
+```{r}
+experiment_parameters_grid_2b <- expand_grid(
+  misspecification_levels,
+  n         = 1000,
+  iteration = 1:300L
+)
+```
+
+```{r}
+# results are cached to disk: the simulation is only run the first time, and read back
+# in on subsequent renders. delete the .rds file if you change the simulation code.
+dir.create("results", showWarnings = FALSE)
+
+if(file.exists("results/simulation_sem_2b.rds")){
+
+  simulation_2b <- read_rds("results/simulation_sem_2b.rds")
+
+} else {
+
+  set.seed(45)
+
+  simulation_2b <- experiment_parameters_grid_2b |>
+    # shuffle the rows of the grid to load balance the computationally expensive
+    # iterations evenly across the workers
+    slice_sample(prop = 1) |>
+    mutate(data = future_pmap(.l = list(n = n,
+                                        cross_loading = cross_loading,
+                                        resid_between = resid_between,
+                                        resid_within  = resid_within),
+                              .f = generate_data_ordinal_severe,
+                              .progress = TRUE,
+                              .options = furrr_options(seed = TRUE))) |>
+    mutate(results = future_pmap(.l = list(data = data),
+                                 .f = analyse_ordinal,
+                                 .progress = TRUE,
+                                 .options = furrr_options(seed = TRUE))) |>
+    # undo the shuffle so the rows are back in the order of the experiment grid
+    arrange(severity, iteration) |>
+    # the generated data sets are not needed after they have been analyzed, and keeping
+    # them would make the saved file enormous
+    select(-data)
+
+  write_rds(x = simulation_2b, file = "results/simulation_sem_2b.rds", compress = "gz")
+
+}
+```
+
+## Simulation 2b · Results
+
+```{r}
+simulation_2b_long <- simulation_2b |>
+  unnest(results)
+
+# bifactor admissibility falls as misspecification grows
+simulation_2b_long |>
+  group_by(model, severity) |>
+  summarize(converged_rate  = mean(converged),
+            admissible_rate = mean(proper, na.rm = TRUE),
+            .groups = "drop") |>
+  mutate(across(c(converged_rate, admissible_rate), \(x) janitor::round_half_up(x, 3))) |>
+  pivot_wider(names_from = model, values_from = c(converged_rate, admissible_rate),
+              id_cols = severity) |>
+  kable(caption = "Simulation 2b: convergence and admissibility by model and misspecification severity") |>
+  kable_styling(full_width = FALSE)
+```
+
+```{r}
+valid_2b <- simulation_2b_long |>
+  group_by(severity, iteration) |>
+  filter(all(converged) & all(proper %in% TRUE)) |>
+  ungroup()
+
+wide_2b <- valid_2b |>
+  transmute(severity, iteration, model,
+            cfi = cfi.scaled, tli = tli.scaled, rmsea = rmsea.scaled, srmr, wrmr) |>
+  pivot_wider(names_from = model, values_from = c(cfi, tli, rmsea, srmr, wrmr))
+
+decisions_2b <- wide_2b |>
+  transmute(
+    severity,
+    WRMR  = choose_better(wrmr_bifactor,  wrmr_correlated,  higher_better = FALSE, tol = 0.001),
+    SRMR  = choose_better(srmr_bifactor,  srmr_correlated,  higher_better = FALSE, tol = 0.001),
+    RMSEA = choose_better(rmsea_bifactor, rmsea_correlated, higher_better = FALSE, tol = 0.001),
+    CFI   = choose_better(cfi_bifactor,   cfi_correlated,   higher_better = TRUE,  tol = 0.001),
+    TLI   = choose_better(tli_bifactor,   tli_correlated,   higher_better = TRUE,  tol = 0.001)
+  ) |>
+  pivot_longer(c(WRMR, SRMR, RMSEA, CFI, TLI), names_to = "index", values_to = "favours")
+
+prop_favour_2b <- decisions_2b |>
+  group_by(severity, index) |>
+  summarize(K = n(),
+            p_bifactor   = mean(favours == "bifactor"),
+            p_correlated = mean(favours == "correlated"),
+            p_tie        = mean(favours == "tie"),
+            .groups = "drop") |>
+  mutate(mcse_bifactor = sqrt(p_bifactor * (1 - p_bifactor) / K),
+         index = factor(index, levels = c("WRMR", "SRMR", "RMSEA", "CFI", "TLI")))
+```
+
+### Table
+
+```{r}
+prop_favour_2b |>
+  arrange(index, severity) |>
+  mutate(across(c(p_bifactor, p_correlated, p_tie),
+                \(x) scales::number(x, accuracy = 0.001))) |>
+  select(index, severity,
+         `favours bifactor` = p_bifactor,
+         `favours correlated (true)` = p_correlated,
+         tie = p_tie) |>
+  kable(caption = "Simulation 2b: proportion favouring the bifactor vs the true correlated-factors model, by stacked-misspecification severity (N = 1000, WLSMV)") |>
+  kable_styling(full_width = FALSE)
+```
+
+### Plot
+
+```{r}
+#| fig-width: 8
+#| fig-height: 4.5
+
+prop_favour_2b |>
+  ggplot(aes(x = severity, y = p_bifactor, color = index, group = index)) +
+  geom_hline(yintercept = 0,   linetype = "dashed") +
+  geom_hline(yintercept = 0.5, linetype = "dotted") +
+  geom_linerange(aes(ymin = p_bifactor - mcse_bifactor,
+                     ymax = p_bifactor + mcse_bifactor),
+                 color = "black") +
+  geom_line() +
+  geom_point(size = 2) +
+  scale_y_continuous(name = "Proportion of samples\nfavouring the (false) bifactor model",
+                     limits = c(0, 1), breaks = breaks_pretty(n = 6)) +
+  scale_x_discrete(name = "Stacked-misspecification severity") +
+  theme_linedraw() +
+  theme(panel.grid.minor = element_blank()) +
+  guides(color = guide_legend(title = "Fit index"))
+```
+
+## Simulation 2b · Discussion
+
+Stacking the misspecifications reproduces the published "most indices favour the bifactor model" regime, and shows it emerging as a gradient.
+
+- **The residual indices are pinned at the ceiling.** WRMR favours the bifactor model in essentially every replication at every severity, and SRMR joins it as soon as any misspecification is present — neither penalises complexity, so the bifactor model's flexibility always wins on raw residual size.
+- **The incremental index breaks.** CFI, roughly balanced under a single cross-loading, comes to favour the bifactor model in the majority of replications at severe misspecification. TLI drifts the same way.
+- **RMSEA is the most resistant, but not immune.** Its degrees-of-freedom reward keeps it the least biased index, yet the share of replications favouring the bifactor model still climbs with severity.
+- **The bifactor model becomes untrustworthy to estimate.** Its admissibility rate falls sharply as severity increases (many Heywood solutions), while the correlated model stays admissible — a practical red flag that is routinely ignored when only the headline fit indices are reported.
+
+This is the regime in which the published warnings were issued, and it is the fair setting in which to ask the cross-validation question: once the bifactor model's in-sample advantage is this large and this broad, does judging models out of sample restore the true model? Simulation 3 tests exactly that, across this same severity gradient.
+
+# Simulation 3: does cross-validation fix it?
+
+The simulations so far scored every model on the same data it was fitted to. A common and reasonable objection — associated here with Ruben Arslan — is that this is the whole problem: the bifactor model wins *in sample* because its extra flexibility lets it fit sampling noise, and if we instead judged models by their **out-of-sample** performance (cross-validation), that noise-fitting would be penalised and the parsimonious true model would win. This is a testable claim, so we test it rather than argue about it — and, having built the severe-misspecification regime in Simulation 2b, we test it there, where the bifactor model's in-sample advantage is largest.
+
+The test hinges on distinguishing two different things that both make the bifactor model fit well:
+
+- **Overfitting** — fitting the idiosyncratic noise of *this particular sample*. This is a sampling-level phenomenon, and it is exactly what cross-validation is designed to catch: noise fitted in a training set does not recur in a test set.
+- **Fitting propensity** — the bifactor model's inherent, *population-level* flexibility to reproduce a wide range of covariance structures well, over and above any sampling noise (Bonifay & Cai, 2017; Bader & Moshagen, 2025). This is a property of the model space itself, and cross-validation cannot remove it: if the flexible model reproduces the *population* covariance better — as it will when there is real, unmodelled structure for it to absorb — it will do so in the test set too.
+
+If the bifactor model's apparent superiority were all overfitting, cross-validation should reverse it. If it is fitting propensity, cross-validation should leave it in place. Simulation 3 tells these apart by scoring several metrics **both in sample and out of sample**, across the correct-to-severe misspecification gradient of Simulation 2b.
+
+## Design (what changes from Simulations 2b)
+
+**Method: split-half cross-validation.** For each replication we draw a single dataset, split it into a **training** half and a **test** half, fit each model on the training half only, and evaluate the training-estimated model against the *held-out* test half — the split-half cross-validation that Zavlis and Fried (2024) applied to the impulsivity data. Taking the training-estimated model-implied covariance $\hat\Sigma_{\text{train}}$ and the test-half sample covariance $S_{\text{test}}$, we compute:
+
+- the **cross-validation index (CVI)** — the maximum-likelihood discrepancy $F(S_{\text{test}}, \hat\Sigma_{\text{train}})$ (Cudeck & Browne, 1983). This is the natural out-of-sample analogue of the likelihood / raw badness-of-fit, and it carries *no* complexity penalty.
+- **out-of-sample SRMR** — the standardised residual between $S_{\text{test}}$ and $\hat\Sigma_{\text{train}}$ (also no complexity penalty).
+- **out-of-sample RMSEA and CFI** — the standard RMSEA and CFI formulas, re-evaluated on the test half using $F(S_{\text{test}}, \hat\Sigma_{\text{train}})$ and the model's degrees of freedom (for CFI, against a null model whose variances are estimated on the training half). These are constructed *analogues* rather than off-the-shelf indices, and — importantly for the interpretation — they inherit the degrees-of-freedom (parsimony) adjustment of their in-sample versions.
+
+For reference we record each model's **in-sample** SRMR, RMSEA, CFI, AIC, and BIC from the training fit, so each out-of-sample score can be read against its in-sample counterpart.
+
+**Data-generating process.** To keep the cross-validation discrepancy in its clean textbook (maximum-likelihood) form we use continuous, normally distributed indicators, but otherwise reuse Simulation 2b's DGP exactly: the unequal 3-3-5 eleven-indicator structure, the stacked cross-loading + between- and within-factor correlated residuals, and the same `severity` ∈ {none, moderate, severe}. At **none** the fitted correlated-factors model is correctly specified; at **moderate** and **severe** it is misspecified in the same way as in Simulation 2b. The fitted models are Simulation 2's `model_correlated_2` and `model_bifactor_2`.
+
+**DGP factors.** `severity` ∈ {none, moderate, severe} crossed with per-half sample size `n_half` ∈ {500, 1000}. Fully factorial, 6 conditions, `n_sim` = 200 replications each.
+
+## Simulation 3 · Methods
+
+### Data generating process
+
+```{r}
+# draw one dataset of size 2*n_half from the (possibly misspecified) population,
+# and label a training and a test half
+generate_data_cv <- function(n_half, cross_loading, resid_between, resid_within) {
+  pop  <- build_population_misspecified(cross_loading, resid_between, resid_within)
+  data <- lavaan::simulateData(model = pop, sample.nobs = 2 * n_half)
+  data$.set <- rep(c("train", "test"), each = n_half)
+  return(data)
+}
+```
+
+### Analysis
+
+We fit each model on the training half, take its model-implied covariance matrix, and score it against the test-half covariance with the discrepancy and residual functions below. `oos_fit()` bundles the four out-of-sample scores.
+
+```{r}
+# maximum-likelihood discrepancy between a sample covariance S and a model-implied Sigma
+ml_discrepancy <- function(S, Sigma) {
+  p <- ncol(S)
+  sum(diag(S %*% solve(Sigma))) + log(det(Sigma)) - log(det(S)) - p
+}
+
+# standardised root-mean-square residual between S and Sigma
+srmr_between <- function(S, Sigma) {
+  p <- ncol(S)
+  D <- diag(1 / sqrt(diag(S)), nrow = p)
+  R <- D %*% (S - Sigma) %*% D
+  sqrt(sum(R[lower.tri(R, diag = TRUE)]^2) / (p * (p + 1) / 2))
+}
+
+# out-of-sample scores: apply the training-estimated Sigma to the test covariance S_test
+oos_fit <- function(S_test, Sigma_train, S_null_train, df_model, N_test) {
+  p          <- ncol(S_test)
+  df_null    <- p * (p + 1) / 2 - p
+  F_model    <- ml_discrepancy(S_test, Sigma_train)
+  F_null     <- ml_discrepancy(S_test, S_null_train)
+  chisq_mod  <- (N_test - 1) * F_model
+  chisq_null <- (N_test - 1) * F_null
+  list(
+    cvi       = F_model,                                                   # no penalty
+    oos_srmr  = srmr_between(S_test, Sigma_train),                         # no penalty
+    oos_rmsea = sqrt(max(0, F_model / df_model - 1 / (N_test - 1))),       # df penalty
+    oos_cfi   = 1 - max(0, chisq_mod - df_model) /
+                    max(0, chisq_mod - df_model, chisq_null - df_null)     # df penalty
+  )
+}
+
+fit_one_model_cv <- function(model_syntax, train, S_test, N_test, orthogonal = FALSE) {
+
+  fit <- tryCatch(
+    suppressWarnings(lavaan::sem(model = model_syntax, data = train,
+                                 std.lv = TRUE, orthogonal = orthogonal, warn = FALSE)),
+    error = function(e) NULL
+  )
+
+  na_row <- tibble(converged = FALSE, proper = NA,
+                   insample_srmr = NA_real_, insample_rmsea = NA_real_, insample_cfi = NA_real_,
+                   aic = NA_real_, bic = NA_real_,
+                   cvi = NA_real_, oos_srmr = NA_real_, oos_rmsea = NA_real_, oos_cfi = NA_real_)
+
+  if (is.null(fit) || !lavaan::lavInspect(fit, "converged")) return(na_row)
+
+  # model-implied covariance and df estimated on the TRAINING half
+  Sigma_train  <- lavaan::lavInspect(fit, "cov.ov")[colnames(S_test), colnames(S_test)]
+  df_model     <- as.numeric(lavaan::fitMeasures(fit, "df"))
+  insample     <- lavaan::fitMeasures(fit, c("srmr", "rmsea", "cfi", "aic", "bic"))
+  # training-estimated independence (null) model: diagonal of the training covariance
+  S_null_train <- diag(diag(cov(train[, colnames(S_test)])))
+
+  oos <- oos_fit(S_test, Sigma_train, S_null_train, df_model, N_test = N_test)
+
+  tibble(converged = TRUE,
+         proper         = isTRUE(suppressWarnings(lavaan::lavInspect(fit, "post.check"))),
+         insample_srmr  = as.numeric(insample["srmr"]),
+         insample_rmsea = as.numeric(insample["rmsea"]),
+         insample_cfi   = as.numeric(insample["cfi"]),
+         aic            = as.numeric(insample["aic"]),
+         bic            = as.numeric(insample["bic"]),
+         cvi = oos$cvi, oos_srmr = oos$oos_srmr, oos_rmsea = oos$oos_rmsea, oos_cfi = oos$oos_cfi)
+}
+
+analyse_cv <- function(data) {
+  vars   <- setdiff(names(data), ".set")
+  train  <- data[data$.set == "train", vars]
+  test   <- data[data$.set == "test",  vars]
+  S_test <- cov(test)
+  N_test <- nrow(test)
+
+  bind_rows(
+    mutate(fit_one_model_cv(model_correlated_2, train, S_test, N_test, orthogonal = FALSE), model = "correlated"),
+    mutate(fit_one_model_cv(model_bifactor_2,  train, S_test, N_test, orthogonal = TRUE),  model = "bifactor")
+  ) |>
+    relocate(model)
+}
+```
+
+### Define and run experiment
+
+```{r}
+experiment_parameters_grid_3 <- expand_grid(
+  misspecification_levels,
+  n_half    = c(500, 1000),
+  iteration = 1:200L
+)
+```
+
+```{r}
+# results are cached to disk: the simulation is only run the first time, and read back
+# in on subsequent renders. delete the .rds file if you change the simulation code.
+dir.create("results", showWarnings = FALSE)
+
+if(file.exists("results/simulation_sem_3.rds")){
+
+  simulation_3 <- read_rds("results/simulation_sem_3.rds")
+
+} else {
+
+  set.seed(46)
+
+  simulation_3 <- experiment_parameters_grid_3 |>
+    # shuffle the rows of the grid to load balance the computationally expensive
+    # iterations evenly across the workers
+    slice_sample(prop = 1) |>
+    mutate(data = future_pmap(.l = list(n_half = n_half,
+                                        cross_loading = cross_loading,
+                                        resid_between = resid_between,
+                                        resid_within  = resid_within),
+                              .f = generate_data_cv,
+                              .progress = TRUE,
+                              .options = furrr_options(seed = TRUE))) |>
+    mutate(results = future_pmap(.l = list(data = data),
+                                 .f = analyse_cv,
+                                 .progress = TRUE,
+                                 .options = furrr_options(seed = TRUE))) |>
+    # undo the shuffle so the rows are back in the order of the experiment grid
+    arrange(severity, n_half, iteration) |>
+    # the generated data sets are not needed after they have been analyzed, and keeping
+    # them would make the saved file enormous
+    select(-data)
+
+  write_rds(x = simulation_3, file = "results/simulation_sem_3.rds", compress = "gz")
+
+}
+```
+
+## Simulation 3 · Results
+
+```{r}
+simulation_3_long <- simulation_3 |>
+  unnest(results)
+
+valid_3 <- simulation_3_long |>
+  group_by(severity, n_half, iteration) |>
+  filter(all(converged) & all(proper %in% TRUE)) |>
+  ungroup()
+```
+
+### Head-to-head: in-sample vs out-of-sample, by severity
+
+For each replication we compare the two models on each metric and record which it favours. We tag each metric by its **family** (SRMR, RMSEA, CFI, plus the out-of-sample-only CVI and the in-sample-only AIC/BIC) and by its **scoring** (in-sample vs out-of-sample), so the two can be plotted side by side.
+
+```{r}
+wide_3 <- valid_3 |>
+  select(severity, n_half, iteration, model,
+         insample_srmr, insample_rmsea, insample_cfi, aic, bic,
+         cvi, oos_srmr, oos_rmsea, oos_cfi) |>
+  pivot_wider(names_from  = model,
+              values_from = c(insample_srmr, insample_rmsea, insample_cfi, aic, bic,
+                              cvi, oos_srmr, oos_rmsea, oos_cfi))
+
+# lower-is-better and higher-is-better comparisons (bifactor vs correlated)
+lower_wins  <- function(bif, cor, tol = 1e-6) dplyr::case_when(bif - cor < -tol ~ "bifactor",
+                                                              bif - cor >  tol ~ "correlated",
+                                                              TRUE ~ "tie")
+higher_wins <- function(bif, cor, tol = 1e-6) dplyr::case_when(bif - cor >  tol ~ "bifactor",
+                                                              bif - cor < -tol ~ "correlated",
+                                                              TRUE ~ "tie")
+
+decisions_3 <- wide_3 |>
+  transmute(
+    severity, n_half,
+    SRMR_insample      = lower_wins (insample_srmr_bifactor,  insample_srmr_correlated),
+    SRMR_oos           = lower_wins (oos_srmr_bifactor,       oos_srmr_correlated),
+    RMSEA_insample     = lower_wins (insample_rmsea_bifactor, insample_rmsea_correlated),
+    RMSEA_oos          = lower_wins (oos_rmsea_bifactor,      oos_rmsea_correlated),
+    CFI_insample       = higher_wins(insample_cfi_bifactor,   insample_cfi_correlated),
+    CFI_oos            = higher_wins(oos_cfi_bifactor,        oos_cfi_correlated),
+    CVI_oos            = lower_wins (cvi_bifactor,            cvi_correlated),
+    AIC_insample       = lower_wins (aic_bifactor,            aic_correlated),
+    BIC_insample       = lower_wins (bic_bifactor,            bic_correlated)
+  ) |>
+  pivot_longer(-c(severity, n_half), names_to = "metric_scoring", values_to = "favours") |>
+  separate(metric_scoring, into = c("metric", "scoring"), sep = "_") |>
+  mutate(scoring = if_else(scoring == "oos", "out-of-sample", "in-sample"),
+         metric  = factor(metric, levels = c("SRMR", "RMSEA", "CFI", "CVI", "AIC", "BIC")))
+
+prop_favour_3 <- decisions_3 |>
+  group_by(severity, n_half, metric, scoring) |>
+  summarize(K = n(), p_bifactor = mean(favours == "bifactor"), .groups = "drop") |>
+  mutate(mcse_bifactor = sqrt(p_bifactor * (1 - p_bifactor) / K))
+```
+
+#### Table
+
+```{r}
+prop_favour_3 |>
+  filter(n_half == 1000) |>
+  mutate(p_bifactor = scales::number(p_bifactor, accuracy = 0.001)) |>
+  select(metric, scoring, severity, `favours bifactor` = p_bifactor) |>
+  pivot_wider(names_from = severity, values_from = `favours bifactor`) |>
+  arrange(metric, scoring) |>
+  kable(caption = "Simulation 3: proportion of replications favouring the (false general-factor) bifactor model, N/half = 1000. Compare each metric's in-sample and out-of-sample rows across severity.") |>
+  kable_styling(full_width = FALSE)
+```
+
+#### Plot
+
+For the three indices available both ways (SRMR, RMSEA, CFI), the two lines show in-sample vs out-of-sample scoring; CVI (out-of-sample only) and AIC/BIC (in-sample only) each appear once. The dashed line at 0 is unbiased behaviour; the dotted line at 0.5 is chance.
+
+```{r}
+#| fig-width: 9
+#| fig-height: 6
+
+prop_favour_3 |>
+  filter(n_half == 1000) |>
+  ggplot(aes(x = severity, y = p_bifactor, color = scoring, group = scoring)) +
+  geom_hline(yintercept = 0,   linetype = "dashed") +
+  geom_hline(yintercept = 0.5, linetype = "dotted") +
+  geom_linerange(aes(ymin = p_bifactor - mcse_bifactor,
+                     ymax = p_bifactor + mcse_bifactor),
+                 color = "black") +
+  geom_line() +
+  geom_point(size = 2) +
+  facet_wrap(~ metric) +
+  scale_y_continuous(name = "Proportion of samples\nfavouring the (false) bifactor model",
+                     limits = c(0, 1), breaks = breaks_pretty(n = 6)) +
+  scale_x_discrete(name = "Stacked-misspecification severity") +
+  theme_linedraw() +
+  theme(panel.grid.minor = element_blank(),
+        axis.text.x = element_text(angle = 25, hjust = 1)) +
+  guides(color = guide_legend(title = "Scoring"))
+```
+
+## Simulation 3 · Discussion
+
+The result is more interesting than either "cross-validation fixes it" or "cross-validation is useless". Two things are true at once.
+
+**Out-of-sample scoring helps every approximate index — sometimes dramatically.** For each of SRMR, RMSEA, and CFI, the out-of-sample version favours the false bifactor model *less often* than its in-sample version, at every severity. The effect is large for CFI (badly fooled in sample under severe misspecification, roughly balanced out of sample) and total for RMSEA (which favours the true model out of sample throughout). So Ruben Arslan's intuition is substantially vindicated: much of the bifactor model's in-sample edge really is overfitting, and holding out data removes it. In the correctly specified condition (`severity = none`), out-of-sample scoring cleanly reverses the in-sample SRMR bias — exactly the overfitting story.
+
+**But out-of-sample scoring is not the active ingredient — a complexity penalty is.** Look at *which* metrics end up trustworthy under severe misspecification. The ones that resist are those carrying a penalty for complexity: BIC (an explicit, harsh parameter penalty, scored *in* sample) is the single most reliable metric, and the out-of-sample RMSEA and CFI are well-behaved precisely because they keep the degrees-of-freedom adjustment of their in-sample versions. The ones that fail are those with *no* penalty, whether scored in or out of sample: in-sample SRMR and out-of-sample SRMR both favour the bifactor model under severe misspecification, and the raw cross-validation likelihood (CVI) favours it in the majority of severe-misspecification replications. Cross-validation removes noise-fitting, but it does not manufacture a preference for parsimony; where a metric already penalised complexity the true model is protected in and out of sample, and where it did not, cross-validation alone does not save it.
+
+**Why the raw out-of-sample likelihood still picks the bifactor is the deep point.** Under real misspecification the bifactor model genuinely predicts the held-out covariance matrix better — its general factor absorbs the unmodelled cross-loading and correlated residuals, which are signal present in the test half as much as in the training half. So an honest out-of-sample prediction contest, scored on raw fit (CVI), is *won* by the bifactor model. That is not a failure of cross-validation; it is cross-validation correctly answering a different question — "which model predicts the covariance matrix better?" — than the one the psychologist is asking — "does a general factor exist?" A flexible model can win the former by re-describing local misspecification through a global parameter while getting the latter wrong.
+
+The upshot for the original debate: out-of-sample prediction is a real and valuable tool, and it does more than the sceptic might expect — it reins in every approximate index and, for the degrees-of-freedom-adjusted ones, largely fixes the bias. But it is not a substitute for penalising complexity, and it cannot rescue a criterion that has no complexity penalty at all, because under realistic misspecification the bifactor model's advantage is partly genuine predictive superiority rather than mere overfitting. The reliable levers remain a harsh parsimony penalty (BIC), tests of model equivalence, and substantive theory — not the in-sample-versus-out-of-sample distinction on its own.
+
+# General discussion
+
+Read together, the simulations tell a coherent story about *why* "the bifactor model fits better" is such weak evidence for a general factor.
+
+- In the **cleanest possible case** (Simulation 1: continuous, correctly specified, ML), the bias is narrow — only SRMR is clearly fooled, the degrees-of-freedom-rewarding indices lean toward the true model, and BIC recovers it outright. If this were the whole story, fit-index comparisons would be roughly trustworthy.
+- In the **realistic case** (Simulations 2 and 2b: ordinal, unequal, misspecified, WLSMV), the bias is broad and severe — WRMR and SRMR favour the false bifactor model almost always, and as several misspecifications stack up even CFI comes to favour it, while the information criteria that could have caught the error are unavailable under WLSMV.
+- **Cross-validation helps, but the active ingredient is parsimony, not out-of-sample scoring** (Simulation 3): holding out data reins in every approximate index and largely fixes the degrees-of-freedom-adjusted ones (out-of-sample RMSEA and CFI), so much of the in-sample edge really was overfitting. But the metrics with no complexity penalty — raw residual (SRMR) and the raw cross-validation likelihood (CVI) — still favour the bifactor model out of sample under severe misspecification, because there the bifactor model genuinely predicts the held-out covariance better. The single most reliable criterion across the board remained a harsh in-sample parsimony penalty, BIC.
+
+Together they lay the mechanism bare: fit indices reward a model for reducing residual discrepancy, and a more flexible model reduces residual discrepancy *whether that discrepancy is signal or noise*. Remove all genuine discrepancy (Simulation 1) and only the no-penalty index is fooled; add realistic, stacked discrepancy for the extra parameters to absorb (Simulations 2–2b) and the whole family of approximate indices follows; score the models out of sample (Simulation 3) and you catch the *noise*-fitting but not the *structure*-fitting — so a criterion without a complexity penalty still prefers the flexible model whenever there is real misspecification for it to re-describe. Overfitting and fitting propensity are different problems; cross-validation solves the first, and only an explicit or implicit penalty for complexity blunts the second.
+
+The practical message mirrors Greene et al. (2019), Bader & Moshagen (2025), and Zavlis and Fried's (2024) commentary on impulsivity: **a bifactor model fitting better than a correlated-factors model is weak evidence that a general factor exists**, because the bifactor model fits better across a wide range of conditions regardless of the truth. Reported superiority of bifactor models — of psychopathology, of impulsivity, of cognitive ability — should be treated with caution when the evidence rests on approximate fit indices. Model comparison should instead lean on parsimony-aware criteria where they are available (BIC), on tests of model equivalence, and — because Simulation 3 shows even honest out-of-sample prediction can favour the flexible model when it re-describes real misspecification — above all on the substantive interpretability and theoretical coherence of the competing models. No purely statistical fit criterion, in sample or out, substitutes for asking whether a general factor is a defensible account of *why* the indicators covary.
+
+## Limitations and intended use
+
+These simulations are teaching reconstructions, not methodological contributions:
+
+- **Still a simplification.** Simulations 2–2b use three stacked misspecification types, four ordered categories with one skew pattern, and only two competing models. Greene et al. (2019) additionally examined dichotomous indicators, skewed continuous indicators with MLR, and a wider sample-size range; Bader & Moshagen (2025) compared many more model families. The qualitative bias shown here is, if anything, conservative relative to that fuller literature.
+- **Reduced replications.** `n_sim` = 500 (Simulation 1), 300 (Simulations 2 and 2b), and 200 (Simulation 3) keep re-rendering feasible but leave Monte Carlo error of up to roughly 0.02–0.035 on the proportions; the reported MCSEs make this transparent, and a user adapting these templates for a substantive claim should increase `n_sim` and widen the design grid.
+- **A simple cross-validation scheme, with constructed out-of-sample analogues.** Simulation 3 uses a single split-half hold-out with continuous ML data. The CVI and out-of-sample SRMR are standard; the out-of-sample RMSEA and CFI are *constructed analogues* — the ordinary formulas re-evaluated on the test covariance using the model's degrees of freedom (and, for CFI, a training-estimated null model) — not off-the-shelf indices, so their good behaviour should be read as "they keep the parsimony adjustment" rather than as a validated index. The scheme does not implement *k*-fold cross-validation or cross-validation of the ordinal/WLSMV models of Simulations 2–2b (where the discrepancy arithmetic is messier). The qualitative conclusion — that the complexity penalty, not the out-of-sample scoring, is what protects the true model — is not expected to change under these refinements, but that too could be tested.
+- **Two models, descriptive summaries only.** We fit only a correlated-factors and a bifactor model and summarise the results descriptively; no one-factor, higher-order, or network competitor is included, and no formal test of model equivalence (Hershberger & Marcoulides, 2006) is conducted.
+
+Used as intended — as worked examples of a *model-selection* simulation within the ADEMP framework, and as a concrete demonstration that "better fit" is not the same as "closer to the truth" — the simulations show how a Monte Carlo study can expose a bias that is completely invisible when a fit index is read off a single dataset, how the size of that bias grows as the data become realistic and misspecification stacks up, and how a plausible-sounding remedy (out-of-sample prediction) can be tested rather than merely argued about — revealing, in this case, that it helps but that the real lever is penalising complexity.
+
+# References
+
+Bader, M., & Moshagen, M. (2025). Assessing the fitting propensity of factor models. *Psychological Methods*. https://doi.org/10.1037/met0000529 (Article, code, and supplementary materials in `chapters/18_sem_and_fit_metrics/bader & moshagen - 2025/`.)
+
+Bonifay, W., & Cai, L. (2017). On the complexity of item response theory models. *Multivariate Behavioral Research*, 52(4), 465–484. https://doi.org/10.1080/00273171.2017.1309262
+
+Cudeck, R., & Browne, M. W. (1983). Cross-validation of covariance structures. *Multivariate Behavioral Research*, 18(2), 147–167. https://doi.org/10.1207/s15327906mbr1802_2
+
+Eaton, N. R., South, S. C., & Krueger, R. F. (2010). The meaning of comorbidity among common mental disorders. In T. Millon, R. F. Krueger, & E. Simonsen (Eds.), *Contemporary directions in psychopathology* (pp. 223–241). Guilford Press.
+
+Flora, D. B., & Curran, P. J. (2004). An empirical evaluation of alternative methods of estimation for confirmatory factor analysis with ordinal data. *Psychological Methods*, 9(4), 466–491. https://doi.org/10.1037/1082-989X.9.4.466
+
+Greene, A. L., Eaton, N. R., Li, K., Forbes, M. K., Krueger, R. F., Markon, K. E., Waldman, I. D., Cicero, D. C., Conway, C. C., Docherty, A. R., Fried, E. I., Ivanova, M. Y., Jonas, K. G., Latzman, R. D., Patrick, C. J., Reininghaus, U., Tackett, J. L., Wright, A. G. C., & Kotov, R. (2019). Are fit indices used to test psychopathology structure biased? A simulation study. *Journal of Abnormal Psychology*, 128(7), 740–764. https://doi.org/10.1037/abn0000434
+
+Hershberger, S. L., & Marcoulides, G. A. (2006). The problem of equivalent structural models. In G. R. Hancock & R. O. Mueller (Eds.), *Structural equation modeling: A second course* (pp. 13–41). Information Age Publishing.
+
+Huang, Y., Luan, S., Wu, B., Li, Y., Wu, J., Chen, W., et al. (2024). Impulsivity is a stable, measurable, and predictive psychological trait. *Proceedings of the National Academy of Sciences*, 121(24), e2321758121. https://doi.org/10.1073/pnas.2321758121
+
+Lahey, B. B., Applegate, B., Hakes, J. K., Zald, D. H., Hariri, A. R., & Rathouz, P. J. (2012). Is there a general factor of prevalent psychopathology during adulthood? *Journal of Abnormal Psychology*, 121(4), 971–977. https://doi.org/10.1037/a0028355
+
+Morgan, G. B., Hodge, K. J., Wells, K. E., & Watkins, M. W. (2015). Are fit indices biased in favor of bi-factor models in cognitive ability research? A comparison of fit in correlated factors, higher-order, and bi-factor models via Monte Carlo simulations. *Journal of Intelligence*, 3(1), 2–20. https://doi.org/10.3390/jintelligence3010002
+
+Morris, T. P., White, I. R., & Crowther, M. J. (2019). Using simulation studies to evaluate statistical methods. *Statistics in Medicine*, 38(11), 2074–2102. https://doi.org/10.1002/sim.8086
+
+Murray, A. L., & Johnson, W. (2013). The limitations of model fit in comparing the bi-factor versus higher-order models of human cognitive ability structure. *Intelligence*, 41(5), 407–422. https://doi.org/10.1016/j.intell.2013.06.004
+
+Preacher, K. J. (2006). Quantifying parsimony in structural equation modeling. *Multivariate Behavioral Research*, 41(3), 227–259. https://doi.org/10.1207/s15327906mbr4103_1
+
+Reise, S. P. (2012). The rediscovery of bifactor measurement models. *Multivariate Behavioral Research*, 47(5), 667–696. https://doi.org/10.1080/00273171.2012.715555
+
+Rosseel, Y. (2012). lavaan: An R package for structural equation modeling. *Journal of Statistical Software*, 48(2), 1–36. https://doi.org/10.18637/jss.v048.i02
+
+Siepe, B. S., Bartoš, F., Morris, T. P., Boulesteix, A.-L., Heck, D. W., & Pawel, S. (2024). Simulation studies for methodological research in psychology: A standardized template for planning, preregistration, and reporting. *Psychological Methods*. https://doi.org/10.1037/met0000695
+
+Watts, A. L., Greene, A. L., Bonifay, W., & Fried, E. I. (2023). A critical evaluation of the *p*-factor literature. *Nature Reviews Psychology*, 2, 108–122. https://doi.org/10.1038/s44159-022-00148-7
+
+Zavlis, O., & Fried, E. I. (2024, July 15). *No evidence for a psychological trait of impulsivity* [Commentary; blog post]. https://eiko-fried.com/blog/no-evidence-for-a-psychological-trait-of-impulsivity/ (Local copy in `chapters/18_sem_and_fit_metrics/fried - 2024 - no evidence for a psychological trait of impulsivity.pdf`.)
+
+# Session info
+
+<!-- Recorded for reproducibility -->
+
+```{r}
+sessionInfo()
+```

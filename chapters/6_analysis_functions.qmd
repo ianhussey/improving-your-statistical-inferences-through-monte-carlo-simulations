@@ -1,4 +1,4 @@
-# Analysis functions <span class="badge badge-draft3">✎ Polishing</span>
+# Analysis functions
 
 ```{r}
 #| include: false

@@ -1,12 +1,13 @@
 # Exercises for 'Data Generating Process functions' chapter <span class="badge badge-draft3">✎ Polishing</span>
 
-TODO write a few lines on why we're writing wrapper functions; in the boook talk about wrapping functions eg rnorm_multi().
-
 ```{r}
 #| include: false
 # if it is available, run the setup script that tells quarto to round all df/tibble outputs to three decimal places
 if(file.exists("../_setup.R")){source("../_setup.R")}
 ```
+
+<!-- TODO: write a few lines on why we're writing wrapper functions; in the boook talk about wrapping functions eg rnorm_multi(). -->
+
 
 These exercises accompany the [Data Generating Process functions chapter](../chapters/4_data_generating_process_functions.qmd).
 

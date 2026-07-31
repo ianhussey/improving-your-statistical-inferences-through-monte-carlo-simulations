@@ -6,12 +6,12 @@
 if(file.exists("../_setup.R")){source("../_setup.R")}
 ```
 
+<!-- TODO: Fix the outputs so we just call head() and not the full output -->
+<!-- TODO: Especially for the nested data -->
+<!-- TODO: more explicit content on nested dataframes, visualisation of it, viewing individual datasets in the viewer, etc. -->
+<!-- TODO: explain unnest() more. -->
+
 ## Overview of tutorial
-
-### TO-DO
-1. Fix the outputs so we just call head() and not the full output 
-2. Especially for the nested data
-
 
 Recall, once again, the five steps of Monte Carlo simulation:
 
@@ -425,7 +425,8 @@ experiment_parameters <- expand_grid(
   sd = 1
 )
 
-experiment_parameters
+experiment_parameters |>
+  head(n = 30)
 ```
 
 We can double-check our output to make sure we're covering all parameter combinations we care about. We can do this by calling `distinct()` on only the columns that we want to vary (and ignore iteration, since this just repeats settings). We can specify `.keep_all = TRUE` in `distinct()` to keep all columns for our inspection; by default, `distinct()` will drop columns that are not mentioned in the `distinct()` function:
@@ -457,7 +458,8 @@ simulation_results <- experiment_parameters %>%
   ) %>%
   unnest(results)
 
-simulation_results
+simulation_results |>
+  head(n = 30)
 ```
 
 We can now look at the distribution of p-values across sample sizes and values for `mean_intervention`, for example in a simple histogram:
@@ -499,7 +501,8 @@ simulation_results <- experiment_parameters %>%
   ) %>%
   unnest(results)
 
-simulation_results
+simulation_results |>
+  head(n = 30)
 ```
 
 
@@ -601,33 +604,58 @@ Here is the same approach from above, but using future_pmap(). Since we're paral
 ```{r}
 # dependencies
 library(furrr)
+library(readr)
 
 # set up parallelization for future/furrr
-plan(multisession)
+# use availableCores() to define the number of cores, in case the simulation is being
+# run on a HPC that might have more physical cores than are available to the session
+plan(multisession, workers = parallelly::availableCores())
 
 
 n_iterations <- 1000 # lowered for testing; 2000+ would be more appropriate
 
 # specify the parameters
 experiment_parameters <- expand_grid(
-  iteration = 1:n_iterations, 
+  iteration = 1:n_iterations,
   n_per_condition = c(20, 50),
   mean_intervention = c(0, .5),
   mean_control = c(0, .1),
   sd = c(.5, 1)
 )
 
-simulation_parallel <- experiment_parameters %>%
-  mutate(generated_data = future_pmap(.l = list(n_per_condition, mean_control, mean_intervention, sd),
-                                      .f = generate_data,
-                                      # this gives us a progress bar so we can see how the simulation is progressing
-                                      .progress = TRUE,
-                                      .options = furrr_options(seed = TRUE))) %>%
-  mutate(results = future_map(.x = generated_data,
-                              .f = analyse_data,
-                              .progress = TRUE,
-                              .options = furrr_options(seed = TRUE))) %>%
-  unnest(results)
+# results are cached to disk: the simulation is only run the first time, and read back
+# in on subsequent renders. delete the .rds file if you change the simulation code.
+dir.create("results", showWarnings = FALSE)
+
+if(file.exists("results/simulation_mapping.rds")){
+
+  simulation_parallel <- read_rds("results/simulation_mapping.rds")
+
+} else {
+
+  simulation_parallel <- experiment_parameters %>%
+    # shuffle the rows of the grid to load balance the computationally expensive
+    # iterations evenly across the workers
+    slice_sample(prop = 1) %>%
+    mutate(generated_data = future_pmap(.l = list(n_per_condition, mean_control, mean_intervention, sd),
+                                        .f = generate_data,
+                                        # this gives us a progress bar so we can see how the simulation is progressing
+                                        .progress = TRUE,
+                                        .options = furrr_options(seed = TRUE))) %>%
+    mutate(results = future_map(.x = generated_data,
+                                .f = analyse_data,
+                                .progress = TRUE,
+                                .options = furrr_options(seed = TRUE))) %>%
+    unnest(results) %>%
+    # undo the shuffle so the rows are back in the order of the experiment grid
+    arrange(n_per_condition, mean_intervention, mean_control, sd, iteration) %>%
+    # the generated data sets are not needed after they have been analyzed, and keeping
+    # them would make the saved file enormous
+    select(-generated_data)
+
+  write_rds(x = simulation_parallel, file = "results/simulation_mapping.rds", compress = "gz")
+
+}
 ```
 
 Once again, let's plot these results:
@@ -671,9 +699,3 @@ As a take-home message, remember: `pmap()` will be our go-to function for the re
 Ready to practice? 
 Download and complete the [exercises for this chapter](../exercises/8_mapping_exercises.qmd).
 :::
-
-## TODO
-
-- more explicit content on nested dataframes, visualisation of it, viewing individual datasets in the viewer, etc. 
-- explain unnest() more.
-

@@ -1,0 +1,655 @@
+---
+title: "Simulation template: modular code"
+#author: "Authors names go here"
+date: today
+format:
+  html:
+    embed-resources: true # ignored when rendering book
+    toc: true
+    toc_float: true
+    code-fold: false
+    code-overflow: wrap
+    code-tools: true
+    warning: false
+    df-print: kable
+    theme:
+      light: cosmo
+      dark: darkly
+    highlight-style:
+      light: breeze
+      dark: dracula
+    include-in-header:
+      text: |
+        <style>
+          .kable-table table { width: 70%; margin: 0 auto; }
+          .quarto-color-scheme-toggle::after { content: " Dark mode"; font-family: sans-serif; font-size: 0.85em; }
+        </style>
+---
+
+```{r, include=FALSE}
+# settings: hidden from rendered file
+# disable messages and warnings in rendered files
+knitr::opts_chunk$set(message = FALSE,
+                      warning = FALSE)
+
+# disable scientific numbers in output
+options(scipen=999)
+```
+
+# Intro
+
+## Key components of a Monte Carlo simulation study
+
+Monte Carlo simulations can do something that empirical studies cannot: they have access to the ground truth of the population parameters. We can use them to understand whether and when statistical methods are performing well or not (traditional development and validation of stats methods); to help us as researchers understand the correct use of those methods (pedagogy and learning), or understand the impact of scientists' behavior (meta-science).  
+
+Monte Carlo simulation studies are defined by the following key features:
+
+1. *Construct an experiment* - `expand_grid()`
+2. *Generate data* - custom `generate_data()` function for a specific Data Generating Process (DGP)
+3. *Analyze data* - custom `analyze()` function
+4. *Repeat this many times* - using `future_pmap()` to map the custom functions on your experiment grid 
+5. *Summarize over the iterations* - using metrics such as empirical discovery rate, precision, bias, and coverage
+6. *Compare between the experiment conditions* - because its an experiment, contrasts let us draw causal conclusions
+
+## This simulation
+
+This script simulates data for two groups (intervention and control) sampled from normal population distributions, and analyzed by study with an independent Student's *t*-test's *p*-value and estimates of both mean difference and standardized mean difference. 
+
+Monte Carlo results are then analyzed using the most common metrics to demonstrate them: empirical discovery rate (aka null hypothesis rejection rate, aka power when population effect size is non-zero and Type I error rate when population effect size is 0), precision (95% CI widths), bias (difference between average observed effect sizes and population effect size), and coverage (proportion of 95% CIs that actually contain the population effect sizes).
+
+## How real simulations differ
+
+Compared to this script, real simulations would likely: 
+
+1. Focus on fewer estimands/metrics - this script demonstrates several of them, but usually a subset are of interest to a given research question.
+2. Have a higher number of iterations to produce smaller Monte Carlo Standard Errors - psychologists tend to choose round numbers of iterations like "1000" without thinking of it like a power analysis and wanting to obtain MCSEs of a given width (see Siepe et al., 2024). 
+3. Vary the experiment conditions more - the experiment grid contains only a few variations on some values, but real simulations would contain a wider range. E.g., to understand 
+4. Vary the DGP - perfect alignment between the data's DGP and the assumptions of the analysis are unlikely in the real world. The purpose of many simulations is to assess the impact of this misalignment or partial violation of assumptions.
+
+## How to learn beyond this script
+
+See book at [simulations.tidyver.se](https://simulations.tidyver.se) and the references section below for essential readings.
+
+# Methods
+
+## Setup
+
+```{r}
+# dependencies
+library(tidyr)
+library(dplyr)
+library(readr)
+library(furrr)
+library(effsize)
+library(simhelpers)
+library(ggplot2)
+library(scales)
+library(knitr)
+library(kableExtra)
+
+# set up parallelisation for {furrr}
+# `furrr_options(seed = TRUE)` (used below in future_pmap calls) advances an L'Ecuyer-CMRG stream rather than re-seeding per worker, giving the parallel-safe reproducibility recommended in Siepe et al. (2024, p. 8).
+# use availableCores to define the number of cores in case sim is being run on a HPC that might have more physical cores than are available to the session
+plan(multisession, workers = parallelly::availableCores())
+```
+
+## Functions 
+
+### Data generating process
+
+```{r}
+generate_data <- function(mean_control,
+                          mean_intervention,
+                          sd_control,
+                          sd_intervention,
+                          n_control,
+                          n_intervention) {
+  
+  data_control <- 
+    tibble(condition = "control",
+           score = rnorm(n = n_control, mean = mean_control, sd = sd_control))
+  
+  data_intervention <- 
+    tibble(condition = "intervention",
+           score = rnorm(n = n_intervention, mean = mean_intervention, sd = sd_intervention))
+  
+  # combine
+  data <- bind_rows(data_control,
+                    data_intervention) |>
+    # ensure control is the reference condition
+    mutate(condition = factor(condition, levels = c("intervention", "control")))
+  
+  return(data)
+}
+```
+
+### Analysis
+
+```{r}
+analyze <- function(data, alpha = 0.05) {
+  res_t_test <- t.test(formula = score ~ condition,
+                       data = data,
+                       var.equal = TRUE,
+                       alternative = "two.sided",
+                       conf.level = 1-alpha)
+
+  res_cohens_d <- effsize::cohen.d(formula = score ~ condition,
+                                   data = data,
+                                   pooled = TRUE,
+                                   hedges.correction = TRUE,
+                                   conf.level = 1-alpha)
+  
+  p <- res_t_test$p.value
+
+  tibble(
+    mean_diff       = unname(res_t_test$estimate[1] - res_t_test$estimate[2]),
+    mean_diff_ci_lower = res_t_test$conf.int[1],
+    mean_diff_ci_upper = res_t_test$conf.int[2],
+    smd        = res_cohens_d$estimate,
+    smd_ci_lower  = res_cohens_d$conf.int[["lower"]],
+    smd_ci_upper  = res_cohens_d$conf.int[["upper"]],
+    p               = p,
+    significant     = p < alpha
+  )
+}
+```
+
+### Helper function
+
+By not saving the data to a data column in the data frame, we can speed up the simulation a lot and produce a smaller data frame. This can matter when they get more complicated.
+
+```{r}
+run_one_iteration <- function(mean_control,
+                              mean_intervention,
+                              sd_control,
+                              sd_intervention,
+                              n_control,
+                              n_intervention,
+                              alpha = 0.05) {
+
+  data <- generate_data(mean_control      = mean_control,
+                        mean_intervention = mean_intervention,
+                        sd_control        = sd_control,
+                        sd_intervention   = sd_intervention,
+                        n_control         = n_control,
+                        n_intervention    = n_intervention)
+
+  results <- analyze(data, alpha = alpha)
+
+  return(results)
+}
+```
+
+## Define experiment
+
+```{r}
+experiment_parameters_grid <- 
+  expand_grid(
+    mean_control = 0,
+    mean_intervention = c(0, 0.2, 0.5, 0.8), # when both sd=1, diff between m-ctrl and m-intr = SMD
+    sd_control = 1,
+    n_control = round(seq(from = 10, to = 100, by = 10), 0), # round because seq can accrue floating point errors
+    alpha = 0.05,
+    iteration = 1:1000L
+  ) |>
+  
+  # make ns per condition equal without crossing these factors in the grid
+  mutate(n_intervention = n_control,
+         sd_intervention = sd_control,
+         n_total = n_control + n_intervention) |>
+  
+  # define population values
+  mutate(
+    population_mean_diff = mean_intervention - mean_control,
+    population_sd_pooled = sqrt(
+      ((n_intervention - 1) * sd_intervention^2 +
+         (n_control - 1) * sd_control^2) /
+        (n_intervention + n_control - 2)
+    ),
+    population_smd = population_mean_diff / population_sd_pooled
+  )
+```
+
+## Run simulation
+
+### Using the helper function
+
+Data are generated and analyzed inside `run_one_iteration()`, so only the results are returned and nothing but the results is stored.
+
+```{r}
+dir.create("results", showWarnings = FALSE)
+
+if (file.exists("results/simulation_lego.rds")) {
+  simulation <- read_rds("results/simulation_lego.rds")
+} else {
+  set.seed(42)
+
+  simulation <- experiment_parameters_grid |>
+    # shuffle the rows of the grid to load balance the computationally expensive iterations evenly across workers
+    slice_sample(prop = 1) |>
+    
+    # generate + analyse in one step via the helper
+    mutate(results = future_pmap(
+      .l = list(mean_control      = mean_control,
+                mean_intervention = mean_intervention,
+                sd_control        = sd_control,
+                sd_intervention   = sd_intervention,
+                n_control         = n_control,
+                n_intervention    = n_intervention,
+                alpha             = alpha),
+      .f = run_one_iteration,
+      .progress = TRUE,
+      .options  = furrr_options(seed = TRUE)
+    )) |>
+    unnest(results)
+
+  write_rds(x = simulation, file = "results/simulation_lego.rds", compress = "gz")
+}
+```
+
+### Without the helper function
+
+The same simulation written as two separate steps: `generate_data()` is mapped over the experiment grid to create a `data` column, then `analyze()` is mapped over that column. This is often easier to read and debug, and keeping the data means you can go back to individual data sets later — e.g. to plot one, or to apply an additional analysis without regenerating anything.
+
+The cost is speed and memory: every simulated data set is retained, so the object grows with `n_control` × `n_intervention` × the number of iterations rather than staying one row per iteration. For that reason this version is not written to disk here; if you want to reuse it, wrap it in the same `read_rds()`/`write_rds()` pattern used above.
+
+Note that both versions produce identical results, because `furrr_options(seed = TRUE)` advances the same random number stream in both cases and `analyze()` itself does not use the random number generator.
+
+NB I have set this chunk to `eval = FALSE` so it does not run and the results will not appear in the .html; you can run the code manually if you want to see the nested data frame structure in the viewer.
+
+```{r}
+#| eval: false
+set.seed(42)
+
+simulation_saving_data <- experiment_parameters_grid |>
+  # shuffle the rows of the grid to load balance the computationally expensive iterations evenly across workers
+  slice_sample(prop = 1) |>
+
+  # generate data
+  mutate(data = future_pmap(
+    .l = list(mean_control      = mean_control,
+              mean_intervention = mean_intervention,
+              sd_control        = sd_control,
+              sd_intervention   = sd_intervention,
+              n_control         = n_control,
+              n_intervention    = n_intervention),
+    .f = generate_data,
+    .progress = TRUE,
+    .options  = furrr_options(seed = TRUE)
+  )) |>
+
+  # analyze data
+  mutate(results = future_pmap(
+    .l = list(data  = data,
+              alpha = alpha),
+    .f = analyze,
+    .progress = TRUE,
+    .options  = furrr_options(seed = TRUE)
+  )) 
+
+# the two objects contain the same results, but the one that retains the data sets is far larger:
+tibble(
+  version = c("without the data column (run_one_iteration)",
+              "with the data column (generate_data + analyze)"),
+  size    = c(format(object.size(simulation), units = "MB"),
+              format(object.size(simulation_saving_data), units = "MB"))
+) |>
+  kable() |>
+  kable_styling(full_width = FALSE)
+```
+
+
+# Results
+
+The results below use `simulation`, i.e. the version without the data column.
+
+```{r}
+simulation_summary <- simulation |>
+  group_by(
+    # group by all factors in the expand_grid other than iterations!
+    mean_control,
+    mean_intervention,
+    sd_control,
+    sd_intervention,
+    n_control,
+    n_intervention,
+    alpha,
+    # variables created from the above parameters, to keep them in the output:
+    n_total,
+    population_mean_diff,
+    population_sd_pooled,
+    population_smd
+  ) |>
+  reframe(
+    # performance and uncertainty metrics for inference (hypothesis tests with binary decisions)
+    calc_rejection(data       = pick(everything()),
+                   p_values   = p,
+                   alpha      = 0.05),
+    # performance and uncertainty metrics for estimation (continuous estimates):
+    # bias (systematic error) and the empirical standard error (precision) of the point estimate
+    calc_absolute(data        = pick(everything()),
+                  estimates   = mean_diff,
+                  true_param  = population_mean_diff,
+                  criteria    = c("bias", "stddev")) |>
+      rename_with(\(x) paste0("mean_diff_", x)),
+    calc_absolute(data        = pick(everything()),
+                  estimates   = smd,
+                  true_param  = population_smd,
+                  criteria    = c("bias", "stddev")) |>
+      rename_with(\(x) paste0("smd_", x)),
+    # calibration (coverage) and precision (width) of the interval estimates.
+    # calc_coverage() always returns columns named coverage/width, so each call is
+    # prefixed to say which estimand it refers to and to avoid name collisions
+    calc_coverage(data        = pick(everything()),
+                  lower_bound = mean_diff_ci_lower,
+                  upper_bound = mean_diff_ci_upper,
+                  true_param  = population_mean_diff,
+                  criteria    = c("coverage", "width")) |>
+      rename_with(\(x) paste0("mean_diff_", x)),
+    calc_coverage(data        = pick(everything()),
+                  lower_bound = smd_ci_lower,
+                  upper_bound = smd_ci_upper,
+                  true_param  = population_smd,
+                  criteria    = c("coverage", "width")) |>
+      rename_with(\(x) paste0("smd_", x)),
+    # 95% prediction intervals: the 2.5th and 97.5th percentiles of the estimates
+    # across iterations, i.e. the range of results a single new study would be
+    # expected to produce 95% of the time. simhelpers has no function for this, so
+    # it is computed directly. note that this is a very different quantity to the
+    # 95% CI widths above: the CI width is a property of one study's interval,
+    # whereas this is the spread of the point estimates themselves. If the CIs are
+    # well calibrated, the mean CI width should be similar to the width of the
+    # prediction interval.
+    tibble(
+      mean_diff_estimate = mean(mean_diff),
+      mean_diff_pi_lower = unname(quantile(mean_diff, probs = 0.025)),
+      mean_diff_pi_upper = unname(quantile(mean_diff, probs = 0.975)),
+      mean_diff_pi_width = mean_diff_pi_upper - mean_diff_pi_lower,
+      smd_estimate       = mean(smd),
+      smd_pi_lower       = unname(quantile(smd, probs = 0.025)),
+      smd_pi_upper       = unname(quantile(smd, probs = 0.975)),
+      smd_pi_width       = smd_pi_upper - smd_pi_lower
+    )
+  ) |>
+  rename(empirical_detection_rate = rej_rate,
+         empirical_detection_rate_mcse = rej_rate_mcse,
+         # calc_absolute() calls its SD of the estimates "stddev"; it is the
+         # empirical standard error of the estimator across iterations
+         mean_diff_empirical_se = mean_diff_stddev,
+         mean_diff_empirical_se_mcse = mean_diff_stddev_mcse,
+         smd_empirical_se = smd_stddev,
+         smd_empirical_se_mcse = smd_stddev_mcse)
+```
+
+### Table
+
+```{r}
+# two ways of writing a table cell: a point estimate with its MCSE in parentheses,
+# or an interval in square brackets
+mcse_cell     <- function(estimate, mcse) paste0(estimate, " (", mcse, ")")
+interval_cell <- function(lower, upper)   paste0("[", lower, ", ", upper, "]")
+
+# helper to avoid repeating the same wide-table code for each performance metric.
+# `cell` is an expression built from the summary's columns, e.g. mcse_cell(bias, bias_mcse)
+wide_table <- function(data, cell, caption, note = "Values in parentheses are ±1 Monte Carlo Standard Error.") {
+  data |>
+    mutate(`n per condition` = as.character(n_control),
+           population_mean_diff = as.character(population_mean_diff)) |>
+    mutate(across(where(is.numeric), \(x) scales::number(x, accuracy = 0.001))) |>
+    mutate(cell_string = {{ cell }}) |>
+    select(`n per condition`,
+           population_mean_diff,
+           cell_string) |>
+    pivot_wider(names_from = population_mean_diff,
+                values_from = cell_string) |>
+    kable(caption = caption) |>
+    kable_styling(full_width = FALSE) |>
+    add_header_above(c(" " = 1, "Population mean difference" = 4)) |>
+    footnote(general = note,
+             general_title = "Note.",
+             footnote_as_chunk = TRUE)
+}
+
+# better wider tables
+# decision rate: how often the test rejected the null hypothesis
+wide_table(simulation_summary,
+           mcse_cell(empirical_detection_rate, empirical_detection_rate_mcse),
+           caption = "Empirical Discovery Rate (±1 MCSE) by sample size and population mean difference")
+
+# bias: systematic error in the estimate of the population mean difference
+wide_table(simulation_summary,
+           mcse_cell(mean_diff_bias, mean_diff_bias_mcse),
+           caption = "Bias (±1 MCSE) of the estimated mean difference by sample size and population mean difference")
+
+wide_table(simulation_summary,
+           mcse_cell(smd_bias, smd_bias_mcse),
+           caption = "Bias (±1 MCSE) of the estimated standardised mean difference by sample size and population mean difference")
+
+# precision of the point estimate: the SD of the estimates across iterations
+wide_table(simulation_summary,
+           mcse_cell(mean_diff_empirical_se, mean_diff_empirical_se_mcse),
+           caption = "Empirical standard error (±1 MCSE) of the estimated mean difference by sample size and population mean difference")
+
+wide_table(simulation_summary,
+           mcse_cell(smd_empirical_se, smd_empirical_se_mcse),
+           caption = "Empirical standard error (±1 MCSE) of the estimated standardised mean difference by sample size and population mean difference")
+
+# calibration of the interval estimates: how often the 95% CI contained the population value
+wide_table(simulation_summary,
+           mcse_cell(mean_diff_coverage, mean_diff_coverage_mcse),
+           caption = "Coverage (±1 MCSE) of the 95% CI for the mean difference by sample size and population mean difference")
+
+wide_table(simulation_summary,
+           mcse_cell(smd_coverage, smd_coverage_mcse),
+           caption = "Coverage (±1 MCSE) of the 95% CI for the standardised mean difference by sample size and population mean difference")
+
+# precision of the interval estimates: the mean width of the 95% CIs
+wide_table(simulation_summary,
+           mcse_cell(mean_diff_width, mean_diff_width_mcse),
+           caption = "Mean width (±1 MCSE) of the 95% CI for the mean difference by sample size and population mean difference")
+
+wide_table(simulation_summary,
+           mcse_cell(smd_width, smd_width_mcse),
+           caption = "Mean width (±1 MCSE) of the 95% CI for the standardised mean difference by sample size and population mean difference")
+
+# spread of the estimates themselves: the range within which 95% of studies' estimates fell
+wide_table(simulation_summary,
+           interval_cell(mean_diff_pi_lower, mean_diff_pi_upper),
+           caption = "95% prediction interval for the estimated mean difference by sample size and population mean difference",
+           note = "The interval spans the 2.5th to the 97.5th percentile of the estimates across iterations, i.e. the range within which 95% of studies' estimates fell.")
+
+wide_table(simulation_summary,
+           interval_cell(smd_pi_lower, smd_pi_upper),
+           caption = "95% prediction interval for the estimated standardised mean difference by sample size and population mean difference",
+           note = "The interval spans the 2.5th to the 97.5th percentile of the estimates across iterations, i.e. the range within which 95% of studies' estimates fell.")
+```
+
+### Plot
+
+```{r}
+# helper to avoid repeating the same plotting code for each performance metric.
+# `lower` and `upper` are expressions built from the summary's columns: ±1 MCSE for
+# the performance metrics (matching the values in parentheses in the tables above),
+# or the bounds of the prediction interval for the plots of the estimates themselves.
+metric_plot <- function(data,
+                        estimate,
+                        lower,
+                        upper,
+                        y_name,
+                        reference_line = NULL,
+                        y_limits       = NULL,
+                        y_breaks       = breaks_pretty(n = 8),
+                        reverse_legend = FALSE) {
+
+  p <- ggplot(data,
+              aes(x = n_control,
+                  y = {{ estimate }},
+                  color = as.factor(population_mean_diff)))
+
+  # e.g. the nominal alpha for detection rates under the null, or zero for bias
+  if (!is.null(reference_line)) {
+    p <- p + geom_hline(yintercept = reference_line, linetype = "dashed")
+  }
+
+  p +
+    geom_linerange(aes(ymin = {{ lower }},
+                       ymax = {{ upper }}),
+                   color = "black") +
+    geom_line() +
+    geom_point() +
+    scale_x_continuous(name = "N per condition",
+                       breaks = breaks_pretty(n = 8)) +
+    scale_y_continuous(name = y_name,
+                       limits = y_limits,
+                       breaks = y_breaks) +
+    theme_linedraw() +
+    theme(panel.grid.minor = element_blank()) +
+    guides(color = guide_legend(title = "Population mean difference",
+                                reverse = reverse_legend))
+}
+
+# decision rate: how often the test rejected the null hypothesis
+metric_plot(simulation_summary,
+            estimate       = empirical_detection_rate,
+            lower          = empirical_detection_rate - empirical_detection_rate_mcse,
+            upper          = empirical_detection_rate + empirical_detection_rate_mcse,
+            y_name         = "Empirical detection rate",
+            reference_line = 0.05,
+            y_limits       = c(0, 1),
+            y_breaks       = c(0, .05, .25, .5, .75, 1),
+            reverse_legend = TRUE)
+
+# bias: systematic error in the estimate of the population mean difference
+metric_plot(simulation_summary,
+            estimate       = mean_diff_bias,
+            lower          = mean_diff_bias - mean_diff_bias_mcse,
+            upper          = mean_diff_bias + mean_diff_bias_mcse,
+            y_name         = "Bias in estimation\nof population mean difference",
+            reference_line = 0,
+            y_limits       = c(-1, 1))
+
+metric_plot(simulation_summary,
+            estimate       = smd_bias,
+            lower          = smd_bias - smd_bias_mcse,
+            upper          = smd_bias + smd_bias_mcse,
+            y_name         = "Bias in estimation\nof population standardised mean difference",
+            reference_line = 0,
+            y_limits       = c(-1, 1))
+
+# precision of the point estimate: the SD of the estimates across iterations
+metric_plot(simulation_summary,
+            estimate = mean_diff_empirical_se,
+            lower    = mean_diff_empirical_se - mean_diff_empirical_se_mcse,
+            upper    = mean_diff_empirical_se + mean_diff_empirical_se_mcse,
+            y_name   = "Empirical standard error\nof the estimated mean difference")
+
+metric_plot(simulation_summary,
+            estimate = smd_empirical_se,
+            lower    = smd_empirical_se - smd_empirical_se_mcse,
+            upper    = smd_empirical_se + smd_empirical_se_mcse,
+            y_name   = "Empirical standard error\nof the estimated standardised mean difference")
+
+# calibration of the interval estimates: how often the 95% CI contained the population value
+metric_plot(simulation_summary,
+            estimate       = mean_diff_coverage,
+            lower          = mean_diff_coverage - mean_diff_coverage_mcse,
+            upper          = mean_diff_coverage + mean_diff_coverage_mcse,
+            y_name         = "Coverage of 95% CIs\nfor population mean difference",
+            reference_line = 0.95,
+            y_limits       = c(0, 1),
+            y_breaks       = c(0, .25, .5, .75, .95, 1))
+
+metric_plot(simulation_summary,
+            estimate       = smd_coverage,
+            lower          = smd_coverage - smd_coverage_mcse,
+            upper          = smd_coverage + smd_coverage_mcse,
+            y_name         = "Coverage of 95% CIs\nfor population standardised mean difference",
+            reference_line = 0.95,
+            y_limits       = c(0, 1),
+            y_breaks       = c(0, .25, .5, .75, .95, 1))
+
+# precision of the interval estimates: the mean width of the 95% CIs
+metric_plot(simulation_summary,
+            estimate = mean_diff_width,
+            lower    = mean_diff_width - mean_diff_width_mcse,
+            upper    = mean_diff_width + mean_diff_width_mcse,
+            y_name   = "Mean width of 95% CIs\nfor population mean difference")
+
+metric_plot(simulation_summary,
+            estimate = smd_width,
+            lower    = smd_width - smd_width_mcse,
+            upper    = smd_width + smd_width_mcse,
+            y_name   = "Mean width of 95% CIs\nfor population standardised mean difference")
+
+# spread of the estimates themselves: the mean estimate and the range within which
+# 95% of studies' estimates fell. note that the ranges here are prediction intervals,
+# not ±1 MCSE, so they are much wider than in the plots above
+metric_plot(simulation_summary,
+            estimate       = mean_diff_estimate,
+            lower          = mean_diff_pi_lower,
+            upper          = mean_diff_pi_upper,
+            y_name         = "Mean estimate and 95% prediction interval\nfor the mean difference",
+            reference_line = 0)
+
+metric_plot(simulation_summary,
+            estimate       = smd_estimate,
+            lower          = smd_pi_lower,
+            upper          = smd_pi_upper,
+            y_name         = "Mean estimate and 95% prediction interval\nfor the standardised mean difference",
+            reference_line = 0)
+```
+
+### Distributions of *p* values
+
+All the results above summarize over the iterations. For pedagogical or other purposes, it can also be worth looking at other features of the results such as the distribution of *p*-values within each condition. To do this, these histograms use the iteration level results (`simulation`) rather than `simulation_summary`. These metrics are less typical for archetypal simulation publications than the above metrics, but are possible. 
+
+Bins are 0.05 wide and start at 0, so the height of the first bin (left of the dashed line) is the empirical detection rate that is tabled and plotted above. When the population mean difference is 0 the null hypothesis is true and *p* values are uniformly distributed, so about 5% of them fall in that first bin whatever the sample size. When it is non-zero the distribution becomes increasingly right-skewed as either the effect size or the sample size grows.
+
+Note that the y axis is free between rows: within a row (i.e. a given population mean difference) the panels are directly comparable, but between rows they are not.
+
+```{r, fig.width=10, fig.height=6}
+ggplot(simulation,
+       aes(x = p,
+           fill = as.factor(population_mean_diff))) +
+  # proportions rather than counts, so panels are comparable despite the free y axis.
+  # density * width is the proportion of that panel's iterations falling in the bin
+  geom_histogram(aes(y = after_stat(density * width)),
+                 binwidth = 0.05,
+                 boundary = 0,
+                 color = "white",
+                 linewidth = 0.1) +
+  geom_vline(xintercept = 0.05, linetype = "dashed") +
+  facet_grid(rows = vars(population_mean_diff),
+             cols = vars(n_control),
+             scales = "free_y",
+             labeller = labeller(population_mean_diff = \(x) paste("Pop mean\ndiff =", x),
+                                 n_control = \(x) paste("N =", x))) +
+  scale_x_continuous(name = "p value",
+                     breaks = c(0, 0.5, 1),
+                     # abbreviated labels because the panels are narrow
+                     labels = c("0", ".5", "1")) +
+  scale_y_continuous(name = "Proportion of iterations",
+                     breaks = breaks_pretty(n = 4)) +
+  theme_linedraw() +
+  theme(panel.grid.minor = element_blank(),
+        legend.position = "none")
+```
+
+# References
+
+Hussey, I. & Cummins, J. (2026). *Understanding Statistics through Monte Carlo simulations*. [simulations.tidyver.se](https://simulations.tidyver.se) doi: [10.5281/zenodo.19420665](https://doi.org/10.5281/zenodo.19420665)
+
+Miratrix and Pustejovsky (2026). *Designing Monte Carlo Simulations in R*. [jepusto.github.io/Designing-Simulations-in-R](https://jepusto.github.io/Designing-Simulations-in-R/)
+
+Morris, T. P., White, I. R., & Crowther, M. J. (2019). Using simulation studies to evaluate statistical methods. *Statistics in Medicine*, 38(11), 2074–2102. https://doi.org/10.1002/sim.8086
+
+Siepe, B. S., Bartoš, F., Morris, T. P., Boulesteix, A.-L., Heck, D. W., & Pawel, S. (2024). Simulation studies for methodological research in psychology: A standardized template for planning, preregistration, and reporting. *Psychological Methods*. https://doi.org/10.1037/met0000695
+
+Strobl, C. et al. (2024). *Simulationsstudien in R: Design und praktische Durchführung*. doi: [doi.org/10.1007/978-3-662-70561-2](https://doi.org/10.1007/978-3-662-70561-2) [English translation should be available in late 2026]
+
+# Session info
+
+```{r}
+sessionInfo()
+```
+

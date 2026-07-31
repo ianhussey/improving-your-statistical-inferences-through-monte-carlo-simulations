@@ -17,6 +17,7 @@ book:
   date: today
   chapters:
     - index.qmd
+    - chapters/0_lesson_plan.qmd
 
     - part: "Part I: Learning to Simulate"
       chapters: 
@@ -38,10 +39,12 @@ book:
         - chapters/12_estimation.qmd
         - chapters/13_hypothesis_testing.qmd # week 8? - NHST, alpha, power, other forms of HT like equivalence
         - chapters/14_violating_assumptions.qmd # week 10? - ways to mess up inference
-        - chapters/difference_between_significant_and_nonsignificant.qmd # week 9? - ways to mess up inference, interpretation errors 
-        - chapters/testing_assumptions_and_conditional_tests.qmd # week 11? 
+        - chapters/15_testing_assumptions_and_conditional_tests.qmd
+        #- chapters/difference_between_significant_and_nonsignificant.qmd # week 9? - ways to mess up inference, interpretation errors 
         #- chapters/estimands_and_inappropriate_analyses.qmd # week 12? on how not to analyze RCTs - misalignment errors, ways to mess up inference
-        - chapters/p_hacking.qmd # week 13? - ways to mess up inference
+        - chapters/16_p_hacking.qmd # week 13? - ways to mess up inference
+        - chapters/17_causality_and_selection_effects.qmd
+        #- chapters/standardized_effect_sizes_and_range_restriction.qmd
         #- chapters/standardized_effect_sizes_and_range_restriction.qmd
         
         # meta-analysis
@@ -51,6 +54,7 @@ book:
         # cross sectional data, Likert-like data, and causality
         #- chapters/impact_of_careless_responding.qmd
         #- chapters/causality.qmd
+        #- chapters/sem_and_fit_metrics.qmd
 
     - part: "Exercises"
       chapters:
@@ -67,14 +71,23 @@ book:
         - exercises/12_estimation_exercises.qmd 
         - exercises/13_hypothesis_testing_exercises.qmd
         # 14 has no excercises yet
-        
-    - part: "Appendices"
+        # 15 has exercises in the chapter that need to be moved to the appendices
+        - exercises/16_p_hacking_exercises.qmd
+        - exercises/end_of_course_assignment.qmd
+
+    - part: "Templates"
       chapters:
-        - appendices/lesson_plan.qmd
-        - appendices/ADEMP_preregistration_template.qmd
-        - appendices/simulation_template_hypothesis_testing.qmd 
-        - appendices/simulation_template_estimation.qmd
-        - appendices/crowded_room_problem.qmd
+        - templates/ADEMP_preregistration_template.qmd
+        - templates/simulation_template_hypothesis_testing.qmd 
+        - templates/simulation_template_estimation.qmd
+        - templates/simulation_template_hpc.qmd
+        - license.qmd
+        
+    - part: "Classic simulations"
+      chapters:
+        - classics/crowded_room_problem.qmd
+        - classics/cohens_d_biased.qmd
+        
         - license.qmd
         
 # bibliography: references.bib
@@ -110,6 +123,11 @@ format:
           .badge-complete { background: #e6f4ea; color: #1e6e3a; border: 1px solid #b7dfbe; }
           .quarto-color-scheme-toggle::after { content: " Dark mode"; font-family: sans-serif; font-size: 0.85em; }
         </style>
+        
+# - badge 1 <span class="badge badge-draft1">✎ Very rough draft</span>
+# - badge 2 <span class="badge badge-draft2">✎ Rough draft</span>
+# - badge 3 <span class="badge badge-draft3">✎ Polishing</span>
+# - badge 4 <span class="badge badge-complete">✓ Complete</span>
 
 editor: visual
 

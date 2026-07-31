@@ -21,6 +21,8 @@ Write functions for each of the following. Remember that you can write pseudocod
 # install_github("ianhussey/truffle")
 library(truffle)
 library(tibble)
+library(dplyr)
+library(tidyr)
 
 dat_depression_rct <- 
   truffle_likert(study_design = "factorial_between2",

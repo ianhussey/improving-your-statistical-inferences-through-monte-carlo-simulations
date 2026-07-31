@@ -1,10 +1,25 @@
-# Foundation concepts <span class="badge badge-draft3">✎ Polishing</span>
+---
+# cache this chapter's results at the file level. the chunks below deliberately use
+# very simple code (replicate(), hist()) rather than the cached-to-disk simulation
+# workflow used later in the book, so caching is switched on here instead of
+# complicating the code. knitr stores each chunk's results in
+# 2_foundation_concepts_cache/ and re-uses them until that chunk's code changes.
+execute:
+  cache: true
+---
+
+# Foundation concepts
 
 ```{r}
 #| include: false
 # if it is available, run the setup script that tells quarto to round all df/tibble outputs to three decimal places
 if(file.exists("../_setup.R")){source("../_setup.R")}
 ```
+
+<!-- TODO: add content on positive and negative controls -->
+<!-- TODO: integrate some repetitive content below -->
+<!-- TODO: integrate information from slides, or the slides themselves -->
+<!-- TODO: remove old and new content redundancy -->
 
 ```{r}
 #| include: false
@@ -34,7 +49,7 @@ Except...what do you do with this information? These distributions are interesti
 
 Well, what if you threw 100 parties with the means and SDs for food, drink, and attendance above? In such a case, you could figure out some smart way of how much to buy. For example, you could say: I will buy enough food and drink to ensure that, in 95 out of those 100 parties, I would have enough for everyone. 
 
-This is one of the many, many scenarios that we can use simulation for. When we can make decent guesses about statistical properties of possible scenarios (like how much food and drink people will consume, and how many people will show up at the party) then we can generate possible scenarios many times using these statistical properties, and then make inferences about the things we care about (in this case, how much food and drink to buy). Simulation can extend far beyond simple applications like this - we use it to ensure that production lines in factories run smoothly; to ensure that products are functioning effectively, and XXX. 
+This is one of the many, many scenarios that we can use simulation for. When we can make decent guesses about statistical properties of possible scenarios (like how much food and drink people will consume, and how many people will show up at the party) then we can generate possible scenarios many times using these statistical properties, and then make inferences about the things we care about (in this case, how much food and drink to buy).  
 
 You will learn all about how, when, and why to use simulation in this course. For now, let's get an answer to our party question. You won't know what's happening in the code right now - that's OK. We will build up your understanding over the following chapters so that you can come back and easily understand this. For now:
 
@@ -180,7 +195,8 @@ Monte Carlo simulation studies are defined by the following key features:
 2. Generate data 
 3. Analyze data
 4. Repeat this many times
-5. Summarize results over the experiment conditions
+5. Summarize over the iterations
+6. Compare between the experiment conditions
 
 Future chapters will spell out in more detail what each one involves, but for the moment it is useful to rote learn them and repeat them to yourself. They serve two purposes. First, they are the best way to think about how a simulation actually works. Second, when we are writing code in this book, we will break it down in terms of each of these steps. Equally importantly for learners, errors or complications when learning to write simulations are, in my experience, very often due to inadequate separation of the steps. E.g., when your code does some data generation in the analysis block, or vice-versa.
 
@@ -344,12 +360,4 @@ The answers to these questions require us to dig deeper into *p*-values and what
 4. Repeat these many times
 5. Summarize results over the experiment conditions
 :::
-
-## TODO
-
-- add content on positive and negative controls
-- integrate some repetitive content below
-- integrate information from slides, or the slides themselves
-- remove old and new content redundancy
-
 

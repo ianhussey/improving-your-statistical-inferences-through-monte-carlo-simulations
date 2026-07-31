@@ -220,6 +220,7 @@ No inferential models are fitted to the simulation output; results are summarise
 ```{r}
 library(tidyr)
 library(dplyr)
+library(readr)
 library(furrr)
 library(janitor)
 library(parameters)
@@ -233,7 +234,8 @@ library(kableExtra)
 # `furrr_options(seed = TRUE)` (used below in future_pmap calls) advances an
 # L'Ecuyer-CMRG stream rather than re-seeding per worker, giving the
 # parallel-safe reproducibility recommended in Siepe et al. (2024, p. 8).
-plan(multisession)
+# use availableCores to define the number of cores in case sim is being run on a HPC that might have more physical cores than are available to the session
+plan(multisession, workers = parallelly::availableCores())
 ```
 
 ## Functions 
@@ -292,6 +294,9 @@ analyse <- function(data, alpha = 0.05) {
 ## Define experiment
 
 ```{r}
+# set seed for load balancing randomisation via slice_ below, to ensure subsequent results are reproducible
+set.seed(42) 
+
 experiment_parameters_grid <- expand_grid(
   n_per_condition = seq(from = 10, to = 200, by = 10),
   mean_control = 0,
@@ -299,6 +304,9 @@ experiment_parameters_grid <- expand_grid(
   sd = 1,
   iteration = 1:1000L
 ) |>
+  # shuffle the rows of the grid. 
+  # this often speeds up simulations, as it is a form of 'load balancing': when being executed in parallel, it ensures that the computationally expensive iterations (eg with highest N) are distributed across cores/workers
+  slice_sample(prop = 1) |>
   # define population values
   mutate(population_mean_diff = mean_intervention - mean_control) |>
   # define unique conditions
@@ -308,26 +316,42 @@ experiment_parameters_grid <- expand_grid(
 
 ## Run simulation
 
+Results are cached to disk: the simulation is only run the first time, and read back in on subsequent renders. Delete the .rds file if you change the simulation code.
+
 ```{r}
-set.seed(42)
+dir.create("results", showWarnings = FALSE)
 
-simulation <- experiment_parameters_grid |>
-  # generate data
-  mutate(data = future_pmap(.l = list(n_per_condition = n_per_condition, 
-                                      mean_control = mean_control, 
-                                      mean_intervention = mean_intervention, 
-                                      sd = sd),
-                            .f = generate_data,
-                            .progress = TRUE,
-                            .options = furrr_options(seed = TRUE))) |>
-  # analyse data
-  mutate(results = future_pmap(.l = list(data = data),
-                               .f = analyse,
-                               .progress = TRUE,
-                               .options = furrr_options(seed = TRUE)))
+if(file.exists("results/simulation_template_estimation.rds")){
 
-# optionally save to disk
-#write_rds(x = simulation, file = "simulation.rds", compress = "gz")
+  simulation <- read_rds("results/simulation_template_estimation.rds")
+
+} else {
+
+  set.seed(42)
+
+  simulation <- experiment_parameters_grid |>
+    # generate data
+    mutate(data = future_pmap(.l = list(n_per_condition = n_per_condition,
+                                        mean_control = mean_control,
+                                        mean_intervention = mean_intervention,
+                                        sd = sd),
+                              .f = generate_data,
+                              .progress = TRUE,
+                              .options = furrr_options(seed = TRUE))) |>
+    # analyse data
+    mutate(results = future_pmap(.l = list(data = data),
+                                 .f = analyse,
+                                 .progress = TRUE,
+                                 .options = furrr_options(seed = TRUE))) |>
+    # the generated data sets are not needed after they have been analysed, and keeping
+    # them would make the saved file enormous
+    select(-data)
+
+  write_rds(x = simulation,
+            file = "results/simulation_template_estimation.rds",
+            compress = "gz")
+
+}
 ```
 
 # Results

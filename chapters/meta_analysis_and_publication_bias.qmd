@@ -521,7 +521,9 @@ How could we assess the power of a method like Egger's test for funnel plot asym
 # 
 # 
 # # run furrr:::future_map in parallel
-# plan(multisession)
+# # use availableCores() to define the number of cores, in case the simulation is being
+# # run on a HPC that might have more physical cores than are available to the session
+# plan(multisession, workers = parallelly::availableCores())
 # 
 # # dependencies ----
 # # repeated here for the sake of completeness 
