@@ -4,6 +4,7 @@
 *.Ruserdata
 *.DS_Store
 *.rds
+.claude/*
 
 /.quarto/
 old/*
@@ -13,5 +14,9 @@ _book/*
 # the trailing slash restricts these to directories.
 *_files/
 *_cache/
+
+# claude code git worktrees. these are throwaway copies of the whole repo, so
+# committing them duplicates the entire book inside itself
+.claude/worktrees/
 
 **/*.quarto_ipynb
