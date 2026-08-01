@@ -634,7 +634,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../classics/cohens_d_biased.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Simulation template: Cohen’s d is a biased estimator</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Cohen’s <em>d</em> is a biased estimator of the population standardized mean difference</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -779,17 +779,17 @@ window.Quarto = {
 <span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice_sample</span>(<span class="at">prop =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
 <span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>    <span class="co"># generate data using the data generating function and the parameters relevant to data generation</span></span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">generated_data_study1 =</span> <span class="fu">future_pmap</span>(<span class="at">.l =</span> <span class="fu">list</span>(n_per_condition,</span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>                                                         mean_control,</span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>                                                         mean_intervention,</span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>                                                         sd),</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">generated_data_study1 =</span> <span class="fu">future_pmap</span>(<span class="at">.l =</span> <span class="fu">list</span>(<span class="at">n_per_condition =</span> n_per_condition,</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>                                                         <span class="at">mean_control =</span> mean_control,</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>                                                         <span class="at">mean_intervention =</span> mean_intervention,</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>                                                         <span class="at">sd =</span> sd),</span>
 <span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">.f =</span> generate_data,</span>
 <span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">.progress =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">.options =</span> <span class="fu">furrr_options</span>(<span class="at">seed =</span> <span class="cn">TRUE</span>))) <span class="sc">|&gt;</span></span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">generated_data_study2 =</span> <span class="fu">future_pmap</span>(<span class="at">.l =</span> <span class="fu">list</span>(n_per_condition,</span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>                                                         mean_control,</span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>                                                         mean_intervention,</span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>                                                         sd),</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">generated_data_study2 =</span> <span class="fu">future_pmap</span>(<span class="at">.l =</span> <span class="fu">list</span>(<span class="at">n_per_condition =</span> n_per_condition,</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>                                                         <span class="at">mean_control =</span> mean_control,</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>                                                         <span class="at">mean_intervention =</span> mean_intervention,</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>                                                         <span class="at">sd =</span> sd),</span>
 <span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">.f =</span> generate_data,</span>
 <span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">.progress =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">.options =</span> <span class="fu">furrr_options</span>(<span class="at">seed =</span> <span class="cn">TRUE</span>))) <span class="sc">|&gt;</span></span>
@@ -1178,10 +1178,10 @@ var2 -0.7083632  1.0000000</code></pre>
 <span id="cb19-48"><a href="#cb19-48" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice_sample</span>(<span class="at">prop =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
 <span id="cb19-49"><a href="#cb19-49" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-50"><a href="#cb19-50" aria-hidden="true" tabindex="-1"></a>    <span class="co"># generate data using the data generating function and the parameters relevant to data generation</span></span>
-<span id="cb19-51"><a href="#cb19-51" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">generated_data =</span> <span class="fu">future_pmap</span>(<span class="at">.l =</span> <span class="fu">list</span>(n_per_condition,</span>
-<span id="cb19-52"><a href="#cb19-52" aria-hidden="true" tabindex="-1"></a>                                                  r_between_outcomes,</span>
-<span id="cb19-53"><a href="#cb19-53" aria-hidden="true" tabindex="-1"></a>                                                  mu_control,</span>
-<span id="cb19-54"><a href="#cb19-54" aria-hidden="true" tabindex="-1"></a>                                                  mu_intervention),</span>
+<span id="cb19-51"><a href="#cb19-51" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">generated_data =</span> <span class="fu">future_pmap</span>(<span class="at">.l =</span> <span class="fu">list</span>(<span class="at">n_per_condition =</span> n_per_condition,</span>
+<span id="cb19-52"><a href="#cb19-52" aria-hidden="true" tabindex="-1"></a>                                                  <span class="at">r_between_outcomes =</span> r_between_outcomes,</span>
+<span id="cb19-53"><a href="#cb19-53" aria-hidden="true" tabindex="-1"></a>                                                  <span class="at">mu_control =</span> mu_control,</span>
+<span id="cb19-54"><a href="#cb19-54" aria-hidden="true" tabindex="-1"></a>                                                  <span class="at">mu_intervention =</span> mu_intervention),</span>
 <span id="cb19-55"><a href="#cb19-55" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">.f =</span> generate_data,</span>
 <span id="cb19-56"><a href="#cb19-56" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">.progress =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb19-57"><a href="#cb19-57" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">.options =</span> <span class="fu">furrr_options</span>(<span class="at">seed =</span> <span class="cn">TRUE</span>))) <span class="sc">|&gt;</span></span>
@@ -2073,17 +2073,17 @@ var2 -0.7083632  1.0000000</code></pre>
 <span id="cb25-121"><a href="#cb25-121" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice_sample</span>(<span class="at">prop =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
 <span id="cb25-122"><a href="#cb25-122" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-123"><a href="#cb25-123" aria-hidden="true" tabindex="-1"></a>    <span class="co"># generate data using the data generating function and the parameters relevant to data generation</span></span>
-<span id="cb25-124"><a href="#cb25-124" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">generated_data_study1 =</span> <span class="fu">future_pmap</span>(<span class="at">.l =</span> <span class="fu">list</span>(n_per_condition,</span>
-<span id="cb25-125"><a href="#cb25-125" aria-hidden="true" tabindex="-1"></a>                                                         mean_control,</span>
-<span id="cb25-126"><a href="#cb25-126" aria-hidden="true" tabindex="-1"></a>                                                         mean_intervention,</span>
-<span id="cb25-127"><a href="#cb25-127" aria-hidden="true" tabindex="-1"></a>                                                         sd),</span>
+<span id="cb25-124"><a href="#cb25-124" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">generated_data_study1 =</span> <span class="fu">future_pmap</span>(<span class="at">.l =</span> <span class="fu">list</span>(<span class="at">n_per_condition =</span> n_per_condition,</span>
+<span id="cb25-125"><a href="#cb25-125" aria-hidden="true" tabindex="-1"></a>                                                         <span class="at">mean_control =</span> mean_control,</span>
+<span id="cb25-126"><a href="#cb25-126" aria-hidden="true" tabindex="-1"></a>                                                         <span class="at">mean_intervention =</span> mean_intervention,</span>
+<span id="cb25-127"><a href="#cb25-127" aria-hidden="true" tabindex="-1"></a>                                                         <span class="at">sd =</span> sd),</span>
 <span id="cb25-128"><a href="#cb25-128" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">.f =</span> generate_data,</span>
 <span id="cb25-129"><a href="#cb25-129" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">.progress =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb25-130"><a href="#cb25-130" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">.options =</span> <span class="fu">furrr_options</span>(<span class="at">seed =</span> <span class="cn">TRUE</span>))) <span class="sc">|&gt;</span></span>
-<span id="cb25-131"><a href="#cb25-131" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">generated_data_study2 =</span> <span class="fu">future_pmap</span>(<span class="at">.l =</span> <span class="fu">list</span>(n_per_condition,</span>
-<span id="cb25-132"><a href="#cb25-132" aria-hidden="true" tabindex="-1"></a>                                                         mean_control,</span>
-<span id="cb25-133"><a href="#cb25-133" aria-hidden="true" tabindex="-1"></a>                                                         mean_intervention,</span>
-<span id="cb25-134"><a href="#cb25-134" aria-hidden="true" tabindex="-1"></a>                                                         sd),</span>
+<span id="cb25-131"><a href="#cb25-131" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">generated_data_study2 =</span> <span class="fu">future_pmap</span>(<span class="at">.l =</span> <span class="fu">list</span>(<span class="at">n_per_condition =</span> n_per_condition,</span>
+<span id="cb25-132"><a href="#cb25-132" aria-hidden="true" tabindex="-1"></a>                                                         <span class="at">mean_control =</span> mean_control,</span>
+<span id="cb25-133"><a href="#cb25-133" aria-hidden="true" tabindex="-1"></a>                                                         <span class="at">mean_intervention =</span> mean_intervention,</span>
+<span id="cb25-134"><a href="#cb25-134" aria-hidden="true" tabindex="-1"></a>                                                         <span class="at">sd =</span> sd),</span>
 <span id="cb25-135"><a href="#cb25-135" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">.f =</span> generate_data,</span>
 <span id="cb25-136"><a href="#cb25-136" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">.progress =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb25-137"><a href="#cb25-137" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">.options =</span> <span class="fu">furrr_options</span>(<span class="at">seed =</span> <span class="cn">TRUE</span>))) <span class="sc">|&gt;</span></span>
@@ -2375,10 +2375,10 @@ var2 -0.7083632  1.0000000</code></pre>
 <span id="cb25-439"><a href="#cb25-439" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice_sample</span>(<span class="at">prop =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
 <span id="cb25-440"><a href="#cb25-440" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-441"><a href="#cb25-441" aria-hidden="true" tabindex="-1"></a>    <span class="co"># generate data using the data generating function and the parameters relevant to data generation</span></span>
-<span id="cb25-442"><a href="#cb25-442" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">generated_data =</span> <span class="fu">future_pmap</span>(<span class="at">.l =</span> <span class="fu">list</span>(n_per_condition,</span>
-<span id="cb25-443"><a href="#cb25-443" aria-hidden="true" tabindex="-1"></a>                                                  r_between_outcomes,</span>
-<span id="cb25-444"><a href="#cb25-444" aria-hidden="true" tabindex="-1"></a>                                                  mu_control,</span>
-<span id="cb25-445"><a href="#cb25-445" aria-hidden="true" tabindex="-1"></a>                                                  mu_intervention),</span>
+<span id="cb25-442"><a href="#cb25-442" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">generated_data =</span> <span class="fu">future_pmap</span>(<span class="at">.l =</span> <span class="fu">list</span>(<span class="at">n_per_condition =</span> n_per_condition,</span>
+<span id="cb25-443"><a href="#cb25-443" aria-hidden="true" tabindex="-1"></a>                                                  <span class="at">r_between_outcomes =</span> r_between_outcomes,</span>
+<span id="cb25-444"><a href="#cb25-444" aria-hidden="true" tabindex="-1"></a>                                                  <span class="at">mu_control =</span> mu_control,</span>
+<span id="cb25-445"><a href="#cb25-445" aria-hidden="true" tabindex="-1"></a>                                                  <span class="at">mu_intervention =</span> mu_intervention),</span>
 <span id="cb25-446"><a href="#cb25-446" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">.f =</span> generate_data,</span>
 <span id="cb25-447"><a href="#cb25-447" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">.progress =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb25-448"><a href="#cb25-448" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">.options =</span> <span class="fu">furrr_options</span>(<span class="at">seed =</span> <span class="cn">TRUE</span>))) <span class="sc">|&gt;</span></span>
