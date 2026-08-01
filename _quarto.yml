@@ -81,14 +81,11 @@ book:
         - templates/simulation_template_hypothesis_testing.qmd 
         - templates/simulation_template_estimation.qmd
         - templates/simulation_template_hpc.qmd
-        - license.qmd
-        
+
     - part: "Classic simulations"
       chapters:
         - classics/crowded_room_problem.qmd
         - classics/cohens_d_biased.qmd
-        
-        - license.qmd
         
 # bibliography: references.bib
 

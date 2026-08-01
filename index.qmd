@@ -1,6 +1,6 @@
 ## Introduction {.unnumbered}
 
-This [Open Source](license.qmd) eBook provides materials for the semester-long Master's seminar course "Improving your statistical inferences through Monte Carlo simulations" that Ian teaches at the University of Bern's Institute of Psychology.
+This Open Source eBook provides materials for the semester-long Master's seminar course "Improving your statistical inferences through Monte Carlo simulations" that Ian teaches at the University of Bern's Institute of Psychology.
 
 This book is split into parts:
 
@@ -34,6 +34,16 @@ There is also a growing literature on reporting standards, preregistration, and 
 -   Siepe et al. (2026) Why, when, and how to (or not to) preregister a simulation study. [osf.io/cxjrb_v1](https://osf.io/preprints/psyarxiv/cxjrb_v1)
 -   Siepe et al. (2024) Simulation studies for methodological research in psychology: A standardized template for planning, preregistration, and reporting. *Psychological Methods*. doi: [10.1037/met0000695](https://doi.org/10.1037/met0000695)
 -   Pawel et al. (2023) Pitfalls and potentials in simulation studies: Questionable research practices in comparative simulation studies allow for spurious claims of superiority of any method. *Biometrical Journal*. doi: [10.1002/bimj.202200091](https://doi.org/10.1002/bimj.202200091)
+
+# License {.unnumbered}
+
+&copy; Ian Hussey (2025-2026)
+
+Text and figures are licensed under a [Creative Commons Attribution 4.0 (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) license.
+
+Code is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+
+You are free to copy, share, adapt, and reuse the contents of this book — text, figures, and code — for any purpose, including commercial use, provided you cite its source. See suggested citation below.
 
 ## Citation
 
