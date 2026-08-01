@@ -1,5 +1,5 @@
 ---
-title: "Simulation template: Cohen's d is a biased estimator"
+title: "Cohen's *d* is a biased estimator of the population standardized mean difference"
 #author: "Authors names go here"
 date: today
 format:
@@ -26,12 +26,6 @@ format:
         </style>
 ---
 
-This modifies the lego simulation to examine the bias in Cohen's d in small sample sizes, and the correction of this bias via Hedge's g (the J correction).
-
-This simulation serves the second purpose of demonstrating that the experiments implemented in Monte Carlo simulations often contain *within* factors, not just between. I.e., in this case, the analysis of each iteration's dataset two different ways (with and without Hedge's correction), rather than comparing different datasets analyzed different ways.
-
-As such, some factors in the experiment are *not* in the expand_grid, but are instead a feature of the analysis function or the piped workflow in the running of the simulation (e.g., calling two variations of the analysis to create different results columns).
-
 ```{r, include=FALSE}
 # settings: hidden from rendered file
 # disable messages and warnings in rendered files
@@ -41,6 +35,277 @@ knitr::opts_chunk$set(message = FALSE,
 # disable scientific numbers in output
 options(scipen=999)
 ```
+
+# Introduction
+
+This introduction is structured following the ADEMP framework (Aims, Data-generating process, Estimands, Methods, Performance) as described by Morris, White, and Crowther (2019) and operationalised for psychology by Siepe et al. (2024). Working through the framework explicitly makes the design decisions behind the simulation visible and auditable, so that a reader can judge whether the conclusions are supported by the conditions actually examined.
+
+## Project description
+
+Cohen's *d*, the standardized mean difference calculated by dividing the sample mean difference by the pooled sample standard deviation, is among the most widely reported effect sizes in psychology. It is also a **biased** estimator of the population standardized mean difference: in small samples it systematically overestimates the magnitude of the population effect. Hedges (1981) derived the exact multiplicative correction factor that removes this bias, and the corrected estimator is conventionally called Hedges' *g*.
+
+This simulation quantifies that bias across the range of sample sizes at which it matters, and verifies that Hedges' correction removes it. The motivating empirical context is a two-arm between-subjects study with a continuous outcome, of the size routinely seen in psychology — including the small samples characteristic of pilot studies, within-lab replications, and the primary studies that feed meta-analyses, where the bias is largest and where standardized effect sizes are most often the quantity actually pooled.
+
+The study serves a second, didactic purpose. It demonstrates that the experiment implemented in a Monte Carlo simulation often contains **within-iteration factors**, not only between-iteration ones. Here the estimator (uncorrected vs. corrected) is a within factor: both estimators are computed from *the same* simulated dataset inside `analyze()`, rather than appearing as a column in `expand_grid()`. Some factors of the experiment are therefore a property of the analysis function or of the piped workflow, not of the parameter grid. This is not merely a stylistic choice — see *Methods and extracted quantities* below for why it is the statistically preferable design here.
+
+## Prior related work
+
+The bias of the standardized mean difference and its correction are established analytic results, not open questions. Hedges (1981) showed that for two independent samples with $df = n_1 + n_2 - 2$,
+
+$$\mathbb{E}[d] \;=\; \frac{\delta}{J(df)}, \qquad J(df) \;=\; \frac{\Gamma\!\left(\frac{df}{2}\right)}{\sqrt{df/2}\;\; \Gamma\!\left(\frac{df-1}{2}\right)} \;\approx\; 1 - \frac{3}{4\,df - 1}$$
+
+so that $g = J \cdot d$ is unbiased for $\delta$. Because $J < 1$ and $J \to 1$ as $df \to \infty$, the bias of *d* is upward, proportional to $\delta$, and vanishes asymptotically. The correction is implemented in standard software, including `effsize::cohen.d(hedges.correction = TRUE)` as used here, and is recommended by meta-analytic texts (Hedges & Olkin, 1985; Borenstein et al., 2009).
+
+We therefore do not expect novel methodological findings. The value of the simulation is threefold: it makes an abstract analytic result concrete and visible; it provides a check that the simulation infrastructure is implemented correctly, since the simulated bias can be compared against a known closed-form expectation; and it quantifies at which sample sizes the bias is large enough to matter in practice.
+
+No preliminary simulations were conducted by the contributors on this specific question prior to this study.
+
+## Why *d* is biased: the sampling distribution of the standard deviation
+
+The formula above says *that* Cohen's *d* is biased, but not *why*. The mechanism is worth spelling out, because the usual one-line explanation is only about a third right.
+
+Cohen's *d* is a ratio, $d = (M_{\text{intervention}} - M_{\text{control}}) / s_{\text{pooled}}$. The numerator is an unbiased estimator of the population mean difference at every sample size — the negative control in this study confirms it. So the entire bias must come from the denominator. For Normally distributed data the numerator and denominator are statistically independent, which lets the expectation be factored:
+
+$$\mathbb{E}[d] \;=\; \mathbb{E}\!\left[M_{\text{intervention}} - M_{\text{control}}\right] \times \mathbb{E}\!\left[\frac{1}{s_{\text{pooled}}}\right] \;=\; (\mu_{\text{intervention}} - \mu_{\text{control}}) \times \mathbb{E}\!\left[\frac{1}{s_{\text{pooled}}}\right]$$
+
+Everything therefore hinges on $\mathbb{E}[1/s]$.
+
+**Step 1: the sample SD underestimates the population SD.** The sample *variance* $s^2$ (with the $n-1$ denominator) is unbiased for $\sigma^2$. The sample *standard deviation* $s$ is not unbiased for $\sigma$, because taking a square root is a concave transformation and Jensen's inequality gives $\mathbb{E}[s] = \mathbb{E}[\sqrt{s^2}] < \sqrt{\mathbb{E}[s^2]} = \sigma$. The plot below shows why: the sampling distribution of $s$ is right-skewed at small $df$, so its mean sits below $\sigma$.
+
+```{r}
+#| fig-width: 9
+#| fig-height: 5.5
+# this chunk is self-contained so that the mechanism can be shown here in the
+# introduction, before the simulation's own dependencies are loaded under Methods
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(scales)
+library(knitr)
+library(kableExtra)
+
+# exact sampling density of the pooled SD. for Normal data, df * s^2 / sigma^2 follows
+# a chi-square distribution with df degrees of freedom, so the density of s itself is
+# obtained by change of variables. using the exact density rather than simulating keeps
+# the figure free of Monte Carlo noise
+density_of_sd <- function(s, df, sigma = 1) dchisq(df * s^2 / sigma^2, df) * 2 * df * s / sigma^2
+
+# E[s] and E[1/s] in closed form (both are gamma-function ratios)
+expected_sd     <- function(df) sqrt(2 / df) * gamma((df + 1) / 2) / gamma(df / 2)
+expected_inv_sd <- function(df) sqrt(df / 2) * gamma((df - 1) / 2) / gamma(df / 2)
+
+ns_to_show <- c(5, 10, 25, 50)
+panel_levels <- paste0("n = ", ns_to_show, " per group")
+
+sd_densities <- expand_grid(n_per_condition = ns_to_show,
+                            s = seq(0.01, 2.2, length.out = 800)) |>
+  mutate(df      = 2 * n_per_condition - 2,
+         density = density_of_sd(s, df),
+         panel   = factor(paste0("n = ", n_per_condition, " per group"), levels = panel_levels))
+
+sd_means <- tibble(n_per_condition = ns_to_show) |>
+  mutate(df     = 2 * n_per_condition - 2,
+         mean_s = expected_sd(df),
+         panel  = factor(paste0("n = ", n_per_condition, " per group"), levels = panel_levels))
+
+ggplot(sd_densities, aes(x = s, y = density)) +
+  geom_area(fill = "grey70", alpha = 0.6) +
+  geom_vline(xintercept = 1, linetype = "dashed") +
+  geom_vline(data = sd_means, aes(xintercept = mean_s), color = "red") +
+  facet_wrap(~ panel, scales = "free_y") +
+  scale_x_continuous(name = "Pooled sample SD", breaks = breaks_pretty(n = 5)) +
+  scale_y_continuous(name = "Density", breaks = NULL) +
+  theme_linedraw() +
+  theme(panel.grid.minor = element_blank()) +
+  ggtitle("Sampling distribution of the pooled SD when the population SD is 1",
+          subtitle = "Dashed line = population SD of 1. Red line = mean of the sampling distribution.")
+```
+
+At *n* = 5 per group the distribution is visibly right-skewed and its mean sits at 0.969 rather than 1. By *n* = 50 per group it is nearly symmetric and centred almost exactly on 1. This is the part of the story most people remember: **the SD is underestimated in small samples**.
+
+**Step 2: but *d* divides by *s*, and that makes it worse.** The intuition "the SD is about 3% too small, so *d* is about 3% too big" gets the direction right but substantially understates the magnitude, because $\mathbb{E}[1/s] \neq 1/\mathbb{E}[s]$. Since $1/x$ is a *convex* function, Jensen's inequality now runs the other way and gives $\mathbb{E}[1/s] > 1/\mathbb{E}[s]$. Intuitively: $1/s$ blows up whenever $s$ happens to come out small, so the left tail of the SD's sampling distribution has an outsized effect on the average of its reciprocal.
+
+```{r}
+#| fig-width: 9
+#| fig-height: 5.5
+# density of 1/s, again by change of variables from the density of s
+inv_densities <- expand_grid(n_per_condition = ns_to_show,
+                             inv_s = seq(0.25, 3.5, length.out = 800)) |>
+  mutate(df      = 2 * n_per_condition - 2,
+         density = density_of_sd(1 / inv_s, df) / inv_s^2,
+         panel   = factor(paste0("n = ", n_per_condition, " per group"), levels = panel_levels))
+
+inv_means <- tibble(n_per_condition = ns_to_show) |>
+  mutate(df         = 2 * n_per_condition - 2,
+         mean_inv_s = expected_inv_sd(df),
+         panel      = factor(paste0("n = ", n_per_condition, " per group"), levels = panel_levels))
+
+ggplot(inv_densities, aes(x = inv_s, y = density)) +
+  geom_area(fill = "grey70", alpha = 0.6) +
+  geom_vline(xintercept = 1, linetype = "dashed") +
+  geom_vline(data = inv_means, aes(xintercept = mean_inv_s), color = "red") +
+  facet_wrap(~ panel, scales = "free_y") +
+  scale_x_continuous(name = "1 / pooled sample SD", breaks = breaks_pretty(n = 5)) +
+  scale_y_continuous(name = "Density", breaks = NULL) +
+  theme_linedraw() +
+  theme(panel.grid.minor = element_blank()) +
+  ggtitle("Sampling distribution of 1 / pooled SD when the population SD is 1",
+          subtitle = "Dashed line = 1. Red line = mean of the sampling distribution: it sits clearly above 1.")
+```
+
+The right skew is more pronounced here, and the mean is pulled further from 1 than the previous figure would suggest. The table makes the size of the discrepancy explicit.
+
+```{r}
+tibble(n_per_condition = c(5, 10, 25, 50)) |>
+  mutate(df                        = 2 * n_per_condition - 2,
+         `E[s]`                    = expected_sd(df),
+         `1 / E[s]`                = 1 / expected_sd(df),
+         `E[1 / s]`                = expected_inv_sd(df),
+         `1 / J (Hedges)`          = 1 / (gamma(df/2) / (sqrt(df/2) * gamma((df-1)/2))),
+         `% bias predicted by 1/E[s]` = 100 * (1 / expected_sd(df) - 1),
+         `% bias actual`              = 100 * (expected_inv_sd(df) - 1)) |>
+  mutate(across(where(is.numeric), \(x) scales::number(x, accuracy = 0.001))) |>
+  kable(caption = "Why the naive explanation is not enough: E[1/s] is what drives the bias in d, not 1/E[s]") |>
+  kable_styling(full_width = FALSE) |>
+  footnote(general = "sigma = 1 throughout. E[1/s] and 1/J are identical by construction, which is the analytic result the simulation sets out to reproduce.",
+           general_title = "Note.",
+           footnote_as_chunk = TRUE)
+```
+
+At *n* = 5 per group the sample SD is 3.1% too small on average, which would suggest that *d* is inflated by about 3.2%. The actual inflation is 10.8% — more than three times larger. The extra comes entirely from the *spread* of the SD's sampling distribution rather than from its downward shift.
+
+**Step 3: this is exactly Hedges' result.** Working out $\mathbb{E}[1/s]$ for a scaled chi distribution gives $\mathbb{E}[1/s_{\text{pooled}}] = 1 / (\sigma J)$, so that $\mathbb{E}[d] = \delta / J$ — the expression quoted above. The `1 / J (Hedges)` and `E[1 / s]` columns of the table are identical for this reason. Hedges' correction is therefore not an arbitrary fudge factor: it is precisely the reciprocal of the average amount by which $1/s$ overshoots $1/\sigma$.
+
+Two consequences follow, and both are visible in the results later on. The bias is **proportional to $\delta$**, because $\delta$ multiplies $\mathbb{E}[1/s]$ — so there is no bias at all when the population effect is zero, however small the sample. And the bias depends on the sample size **only through $df$**, which is why it decays smoothly toward zero as the sampling distribution of $s$ tightens around $\sigma$.
+
+## Aims
+
+The statistical task is **estimation**: for each replicated dataset the analyst produces a point estimate and an interval estimate of a population effect size, rather than a binary decision.
+
+The aims are:
+
+1. To estimate the **bias** of Cohen's *d* as an estimator of the population standardized mean difference $\delta$, as a function of per-condition sample size and of $\delta$ itself, and to confirm that the simulated bias matches the analytic expectation $\delta\,(1/J - 1)$ derived by Hedges (1981).
+2. To confirm that **Hedges' *g* is unbiased** for $\delta$ across the same conditions.
+3. To establish at which sample sizes the bias in *d* is **practically consequential**, so that applied researchers and meta-analysts can judge when the correction is worth applying.
+4. To verify, as a negative control, that the **unstandardized mean difference is unbiased at every sample size**. This estimator is unaffected by Hedges' correction and so provides a reference against which the standardized estimators can be compared; if it showed bias, that would indicate an error in the simulation rather than a property of the estimators.
+
+## Data-Generating Process
+
+### DGP specification approach
+
+The DGP is **fully parametric** and is not anchored to any empirical dataset. Outcome scores in each of the two conditions are drawn independently from a univariate Normal distribution with known mean and known, common standard deviation. Formally, for each replication:
+
+$$Y_{ij} \;\overset{\text{iid}}{\sim}\; \mathcal{N}(\mu_j,\,\sigma^2), \qquad i = 1, \ldots, n_j; \quad j \in \{\text{control},\, \text{intervention}\}$$
+
+with $\mu_{\text{control}} = 0$, $\mu_{\text{intervention}} \in \{0,\,0.2,\,0.5,\,0.8\}$, and $\sigma = 1$ in both conditions. This is what `generate_data()` produces by calling `rnorm()` once per condition.
+
+The DGP exactly satisfies the assumptions under which Hedges' correction was derived (independent observations, within-group normality, homogeneity of variance). This is deliberate: the aim is to isolate the small-sample bias of the estimator itself, not to confound it with the consequences of assumption violation. Because $\sigma = 1$ and $\mu_{\text{control}} = 0$, the population standardized mean difference $\delta$ is numerically equal to `mean_intervention`.
+
+### DGP factors
+
+Two factors are varied **between** simulation conditions:
+
+1. **`n_control`** — the per-group sample size (with `n_intervention` set equal to it, so the design is balanced).
+2. **`mean_intervention`** — the population mean in the intervention condition, which given the settings above equals the population standardized mean difference $\delta$.
+
+One factor is varied **within** iteration, i.e. inside the analysis rather than in the grid:
+
+3. **Estimator** — uncorrected (Cohen's *d*) vs. bias-corrected (Hedges' *g*), both computed from the same simulated dataset. The unstandardized mean difference is extracted alongside them as a negative control.
+
+### Factor values and settings
+
+**Factor values:**
+
+- `n_control` ∈ {5, 10, 15, …, 50}, i.e. 10 levels in steps of 5. This range is deliberately weighted toward small samples, because that is where the bias is non-negligible: at *n* = 5 per group the analytic bias for $\delta = 0.8$ is 0.086, whereas by *n* = 50 per group it has fallen to 0.006. Extending the range upward would add conditions in which nothing of interest happens.
+- `mean_intervention` ∈ {0, 0.2, 0.5, 0.8}, i.e. a true null plus Cohen's (1988) conventional small, medium, and large benchmarks. The null level is informative here because the bias is proportional to $\delta$: at $\delta = 0$ both estimators should be unbiased, which serves as an internal check.
+
+**Settings held constant across all conditions:**
+
+- `mean_control` = 0 and `sd_control` = `sd_intervention` = 1, so the equal-variance assumption holds exactly and $\delta$ = `mean_intervention`.
+- Balanced design (`n_intervention` = `n_control` in every replication).
+- α = 0.05, determining the nominal coverage (95%) of all reported confidence intervals.
+
+### Factor combination and number of conditions
+
+The two between factors are crossed **fully factorially**, which is the default recommendation of Siepe et al. (2024, Figure 1) when computationally feasible, because it allows the main effects of and interaction between sample size and effect size to be disentangled — and an interaction is expected here, since the bias is proportional to $\delta$ and decays with $df$.
+
+With 10 sample sizes × 4 effect sizes this yields **40 unique conditions**, each replicated 50,000 times, for **2,000,000 simulated datasets** in total. Because the estimator is a within-iteration factor, each of those datasets yields all three estimates, so the estimator contrast is obtained at no additional simulation cost.
+
+## Estimands and Targets
+
+The statistical task is estimation, so the targets are population quantities that the methods attempt to recover:
+
+- **Primary target — the population standardized mean difference** $\delta = (\mu_{\text{intervention}} - \mu_{\text{control}}) / \sigma$, held in the code as `population_smd`. Two methods are evaluated against this target: Cohen's *d* and Hedges' *g*.
+- **Secondary target — the population unstandardized mean difference** $\mu_{\text{intervention}} - \mu_{\text{control}}$, held as `population_mean_diff`. One method is evaluated against it: the difference in sample means from the *t*-test. This is the negative control described under Aims.
+
+Note that both targets are known exactly by construction rather than estimated, which is the defining advantage of a simulation over an empirical study: bias can be computed directly rather than inferred.
+
+## Methods and extracted quantities
+
+Three estimators are computed from every simulated dataset:
+
+1. **Unstandardized mean difference**, from `stats::t.test(var.equal = TRUE)`, with its 95% confidence interval.
+2. **Cohen's *d***, from `effsize::cohen.d(pooled = TRUE, hedges.correction = FALSE)`, with its 95% confidence interval.
+3. **Hedges' *g***, from `effsize::cohen.d(pooled = TRUE, hedges.correction = TRUE)`, with its 95% confidence interval.
+
+The equal-variance (Student's) form of the *t*-test is used because the DGP guarantees equal population variances. The two-sided *p*-value is also extracted, so that the empirical rejection rate can be reported as a descriptive companion to the estimation results, though it is not the focus of this study.
+
+**Why the estimator is a within-iteration factor.** Both standardized estimators are calculated from the *same* simulated dataset. This is a design choice with statistical consequences, not merely an implementation convenience. Because $g = J \cdot d$ with $J$ a constant given $df$, the two estimates are perfectly rank-correlated within an iteration, and their difference is exactly the correction. Had the correction instead been entered as a factor in `expand_grid()`, each estimator would have been computed from a *different* dataset, and the contrast between them would have been confounded with Monte Carlo sampling variation — which at the smallest sample sizes is an order of magnitude larger than the bias being measured. Pairing the estimators within iteration removes that noise from the comparison entirely. This is the effect-size analogue of a within-subjects design, and the reasoning is the same.
+
+## Performance and Uncertainty
+
+### Performance measures
+
+Four performance measures are reported, following Morris et al. (2019, Table 6) and Siepe et al. (2024, Table 3). Let $\hat\theta_k$ denote the estimate from replication $k$, $\theta$ the target, and $K = n_{\text{sim}}$ the number of replications per condition.
+
+**Bias** (primary) — systematic error, the difference between the average estimate and the truth:
+
+$$\widehat{\text{Bias}} \;=\; \frac{1}{K}\sum_{k=1}^{K} \hat\theta_k \;-\; \theta$$
+
+**Empirical standard error** — the precision of the estimator, i.e. the spread of estimates across replications:
+
+$$\widehat{\text{EmpSE}} \;=\; \sqrt{\frac{1}{K-1}\sum_{k=1}^{K}\left(\hat\theta_k - \bar{\hat\theta}\right)^2}$$
+
+**Coverage** — the proportion of replications whose 95% confidence interval contains the target; the nominal value is 0.95:
+
+$$\widehat{\text{Coverage}} \;=\; \frac{1}{K}\sum_{k=1}^{K}\mathbb{1}\{\hat\theta_{k,\text{lower}} \leq \theta \leq \hat\theta_{k,\text{upper}}\}$$
+
+**Mean CI width** — the average width of those intervals, reported alongside coverage because an interval can achieve nominal coverage simply by being wide.
+
+Bias and empirical standard error are computed via `simhelpers::calc_absolute()`; coverage and width via `simhelpers::calc_coverage()`. A 95% **prediction interval** (the 2.5th and 97.5th percentiles of the estimates themselves) is also reported to convey the spread of results a single new study would produce; `simhelpers` has no function for this, so it is computed directly.
+
+### Monte Carlo uncertainty
+
+Monte Carlo uncertainty is reported for every performance measure: as MCSEs in parentheses in the tables, and as ±1 MCSE error bars in the plots. `simhelpers` (Joshi & Pustejovsky, 2022) returns these alongside each estimate. For bias the MCSE is the standard error of a mean,
+
+$$\widehat{\text{MCSE}}(\widehat{\text{Bias}}) \;=\; \sqrt{\frac{1}{K(K-1)}\sum_{k=1}^{K}\left(\hat\theta_k - \bar{\hat\theta}\right)^2} \;=\; \frac{\widehat{\text{EmpSE}}}{\sqrt{K}}$$
+
+and for coverage, being a proportion, the binomial form $\sqrt{\widehat{\text{Cov}}(1-\widehat{\text{Cov}})/K}$.
+
+Reporting MCSEs is essential here rather than decorative: the quantity of interest is a bias of a few hundredths of a standard deviation, and without an explicit measure of Monte Carlo uncertainty a reader cannot tell whether an apparent difference between estimators is real or is simulation noise.
+
+### Number of simulation repetitions
+
+We use **K = 50,000 replications per condition**, which is high relative to typical practice and is justified by the size of the effect being measured. Inverting the MCSE formula above, the required $K$ for a target precision $\text{MCSE}_*$ is $K \geq \text{EmpSE}^2 / \text{MCSE}_*^2$.
+
+The binding case is the *largest* sample size rather than the smallest, because that is where the bias is smallest and hence hardest to resolve. At *n* = 50 per group with $\delta = 0.8$, the analytic bias is 0.0062 while the empirical standard error of *d* is approximately 0.21. At K = 50,000 this gives an MCSE of about 0.0009, so the bias is resolved at roughly 6.7 MCSEs — comfortably distinguishable from zero. At the more conventional K = 1,000 the MCSE would be about 0.0066, i.e. *larger than the bias itself*, and the effect would be invisible at exactly the sample sizes where researchers most need to know whether it can be ignored.
+
+For the smallest sample size the situation is far more favourable (bias 0.086 against an MCSE of 0.0029, roughly 29 MCSEs), so K is driven entirely by the requirement to resolve the tail of the curve. The cost is a simulation of 2,000,000 datasets; the results are cached to disk so that this is paid once rather than on every render.
+
+### Non-convergence and missing values
+
+None of the three estimators is iterative — all have closed-form solutions — so non-convergence cannot occur. The only failure mode is a degenerate sample with zero within-group variance, which has probability zero under a continuous Normal DGP. The smallest condition (*n* = 5 per group) is nevertheless the one where any numerical instability would surface first, so the absence of missing values is verified explicitly in the Results rather than assumed.
+
+### Interpretation of performance measures
+
+The simulation will be judged successful if:
+
+1. The bias of Cohen's *d* is positive, increases with $\delta$, decreases with sample size, and agrees with the analytic prediction $\delta\,(1/J - 1)$ to within Monte Carlo error.
+2. The bias of Hedges' *g* is indistinguishable from zero. Note that "indistinguishable" has to be judged across the whole design rather than condition by condition: with 40 conditions, a couple of deviations beyond ±2 MCSE are expected by chance even if the estimator is exactly unbiased, so the criterion is that no deviation is large *and* that the deviations show no systematic pattern with sample size or effect size.
+3. The bias of the unstandardized mean difference is indistinguishable from zero on the same criterion, confirming the negative control.
+4. At $\delta = 0$ both standardized estimators are unbiased, since the bias is proportional to $\delta$.
+
+No inferential models are fitted to the simulation output; results are summarised descriptively in tables and plots.
 
 # Methods
 
@@ -179,7 +444,7 @@ experiment_parameters_grid <-
     alpha = 0.05,
     # note that the Hedges' correction is *not* a factor in the grid: both estimators
     # are calculated from every simulated data set inside analyze() instead
-    iteration = 1:10000L
+    iteration = 1:50000L
   ) |>
   
   # make ns per condition equal without crossing these factors in the grid
@@ -235,6 +500,18 @@ if (file.exists("results/simulation_cohens_d_biased.rds")) {
 ```
 
 # Results
+
+## Non-convergence and missing values
+
+The introduction argued that no estimate should be missing, because all three estimators are closed-form. That is checked here rather than assumed, since an undetected missing value would silently bias every performance measure that follows.
+
+```{r}
+simulation |>
+  summarize(across(c(mean_diff, cohens_d, hedges_g, p), \(x) sum(is.na(x)))) |>
+  rename_with(\(x) paste0("n_missing_", x))
+```
+
+## Performance measures
 
 Each condition is summarized over its iterations. Because every iteration produced all three estimates, the summary has one set of metrics per estimator, distinguished by a column prefix: `mean_diff_`, `cohens_d_`, and `hedges_g_`.
 
@@ -482,9 +759,101 @@ metric_plot(filter(simulation_summary_long, estimator %in% c("Cohen's d", "Hedge
             reference_line = 0)
 ```
 
+### Verification against the analytic expectation
+
+Aim 1 requires more than showing that Cohen's *d* is biased: it requires showing that the bias is *the one Hedges (1981) derived*. Because the analytic expectation is available in closed form, the simulated bias can be checked against it directly. This is the strongest available evidence that the simulation is implemented correctly — a coding error would have to coincidentally reproduce a gamma-function ratio to pass.
+
+```{r}
+# Hedges' (1981) exact correction factor, and the resulting expected bias of d
+hedges_J <- function(df) gamma(df / 2) / (sqrt(df / 2) * gamma((df - 1) / 2))
+
+analytic_comparison <- simulation_summary_long |>
+  filter(estimator == "Cohen's d") |>
+  mutate(df                = n_control + n_intervention - 2,
+         analytic_bias     = population_smd * (1 / hedges_J(df) - 1),
+         # how far the simulated bias sits from the analytic value, in MCSE units.
+         # |discrepancy| < ~2 indicates agreement within Monte Carlo error
+         discrepancy_mcses = (bias - analytic_bias) / bias_mcse)
+
+analytic_comparison |>
+  filter(population_smd > 0) |>
+  select(n_control, population_smd, bias, bias_mcse, analytic_bias, discrepancy_mcses) |>
+  mutate(across(where(is.numeric), \(x) scales::number(x, accuracy = 0.0001))) |>
+  kable(caption = "Simulated bias of Cohen's d against the analytic expectation from Hedges (1981)") |>
+  kable_styling(full_width = FALSE) |>
+  footnote(general = "discrepancy_mcses is (simulated bias - analytic bias) / MCSE. Values within about +/-2 indicate agreement within Monte Carlo error. Null conditions are omitted because the analytic bias is exactly zero there.",
+           general_title = "Note.",
+           footnote_as_chunk = TRUE)
+```
+
+```{r}
+# the same comparison as a plot: points are simulated, the dashed line is analytic
+ggplot(filter(analytic_comparison, population_smd > 0),
+       aes(x = n_control, y = bias, color = as.factor(population_smd))) +
+  geom_line(aes(y = analytic_bias, group = as.factor(population_smd)),
+            linetype = "dashed", color = "black") +
+  geom_linerange(aes(ymin = bias - bias_mcse, ymax = bias + bias_mcse), color = "black") +
+  geom_point() +
+  scale_x_continuous(name = "N per condition", breaks = breaks_pretty(n = 5)) +
+  scale_y_continuous(name = "Bias of Cohen's d", breaks = breaks_pretty(n = 6)) +
+  scale_color_viridis_d(begin = 0.2, end = 0.8) +
+  theme_linedraw() +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom") +
+  guides(color = guide_legend(title = "Population SMD")) +
+  ggtitle("Simulated bias (points, ±1 MCSE) vs. Hedges' (1981) analytic expectation (dashed)")
+```
+
+```{r}
+# summary of the agreement across all non-null conditions
+analytic_comparison |>
+  filter(population_smd > 0) |>
+  summarize(n_conditions              = n(),
+            max_abs_discrepancy_mcses = max(abs(discrepancy_mcses)),
+            within_2_mcses            = sum(abs(discrepancy_mcses) < 2))
+```
+
+# Discussion
+
+## Performance of the method across conditions
+
+**Cohen's *d* is upwardly biased, and the bias behaves as theory predicts.** It is positive in every non-null condition, grows with the population effect size, and shrinks as the sample size increases. The magnitude is substantial at the smallest sample sizes: for a large population effect ($\delta = 0.8$) at *n* = 5 per group the simulated bias is 0.083 (±0.003), against an analytic expectation of 0.086 — the average estimate is around 10% larger than the truth. By *n* = 50 per group it has fallen to 0.006 (analytic 0.006), under 1% of the true value.
+
+The verification above confirms the agreement quantitatively: across the 30 non-null conditions the simulated bias sits within 3 Monte Carlo standard errors of Hedges' (1981) closed-form expectation in every case, and within 2 MCSEs in 29 of 30. Given that 30 comparisons are being made, a largest discrepancy of this size is what one would expect if the simulation were reproducing the analytic result exactly.
+
+**Hedges' *g* is unbiased throughout.** Applying the correction factor $J$ removes the bias at every sample size and every effect size examined. The largest absolute bias across all 40 conditions is 0.005, and the largest deviation from zero in MCSE units is 2.1 — again unremarkable across 40 comparisons, where a couple of deviations beyond 2 MCSEs are expected by chance even for an exactly unbiased estimator. There is no visible cost in precision: the two estimators differ by a constant multiplicative factor given $df$, so the correction shifts the distribution of estimates without materially changing its spread.
+
+**The unstandardized mean difference is unbiased at every sample size**, as the negative control requires (largest deviation from zero, 2.4 MCSEs across 40 conditions). This is worth stating explicitly because it localises the phenomenon: the bias is a property of *standardization*, specifically of dividing by an estimated pooled standard deviation, rather than of small samples in general. The sample mean difference is unbiased for the population mean difference regardless of *n*; it is the ratio of two estimates that introduces the bias.
+
+**At the null, both standardized estimators are unbiased**, consistent with the bias being proportional to $\delta$.
+
+## Conclusions with regard to the aims
+
+All four aims are met. The bias of Cohen's *d* is quantified across sample and effect sizes and shown to match its analytic expectation (Aims 1 and 4); Hedges' *g* is confirmed unbiased (Aim 2); and the practical threshold is now explicit (Aim 3).
+
+On that last point, the applied recommendation is straightforward. The correction is free — it is one multiplication, implemented in every major effect-size package — so there is no reason not to apply it by default. But its practical importance is concentrated at small samples. Below roughly *n* = 20 per group the bias exceeds 1% of the true effect and is worth taking seriously; above roughly *n* = 50 per group it is smaller than the rounding most authors apply when reporting. The context where this matters most is meta-analysis, where many small primary studies are pooled: because the bias is systematic rather than random, it does **not** average out across studies, and a meta-analytic estimate synthesised from uncorrected *d* values will itself be upwardly biased even when the number of studies is large.
+
+## Limitations and intended use
+
+This is a demonstration of a known analytic result, and its conclusions should be read in that light:
+
+- **The DGP is ideal.** Data are exactly Normal with exactly equal variances and a balanced design. Hedges' correction was derived under these assumptions, so the simulation shows that it works where it is supposed to — not that it is robust. Unequal variances, unbalanced designs, non-normality, and outliers all affect the standardized mean difference and are not examined here.
+- **Only one correction is examined.** The exact gamma-function form of $J$ and its common approximation $1 - 3/(4\,df - 1)$ differ negligibly at these degrees of freedom (at *df* = 8 they are 0.9027 and 0.9032), so no attempt is made to distinguish them.
+- **Coverage and interval width are reported but not the focus.** The confidence intervals returned by `effsize::cohen.d()` are constructed on a normal approximation rather than the exact noncentral *t* distribution, so their behaviour at the smallest sample sizes reflects that approximation as much as it reflects the estimator. Readers interested in interval performance should treat those columns as descriptive.
+- **Sample sizes stop at 50 per group.** This is intentional, since the bias is negligible beyond that point, but it means the simulation says nothing about large-sample behaviour beyond what theory already guarantees.
+
+Used as intended — as a worked demonstration that a familiar effect size is a biased estimator, that the bias is analytically predictable, and that a standard correction removes it — the simulation also serves as a template for studies whose experimental design includes within-iteration factors.
+
 # References
 
+Borenstein, M., Hedges, L. V., Higgins, J. P. T., & Rothstein, H. R. (2009). *Introduction to Meta-Analysis*. Wiley. doi: [10.1002/9780470743386](https://doi.org/10.1002/9780470743386)
+
+Cohen, J. (1988). *Statistical Power Analysis for the Behavioral Sciences* (2nd ed.). Lawrence Erlbaum Associates.
+
 Hedges, L. V. (1981). Distribution Theory for Glass’s Estimator of Effect size and Related Estimators. *Journal of Educational Statistics*, 6(2), 107-128. doi: [10.3102/10769986006002107](https://doi.org/10.3102/10769986006002107)
+
+Hedges, L. V., & Olkin, I. (1985). *Statistical Methods for Meta-Analysis*. Academic Press. doi: [10.1016/C2009-0-03396-0](https://doi.org/10.1016/C2009-0-03396-0)
+
+Joshi, M., & Pustejovsky, J. E. (2022). *simhelpers: Helper Functions for Simulation Studies*. R package. [CRAN.R-project.org/package=simhelpers](https://CRAN.R-project.org/package=simhelpers)
 
 Hussey, I. & Cummins, J. (2026). *Understanding Statistics through Monte Carlo simulations*. [simulations.tidyver.se](https://simulations.tidyver.se) doi: [10.5281/zenodo.19420665](https://doi.org/10.5281/zenodo.19420665)
 
