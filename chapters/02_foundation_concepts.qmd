@@ -105,13 +105,13 @@ simulation_results <- experiment_parameters |>
   mutate(
     generated_data = pmap(
       .l = list(
-        mean_number_of_attendees,
-        sd_number_of_attendees,
-        mean_pizza_eaten,
-        sd_pizza_eaten,
-        mean_bottles_drank,
-        sd_bottles_drank), 
-      .f = generate_data 
+        mean_number_of_attendees = mean_number_of_attendees,
+        sd_number_of_attendees   = sd_number_of_attendees,
+        mean_pizza_eaten         = mean_pizza_eaten,
+        sd_pizza_eaten           = sd_pizza_eaten,
+        mean_bottles_drank       = mean_bottles_drank,
+        sd_bottles_drank         = sd_bottles_drank),
+      .f = generate_data
       ),
     results = map(generated_data, analyze_data)
   ) |>

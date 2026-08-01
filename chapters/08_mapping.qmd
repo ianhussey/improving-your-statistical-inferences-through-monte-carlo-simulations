@@ -1,15 +1,3 @@
----
-# cache this chapter's results at the file level. the chunks below deliberately use
-# simple, un-cached map()/pmap() calls to teach the mapping workflow, so caching is
-# switched on here rather than complicating the example code. knitr stores each
-# chunk's results in 08_mapping_cache/ and re-uses them until that chunk's code
-# changes. note that the future_pmap() simulation near the end of the chapter also
-# caches its results to results/simulation_mapping.rds; to force that one to re-run
-# you need to delete both that .rds and the chunk's entry in 08_mapping_cache/.
-execute:
-  cache: true
----
-
 # Mapping over functions 
 
 ```{r}
@@ -566,8 +554,11 @@ experiment_parameters <- expand_grid(
 
 # use pmap() across this
 simulation_results <- experiment_parameters %>%
-  mutate(generated_data = pmap(.l = list(n_per_condition, mean_control, mean_intervention, sd),
-                          .f = generate_data)) %>%
+  mutate(generated_data = pmap(.l = list(n_per_condition = n_per_condition,
+                                         mean_control = mean_control,
+                                         mean_intervention = mean_intervention,
+                                         sd = sd),
+                               .f = generate_data)) %>%
   mutate(results = map(.x = generated_data, 
                        .f = analyse_data)) %>%
   unnest(results)
@@ -649,7 +640,10 @@ if(file.exists("results/simulation_mapping.rds")){
     # shuffle the rows of the grid to load balance the computationally expensive
     # iterations evenly across the workers
     slice_sample(prop = 1) %>%
-    mutate(generated_data = future_pmap(.l = list(n_per_condition, mean_control, mean_intervention, sd),
+    mutate(generated_data = future_pmap(.l = list(n_per_condition = n_per_condition,
+                                                  mean_control = mean_control,
+                                                  mean_intervention = mean_intervention,
+                                                  sd = sd),
                                         .f = generate_data,
                                         # this gives us a progress bar so we can see how the simulation is progressing
                                         .progress = TRUE,

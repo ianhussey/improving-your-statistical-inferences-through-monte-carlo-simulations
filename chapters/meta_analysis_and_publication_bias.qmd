@@ -456,19 +456,21 @@ simulation <-
   experiment_parameters_grid |>
   
   # generate data using the data generating function and the parameters relevant to data generation
-  mutate(generated_data = pmap(list(n_minimum,
-                                    n_maximum,
-                                    mean_control,
-                                    mean_intervention,
-                                    sd_control,
-                                    sd_intervention),
-                               generate_data)) |>
-  
+  # note the name on the second element: the grid column is `n_maximum` but the
+  # argument of generate_data() is `n_max`, so the two have to be matched explicitly
+  mutate(generated_data = pmap(.l = list(n_minimum = n_minimum,
+                                         n_max = n_maximum,
+                                         mean_control = mean_control,
+                                         mean_intervention = mean_intervention,
+                                         sd_control = sd_control,
+                                         sd_intervention = sd_intervention),
+                               .f = generate_data)) |>
+
   # apply the analysis function to the generated data using the parameters relevant to analysis
-  mutate(analysis_results = pmap(list(generated_data,
-                                      probability_sig_published,
-                                      probability_nonsig_published),
-                                 analyse_data))
+  mutate(analysis_results = pmap(.l = list(data = generated_data,
+                                           probability_sig_published = probability_sig_published,
+                                           probability_nonsig_published = probability_nonsig_published),
+                                 .f = analyse_data))
 
 
 # summarise simulation results over the iterations ----

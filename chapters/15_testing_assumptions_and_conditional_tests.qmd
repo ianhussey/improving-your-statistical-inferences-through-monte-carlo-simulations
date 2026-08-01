@@ -380,7 +380,7 @@ if(file.exists("results/simulation_conditional_tests_3.rds")){
                                                  .options = furrr_options(seed = TRUE))) |>
 
     # apply the analysis function to the generated data using the parameters relevant to analysis
-    mutate(analysis_results_normality = future_pmap(.l = list(generated_data),
+    mutate(analysis_results_normality = future_pmap(.l = list(data = generated_data),
                                                     .f = test_assumption_of_normality,
                                                     .progress = TRUE,
                                                     .options = furrr_options(seed = TRUE))) |>

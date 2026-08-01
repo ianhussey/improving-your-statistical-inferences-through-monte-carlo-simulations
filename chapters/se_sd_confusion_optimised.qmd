@@ -161,7 +161,10 @@ if(file.exists("results/simulation_se_sd_optimised_1.rds")){
     # shuffle the rows of the grid to load balance the computationally expensive
     # iterations evenly across the workers
     slice_sample(prop = 1) |>
-    future_pmap_dfr(.f = simulate_once,
+    # `.l = _` passes the piped grid in explicitly. the grid is a data frame, i.e. a
+    # named list of columns, so simulate_once() receives each column by name
+    future_pmap_dfr(.l = _,
+                    .f = simulate_once,
                     .progress = TRUE,
                     .options = furrr_options(seed = TRUE)) |>
     # undo the shuffle so the rows are back in the order of the experiment grid
@@ -313,7 +316,10 @@ if(file.exists("results/simulation_se_sd_optimised_2.rds")){
     # shuffle the rows of the grid to load balance the computationally expensive
     # iterations evenly across the workers
     slice_sample(prop = 1) |>
-    future_pmap_dfr(.f = simulate_once,
+    # `.l = _` passes the piped grid in explicitly. the grid is a data frame, i.e. a
+    # named list of columns, so simulate_once() receives each column by name
+    future_pmap_dfr(.l = _,
+                    .f = simulate_once,
                     .progress = TRUE,
                     .options = furrr_options(seed = TRUE)) |>
     # undo the shuffle so the rows are back in the order of the experiment grid
@@ -554,7 +560,10 @@ if(file.exists("results/simulation_se_sd_optimised_3.rds")){
     # shuffle the rows of the grid to load balance the computationally expensive
     # iterations evenly across the workers
     slice_sample(prop = 1) |>
-    future_pmap_dfr(.f = simulate_once,
+    # `.l = _` passes the piped grid in explicitly. the grid is a data frame, i.e. a
+    # named list of columns, so simulate_once() receives each column by name
+    future_pmap_dfr(.l = _,
+                    .f = simulate_once,
                     .progress = TRUE,
                     .options = furrr_options(seed = TRUE)) |>
     # undo the shuffle so the rows are back in the order of the experiment grid

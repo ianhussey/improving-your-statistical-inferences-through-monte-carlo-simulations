@@ -115,17 +115,17 @@ if(file.exists("results/simulation_p_hacking_two_studies.rds")){
     slice_sample(prop = 1) |>
 
     # generate data using the data generating function and the parameters relevant to data generation
-    mutate(generated_data_study1 = future_pmap(.l = list(n_per_condition,
-                                                         mean_control,
-                                                         mean_intervention,
-                                                         sd),
+    mutate(generated_data_study1 = future_pmap(.l = list(n_per_condition = n_per_condition,
+                                                         mean_control = mean_control,
+                                                         mean_intervention = mean_intervention,
+                                                         sd = sd),
                                                .f = generate_data,
                                                .progress = TRUE,
                                                .options = furrr_options(seed = TRUE))) |>
-    mutate(generated_data_study2 = future_pmap(.l = list(n_per_condition,
-                                                         mean_control,
-                                                         mean_intervention,
-                                                         sd),
+    mutate(generated_data_study2 = future_pmap(.l = list(n_per_condition = n_per_condition,
+                                                         mean_control = mean_control,
+                                                         mean_intervention = mean_intervention,
+                                                         sd = sd),
                                                .f = generate_data,
                                                .progress = TRUE,
                                                .options = furrr_options(seed = TRUE))) |>
@@ -422,10 +422,10 @@ if(file.exists("results/simulation_p_hacking_correlated_outcomes.rds")){
     slice_sample(prop = 1) |>
 
     # generate data using the data generating function and the parameters relevant to data generation
-    mutate(generated_data = future_pmap(.l = list(n_per_condition,
-                                                  r_between_outcomes,
-                                                  mu_control,
-                                                  mu_intervention),
+    mutate(generated_data = future_pmap(.l = list(n_per_condition = n_per_condition,
+                                                  r_between_outcomes = r_between_outcomes,
+                                                  mu_control = mu_control,
+                                                  mu_intervention = mu_intervention),
                                         .f = generate_data,
                                         .progress = TRUE,
                                         .options = furrr_options(seed = TRUE))) |>

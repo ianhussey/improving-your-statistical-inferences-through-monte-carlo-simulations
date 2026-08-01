@@ -486,13 +486,15 @@ if(file.exists("results/simulation_range_restriction.rds")){
     slice_sample(prop = 1) |>
 
     # generate data using the data generating function and the parameters relevant to data generation
-    mutate(generated_data = future_pmap(.l = list(n, mean, sd),
+    mutate(generated_data = future_pmap(.l = list(n = n,
+                                                  mean = mean,
+                                                  sd = sd),
                                         .f = generate_data,
                                         .progress = TRUE,
                                         .options = furrr_options(seed = TRUE))) |>
 
     # apply the analysis function to the generated data using the parameters relevant to analysis
-    mutate(analysis_results = future_pmap(.l = list(generated_data),
+    mutate(analysis_results = future_pmap(.l = list(data = generated_data),
                                           .f = analyse_data,
                                           .progress = TRUE,
                                           .options = furrr_options(seed = TRUE))) |>
