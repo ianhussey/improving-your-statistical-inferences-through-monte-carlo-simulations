@@ -20,3 +20,4 @@ _book/*
 .claude/worktrees/
 
 **/*.quarto_ipynb
+*.history
