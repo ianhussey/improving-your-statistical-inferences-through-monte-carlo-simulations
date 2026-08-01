@@ -1,1 +1,2 @@
 load("/Users/Ian-Hussey/git/understanding-statistics-through-monte-carlo-simulations/appendices/results/simulation_lego.rds")
+load("/Users/Ian-Hussey/git/understanding-statistics-through-monte-carlo-simulations/classics/results/simulation_cohens_d_biased.rds")
